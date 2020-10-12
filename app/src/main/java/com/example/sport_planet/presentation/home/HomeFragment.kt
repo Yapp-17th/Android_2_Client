@@ -21,7 +21,6 @@ class HomeFragment private constructor(): BaseFragment<FragmentHomeBinding,BaseV
         get() = TODO("Not yet implemented")
 
     override fun init() {
-        TODO("Not yet implemented")
     }
 
 

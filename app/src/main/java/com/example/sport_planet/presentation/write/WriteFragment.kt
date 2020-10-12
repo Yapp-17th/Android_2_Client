@@ -19,6 +19,5 @@ class WriteFragment private constructor():BaseFragment<FragmentWriteBinding,Base
         get() = TODO("Not yet implemented")
 
     override fun init() {
-        TODO("Not yet implemented")
     }
 }
