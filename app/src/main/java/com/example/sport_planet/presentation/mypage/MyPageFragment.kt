@@ -19,7 +19,6 @@ class MyPageFragment private constructor() : BaseFragment<FragmentMypageBinding,
         get() = TODO("Not yet implemented")
 
     override fun init() {
-        TODO("Not yet implemented")
     }
 
 }
