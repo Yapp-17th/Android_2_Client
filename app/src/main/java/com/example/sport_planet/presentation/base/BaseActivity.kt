@@ -9,10 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseActivity<T : ViewDataBinding>
+abstract class BaseActivity<B : ViewDataBinding>
     (@LayoutRes private val layoutResId: Int) : AppCompatActivity() {
 
-    protected lateinit var binding: T
+    protected lateinit var binding: B
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
