@@ -19,7 +19,6 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
         get() = TODO("Not yet implemented")
 
     override fun init() {
-        TODO("Not yet implemented")
     }
 
 }
