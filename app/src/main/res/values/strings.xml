@@ -4,4 +4,16 @@
     <string name="write">글쓰기</string>
     <string name="chatting">채팅</string>
     <string name="mypage">마이페이지</string>
+
+    <!-- activity_splash -->
+    <string name="splash_text1">우리 오늘 운동해요</string>
+
+    <!--  activity_intro -->
+    <string name="intro_text1">수많은 사람들 중에,\n같이 운동할 사람 하나 없겠어?</string>
+    <string name="intro_text_2">원하는 장소, 원하는 시간에\n우리 오늘 운동해요, 운동플래닛</string>
+    <string name="intro_button_text1">시작하기</string>
+
+    <!-- activity_login -->
+    <string name="login_button_text1">카카오톡으로 간편로그인</string>
+
 </resources>

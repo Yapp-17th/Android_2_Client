@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blueD5DAEB"
+        tools:context=".presentation.splash.IntroActivity">
+
+        <TextView
+            android:id="@+id/tv_intro_text1"
+            style="@style/medium_basic_16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:text="@string/intro_text1"
+            android:textColor="@color/blue364ea0"
+            app:layout_constraintBottom_toTopOf="@id/iv_intro_illust"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7" />
+
+        <ImageView
+            android:id="@+id/iv_intro_illust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/splash_illust"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.45" />
+
+        <TextView
+            android:id="@+id/tv_intro_text2"
+            style="@style/medium_basic_16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/intro_text_2"
+            android:textColor="@color/blue364ea0"
+            app:layout_constraintBottom_toTopOf="@id/bt_intro_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_intro_illust"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <Button
+            android:id="@+id/bt_intro_start"
+            style="@style/medium_basic_16sp"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="40dp"
+            android:background="@color/blue364ea0"
+            android:text="@string/intro_button_text1"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
