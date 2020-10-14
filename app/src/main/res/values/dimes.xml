@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- chatting -->
+    <dimen name="chatting_message_corner_radius">16dp</dimen>
+    <dimen name="chatting_profile_message_maxwidth">190dp</dimen>
+    <dimen name="chatting_talk_message_maxwidth">225dp</dimen>
+    <dimen name="chatting_default_margin1">16dp</dimen>
+
+</resources>

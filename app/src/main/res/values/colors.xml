@@ -10,4 +10,13 @@
     <!-- blue -->
     <color name="blue364ea0">#364ea0</color>
     <color name="blueD5DAEB">#D5DAEB</color>
+    <color name="blued5daeb">#d5daeb</color>
+
+    <!-- gray -->
+    <color name="gray9c9c9c">#9c9c9c</color>
+    <color name="grayefefef">#efefef</color>
+    
+    <!-- black -->
+    <color name="black121212">#121212</color>
+    
 </resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp">
+
+    <ImageView
+        android:id="@+id/iv_received_talk_message_profile_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/chatting_default_margin1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/profile_34_px" />
+
+    <TextView
+        android:id="@+id/tv_received_talk_message_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="@dimen/chatting_talk_message_maxwidth"
+        android:layout_marginLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:text="@string/received_talk_message_content"
+        style="@style/regular_basic_14sp"
+        android:textColor="@color/black121212"
+        app:layout_constraintLeft_toRightOf="@id/iv_received_talk_message_profile_img"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/chatting_message_border"/>
+
+    <TextView
+        android:id="@+id/tv_received_talk_message_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="@string/received_talk_message_timestamp"
+        style="@style/regular_basic_12sp"
+        android:textColor="@color/gray9c9c9c"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

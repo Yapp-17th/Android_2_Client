@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:id="@+id/tv_sent_talk_message_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="@dimen/chatting_talk_message_maxwidth"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:text="@string/sent_talk_message_content"
+        style="@style/regular_basic_14sp"
+        android:textColor="@color/black121212"
+        android:layout_marginEnd="@dimen/chatting_default_margin1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/chatting_message_border"
+        android:backgroundTint="@color/blued5daeb"/>
+
+    <TextView
+        android:id="@+id/tv_sent_talk_message_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:text="@string/sent_talk_message_timestamp"
+        style="@style/regular_basic_12sp"
+        android:textColor="@color/gray9c9c9c"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_sent_talk_message_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
