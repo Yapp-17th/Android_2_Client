@@ -4,20 +4,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/item_profile_message_msg_paddingTop_16dp">
 
     <ImageView
         android:id="@+id/iv_received_profile_message_profile_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/chatting_default_margin1"
+        android:layout_marginStart="@dimen/item_profile_message_msg_margin_16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/profile_34_px" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cv_received_profile_message_cardview"
-        android:layout_width="@dimen/chatting_profile_message_maxwidth"
+        android:layout_width="@dimen/item_profile_message_msg_maxwidth_190dp"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/iv_received_profile_message_profile_img"

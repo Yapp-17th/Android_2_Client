@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/item_profile_message_msg_paddingTop_16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cv_sent_profile_message_cardview"
-        android:layout_width="@dimen/chatting_profile_message_maxwidth"
+        android:layout_width="@dimen/item_profile_message_msg_maxwidth_190dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/chatting_default_margin1"
+        android:layout_marginEnd="@dimen/item_talk_message_msg_margin_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/chatting_message_border"

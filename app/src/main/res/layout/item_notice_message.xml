@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="25dp">
+    android:paddingTop="@dimen/item_notice_message_msg_paddingTop_25dp">
 
     <TextView
         android:id="@+id/tv_notice_message_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp"
+        android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+        android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+        android:paddingLeft="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+        android:paddingRight="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
         android:text="@string/notice_message_content"
         style="@style/medium_basic_12sp"
         android:textColor="@color/gray9c9c9c"

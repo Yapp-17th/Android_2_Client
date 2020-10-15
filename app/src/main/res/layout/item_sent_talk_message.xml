@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/item_talk_message_msg_paddingTop_16dp">
 
     <TextView
         android:id="@+id/tv_sent_talk_message_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="@dimen/chatting_talk_message_maxwidth"
+        android:maxWidth="@dimen/item_talk_message_msg_maxwidth_225dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:paddingRight="10dp"
@@ -17,7 +17,7 @@
         android:text="@string/sent_talk_message_content"
         style="@style/regular_basic_14sp"
         android:textColor="@color/black121212"
-        android:layout_marginEnd="@dimen/chatting_default_margin1"
+        android:layout_marginEnd="@dimen/item_talk_message_msg_margin_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/chatting_message_border"
