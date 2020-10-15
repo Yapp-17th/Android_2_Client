@@ -5,6 +5,9 @@
     <string name="chatting">채팅</string>
     <string name="mypage">마이페이지</string>
 
+    <!-- kakao_native_app_key -->
+    <string name="kakao_native_app_key">27b6df70cdf8f39d98b68da14b2650bd</string>
+
     <!-- activity_splash -->
     <string name="splash_text1">우리 오늘 운동해요</string>
 
