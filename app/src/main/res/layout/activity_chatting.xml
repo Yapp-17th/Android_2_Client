@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_chatting_layout_height_56dp"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/activity_chatting_layout_paddingLeftRight_16dp"
+            android:paddingRight="@dimen/activity_chatting_layout_paddingLeftRight_16dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_activity_chatting_board_title"
+                android:layout_width="@dimen/activity_chatting_board_title_maxwidth_166dp"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_chatting_board_title"
+                style="@style/regular_basic_14sp"
+                android:textColor="@color/black121212"
+                android:singleLine="true"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/bt_activity_chatting_visit_original_board"
+                android:layout_width="@dimen/activity_chatting_btn_width_76dp"
+                android:layout_height="@dimen/activity_chatting_btn_height_32dp"
+                android:text="@string/activity_chatting_visit_original_board"
+                style="@style/medium_basic_14sp"
+                android:textColor="@color/blue364ea0"
+                android:background="@drawable/activity_chatting_btn_border"
+                android:backgroundTint="@color/white"
+                android:layout_gravity="center" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:id="@+id/bt_activity_chatting_approval_status"
+                android:layout_width="@dimen/activity_chatting_btn_width_76dp"
+                android:layout_height="@dimen/activity_chatting_btn_height_32dp"
+                android:text="@string/activity_chatting_approval_status"
+                style="@style/medium_basic_14sp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:background="@drawable/activity_chatting_btn_border"
+                android:backgroundTint="@color/blue364ea0" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_activity_chatting_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/grayf8f8f8"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <EditText
+                android:id="@+id/et_activity_chatting_message_content"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/activity_chatting_edit_text_height_34dp"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:background="@drawable/activity_chatting_edit_text_border"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/activity_chatting_edit_text_marginLeft_16dp"
+                android:layout_marginRight="@dimen/activity_chatting_edit_text_marginRight_11dp"/>
+
+            <ImageButton
+                android:id="@+id/bt_activity_chatting_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icons_24_px_send_disabled"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/activity_chatting_send_btn_marginRight_13dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

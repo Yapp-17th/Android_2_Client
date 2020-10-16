@@ -18,6 +18,11 @@
 
     <!-- activity_login -->
     <string name="login_button_text1">카카오톡으로 간편로그인</string>
+    
+    <!-- activity_chatting -->
+    <string name="activity_chatting_board_title">급하게 농구 용병 3명 구합니다.</string>
+    <string name="activity_chatting_visit_original_board">원글보기</string>기
+    <string name="activity_chatting_approval_status">승인상태</string>
 
     <!-- item_notice_message -->
     <string name="notice_message_content">‘짹짹’님이 참여를 승인했습니다</string>

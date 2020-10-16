@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- chatting_message_border, chatting_visit_profile_btn_border -->
-    <dimen name="chatting_border_corner_radius">16dp</dimen>
+    <!-- activity_chatting -->
+    <dimen name="activity_chatting_board_title_maxwidth_166dp">166dp</dimen>
+    <dimen name="activity_chatting_layout_height_56dp">56dp</dimen>
+    <dimen name="activity_chatting_layout_paddingLeftRight_16dp">16dp</dimen>
+    <dimen name="activity_chatting_btn_width_76dp">76dp</dimen>
+    <dimen name="activity_chatting_btn_height_32dp">32dp</dimen>
+    <dimen name="activity_chatting_edit_text_height_34dp">34dp</dimen>
+    <dimen name="activity_chatting_edit_text_marginLeft_16dp">16dp</dimen>
+    <dimen name="activity_chatting_edit_text_marginRight_11dp">11dp</dimen>
+    <dimen name="activity_chatting_send_btn_marginRight_13dp">13dp</dimen>
+
+    <!-- activity_chatting_btn_border -->
+    <dimen name="activity_chatting_btn_corner_radius_20dp">20dp</dimen>
+
+    <!-- activity_chatting_edit_text_border -->
+    <dimen name="activity_chatting_edit_text_corner_radius_31dp">31dp</dimen>
+
+    <!-- item_message_border, item_message_visit_profile_btn_border -->
+    <dimen name="item_message_corner_radius_16dp">16dp</dimen>
 
     <!-- item_notice_message -->
     <dimen name="item_notice_message_msg_paddingTop_25dp">25dp</dimen>
