@@ -66,4 +66,7 @@ dependencies {
 
     implementation 'com.beust:klaxon:5.0.1' // json 변환
 
+    implementation 'com.github.bishoybasily:stomp:2.0.5' // stomp
+    implementation 'com.squareup.okhttp3:okhttp:4.3.1'
+
 }
