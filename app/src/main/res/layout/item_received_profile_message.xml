@@ -22,7 +22,7 @@
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/iv_received_profile_message_profile_img"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/chatting_message_border">
+        android:background="@drawable/item_message_border">
 
         <TextView
             android:id="@+id/tv_received_profile_message_nickname"
@@ -118,7 +118,7 @@
             style="@style/regular_basic_14sp"
             android:textColor="@color/black121212"
             app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_introduce"
-            android:background="@drawable/chatting_visit_profile_btn_border"
+            android:background="@drawable/item_message_visit_profile_btn_border"
             android:backgroundTint="@color/blued5daeb"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

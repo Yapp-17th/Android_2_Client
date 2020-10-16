@@ -20,6 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/chatting_message_border"
+        android:background="@drawable/item_message_border"
         android:backgroundTint="@color/grayefefef"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

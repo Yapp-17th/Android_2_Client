@@ -29,7 +29,7 @@
         android:textColor="@color/black121212"
         app:layout_constraintLeft_toRightOf="@id/iv_received_talk_message_profile_img"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/chatting_message_border"/>
+        android:background="@drawable/item_message_border"/>
 
     <TextView
         android:id="@+id/tv_received_talk_message_timestamp"

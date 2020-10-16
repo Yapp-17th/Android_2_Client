@@ -12,7 +12,7 @@
         android:layout_marginEnd="@dimen/item_talk_message_msg_margin_16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/chatting_message_border"
+        android:background="@drawable/item_message_border"
         android:backgroundTint="@color/blued5daeb">
 
         <TextView
