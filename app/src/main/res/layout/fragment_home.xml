@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         tools:context=".presentation.home.HomeFragment">
 
-        <TextView
+        <com.example.sport_planet.presentation.custom.CustomToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_app_bar_size"

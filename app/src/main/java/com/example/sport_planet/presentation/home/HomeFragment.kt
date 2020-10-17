@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentHomeBinding
+import com.example.sport_planet.model.MenuEnum
+import com.example.sport_planet.model.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.home.adapter.HomeRecyclerAdapter
+import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class HomeFragment private constructor() :
     BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
@@ -27,6 +30,13 @@ class HomeFragment private constructor() :
     override fun init() {
         binding.vm = viewModel
         binding.rec.adapter = HomeRecyclerAdapter()
+
+        binding.toolbar?.run {
+            this.backButtonVisible(true)
+            this.setSeparator(SeparatorEnum.HOST)
+            this.setTitle("테스트 입니다")
+            this.setMenu(MenuEnum.MENU)
+        }
     }
 
     override fun onResume() {

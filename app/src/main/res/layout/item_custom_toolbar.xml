@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/common_app_bar_size"
-    android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="48dp"
-        android:layout_height="match_parent"
-        android:scaleType="center"
-        android:src="@drawable/ic_back" />
+    <data>
 
-    <TextView
-        android:id="@+id/margin"
-        android:layout_width="16dp"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+    </data>
 
-    <TextView
-        android:id="@+id/separator"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center" />
-
-    <TextView
-        android:layout_weight="1"
-        android:id="@+id/title"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="12dp"
-        android:gravity="center_vertical" />
+        android:layout_height="@dimen/common_app_bar_size"
+        android:orientation="horizontal">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/menu"
-        android:layout_width="72dp"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:src="@drawable/ic_back" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/margin"
+            android:layout_width="16dp"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/separator"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/menu"
+            android:layout_width="72dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</layout>
