@@ -26,6 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 else -> false
             }
         }
+        binding.bottomNavigation.selectedItemId = R.id.main_home
     }
 
     private fun bottomNavigationReplaceFragment(fragment: Fragment): Boolean {

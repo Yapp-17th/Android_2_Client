@@ -13,21 +13,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.login.LoginActivity" />
-        <activity android:name=".presentation.main.MainActivity" />
-        <activity android:name=".presentation.splash.IntroActivity" />
-        <activity android:name=".presentation.splash.SplashActivity">
+        <activity android:name=".presentation.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.splash.IntroActivity" />
+        <activity android:name=".presentation.splash.SplashActivity">
+
+        </activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:host="oauth"
+
+                <data
+                    android:host="oauth"
                     android:scheme="kakao{27b6df70cdf8f39d98b68da14b2650bd}" />
             </intent-filter>
         </activity>
