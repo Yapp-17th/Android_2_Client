@@ -7,28 +7,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- font basic -->
-    <style name="regular_basic">
-        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
-        <item name="android:includeFontPadding">false</item>
-    </style>
-
-    <style name="medium_basic">
-        <item name="android:fontFamily">@font/noto_sans_kr_medium</item>
-        <item name="android:includeFontPadding">false</item>
-    </style>
-
-    <style name="bold_basic">
-        <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
-        <item name="android:includeFontPadding">false</item>
-    </style>
-
-    <style name="medium_bold">
-        <item name="android:fontFamily">@font/noto_sans_kr_medium</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:includeFontPadding">false</item>
-    </style>
-
     <!-- basic 16dp-->
     <style name="regular_basic_16sp">
         <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
@@ -45,6 +23,28 @@
     <style name="bold_basic_16sp">
         <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="regular_basic">
+        <item name="android:fontFamily">@font/noto_sans_kr_regular</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="medium_basic">
+        <item name="android:fontFamily">@font/noto_sans_kr_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="bold_basic">
+        <item name="android:fontFamily">@font/noto_sans_kr_bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- bold -->
+    <style name="medium_bold">
+        <item name="android:fontFamily">@font/noto_sans_kr_medium</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 </resources>

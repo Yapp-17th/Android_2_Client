@@ -1,21 +1,12 @@
 package com.example.sport_planet.presentation.home
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentHomeBinding
 import com.example.sport_planet.model.MenuEnum
 import com.example.sport_planet.model.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseFragment
-import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.home.adapter.HomeRecyclerAdapter
-import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class HomeFragment private constructor() :
     BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
@@ -31,11 +22,13 @@ class HomeFragment private constructor() :
         binding.vm = viewModel
         binding.rec.adapter = HomeRecyclerAdapter()
 
-        binding.toolbar?.run {
-            this.backButtonVisible(true)
-            this.setSeparator(SeparatorEnum.HOST)
-            this.setTitle("테스트 입니다")
-            this.setMenu(MenuEnum.MENU)
+        activity?.runOnUiThread {
+            binding.toolbar?.run {
+                binding.toolbar.setBackButtonVisible(true)
+                binding.toolbar.setSeparator(SeparatorEnum.GUEST)
+                binding.toolbar.setTitle("테스트 입니다")
+                binding.toolbar.setMenu(MenuEnum.MENU)
+            }
         }
     }
 

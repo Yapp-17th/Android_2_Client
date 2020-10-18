@@ -4,13 +4,14 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemCustomToolbarBinding
 import com.example.sport_planet.model.MenuEnum
 import com.example.sport_planet.model.SeparatorEnum
+import com.example.sport_planet.util.Util
 
 class CustomToolbar : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -25,26 +26,16 @@ class CustomToolbar : ConstraintLayout {
         LayoutInflater.from(context),
         R.layout.item_custom_toolbar,
         this,
-        false
+        true
     )
+
     private val menuItems: ArrayList<MenuEnum> = ArrayList()
 
-    init {
-        binding?.run {
-            val layoutManager = LinearLayoutManager(context).apply {
-                this.orientation = LinearLayoutManager.HORIZONTAL
-            }
-            this.menu.layoutManager = layoutManager
-        }
-    }
-
-    fun backButtonVisible(visible: Boolean) {
+    fun setBackButtonVisible(visible: Boolean) {
         if (visible) {
             binding.back.visibility = View.VISIBLE
-            binding.margin.visibility = View.GONE
         } else {
             binding.back.visibility = View.GONE
-            binding.margin.visibility = View.VISIBLE
         }
     }
 
@@ -52,7 +43,8 @@ class CustomToolbar : ConstraintLayout {
         when (item) {
             SeparatorEnum.HOST, SeparatorEnum.GUEST -> {
                 binding.separator.visibility = View.VISIBLE
-                binding.separator.text = "임시"
+                binding.separator.text = item.name
+                binding.separator.setTextColor(context.getColor(item.colorId))
             }
             else -> {
                 binding.separator.visibility = View.GONE
@@ -61,13 +53,26 @@ class CustomToolbar : ConstraintLayout {
     }
 
     fun setTitle(title: String?) {
+        if (binding.back.visibility == View.GONE && binding.separator.visibility == View.GONE) {
+            (binding.title.layoutParams as LinearLayout.LayoutParams).leftMargin =
+                Util.dpToPx(context, 8.0f).toInt()
+        }
+
         title?.run {
             binding.title.text = this
         }
     }
 
     fun setMenu(vararg item: MenuEnum) {
-        this.menuItems.clear()
-        this.menuItems.addAll(item)
+        item.forEach {
+            if (!this.menuItems.contains(it)) {
+                this.menuItems.add(it)
+                CustomToolbarMenuItem(context).apply {
+                    this.setImage(it.resourceId)
+                    this.setClickListener { it.onClick }
+                    binding.menu.addView(this)
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="common_app_bar_size">56dp</dimen>
+    <dimen name="common_app_bar_text_size">18sp</dimen>
+
     <dimen name="activity_main_filter_bar_size_50dp">50dp</dimen>
 
     <dimen name="item_board_height_112dp">112dp</dimen>
