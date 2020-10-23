@@ -2,28 +2,23 @@ package com.example.sport_planet.presentation.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
-import kotlinx.android.synthetic.main.item_board.view.*
+import com.example.sport_planet.databinding.ItemBoardBinding
 
 class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
-    inner class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_board, parent, false)
-    ) {
-        private val profileImage = itemView.profile_image
-        private val bookmark = itemView.bookmark
-        private val nickname = itemView.nickname
-        private val dayCount = itemView.dayCount
-        private val title = itemView.title
-        fun onBind(item: String) {
-            title.text = item
-        }
-    }
-
     private val items: MutableList<String> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(parent)
+        ViewHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_board,
+                parent,
+                false
+            )
+        )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(items[position])
@@ -35,5 +30,13 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
+    }
+
+    inner class ViewHolder(private val binding: ItemBoardBinding) : RecyclerView.ViewHolder(
+        binding.root
+    ) {
+        fun onBind(item: String) {
+            binding.tvTitle.text = item
+        }
     }
 }
