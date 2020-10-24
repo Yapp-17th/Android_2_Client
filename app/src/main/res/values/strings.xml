@@ -34,6 +34,7 @@
     <string name="dialog_select_complete">선택완료</string>
     <string name="dialog_select_title">관심 운동을 선택해주세요 (최대3개)</string>
     <string name="dialog_region_title">거주 지역을 선택해주세요</string>
+    <string name="dialog_base_accept_ok">확인</string>
 
 
 </resources>

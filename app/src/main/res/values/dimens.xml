@@ -21,6 +21,10 @@
     <dimen name="item_exercise_list_margin_12dp">12dp</dimen>
     <dimen name="item_exercise_list_padding_4dp">4dp</dimen>
 
+    <!-- dialog_base_accept.xml -->
+    <dimen name="dialog_base_accept_margin_16dp">16dp</dimen>
+    <dimen name="dialog_base_accept_margin_24dp">24dp</dimen>
+
     <dimen name="common_app_bar_size">56dp</dimen>
     <dimen name="common_app_bar_text_size">18sp</dimen>
 
