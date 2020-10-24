@@ -10,6 +10,7 @@
     <dimen name="activity_chatting_edit_text_height_34dp">34dp</dimen>
     <dimen name="activity_chatting_edit_text_marginLeft_16dp">16dp</dimen>
     <dimen name="activity_chatting_edit_text_marginRight_11dp">11dp</dimen>
+    <dimen name="activity_chatting_edit_text_PaddingLeft_12dp">12dp</dimen>
     <dimen name="activity_chatting_send_btn_marginRight_13dp">13dp</dimen>
 
     <!-- activity_chatting_btn_border -->
