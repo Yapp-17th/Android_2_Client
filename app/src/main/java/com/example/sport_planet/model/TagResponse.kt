@@ -1,5 +1,5 @@
 package com.example.sport_planet.model
 
-data class Tag(
+data class TagResponse(
     val id: Long
 )
