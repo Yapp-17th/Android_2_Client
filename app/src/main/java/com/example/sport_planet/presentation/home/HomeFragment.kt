@@ -19,7 +19,17 @@ class HomeFragment private constructor() :
 
 
     override fun init() {
-        TODO("Not yet implemented")
+        binding.vm = viewModel
+        binding.rec.adapter = HomeRecyclerAdapter()
+
+        activity?.runOnUiThread {
+            binding.toolbar?.run {
+                binding.toolbar.setBackButtonVisible(true)
+                binding.toolbar.setSeparator(SeparatorEnum.GUEST)
+                binding.toolbar.setTitle("테스트 입니다")
+                binding.toolbar.setMenu(MenuEnum.MENU)
+            }
+        }
     }
 
     override fun onResume() {
