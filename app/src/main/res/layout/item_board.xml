@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_board_height_112dp">
+
+        <ImageView
+            android:id="@+id/iv_profile_image"
+            android:layout_width="@dimen/item_board_title_image_size_46dp"
+            android:layout_height="@dimen/item_board_title_image_size_46dp"
+            android:layout_marginLeft="@dimen/item_board_margin_16dp"
+            android:layout_marginTop="@dimen/item_board_margin_13dp"
+            android:src="@drawable/ic_profile_46dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_bookmark"
+            android:layout_width="@dimen/item_board_title_image_size_24dp"
+            android:layout_height="@dimen/item_board_title_image_size_24dp"
+            android:layout_marginTop="@dimen/item_board_margin_13dp"
+            android:layout_marginRight="@dimen/item_board_margin_13dp"
+            android:src="@drawable/ic_star_disabled"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_host"
+            style="@style/medium_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_board_margin_12dp"
+            android:textColor="@color/pink"
+            android:textSize="@dimen/item_board_text_size_14sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_bookmark"
+            app:layout_constraintLeft_toRightOf="@id/iv_profile_image"
+            app:layout_constraintTop_toTopOf="@id/iv_bookmark"
+            tools:text="Host" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            style="@style/medium_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_board_margin_7dp"
+            android:textSize="@dimen/item_board_text_size_14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_host"
+            app:layout_constraintLeft_toRightOf="@id/tv_host"
+            app:layout_constraintTop_toTopOf="@id/tv_host"
+            tools:text="Test" />
+
+        <TextView
+            android:id="@+id/tv_dayCount"
+            style="@style/medium_basic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/item_board_text_size_14sp"
+            app:layout_constraintLeft_toLeftOf="@id/tv_host"
+            app:layout_constraintTop_toBottomOf="@id/iv_bookmark"
+            tools:text="[D-1]" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/regular_basic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_board_margin_7dp"
+            android:layout_marginRight="@dimen/item_board_margin_30dp"
+            android:singleLine="true"
+            android:textSize="@dimen/item_board_text_size_14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_dayCount"
+            app:layout_constraintLeft_toRightOf="@id/tv_dayCount"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_dayCount"
+            tools:text="asdkfaksldfjakdsnflasdfnlsadnflsandflsnadflnsadlfnkasdjfl" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

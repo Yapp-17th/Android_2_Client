@@ -3,21 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/main_home"
+        android:icon="@drawable/ic_home_selector"
         android:title="@string/home"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/main_write"
+        android:icon="@drawable/ic_write_selector"
         android:title="@string/write"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/main_chatting"
+        android:icon="@drawable/ic_chatting_selector"
         android:title="@string/chatting"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/main_mypage"
+        android:icon="@drawable/ic_mypage_selector"
         android:title="@string/mypage"
         app:showAsAction="always" />
 </menu>
