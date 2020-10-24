@@ -1,136 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/item_profile_message_msg_paddingTop_16dp">
-
-    <ImageView
-        android:id="@+id/iv_received_profile_message_profile_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/item_profile_message_msg_margin_16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/profile_34_px" />
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="ItemReceivedProfileMessage"
+            type="com.example.sport_planet.presentation.chatting.model.ChattingMessage" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cv_received_profile_message_cardview"
-        android:layout_width="@dimen/item_profile_message_msg_maxwidth_190dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/iv_received_profile_message_profile_img"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/item_message_border">
-
-        <TextView
-            android:id="@+id/tv_received_profile_message_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="18dp"
-            android:text="@string/received_profile_message_nickname"
-            style="@style/bold_basic_14sp"
-            android:textColor="@color/black121212"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_received_profile_message_likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="6dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_nickname"
-            android:src="@drawable/icons_18_px_likes" />
-
-        <TextView
-            android:id="@+id/tv_received_profile_message_likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="6dp"
-            android:text="@string/received_profile_message_likes"
-            style="@style/regular_basic_14sp"
-            android:textColor="@color/black121212"
-            app:layout_constraintLeft_toRightOf="@id/iv_received_profile_message_likes"
-            app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_nickname" />
-
-        <ImageView
-            android:id="@+id/iv_received_profile_message_dislikes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="6dp"
-            app:layout_constraintLeft_toRightOf="@id/tv_received_profile_message_likes"
-            app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_nickname"
-            android:src="@drawable/icons_18_px_dislikes" />
-
-        <TextView
-            android:id="@+id/tv_received_profile_message_dislikes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="6dp"
-            android:text="@string/received_profile_message_dislikes"
-            style="@style/regular_basic_14sp"
-            android:textColor="@color/black121212"
-            app:layout_constraintLeft_toRightOf="@id/iv_received_profile_message_dislikes"
-            app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_nickname" />
-
-        <TextView
-            android:id="@+id/tv_received_profile_message_text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/received_profile_message_text1"
-            style="@style/medium_basic_14sp"
-            android:textColor="@color/black121212"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_received_profile_message_likes" />
-
-        <TextView
-            android:id="@+id/tv_received_profile_message_introduce"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/received_profile_message_introduce"
-            style="@style/regular_basic_14sp"
-            android:textColor="@color/black121212"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_text1"
-            android:maxLines="4"
-            android:ellipsize="end"/>
-
-        <Button
-            android:id="@+id/bt_received_profile_message_visit_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/received_profile_message_visit_profile"
-            style="@style/regular_basic_14sp"
-            android:textColor="@color/black121212"
-            app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_introduce"
-            android:background="@drawable/item_message_visit_profile_btn_border"
-            android:backgroundTint="@color/blued5daeb"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_received_profile_message_timestamp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:text="@string/received_profile_message_timestamp"
-        style="@style/regular_basic_12sp"
-        android:textColor="@color/gray9c9c9c"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/cv_received_profile_message_cardview" />
+        android:paddingTop="@dimen/item_profile_message_msg_paddingTop_16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_received_profile_message_profile_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_profile_message_msg_margin_16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/profile_34_px" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cv_received_profile_message_cardview"
+            android:layout_width="@dimen/item_profile_message_msg_maxwidth_190dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/iv_received_profile_message_profile_img"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/item_message_border">
+
+            <TextView
+                android:id="@+id/tv_received_profile_message_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/received_profile_message_nickname"
+                style="@style/bold_basic_14sp"
+                android:textColor="@color/black121212"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_received_profile_message_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_nickname"
+                android:src="@drawable/icons_18_px_likes" />
+
+            <TextView
+                android:id="@+id/tv_received_profile_message_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="6dp"
+                android:text="@string/received_profile_message_likes"
+                style="@style/regular_basic_14sp"
+                android:textColor="@color/black121212"
+                app:layout_constraintLeft_toRightOf="@id/iv_received_profile_message_likes"
+                app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_nickname" />
+
+            <ImageView
+                android:id="@+id/iv_received_profile_message_dislikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintLeft_toRightOf="@id/tv_received_profile_message_likes"
+                app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_nickname"
+                android:src="@drawable/icons_18_px_dislikes" />
+
+            <TextView
+                android:id="@+id/tv_received_profile_message_dislikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="6dp"
+                android:text="@string/received_profile_message_dislikes"
+                style="@style/regular_basic_14sp"
+                android:textColor="@color/black121212"
+                app:layout_constraintLeft_toRightOf="@id/iv_received_profile_message_dislikes"
+                app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_nickname" />
+
+            <TextView
+                android:id="@+id/tv_received_profile_message_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/received_profile_message_text1"
+                style="@style/medium_basic_14sp"
+                android:textColor="@color/black121212"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_received_profile_message_likes" />
+
+            <TextView
+                android:id="@+id/tv_received_profile_message_introduce"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/received_profile_message_introduce"
+                style="@style/regular_basic_14sp"
+                android:textColor="@color/black121212"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_text1"
+                android:maxLines="4"
+                android:ellipsize="end"/>
+
+            <Button
+                android:id="@+id/bt_received_profile_message_visit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/received_profile_message_visit_profile"
+                style="@style/regular_basic_14sp"
+                android:textColor="@color/black121212"
+                app:layout_constraintTop_toBottomOf="@id/tv_received_profile_message_introduce"
+                android:background="@drawable/item_message_visit_profile_btn_border"
+                android:backgroundTint="@color/blued5daeb"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_received_profile_message_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@string/received_profile_message_timestamp"
+            style="@style/regular_basic_12sp"
+            android:textColor="@color/gray9c9c9c"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/cv_received_profile_message_cardview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/item_notice_message_msg_paddingTop_25dp">
-
-    <TextView
-        android:id="@+id/tv_notice_message_content"
-        android:layout_width="wrap_content"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="itemNoticeMessage"
+            type="com.example.sport_planet.presentation.chatting.model.ChattingMessage" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
-        android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
-        android:paddingLeft="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
-        android:paddingRight="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
-        android:text="@string/notice_message_content"
-        style="@style/medium_basic_12sp"
-        android:textColor="@color/gray9c9c9c"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/item_message_border"
-        android:backgroundTint="@color/grayefefef"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:paddingTop="@dimen/item_notice_message_msg_paddingTop_25dp">
+
+        <TextView
+            android:id="@+id/tv_notice_message_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+            android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+            android:paddingLeft="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+            android:paddingRight="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+            android:text="@string/notice_message_content"
+            style="@style/medium_basic_12sp"
+            android:textColor="@color/gray9c9c9c"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/item_message_border"
+            android:backgroundTint="@color/grayefefef"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
