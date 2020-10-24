@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.example.sport_planet.presentation.home.HomeViewModel" />
 
     </data>
 
@@ -10,6 +17,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.home.HomeFragment">
+
+        <com.example.sport_planet.presentation.custom.CustomToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_app_bar_size"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/filterbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_main_filter_bar_size_50dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec"
+            bind_setHomeItems="@{vm.writeList}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterbar"
+            tools:listitem="@layout/item_board" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
