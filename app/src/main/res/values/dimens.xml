@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- activity_profile.xml -->
+    <dimen name="activity_profile_margin_8dp">8dp</dimen>
+    <dimen name="activity_profile_margin_16dp">16dp</dimen>
+    <dimen name="activity_profile_padding_8dp">8dp</dimen>
+    <dimen name="activity_profile_padding_16dp">16dp</dimen>
+    <dimen name="activity_profile_text_size_20sp">20sp</dimen>
+
+    <!-- dialog_exercise.xml -->
+    <dimen name="dialog_select_margin_12dp">12dp</dimen>
+    <dimen name="dialog_select_margin_16dp">16dp</dimen>
+
+    <!-- item_exercise_region.xml -->
+    <dimen name="item_exercise_region_padding_12dp">12dp</dimen>
+    <dimen name="item_exercise_region_padding_16dp">16dp</dimen>
+
+    <!-- item_exercise_list.xml -->
+    <dimen name="item_exercise_list_margin_8dp">8dp</dimen>
+    <dimen name="item_exercise_list_margin_12dp">12dp</dimen>
+    <dimen name="item_exercise_list_padding_4dp">4dp</dimen>
+
     <dimen name="common_app_bar_size">56dp</dimen>
     <dimen name="common_app_bar_text_size">18sp</dimen>
 
