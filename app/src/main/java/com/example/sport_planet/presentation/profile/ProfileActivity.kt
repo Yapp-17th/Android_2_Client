@@ -1,10 +1,13 @@
 package com.example.sport_planet.presentation.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityProfileBinding
+import com.example.sport_planet.presentation.base.BaseAcceptDialog
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_profile.*
 
@@ -101,5 +104,25 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         binding.clRegionList.visibility = View.GONE
         binding.clRegion.visibility = View.VISIBLE
 
+    }
+
+    private fun showNicknamePopup(title: String) {
+        val dialog =
+            BaseAcceptDialog.newInstance(dialogTitleText = title, dialogWidthRatio = 0.911111f)
+        dialog.show(supportFragmentManager, "")
+    }
+
+    private fun showFinishedPopup(title: String, image: Int) {
+        val dialog = BaseAcceptDialog.newInstance(
+            dialogTitleText = title,
+            dialogImage = image,
+            dialogWidthRatio = 0.911111f
+        )
+        dialog.setAcceptDialogListener(object : BaseAcceptDialog.AcceptDialogListener{
+            override fun onAccept() {
+                val intent = Intent(this@ProfileActivity,MainActivity::class.java)
+                startActivity(intent)
+            }
+        })
     }
 }
