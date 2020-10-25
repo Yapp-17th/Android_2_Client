@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- activity_chatting -->
+    <dimen name="activity_chatting_board_title_maxwidth_166dp">166dp</dimen>
+    <dimen name="activity_chatting_layout_height_56dp">56dp</dimen>
+    <dimen name="activity_chatting_layout_paddingLeftRight_16dp">16dp</dimen>
+    <dimen name="activity_chatting_btn_width_76dp">76dp</dimen>
+    <dimen name="activity_chatting_btn_height_32dp">32dp</dimen>
+    <dimen name="activity_chatting_edit_text_height_34dp">34dp</dimen>
+    <dimen name="activity_chatting_edit_text_marginLeft_16dp">16dp</dimen>
+    <dimen name="activity_chatting_edit_text_marginRight_11dp">11dp</dimen>
+    <dimen name="activity_chatting_edit_text_PaddingLeft_12dp">12dp</dimen>
+    <dimen name="activity_chatting_send_btn_marginRight_13dp">13dp</dimen>
+
+    <!-- activity_chatting_btn_border -->
+    <dimen name="activity_chatting_btn_corner_radius_20dp">20dp</dimen>
+
+    <!-- activity_chatting_edit_text_border -->
+    <dimen name="activity_chatting_edit_text_corner_radius_31dp">31dp</dimen>
+
+    <!-- item_message_border, item_message_visit_profile_btn_border -->
+    <dimen name="item_message_corner_radius_16dp">16dp</dimen>
+
+    <!-- item_notice_message -->
+    <dimen name="item_notice_message_msg_paddingTop_25dp">25dp</dimen>
+    <dimen name="item_notice_message_mgs_paddingLeftRight_14dp">14dp</dimen>
+    <dimen name="item_notice_message_msg_paddingTopBottom_4dp">4dp</dimen>
+
+    <!-- item_[ received || sent ]_profile_message -->
+    <dimen name="item_profile_message_msg_paddingTop_16dp">16dp</dimen>
+    <dimen name="item_profile_message_msg_margin_16dp">16dp</dimen>
+    <dimen name="item_profile_message_msg_maxwidth_190dp">190dp</dimen>
+
+    <!-- item_[ received || sent ]_talk_message -->
+    <dimen name="item_talk_message_msg_paddingTop_16dp">16dp</dimen>
+    <dimen name="item_talk_message_msg_margin_16dp">16dp</dimen>
+    <dimen name="item_talk_message_msg_maxwidth_225dp">225dp</dimen>
+
     <dimen name="common_app_bar_size">56dp</dimen>
     <dimen name="common_app_bar_text_size">18sp</dimen>
 
@@ -15,4 +52,5 @@
     <dimen name="item_board_margin_16dp">16dp</dimen>
     <dimen name="item_board_margin_30dp">30dp</dimen>
     <dimen name="item_board_margin_36dp">36dp</dimen>
+
 </resources>
