@@ -9,8 +9,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemCustomToolbarBinding
-import com.example.sport_planet.model.MenuEnum
-import com.example.sport_planet.model.SeparatorEnum
+import com.example.sport_planet.model.enums.MenuEnum
+import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.util.Util
 
 class CustomToolbar : ConstraintLayout {
