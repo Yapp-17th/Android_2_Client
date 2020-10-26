@@ -9,7 +9,6 @@ import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingViewModel
-import com.example.sport_planet.presentation.home.HomeViewModel
 import kotlinx.android.synthetic.main.activity_chatting.*
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting) {
@@ -29,10 +28,22 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             setHasFixedSize(true)
         }
 
+        chattingViewModel.settingChattingMessage()
+        chattingViewModel.ChattingMessageResponseLiveData.observe(this,
+            Observer {
+                for(chattingMessage in it.data!!){
+                    chattingAdapter.addChattingMessage(chattingMessage)
+                    rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount)
+                    // TODO: 추후 마지막으로 읽은 메세지 위치로(firstUnreadMessageId) 수정
+                }
+            }
+        )
+
         chattingViewModel.settingStomp()
         chattingViewModel.ChattingMessageLiveData.observe(this,
                 Observer {
                     chattingAdapter.addChattingMessage(it)
+                    rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount)
                 }
         )
 

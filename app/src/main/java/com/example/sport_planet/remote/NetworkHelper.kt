@@ -19,7 +19,8 @@ object NetworkHelper{
         }.build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://ec2-54-180-29-231.ap-northeast-2.compute.amazonaws.com:8082")
+        .baseUrl("http://ec2-54-180-29-231.ap-northeast-2.compute.amazonaws.com:8080") // 채팅
+        //.baseUrl("http://ec2-54-180-29-231.ap-northeast-2.compute.amazonaws.com:8082")
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
         .addConverterFactory(GsonConverterFactory.create())

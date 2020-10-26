@@ -1,11 +1,14 @@
 package com.example.sport_planet.presentation.chatting.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.beust.klaxon.Klaxon
+import com.example.sport_planet.model.ChattingMessageResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingInfo
 import com.example.sport_planet.presentation.chatting.model.ChattingMessage
+import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.gmail.bishoybasily.stomp.lib.Event
 import com.gmail.bishoybasily.stomp.lib.StompClient
 import io.reactivex.disposables.Disposable
@@ -18,6 +21,12 @@ class ChattingViewModel : BaseViewModel() {
 
     private val chattingInfo = ChattingInfo
 
+    private val remoteDataSourceImpl = RemoteDataSourceImpl()
+
+    private val _ChattingMessageResponseLiveData = MutableLiveData<ChattingMessageResponse>()
+    val ChattingMessageResponseLiveData: LiveData<ChattingMessageResponse>
+        get() = _ChattingMessageResponseLiveData // TODO: 변수 네이밍 고민하
+
     private val _ChattingMessageLiveData = MutableLiveData<ChattingMessage>()
     val ChattingMessageLiveData: LiveData<ChattingMessage>
         get() = _ChattingMessageLiveData
@@ -27,6 +36,17 @@ class ChattingViewModel : BaseViewModel() {
     private lateinit var topic: Disposable
 
     private var chattingMessageJsonObject = JSONObject()
+
+    fun settingChattingMessage(){
+     compositeDisposable.add(
+         remoteDataSourceImpl.getChattingMessage()
+             .subscribe({
+                 it.run {
+                     _ChattingMessageResponseLiveData.postValue(it)
+                 }
+             },{})
+     )
+    }
 
     fun settingStomp() {
         val url = ChattingInfo.URL
@@ -43,8 +63,7 @@ class ChattingViewModel : BaseViewModel() {
                 Event.Type.OPENED -> {
                     topic = stomp.join("/sub/chat/room/" + ChattingInfo.CHATROOM_ID).subscribe {
                         stompMessage ->
-
-                        var chattingMessage = Klaxon().parse<ChattingMessage>(stompMessage)
+                        val chattingMessage = Klaxon().parse<ChattingMessage>(stompMessage)
                         _ChattingMessageLiveData.postValue(chattingMessage)
                     }
                 }
