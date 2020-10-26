@@ -58,10 +58,11 @@ dependencies {
 
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin_version"
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
+
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
 
     implementation "com.kakao.sdk:v2-user:2.0.3" // 카카오 로그인
 

@@ -1,5 +1,5 @@
 package com.example.sport_planet.model
 
-data class Category(
+data class CategoryResponse(
     val id: Long
 )

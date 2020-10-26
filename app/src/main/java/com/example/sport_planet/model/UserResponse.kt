@@ -1,10 +1,10 @@
 package com.example.sport_planet.model
 
-data class User(
+data class UserResponse(
     val username: String,
     val nickname: String,
     val email: String,
     val accessToken: String,
-    val address: Address,
-    val category: Category
+    val addressResponse: AddressResponse,
+    val categoryResponse: CategoryResponse
 )
