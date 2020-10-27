@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.custom
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,23 @@ class CustomToolbar : ConstraintLayout {
         this,
         true
     )
+
+    private fun getAttrs(attrs: AttributeSet) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomToolbar)
+        setTypeArray(typedArray)
+    }
+
+    private fun setTypeArray(typedArray: TypedArray) {
+        typedArray.getBoolean(R.styleable.CustomToolbar_isBackButton, false).run {
+            setBackButtonVisible(this)
+        }
+
+        typedArray.getString(R.styleable.CustomToolbar_title)?.run {
+            setTitle(this)
+        }
+
+        typedArray.recycle()
+    }
 
     private val menuItems: ArrayList<MenuEnum> = ArrayList()
 
