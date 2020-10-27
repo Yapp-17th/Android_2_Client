@@ -49,14 +49,6 @@ class CustomToolbar : ConstraintLayout {
 
     private val menuItems: ArrayList<MenuEnum> = ArrayList()
 
-    fun setBackButtonVisible(visible: Boolean) {
-        if (visible) {
-            binding.back.visibility = View.VISIBLE
-        } else {
-            binding.back.visibility = View.GONE
-        }
-    }
-
     fun setSeparator(item: SeparatorEnum) {
         when (item) {
             SeparatorEnum.HOST, SeparatorEnum.GUEST -> {
@@ -70,17 +62,6 @@ class CustomToolbar : ConstraintLayout {
         }
     }
 
-    fun setTitle(title: String?) {
-        if (binding.back.visibility == View.GONE && binding.separator.visibility == View.GONE) {
-            (binding.title.layoutParams as LinearLayout.LayoutParams).leftMargin =
-                Util.dpToPx(context, 8.0f).toInt()
-        }
-
-        title?.run {
-            binding.title.text = this
-        }
-    }
-
     fun setMenu(vararg item: MenuEnum) {
         item.forEach {
             if (!this.menuItems.contains(it)) {
@@ -91,6 +72,25 @@ class CustomToolbar : ConstraintLayout {
                     binding.menu.addView(this)
                 }
             }
+        }
+    }
+
+    private fun setTitle(title: String?) {
+        if (binding.back.visibility == View.GONE && binding.separator.visibility == View.GONE) {
+            (binding.title.layoutParams as LinearLayout.LayoutParams).leftMargin =
+                Util.dpToPx(context, 8.0f).toInt()
+        }
+
+        title?.run {
+            binding.title.text = this
+        }
+    }
+
+    private fun setBackButtonVisible(visible: Boolean) {
+        if (visible) {
+            binding.back.visibility = View.VISIBLE
+        } else {
+            binding.back.visibility = View.GONE
         }
     }
 }
