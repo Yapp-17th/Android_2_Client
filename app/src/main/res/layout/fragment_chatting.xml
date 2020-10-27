@@ -4,20 +4,34 @@
 
     <data>
 
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.example.sport_planet.presentation.chatting.viewmodel.ChattingFragmentViewModel" />
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="툴바"
+            android:background="@color/blue364ea0"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_fragment_chatting_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/bt_test_activity_chatting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="Test" />
+    </LinearLayout>
 </layout>
