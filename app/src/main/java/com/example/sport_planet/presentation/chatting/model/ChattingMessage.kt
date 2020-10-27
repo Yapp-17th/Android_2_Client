@@ -1,14 +1,16 @@
 package com.example.sport_planet.presentation.chatting.model
 
+import android.os.Parcelable
 import com.beust.klaxon.Json
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-data class ChattingMessage(
+@Parcelize
+data class ChattingMessage (
 
         @SerializedName("createdAt")
         @Json(name = "createdAt")
-        var timestamp: String,
+        val timestamp: String,
 
         @SerializedName("senderId")
         @Json(name = "senderId")
@@ -26,4 +28,4 @@ data class ChattingMessage(
         @Json(name = "read")
         val isRead: Boolean
 
-)
+): Parcelable

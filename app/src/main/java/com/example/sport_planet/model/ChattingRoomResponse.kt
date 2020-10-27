@@ -1,38 +1,31 @@
 package com.example.sport_planet.model
 
+import android.os.Parcelable
 import com.example.sport_planet.presentation.chatting.model.ChattingMessage
-import com.google.gson.annotations.Expose
-
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-
-class ChattingRoomResponse {
+@Parcelize
+data class ChattingRoomResponse (
     @SerializedName("id")
-    @Expose
-    var id: Int? = null
+    val id: Int,
 
     @SerializedName("hostId")
-    @Expose
-    var hostId: Int? = null
+    val hostId: Int,
 
     @SerializedName("guestId")
-    @Expose
-    var guestId: Int? = null
+    val guestId: Int,
 
     @SerializedName("boardId")
-    @Expose
-    var boardId: Int? = null
+    val boardId: Int,
 
     @SerializedName("status")
-    @Expose
-    var status: String? = null
+    val status: String,
 
     @SerializedName("createdAt")
-    @Expose
-    var createdAt: String? = null
+    val createdAt: String,
 
     @SerializedName("lastMessage")
-    @Expose
-    var lastMessage: ChattingMessage? = null
+    val lastMessage: ChattingMessage
 
-}
+): Parcelable

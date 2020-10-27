@@ -36,9 +36,9 @@ class ChattingActivityViewModel : BaseViewModel() {
 
     private var chattingMessageJsonObject = JSONObject()
 
-    fun settingChattingMessageList(){
+    fun settingChattingMessageList(chatRoomId: Int){
         compositeDisposable.add(
-            remoteDataSourceImpl.getChattingMessageList()
+            remoteDataSourceImpl.getChattingMessageList(chatRoomId)
                 .subscribe({
                     it.run {
                         _ChattingMessageListResponseLiveData.postValue(it)

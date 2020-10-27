@@ -15,7 +15,7 @@ interface RemoteDataSource{
 
     fun getChattingRoomList() : Single<ChattingRoomListResponse>
 
-    fun getChattingMessageList() : Single<ChattingMessageListResponse>
+    fun getChattingMessageList(chatRoomId: Int) : Single<ChattingMessageListResponse>
 
     //fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse>
 }

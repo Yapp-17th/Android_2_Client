@@ -9,7 +9,8 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="76dp">
+        android:layout_height="76dp"
+        android:id="@+id/layout_chatting_room_item">
 
         <ImageView
             android:id="@+id/iv_chatting_room_profile"

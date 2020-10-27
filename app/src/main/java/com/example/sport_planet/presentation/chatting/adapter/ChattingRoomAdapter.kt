@@ -1,15 +1,19 @@
 package com.example.sport_planet.presentation.chatting.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemChattingRoomBinding
 import com.example.sport_planet.model.ChattingRoomResponse
+import com.example.sport_planet.presentation.chatting.ChattingActivity
 
-class ChattingRoomAdapter : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
+class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
 
     private var chattingRooms = ArrayList<ChattingRoomResponse>()
 
@@ -22,6 +26,12 @@ class ChattingRoomAdapter : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
         fun bind(chattingRoom: ChattingRoomResponse){
             binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage?.timestamp.toString()
             binding.tvChattingRoomLastMessageContent.text = chattingRoom.lastMessage?.content.toString()
+            binding.layoutChattingRoomItem.setOnClickListener {
+
+                val intent = Intent(context, ChattingActivity::class.java)
+                intent.putExtra("chattingRoomInfo", chattingRoom)
+                startActivity(context, intent, null)
+            }
         }
     }
 

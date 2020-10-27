@@ -18,6 +18,6 @@ class RemoteDataSourceImpl : RemoteDataSource{
 
     override fun getChattingRoomList(): Single<ChattingRoomListResponse> = api.getChattingRoomList()
 
-    override fun getChattingMessageList(): Single<ChattingMessageListResponse> = api.getChattingMessageList()
+    override fun getChattingMessageList(chatRoomId: Int): Single<ChattingMessageListResponse> = api.getChattingMessageList(chatRoomId)
 
 }

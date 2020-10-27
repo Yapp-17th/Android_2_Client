@@ -8,6 +8,7 @@ import com.example.sport_planet.model.RegionResponse
 //import com.example.sport_planet.model.ServerCallBackResponse
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface Api {
     @GET("/v1/exercise")
@@ -22,6 +23,6 @@ interface Api {
     @GET("v1/chat/room")
     fun getChattingRoomList(): Single<ChattingRoomListResponse>
 
-    @GET("/v1/chat/message/1")
-    fun getChattingMessageList(): Single<ChattingMessageListResponse>
+    @GET("/v1/chat/message/{chatRoomId}")
+    fun getChattingMessageList(@Path("chatRoomId") chatRoomId: Int): Single<ChattingMessageListResponse>
 }

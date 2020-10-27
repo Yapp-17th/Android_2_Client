@@ -1,15 +1,18 @@
 package com.example.sport_planet.presentation.chatting
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityChattingBinding
+import com.example.sport_planet.model.ChattingRoomResponse
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
 import kotlinx.android.synthetic.main.activity_chatting.*
+import java.io.Serializable
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting) {
 
@@ -18,6 +21,8 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
          by lazy {
              ViewModelProvider(this).get(ChattingActivityViewModel::class.java)
          }
+
+    private val chattingInfo = ChattingInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +33,13 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             setHasFixedSize(true)
         }
 
-        chattingActivityViewModel.settingChattingMessageList()
+        val chatRoomInfo = intent.getParcelableExtra<ChattingRoomResponse>("chattingRoomInfo")
+
+        if (chatRoomInfo != null) {
+            chattingInfo.settingChattingInfo(1, chatRoomInfo.id)
+        }
+
+        chattingActivityViewModel.settingChattingMessageList(chattingInfo.CHATROOM_ID)
         chattingActivityViewModel.ChattingMessageListResponseLiveData.observe(this,
             Observer {
                 for(chattingMessage in it.data!!){

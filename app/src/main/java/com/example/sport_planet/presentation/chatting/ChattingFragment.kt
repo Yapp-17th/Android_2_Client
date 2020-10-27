@@ -1,6 +1,5 @@
 package com.example.sport_planet.presentation.chatting
 
-import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,9 +19,9 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
     override val viewModel: ChattingFragmentViewModel
         by lazy { ViewModelProvider(this).get(ChattingFragmentViewModel::class.java) }
 
-    private val chattingRoomAdapter = ChattingRoomAdapter()
-
     override fun init() {
+        val chattingRoomAdapter = ChattingRoomAdapter(requireContext())
+
         binding.vm = viewModel
 
         rv_fragment_chatting_recyclerview.run{
@@ -39,12 +38,6 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
                 }
             }
         )
-
-        // ChattingActivity test용 임시 버튼
-        bt_test_activity_chatting.setOnClickListener {
-            val intent = Intent(activity, ChattingActivity::class.java)
-            startActivity(intent)
-        }
     }
 
 }
