@@ -19,4 +19,9 @@
     <!-- activity_login -->
     <string name="login_button_text1">카카오톡으로 간편로그인</string>
 
+    <!-- activity_home -->
+    <string name="filter_option_text">검색 필터</string>
+    <string name="filter_time_recent_upload">최신순</string>
+    <string name="filter_time_person_count">남은인원순</string>
+    <string name="filter_time_time_count">기간임박순</string>
 </resources>

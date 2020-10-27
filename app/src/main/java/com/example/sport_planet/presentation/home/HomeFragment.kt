@@ -1,5 +1,7 @@
 package com.example.sport_planet.presentation.home
 
+import android.view.Menu
+import android.view.MenuInflater
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentHomeBinding
@@ -20,7 +22,7 @@ class HomeFragment private constructor() :
 
     override fun init() {
         binding.vm = viewModel
-        binding.rec.adapter = HomeRecyclerAdapter()
+        binding.recBoard.adapter = HomeRecyclerAdapter()
 
         activity?.runOnUiThread {
             binding.toolbar?.run {

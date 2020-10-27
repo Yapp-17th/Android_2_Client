@@ -24,20 +24,38 @@
             android:layout_height="@dimen/common_app_bar_size"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/filterbar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/activity_main_filter_bar_size_50dp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_filterbar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/common_filter_bar_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <include
+                android:id="@+id/cl_filter_option"
+                layout="@layout/item_home_filter_option"
+                android:layout_width="@dimen/item_filter_option_width"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <include
+                android:id="@+id/cl_filter_time"
+                layout="@layout/item_home_filter_time"
+                android:layout_width="@dimen/item_filter_time_width"
+                android:layout_height="match_parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rec"
+            android:id="@+id/rec_board"
             bind_setHomeItems="@{vm.writeList}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/filterbar"
+            app:layout_constraintTop_toBottomOf="@id/cl_filterbar"
             tools:listitem="@layout/item_board" />
 
 
