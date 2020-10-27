@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-class ChattingMessageResponse {
+class ChattingMessageListResponse {
 
     @SerializedName("transactionTime")
     @Expose

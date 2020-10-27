@@ -8,15 +8,15 @@ import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
-import com.example.sport_planet.presentation.chatting.viewmodel.ChattingViewModel
+import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
 import kotlinx.android.synthetic.main.activity_chatting.*
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting) {
 
-    private val chattingAdapter = ChattingAdapter(this)
-    private val chattingViewModel: ChattingViewModel
+    private val chattingAdapter = ChattingAdapter()
+    private val chattingActivityViewModel: ChattingActivityViewModel
          by lazy {
-             ViewModelProvider(this).get(ChattingViewModel::class.java)
+             ViewModelProvider(this).get(ChattingActivityViewModel::class.java)
          }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +28,8 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             setHasFixedSize(true)
         }
 
-        chattingViewModel.settingChattingMessage()
-        chattingViewModel.ChattingMessageResponseLiveData.observe(this,
+        chattingActivityViewModel.settingChattingMessageList()
+        chattingActivityViewModel.ChattingMessageListResponseLiveData.observe(this,
             Observer {
                 for(chattingMessage in it.data!!){
                     chattingAdapter.addChattingMessage(chattingMessage)
@@ -39,8 +39,8 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         )
 
-        chattingViewModel.settingStomp()
-        chattingViewModel.ChattingMessageLiveData.observe(this,
+        chattingActivityViewModel.settingStomp()
+        chattingActivityViewModel.ChattingMessageLiveData.observe(this,
                 Observer {
                     chattingAdapter.addChattingMessage(it)
                     rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount)
@@ -49,7 +49,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
         bt_activity_chatting_send.setOnClickListener{
             if(et_activity_chatting_message_content.length() > 0) {
-                chattingViewModel.sendMessage(et_activity_chatting_message_content.text.toString())
+                chattingActivityViewModel.sendMessage(et_activity_chatting_message_content.text.toString())
                 et_activity_chatting_message_content.text.clear()
             }
         }

@@ -1,10 +1,9 @@
 package com.example.sport_planet.presentation.chatting.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.beust.klaxon.Klaxon
-import com.example.sport_planet.model.ChattingMessageResponse
+import com.example.sport_planet.model.ChattingMessageListResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingInfo
 import com.example.sport_planet.presentation.chatting.model.ChattingMessage
@@ -17,15 +16,15 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
-class ChattingViewModel : BaseViewModel() {
+class ChattingActivityViewModel : BaseViewModel() {
 
     private val chattingInfo = ChattingInfo
 
     private val remoteDataSourceImpl = RemoteDataSourceImpl()
 
-    private val _ChattingMessageResponseLiveData = MutableLiveData<ChattingMessageResponse>()
-    val ChattingMessageResponseLiveData: LiveData<ChattingMessageResponse>
-        get() = _ChattingMessageResponseLiveData // TODO: 변수 네이밍 고민하
+    private val _ChattingMessageListResponseLiveData = MutableLiveData<ChattingMessageListResponse>()
+    val ChattingMessageListResponseLiveData: LiveData<ChattingMessageListResponse>
+        get() = _ChattingMessageListResponseLiveData // TODO: 변수 네이밍 고민하기
 
     private val _ChattingMessageLiveData = MutableLiveData<ChattingMessage>()
     val ChattingMessageLiveData: LiveData<ChattingMessage>
@@ -37,15 +36,15 @@ class ChattingViewModel : BaseViewModel() {
 
     private var chattingMessageJsonObject = JSONObject()
 
-    fun settingChattingMessage(){
-     compositeDisposable.add(
-         remoteDataSourceImpl.getChattingMessage()
-             .subscribe({
-                 it.run {
-                     _ChattingMessageResponseLiveData.postValue(it)
-                 }
-             },{})
-     )
+    fun settingChattingMessageList(){
+        compositeDisposable.add(
+            remoteDataSourceImpl.getChattingMessageList()
+                .subscribe({
+                    it.run {
+                        _ChattingMessageListResponseLiveData.postValue(it)
+                    }
+                },{})
+        )
     }
 
     fun settingStomp() {

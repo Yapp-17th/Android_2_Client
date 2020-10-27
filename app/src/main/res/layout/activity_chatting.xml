@@ -4,12 +4,18 @@
     <data>
         <variable
             name="chattingViewModel"
-            type="com.example.sport_planet.presentation.chatting.viewmodel.ChattingViewModel" />
+            type="com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="툴바"
+            android:background="@color/blue364ea0"/>
 
         <LinearLayout
             android:layout_width="match_parent"

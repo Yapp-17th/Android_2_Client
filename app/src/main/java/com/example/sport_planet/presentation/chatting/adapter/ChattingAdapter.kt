@@ -12,7 +12,7 @@ import com.example.sport_planet.presentation.chatting.model.ChattingMessage
 import java.lang.IllegalArgumentException
 
 
-class ChattingAdapter(private val context: Context) : RecyclerView.Adapter<ChattingAdapter.Holder>()
+class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
     private val chattingInfo = ChattingInfo
 
@@ -31,7 +31,7 @@ class ChattingAdapter(private val context: Context) : RecyclerView.Adapter<Chatt
 
     inner class Holder(val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(chattingMessage: ChattingMessage, context: Context){
+        fun bind(chattingMessage: ChattingMessage){
             val messageViewType = itemViewType
 
             when(messageViewType){
@@ -90,13 +90,13 @@ class ChattingAdapter(private val context: Context) : RecyclerView.Adapter<Chatt
 
         val messageViewBinding = when(messageViewType){
 
-            NOTICE_MESSAGE_VIEW -> ItemNoticeMessageBinding.inflate(LayoutInflater.from(context), parent, false)
+            NOTICE_MESSAGE_VIEW -> ItemNoticeMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-            RECEIVED_PROFILE_MESSAGE_VIEW -> ItemReceivedProfileMessageBinding.inflate(LayoutInflater.from(context), parent, false)
-            SENT_PROFILE_MESSAGE_VIEW -> ItemSentProfileMessageBinding.inflate(LayoutInflater.from(context), parent, false)
+            RECEIVED_PROFILE_MESSAGE_VIEW -> ItemReceivedProfileMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            SENT_PROFILE_MESSAGE_VIEW -> ItemSentProfileMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-            RECEIVED_TALK_MESSAGE_VIEW -> ItemReceivedTalkMessageBinding.inflate(LayoutInflater.from(context), parent, false)
-            SENT_TALK_MESSAGE_VIEW -> ItemSentTalkMessageBinding.inflate(LayoutInflater.from(context), parent, false)
+            RECEIVED_TALK_MESSAGE_VIEW -> ItemReceivedTalkMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            SENT_TALK_MESSAGE_VIEW -> ItemSentTalkMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
             else -> throw IllegalArgumentException("적절하지 않은 MessageViewType")
         }
@@ -109,7 +109,7 @@ class ChattingAdapter(private val context: Context) : RecyclerView.Adapter<Chatt
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(chattingMessages[position], context)
+        holder.bind(chattingMessages[position])
     }
 
     fun RecyclerView.smoothSnapToPosition(position: Int, snapMode: Int = LinearSmoothScroller.SNAP_TO_START) {
