@@ -13,7 +13,7 @@ abstract class BaseActivity<B : ViewDataBinding>
     (@LayoutRes private val layoutResId: Int) : AppCompatActivity() {
 
     protected lateinit var binding: B
-    private val compositeDisposable = CompositeDisposable()
+    protected val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

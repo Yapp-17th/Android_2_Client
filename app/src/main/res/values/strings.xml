@@ -18,6 +18,57 @@
 
     <!-- activity_login -->
     <string name="login_button_text1">카카오톡으로 간편로그인</string>
+    
+    <!-- activity_chatting -->
+    <string name="activity_chatting_board_title">급하게 농구 용병 3명 구합니다.</string>
+    <string name="activity_chatting_visit_original_board">원글보기</string>기
+    <string name="activity_chatting_approval_status">승인상태</string>
+
+    <!-- item_notice_message -->
+    <string name="notice_message_content">‘짹짹’님이 참여를 승인했습니다</string>
+
+    <!-- item_received_profile_message -->
+    <string name="received_profile_message_nickname">달리자88</string>
+    <string name="received_profile_message_likes">00</string>
+    <string name="received_profile_message_dislikes">00</string>
+    <string name="received_profile_message_text1">기본소개</string>
+    <string name="received_profile_message_introduce">함께 운동할 사람 구합니다.웬만한 운동 다 좋아하고요,빡겜할 사람 찾아요!</string>
+    <string name="received_profile_message_visit_profile">프로필 놀러가기</string>
+    <string name="received_profile_message_timestamp">13:00</string>
+
+    <!-- item_received_talk_message -->
+    <string name="received_talk_message_content">안녕하세요!</string>
+    <string name="received_talk_message_timestamp">14:00</string>
+
+    <!-- item_sent_profile_message -->
+    <string name="sent_profile_message_nickname">짹짹</string>
+    <string name="sent_profile_message_likes">00</string>
+    <string name="sent_profile_message_dislikes">00</string>
+    <string name="sent_profile_message_text1">기본소개</string>
+    <string name="sent_profile_message_introduce">안녕하세요! 독서와 운동을 좋아하는 짹짹입니다. 같이 모여서 운동하면서 건강과 재미 둘 다 잡아봐요!</string>
+    <string name="sent_profile_message_timestamp">15:00</string>
+
+    <!-- item_sent_talk_message -->
+    <string name="sent_talk_message_content">참가 신청합니다!</string>
+    <string name="sent_talk_message_timestamp">16:00</string>
+
+    <!-- activity_profile -->
+    <string name="activity_profile_head">프로필 작성</string>
+    <string name="activity_profile_hint_name">이름</string>
+    <string name="activity_profile_hint_email">이메일</string>
+    <string name="activity_profile_hint_nick_name">닉네임 (한글, 영어, 숫자 사용가능)</string>
+    <string name="activity_profile_hint_introduce_myself">당신을 소개해 주세요!\n연락처, SNS계정, 홍보성 글, 부적절한 내용 등이\n포함될 경우 사전 고지없이 계정이 정지될 수 있습니다.</string>
+    <string name="activity_profile_interest_excise">관심 운동을 선택해주세요. (최대 3개)</string>
+    <string name="activity_profile_interest_excise_popup">운동 종목</string>
+    <string name="activity_residence">거주 지역을 선택해 주세요.</string>
+    <string name="activity_profile_residence_popup">지역</string>
+    <string name="activity_profile_introduce_myself">프로필 소개 글을 작성해주세요.</string>
+    <string name="activity_profile_start">시작하기</string>
+    <string name="dialog_select_complete">선택완료</string>
+    <string name="dialog_select_title">관심 운동을 선택해주세요 (최대3개)</string>
+    <string name="dialog_region_title">거주 지역을 선택해주세요</string>
+    <string name="dialog_base_accept_ok">확인</string>
+
 
     <!-- activity_home -->
     <string name="filter_option_text">검색 필터</string>

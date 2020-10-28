@@ -1,7 +1,10 @@
 package com.example.sport_planet.presentation.base
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +38,37 @@ abstract class BaseDialogFragment<B : ViewDataBinding>(@LayoutRes private val la
 
     override fun onStart() {
         super.onStart()
-        TODO("화면 해상도 대응")
+        val dpMetrics = DisplayMetrics()
+        activity?.windowManager?.defaultDisplay?.getMetrics(dpMetrics)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        arguments?.getFloat(DIALOG_WIDTH_RATIO)?.let {
+            if (it > 0) {
+                widthRatio = it
+            }
+        }
+
+        arguments?.getFloat(DIALOG_HEIGHT_RATIO)?.let {
+            if (it > 0) {
+                heightRatio = it
+            }
+        }
+
+        if (heightRatio == -1f) {
+            dialog?.window?.setLayout(
+                (dpMetrics.widthPixels * widthRatio).toInt(),
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        } else {
+            dialog?.window?.setLayout(
+                (dpMetrics.widthPixels * widthRatio).toInt(),
+                (dpMetrics.heightPixels * heightRatio).toInt()
+            )
+        }
+    }
+
+    companion object {
+        const val DIALOG_HEIGHT_RATIO = "DIALOG_HEIGHT_RATIO"
+        const val DIALOG_WIDTH_RATIO = "DIALOG_WIDTH_RATIO"
     }
 
 }

@@ -11,19 +11,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.login.LoginActivity" />
-        <activity android:name=".presentation.main.MainActivity">
+        <activity android:name=".presentation.profile.ExerciseDialog"></activity>
+        <activity android:name=".presentation.profile.ProfileActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.login.LoginActivity" />
+        <activity android:name=".presentation.main.MainActivity" />
         <activity android:name=".presentation.splash.IntroActivity" />
-        <activity android:name=".presentation.splash.SplashActivity">
-
-        </activity>
+        <activity android:name=".presentation.splash.SplashActivity"></activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
