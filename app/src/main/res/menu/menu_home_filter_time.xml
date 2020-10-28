@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        app:showAsAction="always"
-        android:id="@+id/recent"
-        android:title="@string/filter_time_recent_upload"/>
+        android:id="@+id/filter_recent"
+        android:title="@string/filter_time_recent_upload"
+        app:showAsAction="always" />
 
     <item
-        app:showAsAction="always"
-        android:id="@+id/person"
-        android:title="@string/filter_time_person_count"/>
+        android:id="@+id/filter_person"
+        android:title="@string/filter_time_person_count"
+        app:showAsAction="always" />
 
     <item
-        app:showAsAction="always"
-        android:id="@+id/time"
-        android:title="@string/filter_time_time_count"/>
+        android:id="@+id/filter_time"
+        android:title="@string/filter_time_time_count"
+        app:showAsAction="always" />
 
 </menu>
