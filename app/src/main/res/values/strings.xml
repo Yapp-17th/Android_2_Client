@@ -18,7 +18,7 @@
 
     <!-- activity_login -->
     <string name="login_button_text1">카카오톡으로 간편로그인</string>
-    
+
     <!-- activity_chatting -->
     <string name="activity_chatting_board_title">급하게 농구 용병 3명 구합니다.</string>
     <string name="activity_chatting_visit_original_board">원글보기</string>기
@@ -69,10 +69,14 @@
     <string name="dialog_region_title">거주 지역을 선택해주세요</string>
     <string name="dialog_base_accept_ok">확인</string>
 
-
     <!-- activity_home -->
     <string name="filter_option_text">검색 필터</string>
     <string name="filter_time_recent_upload">최신순</string>
     <string name="filter_time_person_count">남은인원순</string>
     <string name="filter_time_time_count">기간임박순</string>
+
+    <!-- activity_home -->
+    <string name="activity_filter_title">검색 필터 설정</string>
+    <string name="activity_filter_ok">필터적용</string>
+    <string name="activity_filter_reset">초기화</string>
 </resources>

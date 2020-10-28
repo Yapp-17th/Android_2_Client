@@ -83,5 +83,7 @@
     <dimen name="item_filter_time_width">86dp</dimen>
     <dimen name="item_filter_time_text_size">14sp</dimen>
 
+    <dimen name="activity_filter_tab_height">52dp</dimen>
+
 
 </resources>
