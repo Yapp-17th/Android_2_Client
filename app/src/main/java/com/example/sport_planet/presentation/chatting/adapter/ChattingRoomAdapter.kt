@@ -2,7 +2,6 @@ package com.example.sport_planet.presentation.chatting.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
@@ -19,6 +18,7 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
 
     fun addChattingRoom(room: ChattingRoomResponse){
         chattingRooms.add(room)
+        chattingRooms.sortByDescending { chattingRoom -> chattingRoom.lastMessage.timestamp }
         notifyDataSetChanged()
     }
 
