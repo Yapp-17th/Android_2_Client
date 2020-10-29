@@ -3,6 +3,7 @@ package com.example.sport_planet.presentation.chatting.adapter
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
@@ -24,6 +25,10 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
 
     inner class Holder(private val binding: ItemChattingRoomBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(chattingRoom: ChattingRoomResponse){
+
+            if (chattingRoom.lastMessage.isRead)
+                binding.ivChattingRoomUnreadMessage.visibility = View.INVISIBLE
+
             binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage?.timestamp.toString()
             binding.tvChattingRoomLastMessageContent.text = chattingRoom.lastMessage?.content.toString()
             binding.layoutChattingRoomItem.setOnClickListener {
