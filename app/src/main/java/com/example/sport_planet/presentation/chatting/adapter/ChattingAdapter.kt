@@ -1,6 +1,6 @@
 package com.example.sport_planet.presentation.chatting.adapter
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
@@ -10,6 +10,9 @@ import com.example.sport_planet.databinding.*
 import com.example.sport_planet.presentation.chatting.ChattingInfo
 import com.example.sport_planet.presentation.chatting.model.ChattingMessage
 import java.lang.IllegalArgumentException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
@@ -24,6 +27,8 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 
     private var chattingMessages = ArrayList<ChattingMessage>()
 
+    val transformDate = SimpleDateFormat("a H:mm", Locale.KOREA)
+
     fun addChattingMessage(message: ChattingMessage){
         chattingMessages.add(message)
         notifyDataSetChanged()
@@ -31,6 +36,7 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 
     inner class Holder(val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root){
 
+        @SuppressLint("SimpleDateFormat")
         fun bind(chattingMessage: ChattingMessage){
             val messageViewType = itemViewType
 
@@ -52,13 +58,15 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
                 RECEIVED_TALK_MESSAGE_VIEW -> {
                     (binding as ItemReceivedTalkMessageBinding).let {
                         it.tvReceivedTalkMessageContent.text = chattingMessage.content
-                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.timestamp
+                        val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(chattingMessage.timestamp)
+                        it.tvReceivedTalkMessageTimestamp.text = transformDate.format(date)
                     }
                 }
                 SENT_TALK_MESSAGE_VIEW -> {
                     (binding as ItemSentTalkMessageBinding).let {
                         it.tvSentTalkMessageContent.text = chattingMessage.content
-                        it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp
+                        val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(chattingMessage.timestamp)
+                        it.tvSentTalkMessageTimestamp.text = transformDate.format(date)
                     }
                 }
 
