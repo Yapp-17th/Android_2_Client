@@ -1,13 +1,14 @@
 package com.example.sport_planet.remote
 
-import com.example.sport_planet.model.ChattingMessageListResponse
-import com.example.sport_planet.model.ChattingRoomListResponse
-import com.example.sport_planet.model.ExerciseResponse
+import com.beust.klaxon.Json
+import com.beust.klaxon.JsonObject
+import com.example.sport_planet.model.*
 //import com.example.sport_planet.model.LoginResponse
-import com.example.sport_planet.model.RegionResponse
 //import com.example.sport_planet.model.ServerCallBackResponse
 import io.reactivex.Single
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface Api {
@@ -20,7 +21,12 @@ interface Api {
     //@POST("/user/sign-in")
     //fun postSignIn(@Body userInfo: LoginResponse): Single<ServerCallBackResponse>
 
-    @GET("v1/chat/room")
+    @POST("/v1/chat/room")
+    fun makeChattingRoom(
+        @Body param: JsonObject
+    ): Single<MakeChattingRoomResponse>
+
+    @GET("/v1/chat/room")
     fun getChattingRoomList(): Single<ChattingRoomListResponse>
 
     @GET("/v1/chat/message/{chatRoomId}")

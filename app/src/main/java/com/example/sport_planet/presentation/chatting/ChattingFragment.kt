@@ -38,6 +38,9 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
                 }
             }
         )
+        bt_fragment_test.setOnClickListener {
+            viewModel.makeChattingRoom()
+        }
     }
 
 }
