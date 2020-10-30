@@ -13,14 +13,13 @@ import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemChattingRoomBinding
 import com.example.sport_planet.model.ChattingRoomResponse
 import com.example.sport_planet.presentation.chatting.ChattingActivity
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.sport_planet.util.Util.formatTo
+import com.example.sport_planet.util.Util.toDate
 import kotlin.collections.ArrayList
 
 class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
 
     private var chattingRooms = ArrayList<ChattingRoomResponse>()
-    val transformDate = SimpleDateFormat("a H:mm", Locale.KOREA)
 
     fun addChattingRoom(room: ChattingRoomResponse){
         chattingRooms.add(room)
@@ -35,8 +34,7 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
             if (chattingRoom.lastMessage.isRead)
                 binding.ivChattingRoomUnreadMessage.visibility = View.INVISIBLE
 
-            val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(chattingRoom.lastMessage.timestamp)
-            binding.tvChattingRoomLastMessageTimestamp.text = transformDate.format(date)
+            binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage.timestamp.toDate().formatTo()
             binding.tvChattingRoomLastMessageContent.text = chattingRoom.lastMessage.content
             binding.layoutChattingRoomItem.setOnClickListener {
 

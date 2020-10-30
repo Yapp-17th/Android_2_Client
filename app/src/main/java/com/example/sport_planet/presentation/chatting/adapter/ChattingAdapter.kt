@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.databinding.*
 import com.example.sport_planet.presentation.chatting.ChattingInfo
 import com.example.sport_planet.presentation.chatting.model.ChattingMessage
+import com.example.sport_planet.util.Util.formatTo
+import com.example.sport_planet.util.Util.toDate
 import java.lang.IllegalArgumentException
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -26,8 +26,6 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
     private val SENT_TALK_MESSAGE_VIEW = 4
 
     private var chattingMessages = ArrayList<ChattingMessage>()
-
-    val transformDate = SimpleDateFormat("a H:mm", Locale.KOREA)
 
     fun addChattingMessage(message: ChattingMessage){
         chattingMessages.add(message)
@@ -58,15 +56,13 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
                 RECEIVED_TALK_MESSAGE_VIEW -> {
                     (binding as ItemReceivedTalkMessageBinding).let {
                         it.tvReceivedTalkMessageContent.text = chattingMessage.content
-                        val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(chattingMessage.timestamp)
-                        it.tvReceivedTalkMessageTimestamp.text = transformDate.format(date)
+                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.timestamp.toDate().formatTo()
                     }
                 }
                 SENT_TALK_MESSAGE_VIEW -> {
                     (binding as ItemSentTalkMessageBinding).let {
                         it.tvSentTalkMessageContent.text = chattingMessage.content
-                        val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(chattingMessage.timestamp)
-                        it.tvSentTalkMessageTimestamp.text = transformDate.format(date)
+                        it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp.toDate().formatTo()
                     }
                 }
 
