@@ -14,9 +14,8 @@ object Util {
         )
     }
 
-    fun String.toDate(dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss", timeZone: TimeZone = TimeZone.getTimeZone("UTC")): Date {
-        val parser = SimpleDateFormat(dateFormat, Locale.getDefault())
-        parser.timeZone = timeZone
+    fun String.toDate(dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss"): Date {
+        val parser = SimpleDateFormat(dateFormat, Locale.KOREA)
         return parser.parse(this)
     }
 
