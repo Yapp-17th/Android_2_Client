@@ -5,18 +5,30 @@
     <data>
         <variable
             name="ItemReceivedTalkMessage"
-            type="com.example.sport_planet.presentation.chatting.model.ChattingMessage" />
+            type="com.example.sport_planet.model.ChattingMessageResponse" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/item_talk_message_msg_paddingTop_16dp">
 
+        <TextView
+            android:id="@+id/tv_received_talk_message_sender_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="58dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="달리자 88"
+            style="@style/regular_basic_12sp"
+            android:textColor="@color/gray9c9c9c"/>
+
         <ImageView
             android:id="@+id/iv_received_talk_message_profile_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_talk_message_msg_margin_16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/profile_34_px" />
@@ -27,6 +39,7 @@
             android:layout_height="wrap_content"
             android:maxWidth="@dimen/item_talk_message_msg_maxwidth_225dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:paddingRight="10dp"
@@ -35,7 +48,7 @@
             style="@style/regular_basic_14sp"
             android:textColor="@color/black121212"
             app:layout_constraintLeft_toRightOf="@id/iv_received_talk_message_profile_img"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_received_talk_message_sender_nickname"
             android:background="@drawable/item_message_border"/>
 
         <TextView
