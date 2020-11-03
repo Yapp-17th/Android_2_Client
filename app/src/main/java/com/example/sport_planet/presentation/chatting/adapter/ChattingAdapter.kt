@@ -7,8 +7,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.databinding.*
+import com.example.sport_planet.model.ChattingMessageResponse
 import com.example.sport_planet.presentation.chatting.ChattingInfo
-import com.example.sport_planet.presentation.chatting.model.ChattingMessage
 import com.example.sport_planet.util.Util.formatTo
 import com.example.sport_planet.util.Util.toDate
 import java.lang.IllegalArgumentException
@@ -19,15 +19,16 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
     private val chattingInfo = ChattingInfo
 
-    private val NOTICE_MESSAGE_VIEW = 0
-    private val RECEIVED_PROFILE_MESSAGE_VIEW = 1
-    private val SENT_PROFILE_MESSAGE_VIEW = 2
-    private val RECEIVED_TALK_MESSAGE_VIEW = 3
-    private val SENT_TALK_MESSAGE_VIEW = 4
+    private val BOT_MESSAGE_VIEW = 0
+    private val NOTICE_MESSAGE_VIEW = 1
+    private val RECEIVED_PROFILE_MESSAGE_VIEW = 2
+    private val SENT_PROFILE_MESSAGE_VIEW = 3
+    private val RECEIVED_TALK_MESSAGE_VIEW = 4
+    private val SENT_TALK_MESSAGE_VIEW = 5
 
-    private var chattingMessages = ArrayList<ChattingMessage>()
+    private var chattingMessages = ArrayList<ChattingMessageResponse>()
 
-    fun addChattingMessage(message: ChattingMessage){
+    fun addChattingMessage(message: ChattingMessageResponse){
         chattingMessages.add(message)
         notifyDataSetChanged()
     }
@@ -35,10 +36,17 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
     inner class Holder(val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root){
 
         @SuppressLint("SimpleDateFormat")
-        fun bind(chattingMessage: ChattingMessage){
+        fun bind(chattingMessage: ChattingMessageResponse){
             val messageViewType = itemViewType
 
             when(messageViewType){
+
+                BOT_MESSAGE_VIEW->{
+                    (binding as ItemChatBotMessageBinding).let {
+                        it.tvChatBotMessageContent.text = chattingMessage.content
+                        it.tvChatBotMessageTimestamp.text = chattingMessage.timestamp.toDate().formatTo()
+                    }
+                }
 
                 NOTICE_MESSAGE_VIEW -> {
                     (binding as ItemNoticeMessageBinding).let {
@@ -55,6 +63,7 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 
                 RECEIVED_TALK_MESSAGE_VIEW -> {
                     (binding as ItemReceivedTalkMessageBinding).let {
+                        it.tvReceivedTalkMessageSenderNickname.text = chattingMessage.senderNickname
                         it.tvReceivedTalkMessageContent.text = chattingMessage.content
                         it.tvReceivedTalkMessageTimestamp.text = chattingMessage.timestamp.toDate().formatTo()
                     }
@@ -73,15 +82,16 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 
     override fun getItemViewType(position: Int) : Int{
 
-        val currentItem: ChattingMessage = chattingMessages[position]
+        val currentItem: ChattingMessageResponse = chattingMessages[position]
         val messageType = currentItem.type
         val messageSender = currentItem.senderId
 
         when(messageType){
 
-            ChattingInfo.MESSAGE_TYPE_TALK -> {
+            "BOT_MESSAGE" -> BOT_MESSAGE_VIEW
+            "TALK" -> {
                 return when(messageSender){
-                    ChattingInfo.SENDER_ID -> SENT_TALK_MESSAGE_VIEW
+                    ChattingInfo.SENDER_ID.toLong() -> SENT_TALK_MESSAGE_VIEW
                     else -> RECEIVED_TALK_MESSAGE_VIEW
                 }
             }
@@ -93,6 +103,8 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
     override fun onCreateViewHolder(parent: ViewGroup, messageViewType: Int): Holder {
 
         val messageViewBinding = when(messageViewType){
+
+            BOT_MESSAGE_VIEW -> ItemChatBotMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
             NOTICE_MESSAGE_VIEW -> ItemNoticeMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
