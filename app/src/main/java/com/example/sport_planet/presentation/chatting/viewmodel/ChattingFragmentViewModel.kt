@@ -21,16 +21,19 @@ class ChattingFragmentViewModel : BaseViewModel(){
 
     fun makeChattingRoom(){
         val chattingRoomJsonObject = JsonObject()
-        chattingRoomJsonObject.put("hostId", 2)
-        chattingRoomJsonObject.put("guestId", 1)
+        chattingRoomJsonObject.put("hostId", 1)
         chattingRoomJsonObject.put("boardId", 1)
         compositeDisposable.add(
             remoteDataSourceImpl.makeChattingRoom(chattingRoomJsonObject)
                 .subscribe(
                     {
-                        Log.d("테스트", "성공 " + it.toString())
+                        if (it.status == 201)
+                            Log.d("테스트", "성공 " + it.toString())
+                        else if (it.status == 200)
+                            Log.d("테스트", "실패 " + it.toString())
+
                     },{
-                        Log.d("테스트", "실패 " + it.toString())
+
                     }
                 )
         )
