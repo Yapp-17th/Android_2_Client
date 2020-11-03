@@ -5,7 +5,7 @@
     <data>
         <variable
             name="ItemSentProfileMessage"
-            type="com.example.sport_planet.presentation.chatting.model.ChattingMessage" />
+            type="com.example.sport_planet.model.ChattingMessageResponse" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

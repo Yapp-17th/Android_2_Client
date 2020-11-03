@@ -1,18 +1,16 @@
 package com.example.sport_planet.presentation.chatting
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityChattingBinding
-import com.example.sport_planet.model.ChattingRoomResponse
+import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
 import kotlinx.android.synthetic.main.activity_chatting.*
-import java.io.Serializable
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting) {
 
@@ -33,7 +31,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             setHasFixedSize(true)
         }
 
-        val chatRoomInfo = intent.getParcelableExtra<ChattingRoomResponse>("chattingRoomInfo")
+        val chatRoomInfo = intent.getParcelableExtra<ChattingRoomListResponse.Data>("chattingRoomInfo")
 
         if (chatRoomInfo != null) {
             chattingInfo.settingChattingInfo(1, chatRoomInfo.id)

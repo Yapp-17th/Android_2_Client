@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.beust.klaxon.Klaxon
 import com.example.sport_planet.model.ChattingMessageListResponse
+import com.example.sport_planet.model.ChattingMessageResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingInfo
-import com.example.sport_planet.presentation.chatting.model.ChattingMessage
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.gmail.bishoybasily.stomp.lib.Event
 import com.gmail.bishoybasily.stomp.lib.StompClient
@@ -24,10 +24,10 @@ class ChattingActivityViewModel : BaseViewModel() {
 
     private val _ChattingMessageListResponseLiveData = MutableLiveData<ChattingMessageListResponse>()
     val ChattingMessageListResponseLiveData: LiveData<ChattingMessageListResponse>
-        get() = _ChattingMessageListResponseLiveData // TODO: 변수 네이밍 고민하기
+        get() = _ChattingMessageListResponseLiveData
 
-    private val _ChattingMessageLiveData = MutableLiveData<ChattingMessage>()
-    val ChattingMessageLiveData: LiveData<ChattingMessage>
+    private val _ChattingMessageLiveData = MutableLiveData<ChattingMessageResponse>()
+    val ChattingMessageLiveData: LiveData<ChattingMessageResponse>
         get() = _ChattingMessageLiveData
 
     private lateinit var stomp: StompClient
@@ -62,7 +62,7 @@ class ChattingActivityViewModel : BaseViewModel() {
                 Event.Type.OPENED -> {
                     topic = stomp.join("/sub/chat/room/" + ChattingInfo.CHATROOM_ID).subscribe {
                         stompMessage ->
-                        val chattingMessage = Klaxon().parse<ChattingMessage>(stompMessage)
+                        val chattingMessage = Klaxon().parse<ChattingMessageResponse>(stompMessage)
                         _ChattingMessageLiveData.postValue(chattingMessage)
                     }
                 }
@@ -77,7 +77,7 @@ class ChattingActivityViewModel : BaseViewModel() {
     fun sendMessage(chattingMessageContent: String){
         try {
             chattingMessageJsonObject.put("content", chattingMessageContent)
-            chattingMessageJsonObject.put("type", ChattingInfo.MESSAGE_TYPE_TALK)
+            chattingMessageJsonObject.put("type", "TALK")
             chattingMessageJsonObject.put("senderId", ChattingInfo.SENDER_ID)
             chattingMessageJsonObject.put("chatRoomId", ChattingInfo.CHATROOM_ID)
 
