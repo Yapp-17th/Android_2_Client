@@ -6,33 +6,41 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemChattingRoomBinding
-import com.example.sport_planet.model.ChattingRoomResponse
+import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.ChattingActivity
+import com.example.sport_planet.presentation.chatting.ChattingInfo
 import com.example.sport_planet.util.Util.formatTo
 import com.example.sport_planet.util.Util.toDate
 import kotlin.collections.ArrayList
 
 class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
 
-    private var chattingRooms = ArrayList<ChattingRoomResponse>()
+    val chattingInfo = ChattingInfo
+    private var chattingRooms = ArrayList<ChattingRoomListResponse.Data>()
 
-    fun addChattingRoom(room: ChattingRoomResponse){
+    fun addChattingRoom(room: ChattingRoomListResponse.Data){
         chattingRooms.add(room)
         chattingRooms.sortByDescending { chattingRoom -> chattingRoom.lastMessage.timestamp }
         notifyDataSetChanged()
     }
 
     inner class Holder(private val binding: ItemChattingRoomBinding): RecyclerView.ViewHolder(binding.root){
-        @SuppressLint("SimpleDateFormat")
-        fun bind(chattingRoom: ChattingRoomResponse){
+        @SuppressLint("SimpleDateFormat", "ResourceAsColor")
+        fun bind(chattingRoom: ChattingRoomListResponse.Data){
 
-            if (chattingRoom.lastMessage.isRead)
+            if (chattingRoom.unreadMessages == 0)
                 binding.ivChattingRoomUnreadMessage.visibility = View.INVISIBLE
+
+            if(chattingRoom.hostId == chattingInfo.SENDER_ID ){
+                binding.tvChattingRoomPosition.text = "Host"
+                binding.tvChattingRoomPosition.setTextColor(ContextCompat.getColor(context, R.color.pink))
+            }
 
             binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage.timestamp.toDate().formatTo()
             binding.tvChattingRoomLastMessageContent.text = chattingRoom.lastMessage.content
