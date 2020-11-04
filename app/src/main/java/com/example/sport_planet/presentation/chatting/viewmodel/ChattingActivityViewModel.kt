@@ -6,6 +6,7 @@ import com.beust.klaxon.Klaxon
 import com.example.sport_planet.model.ChattingMessageListResponse
 import com.example.sport_planet.model.ChattingMessageResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
+import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.ChattingInfo
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.gmail.bishoybasily.stomp.lib.Event
@@ -17,8 +18,6 @@ import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 class ChattingActivityViewModel : BaseViewModel() {
-
-    private val chattingInfo = ChattingInfo
 
     private val remoteDataSourceImpl = RemoteDataSourceImpl()
 
@@ -48,7 +47,7 @@ class ChattingActivityViewModel : BaseViewModel() {
     }
 
     fun settingStomp() {
-        val url = ChattingInfo.URL
+        val url = ChattingConstant.URL
         val intervalMillis = 5000L
         val client = OkHttpClient.Builder()
                 .readTimeout(10, TimeUnit.SECONDS)
@@ -77,7 +76,7 @@ class ChattingActivityViewModel : BaseViewModel() {
     fun sendMessage(chattingMessageContent: String){
         try {
             chattingMessageJsonObject.put("content", chattingMessageContent)
-            chattingMessageJsonObject.put("type", "TALK")
+            chattingMessageJsonObject.put("type", ChattingConstant.TALK_TYPE)
             chattingMessageJsonObject.put("senderId", ChattingInfo.SENDER_ID)
             chattingMessageJsonObject.put("chatRoomId", ChattingInfo.CHATROOM_ID)
 

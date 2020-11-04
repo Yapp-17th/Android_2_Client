@@ -20,10 +20,14 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
              ViewModelProvider(this).get(ChattingActivityViewModel::class.java)
          }
 
-    private val chattingInfo = ChattingInfo
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val chatRoomInfo = intent.getParcelableExtra<ChattingRoomListResponse.Data>("chattingRoomInfo")
+
+        if (chatRoomInfo != null) {
+            ChattingInfo.settingChattingInfo(2, chatRoomInfo.id)
+        }
 
         rv_activity_chatting_recyclerview.run {
             adapter = chattingAdapter
@@ -31,13 +35,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             setHasFixedSize(true)
         }
 
-        val chatRoomInfo = intent.getParcelableExtra<ChattingRoomListResponse.Data>("chattingRoomInfo")
-
-        if (chatRoomInfo != null) {
-            chattingInfo.settingChattingInfo(1, chatRoomInfo.id)
-        }
-
-        chattingActivityViewModel.settingChattingMessageList(chattingInfo.CHATROOM_ID)
+        chattingActivityViewModel.settingChattingMessageList(ChattingInfo.CHATROOM_ID)
         chattingActivityViewModel.ChattingMessageListResponseLiveData.observe(this,
             Observer {
                 for(chattingMessage in it.data!!){

@@ -16,12 +16,10 @@ import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.ChattingActivity
 import com.example.sport_planet.presentation.chatting.ChattingInfo
 import com.example.sport_planet.util.Util.formatTo
-import com.example.sport_planet.util.Util.toDate
 import kotlin.collections.ArrayList
 
 class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
 
-    val chattingInfo = ChattingInfo
     private var chattingRooms = ArrayList<ChattingRoomListResponse.Data>()
 
     fun addChattingRoom(room: ChattingRoomListResponse.Data){
@@ -31,18 +29,18 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
     }
 
     inner class Holder(private val binding: ItemChattingRoomBinding): RecyclerView.ViewHolder(binding.root){
-        @SuppressLint("SimpleDateFormat", "ResourceAsColor")
+        @SuppressLint("ResourceAsColor")
         fun bind(chattingRoom: ChattingRoomListResponse.Data){
 
             if (chattingRoom.unreadMessages == 0)
                 binding.ivChattingRoomUnreadMessage.visibility = View.INVISIBLE
 
-            if(chattingRoom.hostId == chattingInfo.SENDER_ID ){
+            if(chattingRoom.hostId == ChattingInfo.SENDER_ID ){
                 binding.tvChattingRoomPosition.text = "Host"
                 binding.tvChattingRoomPosition.setTextColor(ContextCompat.getColor(context, R.color.pink))
             }
 
-            binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage.timestamp.toDate().formatTo()
+            binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage.timestamp.formatTo()
             binding.tvChattingRoomLastMessageContent.text = chattingRoom.lastMessage.content
             binding.layoutChattingRoomItem.setOnClickListener {
 

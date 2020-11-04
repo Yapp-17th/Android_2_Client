@@ -8,16 +8,14 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.databinding.*
 import com.example.sport_planet.model.ChattingMessageResponse
+import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.ChattingInfo
 import com.example.sport_planet.util.Util.formatTo
-import com.example.sport_planet.util.Util.toDate
 import java.lang.IllegalArgumentException
 import kotlin.collections.ArrayList
 
-
 class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
-    private val chattingInfo = ChattingInfo
 
     private val BOT_MESSAGE_VIEW = 0
     private val NOTICE_MESSAGE_VIEW = 1
@@ -44,7 +42,7 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
                 BOT_MESSAGE_VIEW->{
                     (binding as ItemChatBotMessageBinding).let {
                         it.tvChatBotMessageContent.text = chattingMessage.content
-                        it.tvChatBotMessageTimestamp.text = chattingMessage.timestamp.toDate().formatTo()
+                        it.tvChatBotMessageTimestamp.text = chattingMessage.timestamp.formatTo()
                     }
                 }
 
@@ -65,13 +63,13 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
                     (binding as ItemReceivedTalkMessageBinding).let {
                         it.tvReceivedTalkMessageSenderNickname.text = chattingMessage.senderNickname
                         it.tvReceivedTalkMessageContent.text = chattingMessage.content
-                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.timestamp.toDate().formatTo()
+                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.timestamp.formatTo()
                     }
                 }
                 SENT_TALK_MESSAGE_VIEW -> {
                     (binding as ItemSentTalkMessageBinding).let {
                         it.tvSentTalkMessageContent.text = chattingMessage.content
-                        it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp.toDate().formatTo()
+                        it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp.formatTo()
                     }
                 }
 
@@ -88,8 +86,8 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 
         when(messageType){
 
-            "BOT_MESSAGE" -> BOT_MESSAGE_VIEW
-            "TALK" -> {
+            ChattingConstant.CHAT_BOT_TYPE -> BOT_MESSAGE_VIEW
+            ChattingConstant.TALK_TYPE -> {
                 return when(messageSender){
                     ChattingInfo.SENDER_ID.toLong() -> SENT_TALK_MESSAGE_VIEW
                     else -> RECEIVED_TALK_MESSAGE_VIEW
