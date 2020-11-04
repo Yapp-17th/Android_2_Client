@@ -35,6 +35,7 @@
     <string name="dialog_select_title">관심 운동을 선택해주세요 (최대3개)</string>
     <string name="dialog_region_title">거주 지역을 선택해주세요</string>
     <string name="dialog_base_accept_ok">확인</string>
+    <string name="dialog_show_finished_popup">회원가입을 축하드립니다!\n운동플래닛과 건강한 운동생활을\n시작해보세요!</string>
 
 
 </resources>

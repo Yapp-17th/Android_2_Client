@@ -101,12 +101,18 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 userIntroduceMyself
             )
             compositeDisposable.add(RemoteDataSourceImpl().postSignUp(signUpResponse).subscribe({
-            }, {
-                // TODO: 01/11/2020 200 -> 가입 성공 팝업 후 메인 페이지
-                // TODO: 01/11/2020 400 -> 이미 가입한 사용자입니다
-                // TODO: 01/11/2020 500 -> 중복된 닉네임입니다 팝업
-
-            }))
+                when (it.status) {
+                    200 -> {
+                        showFinishedPopup()
+                    }
+                    400 -> {
+                        showErrorPopup(it.message)
+                    }
+                    500 -> {
+                        showErrorPopup(it.message)
+                    }
+                }
+            }, {}))
         }
     }
 
@@ -125,16 +131,16 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     }
 
-    private fun showNicknamePopup(title: String) {
+    private fun showErrorPopup(title: String) {
         val dialog =
             BaseAcceptDialog.newInstance(dialogTitleText = title, dialogWidthRatio = 0.911111f)
         dialog.show(supportFragmentManager, "")
     }
 
-    private fun showFinishedPopup(title: String, image: Int) {
+    private fun showFinishedPopup() {
         val dialog = BaseAcceptDialog.newInstance(
-            dialogTitleText = title,
-            dialogImage = image,
+            dialogTitleText = getString(R.string.dialog_show_finished_popup),
+            dialogImage = R.drawable.profile_finish_logo,
             dialogWidthRatio = 0.911111f
         )
         dialog.setAcceptDialogListener(object : BaseAcceptDialog.AcceptDialogListener {
