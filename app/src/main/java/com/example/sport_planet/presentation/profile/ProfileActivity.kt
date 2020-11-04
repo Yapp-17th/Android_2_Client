@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityProfileBinding
+import com.example.sport_planet.model.SignUpResponse
 import com.example.sport_planet.presentation.base.BaseAcceptDialog
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.main.MainActivity
@@ -27,10 +28,11 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         intent.getStringExtra("userNickname")
     }
     private val userExerciseList = mutableListOf<String>()
+    private lateinit var userName: String
 
     private lateinit var userRegion: String
 
-    private var userIntroduceMyself = ""
+    private lateinit var userIntroduceMyself: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +90,23 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         }
         binding.tvStart.setOnClickListener {
             userIntroduceMyself = tv_introduce_myself.text.toString()
+            val signUpResponse = SignUpResponse(
+                userId.toString(),
+                userName,
+                userEmail.toString(),
+                userToken.toString(),
+                userNickname.toString(),
+                userRegion,
+                userExerciseList,
+                userIntroduceMyself
+            )
+            compositeDisposable.add(RemoteDataSourceImpl().postSignUp(signUpResponse).subscribe({
+            }, {
+                // TODO: 01/11/2020 200 -> 가입 성공 팝업 후 메인 페이지
+                // TODO: 01/11/2020 400 -> 이미 가입한 사용자입니다
+                // TODO: 01/11/2020 500 -> 중복된 닉네임입니다 팝업
+
+            }))
         }
     }
 
@@ -118,9 +137,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
             dialogImage = image,
             dialogWidthRatio = 0.911111f
         )
-        dialog.setAcceptDialogListener(object : BaseAcceptDialog.AcceptDialogListener{
+        dialog.setAcceptDialogListener(object : BaseAcceptDialog.AcceptDialogListener {
             override fun onAccept() {
-                val intent = Intent(this@ProfileActivity,MainActivity::class.java)
+                val intent = Intent(this@ProfileActivity, MainActivity::class.java)
                 startActivity(intent)
             }
         })
