@@ -1,5 +1,6 @@
 package com.example.sport_planet.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.TypedValue
 import java.text.SimpleDateFormat
@@ -14,14 +15,10 @@ object Util {
         )
     }
 
-    fun String.toDate(dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss"): Date {
-        val parser = SimpleDateFormat(dateFormat, Locale.KOREA)
-        return parser.parse(this)
-    }
-
-    fun Date.formatTo(dateFormat: String = "a h:mm", timeZone: TimeZone = TimeZone.getDefault()): String {
+    @SuppressLint("SimpleDateFormat")
+    fun String.formatTo(dateFormat: String = "a h:mm"): String {
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA)
         val formatter = SimpleDateFormat(dateFormat, Locale.KOREA)
-        formatter.timeZone = timeZone
-        return formatter.format(this)
+        return formatter.format(parser.parse(this))
     }
 }
