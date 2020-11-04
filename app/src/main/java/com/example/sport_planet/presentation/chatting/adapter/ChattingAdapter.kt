@@ -89,7 +89,7 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
             ChattingConstant.CHAT_BOT_TYPE -> BOT_MESSAGE_VIEW
             ChattingConstant.TALK_TYPE -> {
                 return when(messageSender){
-                    ChattingInfo.SENDER_ID.toLong() -> SENT_TALK_MESSAGE_VIEW
+                    ChattingInfo.USER_ID.toLong() -> SENT_TALK_MESSAGE_VIEW
                     else -> RECEIVED_TALK_MESSAGE_VIEW
                 }
             }

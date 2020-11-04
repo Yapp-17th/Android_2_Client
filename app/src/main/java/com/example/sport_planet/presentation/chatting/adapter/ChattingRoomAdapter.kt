@@ -35,7 +35,7 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
             if (chattingRoom.unreadMessages == 0)
                 binding.ivChattingRoomUnreadMessage.visibility = View.INVISIBLE
 
-            if(chattingRoom.hostId == ChattingInfo.SENDER_ID ){
+            if(chattingRoom.hostId != ChattingInfo.USER_ID ){
                 binding.tvChattingRoomPosition.text = "Host"
                 binding.tvChattingRoomPosition.setTextColor(ContextCompat.getColor(context, R.color.pink))
             }

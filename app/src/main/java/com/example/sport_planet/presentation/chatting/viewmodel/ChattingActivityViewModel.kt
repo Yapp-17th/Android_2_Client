@@ -77,7 +77,7 @@ class ChattingActivityViewModel : BaseViewModel() {
         try {
             chattingMessageJsonObject.put("content", chattingMessageContent)
             chattingMessageJsonObject.put("type", ChattingConstant.TALK_TYPE)
-            chattingMessageJsonObject.put("senderId", ChattingInfo.SENDER_ID)
+            chattingMessageJsonObject.put("senderId", ChattingInfo.USER_ID)
             chattingMessageJsonObject.put("chatRoomId", ChattingInfo.CHATROOM_ID)
 
         } catch (e: JSONException) {

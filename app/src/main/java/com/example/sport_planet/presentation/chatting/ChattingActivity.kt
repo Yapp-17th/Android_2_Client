@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.model.ChattingRoomListResponse
+import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
 import kotlinx.android.synthetic.main.activity_chatting.*
+import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting) {
 
@@ -27,6 +29,18 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
         if (chatRoomInfo != null) {
             ChattingInfo.settingChattingInfo(2, chatRoomInfo.id)
+        }
+
+        this.runOnUiThread {
+            binding.toolbarActivityChatting.run {
+                if (chatRoomInfo != null) {
+                    if (chatRoomInfo.hostId != ChattingInfo.USER_ID)
+                        binding.toolbarActivityChatting.setSeparator(SeparatorEnum.HOST)
+                    else
+                        binding.toolbarActivityChatting.setSeparator(SeparatorEnum.GUEST)
+                    binding.toolbarActivityChatting.title.text = "달리자 88"
+                }
+            }
         }
 
         rv_activity_chatting_recyclerview.run {

@@ -17,11 +17,11 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-        <TextView
+        <com.example.sport_planet.presentation.custom.CustomToolbar
+            android:id="@+id/toolbar_fragment_chatting"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="툴바"
-            android:background="@color/blue364ea0"/>
+            android:layout_height="@dimen/common_app_bar_size"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_fragment_chatting_recyclerview"
