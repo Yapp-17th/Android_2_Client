@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.filter.FilterActivity">
+
+        <com.example.sport_planet.presentation.custom.CustomToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_app_bar_size"
+            app:isBackButton="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/activity_filter_title" />
+
+        <TableLayout
+            android:id="@+id/tl_filter_header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_filter_tab_height"
+            app:layout_constraintBottom_toTopOf="@id/vp_filter_body"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_filter_body"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@id/btn_ok"
+            app:layout_constraintTop_toBottomOf="@id/tl_filter_header" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            style="@style/medium_basic"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/activity_filter_tab_height"
+            android:text="@string/activity_filter_ok"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_reset" />
+
+        <Button
+            android:id="@+id/btn_reset"
+            style="@style/medium_basic"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/activity_filter_tab_height"
+            android:text="@string/activity_filter_reset"
+            android:textColor="@color/gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_ok"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

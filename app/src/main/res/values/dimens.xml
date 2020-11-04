@@ -65,8 +65,7 @@
 
     <dimen name="common_app_bar_size">56dp</dimen>
     <dimen name="common_app_bar_text_size">18sp</dimen>
-
-    <dimen name="activity_main_filter_bar_size_50dp">50dp</dimen>
+    <dimen name="common_filter_bar_size">50dp</dimen>
 
     <dimen name="item_board_height_112dp">112dp</dimen>
     <dimen name="item_board_title_image_size_24dp">24dp</dimen>
@@ -78,5 +77,13 @@
     <dimen name="item_board_margin_16dp">16dp</dimen>
     <dimen name="item_board_margin_30dp">30dp</dimen>
     <dimen name="item_board_margin_36dp">36dp</dimen>
+
+    <dimen name="item_filter_option_width">116dp</dimen>
+    <dimen name="item_filter_option_text_size">14sp</dimen>
+    <dimen name="item_filter_time_width">86dp</dimen>
+    <dimen name="item_filter_time_text_size">14sp</dimen>
+
+    <dimen name="activity_filter_tab_height">52dp</dimen>
+
 
 </resources>
