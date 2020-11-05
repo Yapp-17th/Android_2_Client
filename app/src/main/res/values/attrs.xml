@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomToolbar">
+        <attr name="title" format="reference|string" />
+        <attr name="isBackButton" format="reference|boolean" />
+    </declare-styleable>
+</resources>

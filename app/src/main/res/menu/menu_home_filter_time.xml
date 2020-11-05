@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/filter_recent"
+        android:title="@string/filter_time_recent_upload"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/filter_person"
+        android:title="@string/filter_time_person_count"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/filter_time"
+        android:title="@string/filter_time_time_count"
+        app:showAsAction="always" />
+
+</menu>

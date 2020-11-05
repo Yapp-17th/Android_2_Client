@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.custom
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemCustomToolbarBinding
-import com.example.sport_planet.model.MenuEnum
-import com.example.sport_planet.model.SeparatorEnum
+import com.example.sport_planet.model.enums.MenuEnum
+import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.util.Util
 
 class CustomToolbar : ConstraintLayout {
@@ -29,15 +30,24 @@ class CustomToolbar : ConstraintLayout {
         true
     )
 
-    private val menuItems: ArrayList<MenuEnum> = ArrayList()
-
-    fun setBackButtonVisible(visible: Boolean) {
-        if (visible) {
-            binding.back.visibility = View.VISIBLE
-        } else {
-            binding.back.visibility = View.GONE
-        }
+    private fun getAttrs(attrs: AttributeSet) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomToolbar)
+        setTypeArray(typedArray)
     }
+
+    private fun setTypeArray(typedArray: TypedArray) {
+        typedArray.getBoolean(R.styleable.CustomToolbar_isBackButton, false).run {
+            setBackButtonVisible(this)
+        }
+
+        typedArray.getString(R.styleable.CustomToolbar_title)?.run {
+            setTitle(this)
+        }
+
+        typedArray.recycle()
+    }
+
+    private val menuItems: ArrayList<MenuEnum> = ArrayList()
 
     fun setSeparator(item: SeparatorEnum) {
         when (item) {
@@ -52,17 +62,6 @@ class CustomToolbar : ConstraintLayout {
         }
     }
 
-    fun setTitle(title: String?) {
-        if (binding.back.visibility == View.GONE && binding.separator.visibility == View.GONE) {
-            (binding.title.layoutParams as LinearLayout.LayoutParams).leftMargin =
-                Util.dpToPx(context, 8.0f).toInt()
-        }
-
-        title?.run {
-            binding.title.text = this
-        }
-    }
-
     fun setMenu(vararg item: MenuEnum) {
         item.forEach {
             if (!this.menuItems.contains(it)) {
@@ -73,6 +72,25 @@ class CustomToolbar : ConstraintLayout {
                     binding.menu.addView(this)
                 }
             }
+        }
+    }
+
+    private fun setTitle(title: String?) {
+        if (binding.back.visibility == View.GONE && binding.separator.visibility == View.GONE) {
+            (binding.title.layoutParams as LinearLayout.LayoutParams).leftMargin =
+                Util.dpToPx(context, 8.0f).toInt()
+        }
+
+        title?.run {
+            binding.title.text = this
+        }
+    }
+
+    private fun setBackButtonVisible(visible: Boolean) {
+        if (visible) {
+            binding.back.visibility = View.VISIBLE
+        } else {
+            binding.back.visibility = View.GONE
         }
     }
 }

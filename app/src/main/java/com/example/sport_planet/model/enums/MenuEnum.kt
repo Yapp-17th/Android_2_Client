@@ -1,4 +1,4 @@
-package com.example.sport_planet.model
+package com.example.sport_planet.model.enums
 
 import com.example.sport_planet.R
 
