@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityProfileBinding
+import com.example.sport_planet.model.SignUpResponse
 import com.example.sport_planet.presentation.base.BaseAcceptDialog
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.main.MainActivity
@@ -27,10 +28,11 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         intent.getStringExtra("userNickname")
     }
     private val userExerciseList = mutableListOf<String>()
+    private lateinit var userName: String
 
     private lateinit var userRegion: String
 
-    private var userIntroduceMyself = ""
+    private lateinit var userIntroduceMyself: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +90,29 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         }
         binding.tvStart.setOnClickListener {
             userIntroduceMyself = tv_introduce_myself.text.toString()
+            val signUpResponse = SignUpResponse(
+                userId.toString(),
+                userName,
+                userEmail.toString(),
+                userToken.toString(),
+                userNickname.toString(),
+                userRegion,
+                userExerciseList,
+                userIntroduceMyself
+            )
+            compositeDisposable.add(RemoteDataSourceImpl().postSignUp(signUpResponse).subscribe({
+                when (it.status) {
+                    200 -> {
+                        showFinishedPopup()
+                    }
+                    400 -> {
+                        showErrorPopup(it.message)
+                    }
+                    500 -> {
+                        showErrorPopup(it.message)
+                    }
+                }
+            }, {}))
         }
     }
 
@@ -106,21 +131,21 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     }
 
-    private fun showNicknamePopup(title: String) {
+    private fun showErrorPopup(title: String) {
         val dialog =
             BaseAcceptDialog.newInstance(dialogTitleText = title, dialogWidthRatio = 0.911111f)
         dialog.show(supportFragmentManager, "")
     }
 
-    private fun showFinishedPopup(title: String, image: Int) {
+    private fun showFinishedPopup() {
         val dialog = BaseAcceptDialog.newInstance(
-            dialogTitleText = title,
-            dialogImage = image,
+            dialogTitleText = getString(R.string.dialog_show_finished_popup),
+            dialogImage = R.drawable.profile_finish_logo,
             dialogWidthRatio = 0.911111f
         )
-        dialog.setAcceptDialogListener(object : BaseAcceptDialog.AcceptDialogListener{
+        dialog.setAcceptDialogListener(object : BaseAcceptDialog.AcceptDialogListener {
             override fun onAccept() {
-                val intent = Intent(this@ProfileActivity,MainActivity::class.java)
+                val intent = Intent(this@ProfileActivity, MainActivity::class.java)
                 startActivity(intent)
             }
         })
