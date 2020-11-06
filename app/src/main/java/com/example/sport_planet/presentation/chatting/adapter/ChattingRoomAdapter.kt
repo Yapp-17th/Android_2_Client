@@ -40,6 +40,7 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
                 binding.tvChattingRoomPosition.setTextColor(ContextCompat.getColor(context, R.color.pink))
             }
 
+            binding.tvChattingRoomNickname.text = chattingRoom.opponentNickname
             binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage.timestamp.formatTo()
             binding.tvChattingRoomLastMessageContent.text = chattingRoom.lastMessage.content
             binding.layoutChattingRoomItem.setOnClickListener {
