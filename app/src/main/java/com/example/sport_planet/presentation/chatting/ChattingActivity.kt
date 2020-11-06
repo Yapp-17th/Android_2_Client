@@ -28,17 +28,17 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         val chatRoomInfo = intent.getParcelableExtra<ChattingRoomListResponse.Data>("chattingRoomInfo")
 
         if (chatRoomInfo != null) {
-            ChattingInfo.settingChattingInfo(2, chatRoomInfo.id)
+            ChattingInfo.settingChattingInfo(chatRoomInfo.id)
         }
 
         this.runOnUiThread {
             binding.toolbarActivityChatting.run {
                 if (chatRoomInfo != null) {
                     if (chatRoomInfo.hostId != ChattingInfo.USER_ID)
-                        binding.toolbarActivityChatting.setSeparator(SeparatorEnum.HOST)
+                        this.setSeparator(SeparatorEnum.HOST)
                     else
-                        binding.toolbarActivityChatting.setSeparator(SeparatorEnum.GUEST)
-                    binding.toolbarActivityChatting.title.text = "달리자 88"
+                        this.setSeparator(SeparatorEnum.GUEST)
+                    this.title.text = chatRoomInfo.opponentNickname
                 }
             }
         }
@@ -52,10 +52,13 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         chattingActivityViewModel.settingChattingMessageList(ChattingInfo.CHATROOM_ID)
         chattingActivityViewModel.ChattingMessageListResponseLiveData.observe(this,
             Observer {
-                for(chattingMessage in it.data!!){
+                tv_activity_chatting_board_title.text = it.boardTitle
+                for(chattingMessage in it.data){
                     chattingAdapter.addChattingMessage(chattingMessage)
-                    rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount)
-                    // TODO: 추후 마지막으로 읽은 메세지 위치로(firstUnreadMessageId) 수정
+                    if(it.firstUnreadMessageId == -1)
+                        rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount)
+                    else
+                        rv_activity_chatting_recyclerview.smoothScrollToPosition(it.firstUnreadMessageId)
                 }
             }
         )
@@ -67,6 +70,15 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                     rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount)
                 }
         )
+
+        bt_activity_chatting_approval_status.setOnClickListener {
+            if (chatRoomInfo != null) {
+                when(ChattingInfo.USER_ID){
+                    chatRoomInfo.guestId -> chattingActivityViewModel.applyBoard(chatRoomInfo.boardId, chatRoomInfo.id)
+                    chatRoomInfo.hostId -> chattingActivityViewModel.approveBoard(chatRoomInfo.boardId, chatRoomInfo.id, chatRoomInfo.guestId)
+                }
+            }
+        }
 
         bt_activity_chatting_send.setOnClickListener{
             if(et_activity_chatting_message_content.length() > 0) {

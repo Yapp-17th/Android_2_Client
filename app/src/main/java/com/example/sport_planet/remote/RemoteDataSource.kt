@@ -1,6 +1,5 @@
 package com.example.sport_planet.remote
 
-import com.beust.klaxon.Json
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.model.*
 //import com.example.sport_planet.model.LoginResponse
@@ -16,7 +15,11 @@ interface RemoteDataSource{
 
     fun getChattingRoomList() : Single<ChattingRoomListResponse>
 
-    fun getChattingMessageList(chatRoomId: Int) : Single<ChattingMessageListResponse>
+    fun getChattingMessageList(chatRoomId: Long) : Single<ChattingMessageListResponse>
+
+    fun applyBoard(boardId:Long, param: JsonObject) : Single<ApplyBoardResponse>
+
+    fun approveBoard(boardId:Long, param: JsonObject) : Single<ApplyBoardResponse>
 
     //fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse>
 }

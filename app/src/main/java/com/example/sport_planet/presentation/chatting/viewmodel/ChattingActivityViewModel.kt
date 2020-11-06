@@ -1,7 +1,9 @@
 package com.example.sport_planet.presentation.chatting.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Klaxon
 import com.example.sport_planet.model.ChattingMessageListResponse
 import com.example.sport_planet.model.ChattingMessageResponse
@@ -35,7 +37,7 @@ class ChattingActivityViewModel : BaseViewModel() {
 
     private var chattingMessageJsonObject = JSONObject()
 
-    fun settingChattingMessageList(chatRoomId: Int){
+    fun settingChattingMessageList(chatRoomId: Long){
         compositeDisposable.add(
             remoteDataSourceImpl.getChattingMessageList(chatRoomId)
                 .subscribe({
@@ -84,5 +86,32 @@ class ChattingActivityViewModel : BaseViewModel() {
             e.printStackTrace()
         }
         stomp.send("/pub/v1/chat/message", chattingMessageJsonObject.toString()).subscribe()
+    }
+
+    fun applyBoard(boardId: Long, chatRoomId: Long){
+        val applyBoardObject = JsonObject()
+        applyBoardObject.put("chatRoomId", chatRoomId)
+        compositeDisposable.add(
+            remoteDataSourceImpl.applyBoard(boardId, applyBoardObject)
+                .subscribe({
+                    Log.d("테스트-신청", it.toString())
+            },{
+                    Log.d("테스트-신청", it.toString())
+                })
+        )
+    }
+
+    fun approveBoard(boardId: Long, chatRoomId: Long, guestId: Long){
+        val approveBoardObject = JsonObject()
+        approveBoardObject.put("chatRoomId", chatRoomId)
+        approveBoardObject.put("guestId", guestId)
+        compositeDisposable.add(
+            remoteDataSourceImpl.approveBoard(boardId, approveBoardObject)
+                .subscribe({
+                    Log.d("테스트-승인", it.toString())
+                },{
+                    Log.d("테스트-승인", it.toString())
+                })
+        )
     }
 }

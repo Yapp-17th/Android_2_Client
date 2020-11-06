@@ -6,8 +6,8 @@ import com.example.sport_planet.model.*
 //import com.example.sport_planet.model.ServerCallBackResponse
 import io.reactivex.Single
 import retrofit2.http.*
-const val jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJoYWVtaW4iLCJpYXQiOjE2MDQyMjkzMzYsImV4cCI6MTYzNTc2NTMzNywiYXVkIjoiIiwic3ViIjoiaGFlbWluQGdtYWlsLmNvbSIsInVzZXJJZCI6IjIifQ.cgeVPYmMxc5BoPsoeHgl44p-OrBfe3RwjSD1YekTNxo"
-
+const val jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIxIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjFAZ21haWwuY29tIiwidXNlcklkIjoiMSJ9.Bmbhc-I1r-L-dW5vUzvB9jRsPPKtcqYXutAyWKqkPrc"
+//const val jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIyIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjJAZ21haWwuY29tIiwidXNlcklkIjoiMiJ9.iMoSPe9k5Uj6w8qa4eaOIQqjIzI5Scuts3tBbQ4p79g"
 interface Api {
 
     @GET("/v1/exercise")
@@ -31,5 +31,18 @@ interface Api {
 
     @Headers("Authorization: Bearer $jwt")
     @GET("/v1/chat/room/{chatRoomId}/message")
-    fun getChattingMessageList(@Path("chatRoomId") chatRoomId: Int): Single<ChattingMessageListResponse>
+    fun getChattingMessageList(@Path("chatRoomId") chatRoomId: Long): Single<ChattingMessageListResponse>
+
+    @Headers("Authorization: Bearer $jwt")
+    @POST("/v1/board/{boardId}/apply")
+    fun applyBoard(@Path("boardId") boardId: Long,
+                   @Body param: JsonObject
+    ): Single<ApplyBoardResponse>
+
+    @Headers("Authorization: Bearer $jwt")
+    @POST("/v1/board/{boardId}/approve")
+    fun approveBoard(@Path("boardId") boardId: Long,
+                     @Body param: JsonObject
+    ): Single<ApplyBoardResponse>
+
 }
