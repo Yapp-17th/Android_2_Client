@@ -5,7 +5,6 @@ import com.beust.klaxon.Json
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-
 @Parcelize
 data class ChattingMessageResponse (
 
@@ -18,12 +17,12 @@ data class ChattingMessageResponse (
     @SerializedName("type")
     @Json(name = "type")
     val type: String,
-    @SerializedName("hostRead")
-    @Json(name = "hostRead")
-    val hostRead: Boolean,
-    @SerializedName("guestRead")
-    @Json(name = "guestRead")
-    val guestRead: Boolean,
+    @SerializedName("isHostRead")
+    @Json(name = "isHostRead")
+    val isHostRead: Boolean,
+    @SerializedName("isGuestRead")
+    @Json(name = "isGuestRead")
+    val isGuestRead: Boolean,
     @SerializedName("senderId")
     @Json(name = "senderId")
     val senderId: Long,
