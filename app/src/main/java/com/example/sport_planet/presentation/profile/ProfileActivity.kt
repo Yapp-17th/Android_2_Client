@@ -45,7 +45,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                         val dialog = ExerciseDialog.newInstance(
                             dialogTitleText = getString(R.string.dialog_select_title),
                             dialogWidthRatio = 0.911111f,
-                            dialogItemList = it.result.data.toTypedArray()
+                            dialogItemList = it.exerciseModel.data.toTypedArray()
                         )
                         dialog.setSelectDialogListener(object :
                             ExerciseDialog.SelectDialogListener {
@@ -70,7 +70,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                         val dialog = RegionDialog.newInstance(
                             dialogTitleText = getString(R.string.dialog_region_title),
                             dialogWidthRatio = 0.911111f,
-                            dialogItemList = it.result.data.toTypedArray()
+                            dialogItemList = it.regionModel.data.toTypedArray()
                         )
                         dialog.setSelectDialogListener(object :
                             RegionDialog.SelectDialogListener {
