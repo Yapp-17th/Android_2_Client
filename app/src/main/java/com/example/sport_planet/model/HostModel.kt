@@ -1,8 +1,8 @@
-package com.example.sport_planet.model.response
+package com.example.sport_planet.model
 
 import com.google.gson.annotations.SerializedName
 
-data class HostResponse(
+data class HostModel(
     @SerializedName("dislikes") val dislikes: Int,
     @SerializedName("hostId") val hostId: Int,
     @SerializedName("hostName") val hostName: String,

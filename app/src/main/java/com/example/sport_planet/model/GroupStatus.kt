@@ -1,8 +1,8 @@
-package com.example.sport_planet.model.response
+package com.example.sport_planet.model
 
 import com.google.gson.annotations.SerializedName
 
-data class GroupStatusResponse(
+data class GroupStatus(
     @SerializedName("code") val code: Int,
     @SerializedName("name") val name: String
 )
