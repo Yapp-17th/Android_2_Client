@@ -10,5 +10,6 @@ class HomeViewModel :
 
     fun getWriteList() {
         writeList.value = (1..100).shuffled().take(10).map { it.toString() }
+
     }
 }
