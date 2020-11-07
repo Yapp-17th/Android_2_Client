@@ -30,6 +30,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
             binding.toolbarFragmentChatting.run {
                 this.back.visibility = View.GONE
                 this.title.text = "  채팅"
+                this.title.textSize = 20F
             }
         }
 

@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:text="달리자 88"
             style="@style/regular_basic_12sp"
-            android:textColor="@color/gray9c9c9c"/>
+            android:textColor="@color/gray9c9c9c" />
 
         <ImageView
             android:id="@+id/iv_received_talk_message_profile_img"
@@ -49,7 +49,8 @@
             android:textColor="@color/black121212"
             app:layout_constraintLeft_toRightOf="@id/iv_received_talk_message_profile_img"
             app:layout_constraintTop_toBottomOf="@+id/tv_received_talk_message_sender_nickname"
-            android:background="@drawable/item_message_border"/>
+            android:background="@drawable/item_message_border"
+            android:backgroundTint="@color/white"/>
 
         <TextView
             android:id="@+id/tv_received_talk_message_timestamp"

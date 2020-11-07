@@ -49,7 +49,8 @@
             android:textColor="@color/black121212"
             app:layout_constraintLeft_toRightOf="@id/iv_chat_bot_message_profile_img"
             app:layout_constraintTop_toBottomOf="@+id/tv_chat_bot_message_sender_nickname"
-            android:background="@drawable/item_message_border"/>
+            android:background="@drawable/item_message_border"
+            android:backgroundTint="@color/white"/>
 
         <TextView
             android:id="@+id/tv_chat_bot_message_timestamp"

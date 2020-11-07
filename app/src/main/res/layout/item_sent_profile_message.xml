@@ -49,15 +49,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:layout_marginTop="6dp"
                 android:text="@string/sent_profile_message_likes"
                 style="@style/regular_basic_14sp"
                 android:textColor="@color/black121212"
-                app:layout_constraintLeft_toRightOf="@id/iv_sent_profile_message_likes"
-                app:layout_constraintTop_toBottomOf="@id/tv_sent_profile_message_nickname"/>
+                app:layout_constraintTop_toTopOf="@id/iv_sent_profile_message_likes"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_sent_profile_message_likes"
+                app:layout_constraintLeft_toRightOf="@id/iv_sent_profile_message_likes"/>
 
             <ImageView
-                android:id="@+id/iv_received_profile_message_dislikes"
+                android:id="@+id/iv_sent_profile_message_dislikes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -71,12 +71,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="6dp"
                 android:text="@string/sent_profile_message_dislikes"
                 style="@style/regular_basic_14sp"
                 android:textColor="@color/black121212"
-                app:layout_constraintLeft_toRightOf="@id/iv_received_profile_message_dislikes"
-                app:layout_constraintTop_toBottomOf="@id/tv_sent_profile_message_nickname" />
+                app:layout_constraintTop_toTopOf="@id/iv_sent_profile_message_dislikes"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_sent_profile_message_dislikes"
+                app:layout_constraintLeft_toRightOf="@id/iv_sent_profile_message_dislikes" />
 
             <TextView
                 android:id="@+id/tv_sent_profile_message_text1"

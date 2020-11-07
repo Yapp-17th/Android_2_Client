@@ -36,6 +36,12 @@
                 android:singleLine="true"
                 android:layout_gravity="center"/>
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
             <Button
                 android:id="@+id/bt_activity_chatting_visit_original_board"
                 android:layout_width="@dimen/activity_chatting_btn_width_76dp"
@@ -48,21 +54,14 @@
                 android:layout_gravity="center" />
 
             <View
-                android:layout_width="0dp"
+                android:layout_width="8dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 />
 
-            <Button
+            <com.example.sport_planet.presentation.custom.CustomApprovalStatusButton
                 android:id="@+id/bt_activity_chatting_approval_status"
-                android:layout_width="@dimen/activity_chatting_btn_width_76dp"
-                android:layout_height="@dimen/activity_chatting_btn_height_32dp"
-                android:text="@string/activity_chatting_approval_status"
-                style="@style/medium_basic_14sp"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:background="@drawable/activity_chatting_btn_border"
-                android:backgroundTint="@color/blue364ea0" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -71,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/grayf8f8f8"/>
+            android:background="@color/grayf4f4f4"/>
 
         <LinearLayout
             android:layout_width="match_parent"
