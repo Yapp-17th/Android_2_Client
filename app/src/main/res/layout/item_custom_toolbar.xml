@@ -37,7 +37,8 @@
             android:textSize="@dimen/common_app_bar_text_size"
             app:layout_constraintLeft_toRightOf="@id/separator"
             app:layout_constraintRight_toLeftOf="@id/menu"
-            tools:text="제목" />
+            tools:text="제목"
+            android:textColor="@color/black121212"/>
 
         <LinearLayout
             android:id="@+id/menu"

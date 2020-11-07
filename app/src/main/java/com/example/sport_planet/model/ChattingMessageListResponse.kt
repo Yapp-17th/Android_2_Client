@@ -11,8 +11,8 @@ data class ChattingMessageListResponse (
     var firstUnreadMessageId: Int,
     @SerializedName("boardTitle")
     var boardTitle: String,
-    @SerializedName("isApplied")
-    var isApplied: Boolean,
+    @SerializedName("appliedStatus")
+    var appliedStatus: String,
     @SerializedName("data")
     var data: List<ChattingMessageResponse>
 

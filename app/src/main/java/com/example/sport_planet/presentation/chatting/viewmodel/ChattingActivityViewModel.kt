@@ -108,9 +108,9 @@ class ChattingActivityViewModel : BaseViewModel() {
         compositeDisposable.add(
             remoteDataSourceImpl.approveBoard(boardId, approveBoardObject)
                 .subscribe({
-                    Log.d("테스트-승인", it.toString())
+                    Log.d("테스트 성공-승인", it.toString()+" "+boardId+" "+chatRoomId+" "+guestId)
                 },{
-                    Log.d("테스트-승인", it.toString())
+                    Log.d("테스트 성공-실패", it.toString()+" "+boardId+" "+chatRoomId+" "+guestId)
                 })
         )
     }

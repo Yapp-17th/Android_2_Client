@@ -7,15 +7,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.model.ChattingRoomListResponse
+import com.example.sport_planet.model.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
 import kotlinx.android.synthetic.main.activity_chatting.*
+import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
+import java.lang.IllegalArgumentException
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting) {
 
+    private lateinit var chatRoomInfo: ChattingRoomListResponse.Data
     private val chattingAdapter = ChattingAdapter()
     private val chattingActivityViewModel: ChattingActivityViewModel
          by lazy {
@@ -25,21 +29,17 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val chatRoomInfo = intent.getParcelableExtra<ChattingRoomListResponse.Data>("chattingRoomInfo")
+        chatRoomInfo = intent.getParcelableExtra("chattingRoomInfo")!!
 
-        if (chatRoomInfo != null) {
-            ChattingInfo.settingChattingInfo(chatRoomInfo.id)
-        }
+        ChattingInfo.settingChattingInfo(chatRoomInfo.id)
 
         this.runOnUiThread {
             binding.toolbarActivityChatting.run {
-                if (chatRoomInfo != null) {
-                    if (chatRoomInfo.hostId != ChattingInfo.USER_ID)
-                        this.setSeparator(SeparatorEnum.HOST)
-                    else
-                        this.setSeparator(SeparatorEnum.GUEST)
-                    this.title.text = chatRoomInfo.opponentNickname
-                }
+                if (chatRoomInfo.hostId != ChattingInfo.USER_ID)
+                    this.setSeparator(SeparatorEnum.HOST)
+                else
+                    this.setSeparator(SeparatorEnum.GUEST)
+                this.title.text = chatRoomInfo.opponentNickname
             }
         }
 
@@ -53,6 +53,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         chattingActivityViewModel.ChattingMessageListResponseLiveData.observe(this,
             Observer {
                 tv_activity_chatting_board_title.text = it.boardTitle
+                bt_activity_chatting_approval_status.setApprovalStatusButton(approvalStatus(it.appliedStatus))
                 for(chattingMessage in it.data){
                     chattingAdapter.addChattingMessage(chattingMessage)
                     if(it.firstUnreadMessageId == -1)
@@ -71,12 +72,10 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 }
         )
 
-        bt_activity_chatting_approval_status.setOnClickListener {
-            if (chatRoomInfo != null) {
-                when(ChattingInfo.USER_ID){
-                    chatRoomInfo.guestId -> chattingActivityViewModel.applyBoard(chatRoomInfo.boardId, chatRoomInfo.id)
-                    chatRoomInfo.hostId -> chattingActivityViewModel.approveBoard(chatRoomInfo.boardId, chatRoomInfo.id, chatRoomInfo.guestId)
-                }
+        bt_custom_approval_button.setOnClickListener {
+            when(ChattingInfo.USER_ID){
+                chatRoomInfo.guestId -> chattingActivityViewModel.applyBoard(chatRoomInfo.boardId, chatRoomInfo.id)
+                chatRoomInfo.hostId  -> chattingActivityViewModel.approveBoard(chatRoomInfo.boardId, chatRoomInfo.id, chatRoomInfo.guestId)
             }
         }
 
@@ -87,5 +86,23 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         }
 
+    }
+
+    fun approvalStatus(status: String): ApprovalStatusButtonEnum{
+        when(ChattingInfo.USER_ID){
+            chatRoomInfo.guestId -> return when(status){
+                "APPROVED" -> return ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
+                "APPLIED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
+                "PENDING"  -> ApprovalStatusButtonEnum.GUEST_APPLY
+                else -> throw IllegalArgumentException("적절하지 않은 Guest AppliedStatus")
+            }
+            chatRoomInfo.hostId  -> return when(status){
+                "APPROVED" -> ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE
+                "APPLIED"  -> ApprovalStatusButtonEnum.HOST_APPROVE
+                "PENDING"  -> ApprovalStatusButtonEnum.HOST_NONE
+                else -> throw IllegalArgumentException("적절하지 않은 Host AppliedStatus")
+            }
+            else -> throw IllegalArgumentException("적절하지 않은 User Id")
+        }
     }
 }
