@@ -29,7 +29,7 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
     }
 
     inner class Holder(private val binding: ItemChattingRoomBinding): RecyclerView.ViewHolder(binding.root){
-        @SuppressLint("ResourceAsColor")
+        @SuppressLint("ResourceAsColor", "SetTextI18n")
         fun bind(chattingRoom: ChattingRoomListResponse.Data){
 
             if (chattingRoom.unreadMessages == 0)

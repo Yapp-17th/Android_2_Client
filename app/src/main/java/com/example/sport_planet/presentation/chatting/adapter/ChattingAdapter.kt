@@ -53,10 +53,19 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
                 }
 
                 RECEIVED_PROFILE_MESSAGE_VIEW -> {
-
+                    (binding as ItemReceivedProfileMessageBinding).let {
+                        it.tvReceivedProfileMessageSenderNickname.text = chattingMessage.senderNickname
+                        it.tvReceivedProfileMessageNickname.text = chattingMessage.senderNickname
+                        it.tvReceivedProfileMessageIntroduce.text = chattingMessage.content
+                        it.tvReceivedProfileMessageTimestamp.text = chattingMessage.timestamp.formatTo()
+                    }
                 }
                 SENT_PROFILE_MESSAGE_VIEW -> {
-
+                    (binding as ItemSentProfileMessageBinding).let {
+                        it.tvSentProfileMessageNickname.text = chattingMessage.senderNickname
+                        it.tvSentProfileMessageIntroduce.text = chattingMessage.content
+                        it.tvSentProfileMessageTimestamp.text = chattingMessage.timestamp.formatTo()
+                    }
                 }
 
                 RECEIVED_TALK_MESSAGE_VIEW -> {
@@ -87,9 +96,17 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
         when(messageType){
 
             ChattingConstant.CHAT_BOT_TYPE -> BOT_MESSAGE_VIEW
+
+            ChattingConstant.PROFILE_TYPE -> {
+                return when(messageSender){
+                    ChattingInfo.USER_ID -> SENT_PROFILE_MESSAGE_VIEW
+                    else -> RECEIVED_PROFILE_MESSAGE_VIEW
+                }
+            }
+
             ChattingConstant.TALK_TYPE -> {
                 return when(messageSender){
-                    ChattingInfo.USER_ID.toLong() -> SENT_TALK_MESSAGE_VIEW
+                    ChattingInfo.USER_ID -> SENT_TALK_MESSAGE_VIEW
                     else -> RECEIVED_TALK_MESSAGE_VIEW
                 }
             }
