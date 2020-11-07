@@ -1,6 +1,8 @@
 package com.example.sport_planet.presentation.home
 
-import android.view.*
+import android.view.ContextMenu
+import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentHomeBinding
@@ -8,6 +10,7 @@ import com.example.sport_planet.model.enums.MenuEnum
 import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.home.adapter.HomeRecyclerAdapter
+import com.example.sport_planet.remote.RemoteDataSourceImpl
 
 
 class HomeFragment private constructor() :
@@ -17,12 +20,17 @@ class HomeFragment private constructor() :
     }
 
     override val viewModel: HomeViewModel
-            by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
+            by lazy {
+                ViewModelProvider(
+                    this,
+                    HomeViewModelFactory(RemoteDataSourceImpl())
+                ).get(HomeViewModel::class.java)
+            }
 
 
     override fun init() {
         activity?.runOnUiThread {
-            binding.toolbar?.run {
+            binding.toolbar.run {
                 binding.toolbar.setSeparator(SeparatorEnum.GUEST)
                 binding.toolbar.setMenu(MenuEnum.MENU)
             }
@@ -33,6 +41,11 @@ class HomeFragment private constructor() :
         binding.recBoard.adapter = HomeRecyclerAdapter()
 
         registerForContextMenu(binding.clFilterTime)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getWriteList()
     }
 
     override fun onCreateContextMenu(

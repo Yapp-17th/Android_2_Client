@@ -2,6 +2,7 @@ package com.example.sport_planet.remote
 
 //import com.example.sport_planet.model.LoginResponse
 //import com.example.sport_planet.model.ServerCallBackResponse
+import com.example.sport_planet.model.enums.TimeFilterEnum
 import com.example.sport_planet.model.response.*
 import io.reactivex.Single
 import java.util.*
@@ -25,10 +26,10 @@ interface RemoteDataSource {
     ): Single<CommonResponse>
 
     fun getBoardList(
-        page: Int,
-        sorting: String,
-        category: Long,
-        city: Long
+        page: Int = 0,
+        sorting: String = TimeFilterEnum.TIME_LATEST.text,
+        category: Long = 0,
+        city: Long = 0
     ): Single<BoardListResponse>
 
     fun getBoardContent(

@@ -2,11 +2,12 @@ package com.example.sport_planet.remote
 
 //import com.example.sport_planet.model.LoginResponse
 //import com.example.sport_planet.model.ServerCallBackResponse
+import com.example.sport_planet.model.enums.TimeFilterEnum
 import com.example.sport_planet.model.request.BookMarkRequest
+import com.example.sport_planet.model.request.PostBoardIdRequest
 import com.example.sport_planet.model.request.PostBoardRequest
 import com.example.sport_planet.model.request.ReportRequest
 import com.example.sport_planet.model.response.*
-import com.example.sport_planet.util.Constants
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -28,7 +29,7 @@ interface Api {
     @GET("/v1/board")
     fun getBoardList(
         @Query("page") page: Int = 0,
-        @Query("sorting") sorting: String = Constants.TIME_LATEST,
+        @Query("sorting") sorting: String = TimeFilterEnum.TIME_LATEST.text,
         @Query("category") category: Long,
         @Query("city") city: Long
     ): Single<BoardListResponse>
@@ -47,7 +48,7 @@ interface Api {
     fun editBoard(
         @Path("boardId") boardId: Long,
         @Body body: PostBoardRequest
-    ): Single<CommonResponse>
+    ): Single<BoardContentResponse>
 
     @POST("/v1/board/bookmark")
     fun createBookMark(
@@ -60,7 +61,7 @@ interface Api {
     ): Single<CommonResponse>
 
     @POST("/v1/board/hidden")
-    fun hideBoard(@Body body: PostBoardRequest): Single<CommonResponse>
+    fun hideBoard(@Body body: PostBoardIdRequest): Single<CommonResponse>
 
     @POST("/v1/board/report")
     fun reportBoard(@Body body: ReportRequest): Single<CommonResponse>

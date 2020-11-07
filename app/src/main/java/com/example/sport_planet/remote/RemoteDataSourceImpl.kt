@@ -1,8 +1,12 @@
 package com.example.sport_planet.remote
 
-import com.example.sport_planet.model.response.*
 //import com.example.sport_planet.model.LoginResponse
 //import com.example.sport_planet.model.ServerCallBackResponse
+import com.example.sport_planet.model.request.BookMarkRequest
+import com.example.sport_planet.model.request.PostBoardIdRequest
+import com.example.sport_planet.model.request.PostBoardRequest
+import com.example.sport_planet.model.request.ReportRequest
+import com.example.sport_planet.model.response.*
 import com.example.sport_planet.remote.NetworkHelper.api
 import io.reactivex.Single
 import java.util.*
@@ -22,7 +26,18 @@ class RemoteDataSourceImpl : RemoteDataSource {
         date: Date,
         place: String
     ): Single<CommonResponse> {
-        TODO("Not yet implemented")
+        return api.postBoard(
+            PostBoardRequest(
+                title,
+                content,
+                category,
+                city,
+                userTag,
+                recruitNumber,
+                Calendar.getInstance().time,
+                place
+            )
+        )
     }
 
     override fun getBoardList(
@@ -31,15 +46,20 @@ class RemoteDataSourceImpl : RemoteDataSource {
         category: Long,
         city: Long
     ): Single<BoardListResponse> {
-        TODO("Not yet implemented")
+        return api.getBoardList(
+            page,
+            sorting,
+            category,
+            city
+        )
     }
 
     override fun getBoardContent(boardId: Long): Single<BoardContentResponse> {
-        TODO("Not yet implemented")
+        return api.getBoardContent(boardId)
     }
 
     override fun deleteBoard(boardId: Long): Single<CommonResponse> {
-        TODO("Not yet implemented")
+        return api.deleteBoard(boardId)
     }
 
     override fun editBoard(
@@ -53,19 +73,35 @@ class RemoteDataSourceImpl : RemoteDataSource {
         date: Date,
         place: String
     ): Single<BoardContentResponse> {
-        TODO("Not yet implemented")
+        return api.editBoard(
+            boardId,
+            PostBoardRequest(
+                title,
+                content,
+                category,
+                city,
+                userTag,
+                recruitNumber,
+                date,
+                place
+            )
+        )
     }
 
     override fun createBookMark(boardId: Long): Single<CommonResponse> {
-        TODO("Not yet implemented")
+        return api.createBookMark(
+            BookMarkRequest((boardId))
+        )
     }
 
     override fun deleteBookMark(boardId: Long): Single<CommonResponse> {
-        TODO("Not yet implemented")
+        return api.deleteBookMark(boardId)
     }
 
     override fun hideBoard(boardId: Long): Single<CommonResponse> {
-        TODO("Not yet implemented")
+        return api.hideBoard(
+            PostBoardIdRequest(boardId)
+        )
     }
 
     override fun reportBoard(
@@ -73,8 +109,8 @@ class RemoteDataSourceImpl : RemoteDataSource {
         reportType: Long,
         content: String
     ): Single<CommonResponse> {
-        TODO("Not yet implemented")
+        return api.reportBoard(
+            ReportRequest(boardId, reportType, content)
+        )
     }
-
-//    override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> = api.postSignIn(userInfo)
 }
