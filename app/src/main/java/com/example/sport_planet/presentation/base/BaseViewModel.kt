@@ -1,13 +1,12 @@
 package com.example.sport_planet.presentation.base
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
 
 abstract class BaseViewModel : ViewModel() {
     protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private val isLoading = MutableLiveData<Boolean>(false)
+    protected val isLoading: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
 
     override fun onCleared() {
         compositeDisposable.clear()

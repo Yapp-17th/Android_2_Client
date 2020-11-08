@@ -27,7 +27,6 @@ class HomeFragment private constructor() :
                 ).get(HomeViewModel::class.java)
             }
 
-
     override fun init() {
         activity?.runOnUiThread {
             binding.toolbar.run {
