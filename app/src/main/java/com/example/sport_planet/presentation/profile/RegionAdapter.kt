@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemExerciseRegionBinding
 
-class RegionAdapter(private val onClickAction: (String) -> Unit) :
+class RegionAdapter(private val onClickAction: (String,Long) -> Unit) :
     RecyclerView.Adapter<RegionAdapter.RegionViewHolder>() {
     private val items = mutableListOf<String>()
 
@@ -40,7 +40,7 @@ class RegionAdapter(private val onClickAction: (String) -> Unit) :
         init {
             binding.root.setOnClickListener {
                 val item = items[adapterPosition]
-                onClickAction(item)
+                onClickAction(item,adapterPosition+1L)
             }
         }
 
