@@ -14,9 +14,9 @@ data class SignUpResponse(
     @SerializedName("nickName")
     val nickName: String,
     @SerializedName("address")
-    val address: String,
+    val address: Long,
     @SerializedName("category")
-    val category: List<String>,
+    val category: List<Long>,
     @SerializedName("intro")
     val intro: String
 )

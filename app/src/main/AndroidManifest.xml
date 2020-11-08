@@ -27,6 +27,7 @@
         <activity android:name=".presentation.main.MainActivity" />
         <activity android:name=".presentation.splash.IntroActivity" />
         <activity android:name=".presentation.splash.SplashActivity">
+
         </activity>
 
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">

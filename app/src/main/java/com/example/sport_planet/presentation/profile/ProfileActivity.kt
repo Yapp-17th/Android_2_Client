@@ -2,6 +2,7 @@ package com.example.sport_planet.presentation.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -62,13 +63,13 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         viewModel.postSignUpStatus.observe(this, Observer {
             when (it) {
                 200 -> {
-                    showFinishedPopup()
+                    showFinishedPopup(viewModel.postSignUpStatusMessage.value.toString())
                 }
                 400 -> {
-                    showErrorPopup("이미 가입한 사용자입니다.")
+                    showErrorPopup(viewModel.postSignUpStatusMessage.value.toString())
                 }
                 500 -> {
-                    showErrorPopup("중복된 닉네임입니다.")
+                    showErrorPopup(viewModel.postSignUpStatusMessage.value.toString())
                 }
             }
         })
@@ -125,9 +126,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         dialog.show(supportFragmentManager, "")
     }
 
-    private fun showFinishedPopup() {
+    private fun showFinishedPopup(text:String) {
         val dialog = BaseAcceptDialog.newInstance(
-            dialogTitleText = getString(R.string.dialog_show_finished_popup),
+            dialogTitleText = text,
             dialogImage = R.drawable.profile_finish_logo,
             dialogWidthRatio = 0.911111f
         )
@@ -137,6 +138,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 startActivity(intent)
             }
         })
+        dialog.show(supportFragmentManager,"")
     }
 
     private fun getExerciseItem(item: String, idItem: Int) {

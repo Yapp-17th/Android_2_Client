@@ -1,5 +1,6 @@
 package com.example.sport_planet.presentation.profile
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sport_planet.model.ExerciseResponse
@@ -37,6 +38,9 @@ class ProfileViewModel : BaseViewModel() {
 
     private val _postSignUpStatus = MutableLiveData<Int>()
     val postSignUpStatus: LiveData<Int> get() = _postSignUpStatus
+
+    private val _postSignUpStatusMessage = MutableLiveData<String>()
+    val postSignUpStatusMessage: LiveData<String> get() = _postSignUpStatusMessage
 
     val userIntroduceMyself = MutableLiveData<String>()
     val userName = MutableLiveData<String>()
@@ -87,17 +91,18 @@ class ProfileViewModel : BaseViewModel() {
 
     fun postSignUp() {
         val signUpResponse = SignUpResponse(
-            userId.value.toString(),
-            userName.value.toString(),
-            userEmail.value.toString(),
-            userToken.value.toString(),
-            userNickname.value.toString(),
-            userRegion.value.toString(),
-            userExerciseList.value!!,
-            userIntroduceMyself.value.toString()
+            userId = userId.value.toString(),
+            userName = userName.value.toString(),
+            email = userEmail.value.toString(),
+            accessToken = userToken.value.toString(),
+            nickName = userNickname.value.toString(),
+            address = userRegionId.value!!,
+            category = userExerciseIdList.value!!,
+            intro = userIntroduceMyself.value.toString()
         )
         compositeDisposable.add(RemoteDataSourceImpl().postSignUp(signUpResponse).subscribe({
-            _postSignUpStatus.value = it.status
+            _postSignUpStatus.postValue(it.status)
+            _postSignUpStatusMessage.postValue(it.message)
         }, {}))
     }
 }
