@@ -37,18 +37,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                             RemoteDataSourceImpl().postSignIn(
                                 LoginResponse(userToken, userEmail, userNickname, userId)
                             ).subscribe({
-                                Log.e("it",it.message)
                                 when (it.status) {
                                     200 -> {
                                         val intent = Intent(this, MainActivity::class.java)
                                         startActivity(intent)
                                     }
-                                    400 -> {
+                                    404 -> {
+                                        val intent = Intent(this, ProfileActivity::class.java)
                                         intent.putExtra("userToken", userToken)
                                         intent.putExtra("userId", userId)
                                         intent.putExtra("userEmail", userEmail)
                                         intent.putExtra("userNickname", userNickname)
-                                        val intent = Intent(this, ProfileActivity::class.java)
                                         startActivity(intent)
                                     }
                                 }
