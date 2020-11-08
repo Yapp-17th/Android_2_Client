@@ -15,7 +15,6 @@ import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivity
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
-import java.lang.IllegalArgumentException
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting) {
 
@@ -53,15 +52,18 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         chattingActivityViewModel.settingChattingMessageList(ChattingInfo.CHATROOM_ID)
         chattingActivityViewModel.ChattingMessageListResponseLiveData.observe(this,
             Observer {
-                tv_activity_chatting_board_title.text = it.boardTitle
-                bt_activity_chatting_approval_status.setApprovalStatusButton(approvalStatus(it.appliedStatus))
-                for(chattingMessage in it.data){
-                    chattingAdapter.addChattingMessage(chattingMessage)
-                    if(it.firstUnreadMessageId == -1)
-                        rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount)
-                    else
-                        rv_activity_chatting_recyclerview.smoothScrollToPosition(it.firstUnreadMessageId)
+                this.runOnUiThread {
+                    tv_activity_chatting_board_title.text = it.boardTitle
+                    bt_activity_chatting_approval_status.setApprovalStatusButton(approvalStatus(it.appliedStatus))
+                    for (chattingMessage in it.data) {
+                        chattingAdapter.addChattingMessage(chattingMessage)
+                    }
                 }
+                if(it.firstUnreadMessageId == -1)
+                    rv_activity_chatting_recyclerview.scrollToPosition(chattingAdapter.itemCount - 1)
+                else
+                    rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId -1)
+
             }
         )
 
@@ -69,7 +71,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         chattingActivityViewModel.ChattingMessageLiveData.observe(this,
                 Observer {
                     chattingAdapter.addChattingMessage(it)
-                    rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount)
+                    rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
                 }
         )
 
