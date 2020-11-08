@@ -31,18 +31,29 @@ interface Api {
 
     @Headers("Authorization: Bearer $jwt")
     @GET("/v1/chat/room/{chatRoomId}/message")
-    fun getChattingMessageList(@Path("chatRoomId") chatRoomId: Long): Single<ChattingMessageListResponse>
+    fun getChattingMessageList(
+        @Path("chatRoomId") chatRoomId: Long
+    ): Single<ChattingMessageListResponse>
+
+    @Headers("Authorization: Bearer $jwt")
+    @PUT("/v1/chat/room/{chatRoomId}/message/{messageId}")
+    fun makeChattingMessageRead(
+        @Path("chatRoomId") boardId: Long,
+        @Path("messageId") messageId: Long
+    ): Single<MakeChattingMessageReadResponse>
 
     @Headers("Authorization: Bearer $jwt")
     @POST("/v1/board/{boardId}/apply")
-    fun applyBoard(@Path("boardId") boardId: Long,
-                   @Body param: JsonObject
+    fun applyBoard(
+        @Path("boardId") boardId: Long,
+        @Body param: JsonObject
     ): Single<ApplyBoardResponse>
 
     @Headers("Authorization: Bearer $jwt")
     @POST("/v1/board/{boardId}/approve")
-    fun approveBoard(@Path("boardId") boardId: Long,
-                     @Body param: JsonObject
+    fun approveBoard(
+        @Path("boardId") boardId: Long,
+        @Body param: JsonObject
     ): Single<ApplyBoardResponse>
 
 }

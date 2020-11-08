@@ -23,6 +23,8 @@ class ChattingActivityViewModel : BaseViewModel() {
 
     private val remoteDataSourceImpl = RemoteDataSourceImpl()
 
+    private lateinit var chattingMessage: ChattingMessageResponse
+
     private val _ChattingMessageListResponseLiveData = MutableLiveData<ChattingMessageListResponse>()
     val ChattingMessageListResponseLiveData: LiveData<ChattingMessageListResponse>
         get() = _ChattingMessageListResponseLiveData
@@ -48,6 +50,15 @@ class ChattingActivityViewModel : BaseViewModel() {
         )
     }
 
+    fun makeChattingMessageRead(chatRoomId: Long, messageId: Long){
+        compositeDisposable.add(
+            remoteDataSourceImpl.makeChattingMessageRead(chatRoomId, messageId)
+                .subscribe({
+                        Log.d("dd", it.data.isHostRead.toString())
+                },{})
+        )
+    }
+
     fun settingStomp() {
         val url = ChattingConstant.URL
         val intervalMillis = 5000L
@@ -63,7 +74,8 @@ class ChattingActivityViewModel : BaseViewModel() {
                 Event.Type.OPENED -> {
                     topic = stomp.join("/sub/chat/room/" + ChattingInfo.CHATROOM_ID).subscribe {
                         stompMessage ->
-                        val chattingMessage = Klaxon().parse<ChattingMessageResponse>(stompMessage)
+                        chattingMessage = Klaxon().parse<ChattingMessageResponse>(stompMessage)!!
+                        makeChattingMessageRead(ChattingInfo.CHATROOM_ID, chattingMessage.id)
                         _ChattingMessageLiveData.postValue(chattingMessage)
                     }
                 }
@@ -73,6 +85,10 @@ class ChattingActivityViewModel : BaseViewModel() {
                 }
             }
         }
+    }
+
+    fun disposeStomp(){
+        stompConnection.dispose()
     }
 
     fun sendMessage(chattingMessageContent: String){
@@ -94,9 +110,9 @@ class ChattingActivityViewModel : BaseViewModel() {
         compositeDisposable.add(
             remoteDataSourceImpl.applyBoard(boardId, applyBoardObject)
                 .subscribe({
-                    Log.d("테스트-신청", it.toString())
+                    Log.d("테스트 신청 - 성공", it.toString())
             },{
-                    Log.d("테스트-신청", it.toString())
+                    Log.d("테스트 신청 - 실패", it.toString())
                 })
         )
     }
@@ -108,9 +124,9 @@ class ChattingActivityViewModel : BaseViewModel() {
         compositeDisposable.add(
             remoteDataSourceImpl.approveBoard(boardId, approveBoardObject)
                 .subscribe({
-                    Log.d("테스트 성공-승인", it.toString()+" "+boardId+" "+chatRoomId+" "+guestId)
+                    Log.d("테스트 성공 - 승인", it.toString())
                 },{
-                    Log.d("테스트 성공-실패", it.toString()+" "+boardId+" "+chatRoomId+" "+guestId)
+                    Log.d("테스트 성공 - 실패", it.toString())
                 })
         )
     }

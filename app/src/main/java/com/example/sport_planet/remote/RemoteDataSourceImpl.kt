@@ -20,6 +20,8 @@ class RemoteDataSourceImpl : RemoteDataSource{
 
     override fun getChattingMessageList(chatRoomId: Long): Single<ChattingMessageListResponse> = api.getChattingMessageList(chatRoomId)
 
+    override fun makeChattingMessageRead(chatRoomId: Long, messageId: Long): Single<MakeChattingMessageReadResponse> = api.makeChattingMessageRead(chatRoomId, messageId)
+
     override fun applyBoard(boardId: Long, param: JsonObject): Single<ApplyBoardResponse> = api.applyBoard(boardId, param)
 
     override fun approveBoard(boardId: Long, param: JsonObject): Single<ApplyBoardResponse> = api.approveBoard(boardId, param)

@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.databinding.*
 import com.example.sport_planet.model.ChattingMessageResponse
+import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.ChattingInfo
 import com.example.sport_planet.util.Util.formatTo
 import java.lang.IllegalArgumentException
 import kotlin.collections.ArrayList
 
-class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
+class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
 
     private val BOT_MESSAGE_VIEW = 0
@@ -30,6 +31,13 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
         chattingMessages.add(message)
         notifyDataSetChanged()
     }
+
+    /*
+    fun settingChattingMessage(message: ArrayList<ChattingMessageResponse>){
+        chattingMessages = message
+        notifyDataSetChanged()
+    }
+    */
 
     inner class Holder(val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -79,6 +87,16 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
                     (binding as ItemSentTalkMessageBinding).let {
                         it.tvSentTalkMessageContent.text = chattingMessage.content
                         it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp.formatTo()
+                        when(ChattingInfo.USER_ID){
+                            chatRoomInfo.hostId -> {
+                                if(!chattingMessage.isGuestRead)
+                                  it.tvSentTalkMessageIsread.text = "1"
+                            }
+                            chatRoomInfo.guestId -> {
+                                if(!chattingMessage.isHostRead)
+                                  it.tvSentTalkMessageIsread.text = "1"
+                            }
+                        }
                     }
                 }
 

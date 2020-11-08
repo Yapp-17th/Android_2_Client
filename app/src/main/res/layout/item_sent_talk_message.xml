@@ -40,5 +40,13 @@
             android:textColor="@color/gray9c9c9c"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/tv_sent_talk_message_content"/>
+
+        <TextView
+            android:id="@+id/tv_sent_talk_message_isread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tv_sent_talk_message_timestamp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

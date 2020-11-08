@@ -20,7 +20,7 @@ import java.lang.IllegalArgumentException
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting) {
 
     private lateinit var chatRoomInfo: ChattingRoomListResponse.Data
-    private val chattingAdapter = ChattingAdapter()
+    private lateinit var chattingAdapter: ChattingAdapter
     private val chattingActivityViewModel: ChattingActivityViewModel
          by lazy {
              ViewModelProvider(this).get(ChattingActivityViewModel::class.java)
@@ -30,8 +30,9 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         super.onCreate(savedInstanceState)
 
         chatRoomInfo = intent.getParcelableExtra("chattingRoomInfo")!!
-
         ChattingInfo.settingChattingInfo(chatRoomInfo.id)
+
+        chattingAdapter = ChattingAdapter(chatRoomInfo)
 
         this.runOnUiThread {
             binding.toolbarActivityChatting.run {
@@ -86,6 +87,11 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         }
 
+    }
+
+    override fun onDestroy() {
+        chattingActivityViewModel.disposeStomp()
+        super.onDestroy()
     }
 
     fun approvalStatus(status: String): ApprovalStatusButtonEnum{
