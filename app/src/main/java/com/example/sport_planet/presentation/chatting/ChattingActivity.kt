@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityChattingBinding
+import com.example.sport_planet.model.ChattingMessageResponse
 import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.model.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.model.enums.SeparatorEnum
@@ -55,15 +56,12 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 this.runOnUiThread {
                     tv_activity_chatting_board_title.text = it.boardTitle
                     bt_activity_chatting_approval_status.setApprovalStatusButton(approvalStatus(it.appliedStatus))
-                    for (chattingMessage in it.data) {
-                        chattingAdapter.addChattingMessage(chattingMessage)
-                    }
+                    chattingAdapter.settingChattingMessageList(it.data as ArrayList<ChattingMessageResponse>)
                 }
                 if(it.firstUnreadMessageId == -1)
                     rv_activity_chatting_recyclerview.scrollToPosition(chattingAdapter.itemCount - 1)
                 else
                     rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId -1)
-
             }
         )
 

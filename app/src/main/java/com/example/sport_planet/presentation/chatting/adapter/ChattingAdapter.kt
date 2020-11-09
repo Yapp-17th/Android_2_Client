@@ -27,17 +27,15 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
 
     private var chattingMessages = ArrayList<ChattingMessageResponse>()
 
-    fun addChattingMessage(message: ChattingMessageResponse){
-        chattingMessages.add(message)
+    fun settingChattingMessageList(chattingMessageList: ArrayList<ChattingMessageResponse>){
+        chattingMessages = chattingMessageList
         notifyDataSetChanged()
     }
 
-    /*
-    fun settingChattingMessage(message: ArrayList<ChattingMessageResponse>){
-        chattingMessages = message
+    fun addChattingMessage(chattingMessage: ChattingMessageResponse){
+        chattingMessages.add(chattingMessage)
         notifyDataSetChanged()
     }
-    */
 
     inner class Holder(val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root){
 
