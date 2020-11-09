@@ -22,8 +22,8 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
 
     private var chattingRooms = ArrayList<ChattingRoomListResponse.Data>()
 
-    fun addChattingRoom(room: ChattingRoomListResponse.Data){
-        chattingRooms.add(room)
+    fun settingChattingRoomList(chattingRoomList: ArrayList<ChattingRoomListResponse.Data>){
+        chattingRooms = chattingRoomList
         chattingRooms.sortByDescending { chattingRoom -> chattingRoom.lastMessage.timestamp }
         notifyDataSetChanged()
     }
