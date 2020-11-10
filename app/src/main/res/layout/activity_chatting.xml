@@ -30,7 +30,6 @@
                 android:id="@+id/tv_activity_chatting_board_title"
                 android:layout_width="@dimen/activity_chatting_board_title_maxwidth_166dp"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_chatting_board_title"
                 style="@style/regular_basic_14sp"
                 android:textColor="@color/black121212"
                 android:singleLine="true"
