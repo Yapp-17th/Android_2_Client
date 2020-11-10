@@ -12,8 +12,6 @@ import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.ChattingInfo
 import com.example.sport_planet.util.Util.formatTo
-import java.lang.IllegalArgumentException
-import kotlin.collections.ArrayList
 
 class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
@@ -85,16 +83,22 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
                     (binding as ItemSentTalkMessageBinding).let {
                         it.tvSentTalkMessageContent.text = chattingMessage.content
                         it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp.formatTo()
+
                         when(ChattingInfo.USER_ID){
                             chatRoomInfo.hostId -> {
                                 if(!chattingMessage.isGuestRead)
                                   it.tvSentTalkMessageIsread.text = "1"
+                                else
+                                  it.tvSentTalkMessageIsread.text = null
                             }
                             chatRoomInfo.guestId -> {
                                 if(!chattingMessage.isHostRead)
                                   it.tvSentTalkMessageIsread.text = "1"
+                                else
+                                  it.tvSentTalkMessageIsread.text = null
                             }
                         }
+
                     }
                 }
 
@@ -156,6 +160,7 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        //holder.setIsRecyclable(false)
         holder.bind(chattingMessages[position])
     }
 
