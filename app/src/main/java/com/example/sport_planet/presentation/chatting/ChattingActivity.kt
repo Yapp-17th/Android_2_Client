@@ -13,11 +13,15 @@ import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
+import com.example.sport_planet.util.KeyboardVisibilityUtils
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
+
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting) {
+
+    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
     private lateinit var chatRoomInfo: ChattingRoomListResponse.Data
     private lateinit var chattingAdapter: ChattingAdapter
@@ -28,6 +32,13 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        keyboardVisibilityUtils = KeyboardVisibilityUtils(window,
+            onShowKeyboard = { keyboardHeight ->
+                rv_activity_chatting_recyclerview.run {
+                    scrollBy(scrollX, scrollY + keyboardHeight)
+                }
+            })
 
         chatRoomInfo = intent.getParcelableExtra("chattingRoomInfo")!!
         ChattingInfo.settingChattingInfo(chatRoomInfo.id)
@@ -91,6 +102,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     override fun onDestroy() {
         chattingActivityViewModel.disposeStomp()
+        keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroy()
     }
 
