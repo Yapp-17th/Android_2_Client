@@ -9,7 +9,7 @@ import com.example.sport_planet.model.ChattingMessageListResponse
 import com.example.sport_planet.model.ChattingMessageResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingConstant
-import com.example.sport_planet.presentation.chatting.ChattingInfo
+import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.gmail.bishoybasily.stomp.lib.Event
 import com.gmail.bishoybasily.stomp.lib.StompClient
@@ -18,6 +18,7 @@ import okhttp3.OkHttpClient
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
+import kotlin.properties.Delegates
 
 class ChattingActivityViewModel : BaseViewModel() {
 
@@ -33,10 +34,15 @@ class ChattingActivityViewModel : BaseViewModel() {
     val ChattingMessageLiveData: LiveData<ChattingMessageResponse>
         get() = _ChattingMessageLiveData
 
+    private val _ApprovalStatusLiveData = MutableLiveData<String>()
+    val ApprovalStatusLiveData: LiveData<String>
+        get() = _ApprovalStatusLiveData
+
     private lateinit var stomp: StompClient
     private lateinit var stompConnection: Disposable
     private lateinit var topic: Disposable
 
+    private var chatRoomId by Delegates.notNull<Long>()
     private var chattingMessageJsonObject = JSONObject()
 
     fun settingChattingMessageList(chatRoomId: Long){
@@ -44,6 +50,7 @@ class ChattingActivityViewModel : BaseViewModel() {
             remoteDataSourceImpl.getChattingMessageList(chatRoomId)
                 .subscribe({
                     it.run {
+                        _ApprovalStatusLiveData.postValue(it.appliedStatus)
                         _ChattingMessageListResponseLiveData.postValue(it)
                     }
                 },{})
@@ -54,12 +61,11 @@ class ChattingActivityViewModel : BaseViewModel() {
         compositeDisposable.add(
             remoteDataSourceImpl.makeChattingMessageRead(chatRoomId, messageId)
                 .subscribe({
-                        Log.d("dd", it.data.isHostRead.toString())
                 },{})
         )
     }
 
-    fun settingStomp() {
+    fun settingStomp(chatRoomId: Long, hostId: Long) {
         val url = ChattingConstant.URL
         val intervalMillis = 5000L
         val client = OkHttpClient.Builder()
@@ -68,15 +74,25 @@ class ChattingActivityViewModel : BaseViewModel() {
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .build()
 
+        this.chatRoomId = chatRoomId
+
         stomp = StompClient(client, intervalMillis).apply { this@apply.url = url }
         stompConnection = stomp.connect().subscribe {
             when (it.type) {
                 Event.Type.OPENED -> {
-                    topic = stomp.join("/sub/chat/room/" + ChattingInfo.CHATROOM_ID).subscribe {
+                    topic = stomp.join("/sub/chat/room/${this.chatRoomId}").subscribe {
                         stompMessage ->
                         chattingMessage = Klaxon().parse<ChattingMessageResponse>(stompMessage)!!
-                        makeChattingMessageRead(ChattingInfo.CHATROOM_ID, chattingMessage.id)
-                        _ChattingMessageLiveData.postValue(chattingMessage)
+                        when(chattingMessage.realTimeUpdateType) {
+                            "APPLIED" -> _ApprovalStatusLiveData.postValue("APPLIED")
+                            "APPROVED" -> _ApprovalStatusLiveData.postValue("APPROVED")
+                            "DISAPPROVED" -> _ApprovalStatusLiveData.postValue("APPLIED")
+                            else -> {
+                                makeChattingMessageRead(this.chatRoomId, chattingMessage.id!!)
+                                _ChattingMessageLiveData.postValue(chattingMessage)
+                            }
+                        }
+
                     }
                 }
                 Event.Type.CLOSED -> {
@@ -95,8 +111,8 @@ class ChattingActivityViewModel : BaseViewModel() {
         try {
             chattingMessageJsonObject.put("content", chattingMessageContent)
             chattingMessageJsonObject.put("type", ChattingConstant.TALK_TYPE)
-            chattingMessageJsonObject.put("senderId", ChattingInfo.USER_ID)
-            chattingMessageJsonObject.put("chatRoomId", ChattingInfo.CHATROOM_ID)
+            chattingMessageJsonObject.put("senderId", UserInfo.USER_ID)
+            chattingMessageJsonObject.put("chatRoomId", this.chatRoomId)
 
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -110,23 +126,37 @@ class ChattingActivityViewModel : BaseViewModel() {
         compositeDisposable.add(
             remoteDataSourceImpl.applyBoard(boardId, applyBoardObject)
                 .subscribe({
-                    Log.d("테스트 신청 - 성공", it.toString())
+                    Log.d("신청 성공: ", it.toString())
             },{
-                    Log.d("테스트 신청 - 실패", it.toString())
+                    Log.d("신청 실패: ", it.toString())
                 })
         )
     }
 
     fun approveBoard(boardId: Long, chatRoomId: Long, guestId: Long){
         val approveBoardObject = JsonObject()
-        approveBoardObject.put("chatRoomId", chatRoomId)
-        approveBoardObject.put("guestId", guestId)
+        approveBoardObject["chatRoomId"] = chatRoomId
+        approveBoardObject["guestId"] = guestId
         compositeDisposable.add(
             remoteDataSourceImpl.approveBoard(boardId, approveBoardObject)
                 .subscribe({
-                    Log.d("테스트 성공 - 승인", it.toString())
+                    Log.d("승인 성공: ", it.toString())
                 },{
-                    Log.d("테스트 성공 - 실패", it.toString())
+                    Log.d("승인 실패: ", it.toString())
+                })
+        )
+    }
+
+    fun disapproveBoard(boardId: Long, chatRoomId: Long, guestId: Long){
+        val disapproveBoardObject = JsonObject()
+        disapproveBoardObject["chatRoomId"] = chatRoomId
+        disapproveBoardObject["guestId"] = guestId
+        compositeDisposable.add(
+            remoteDataSourceImpl.disapproveBoard(boardId, disapproveBoardObject)
+                .subscribe({
+                    Log.d("취소 성공: ", it.toString())
+                },{
+                    Log.d("취소 실패: ", it.toString())
                 })
         )
     }

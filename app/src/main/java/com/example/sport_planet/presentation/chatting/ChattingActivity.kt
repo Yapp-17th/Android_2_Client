@@ -44,13 +44,12 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             })
 
         chatRoomInfo = intent.getParcelableExtra("chattingRoomInfo")!!
-        ChattingInfo.settingChattingInfo(chatRoomInfo.id)
 
         chattingAdapter = ChattingAdapter(chatRoomInfo)
 
         this.runOnUiThread {
             binding.toolbarActivityChatting.run {
-                if (chatRoomInfo.hostId != ChattingInfo.USER_ID)
+                if (chatRoomInfo.hostId != UserInfo.USER_ID)
                     this.setSeparator(SeparatorEnum.HOST)
                 else
                     this.setSeparator(SeparatorEnum.GUEST)
@@ -64,13 +63,11 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             setHasFixedSize(true)
         }
 
-        chattingActivityViewModel.settingChattingMessageList(ChattingInfo.CHATROOM_ID)
+        chattingActivityViewModel.settingChattingMessageList(chatRoomInfo.id)
         chattingActivityViewModel.ChattingMessageListResponseLiveData.observe(this,
             Observer {
                 this.runOnUiThread {
                     tv_activity_chatting_board_title.text = it.boardTitle
-                    approvalStatusEnum = approvalStatus(it.appliedStatus)
-                    bt_activity_chatting_approval_status.setApprovalStatusButton(approvalStatusEnum)
                     chattingAdapter.settingChattingMessageList(it.data as ArrayList<ChattingMessageResponse>)
                 }
                 if(it.firstUnreadMessageId == -1)
@@ -80,18 +77,27 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         )
 
-        chattingActivityViewModel.settingStomp()
+        chattingActivityViewModel.settingStomp(chatRoomInfo.id, chatRoomInfo.hostId)
         chattingActivityViewModel.ChattingMessageLiveData.observe(this,
-                Observer {
-                    chattingAdapter.addChattingMessage(it)
-                    rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
-                }
+            Observer {
+                chattingAdapter.addChattingMessage(it)
+                rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
+            }
+        )
+
+        chattingActivityViewModel.ApprovalStatusLiveData.observe(this,
+            Observer {
+                approvalStatusEnum = approvalStatus(it)
+                bt_activity_chatting_approval_status.setApprovalStatusButton(approvalStatusEnum)
+            }
         )
 
         bt_custom_approval_button.setOnClickListener {
             when(approvalStatusEnum){
                 ApprovalStatusButtonEnum.GUEST_APPLY -> chattingActivityViewModel.applyBoard(chatRoomInfo.boardId, chatRoomInfo.id)
                 ApprovalStatusButtonEnum.HOST_APPROVE -> chattingActivityViewModel.approveBoard(chatRoomInfo.boardId, chatRoomInfo.id, chatRoomInfo.guestId)
+                ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE -> { chattingActivityViewModel.disapproveBoard(chatRoomInfo.boardId, chatRoomInfo.id, chatRoomInfo.guestId)
+                }
                 else -> bt_custom_approval_button.isEnabled = false
             }
         }
@@ -112,14 +118,14 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
     }
 
     fun approvalStatus(status: String): ApprovalStatusButtonEnum{
-        when(ChattingInfo.USER_ID){
-            chatRoomInfo.guestId -> return when(status){
-                "APPROVED" -> return ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
+        return when(UserInfo.USER_ID){
+            chatRoomInfo.guestId -> when(status){
+                "APPROVED" -> ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
                 "APPLIED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
                 "PENDING"  -> ApprovalStatusButtonEnum.GUEST_APPLY
                 else -> throw IllegalArgumentException("적절하지 않은 Guest AppliedStatus")
             }
-            chatRoomInfo.hostId  -> return when(status){
+            chatRoomInfo.hostId  -> when(status){
                 "APPROVED" -> ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE
                 "APPLIED"  -> ApprovalStatusButtonEnum.HOST_APPROVE
                 "PENDING"  -> ApprovalStatusButtonEnum.HOST_NONE
