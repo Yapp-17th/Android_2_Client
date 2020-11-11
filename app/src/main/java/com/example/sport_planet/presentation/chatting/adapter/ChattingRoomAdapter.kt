@@ -14,7 +14,7 @@ import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemChattingRoomBinding
 import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.ChattingActivity
-import com.example.sport_planet.presentation.chatting.ChattingInfo
+import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.util.Util.formatTo
 import kotlin.collections.ArrayList
 
@@ -35,13 +35,13 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
             if (chattingRoom.unreadMessages == 0)
                 binding.ivChattingRoomUnreadMessage.visibility = View.INVISIBLE
 
-            if(chattingRoom.hostId != ChattingInfo.USER_ID ){
+            if(chattingRoom.hostId != UserInfo.USER_ID ){
                 binding.tvChattingRoomPosition.text = "Host"
                 binding.tvChattingRoomPosition.setTextColor(ContextCompat.getColor(context, R.color.pink))
             }
 
             binding.tvChattingRoomNickname.text = chattingRoom.opponentNickname
-            binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage.timestamp.formatTo()
+            binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage.timestamp!!.formatTo()
             binding.tvChattingRoomLastMessageContent.text = chattingRoom.lastMessage.content
             binding.layoutChattingRoomItem.setOnClickListener {
 
