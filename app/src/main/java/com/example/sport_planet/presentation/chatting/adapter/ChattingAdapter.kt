@@ -10,7 +10,7 @@ import com.example.sport_planet.databinding.*
 import com.example.sport_planet.model.ChattingMessageResponse
 import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.ChattingConstant
-import com.example.sport_planet.presentation.chatting.ChattingInfo
+import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.util.Util.formatTo
 
 class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : RecyclerView.Adapter<ChattingAdapter.Holder>()
@@ -46,7 +46,7 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
                 BOT_MESSAGE_VIEW->{
                     (binding as ItemChatBotMessageBinding).let {
                         it.tvChatBotMessageContent.text = chattingMessage.content
-                        it.tvChatBotMessageTimestamp.text = chattingMessage.timestamp.formatTo()
+                        it.tvChatBotMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
                     }
                 }
 
@@ -61,14 +61,14 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
                         it.tvReceivedProfileMessageSenderNickname.text = chattingMessage.senderNickname
                         it.tvReceivedProfileMessageNickname.text = chattingMessage.senderNickname
                         it.tvReceivedProfileMessageIntroduce.text = chattingMessage.content
-                        it.tvReceivedProfileMessageTimestamp.text = chattingMessage.timestamp.formatTo()
+                        it.tvReceivedProfileMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
                     }
                 }
                 SENT_PROFILE_MESSAGE_VIEW -> {
                     (binding as ItemSentProfileMessageBinding).let {
                         it.tvSentProfileMessageNickname.text = chattingMessage.senderNickname
                         it.tvSentProfileMessageIntroduce.text = chattingMessage.content
-                        it.tvSentProfileMessageTimestamp.text = chattingMessage.timestamp.formatTo()
+                        it.tvSentProfileMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
                     }
                 }
 
@@ -76,14 +76,14 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
                     (binding as ItemReceivedTalkMessageBinding).let {
                         it.tvReceivedTalkMessageSenderNickname.text = chattingMessage.senderNickname
                         it.tvReceivedTalkMessageContent.text = chattingMessage.content
-                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.timestamp.formatTo()
+                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
                     }
                 }
                 SENT_TALK_MESSAGE_VIEW -> {
                     (binding as ItemSentTalkMessageBinding).let {
                         it.tvSentTalkMessageContent.text = chattingMessage.content
-                        it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp.formatTo()
-
+                        it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
+/*
                         when(ChattingInfo.USER_ID){
                             chatRoomInfo.hostId -> {
                                 if(!chattingMessage.isGuestRead)
@@ -97,7 +97,9 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
                                 else
                                   it.tvSentTalkMessageIsread.text = null
                             }
+
                         }
+ */
 
                     }
                 }
@@ -119,14 +121,14 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
 
             ChattingConstant.PROFILE_TYPE -> {
                 return when(messageSender){
-                    ChattingInfo.USER_ID -> SENT_PROFILE_MESSAGE_VIEW
+                    UserInfo.USER_ID -> SENT_PROFILE_MESSAGE_VIEW
                     else -> RECEIVED_PROFILE_MESSAGE_VIEW
                 }
             }
 
             ChattingConstant.TALK_TYPE -> {
                 return when(messageSender){
-                    ChattingInfo.USER_ID -> SENT_TALK_MESSAGE_VIEW
+                    UserInfo.USER_ID -> SENT_TALK_MESSAGE_VIEW
                     else -> RECEIVED_TALK_MESSAGE_VIEW
                 }
             }

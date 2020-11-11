@@ -10,27 +10,30 @@ data class ChattingMessageResponse (
 
     @SerializedName("id")
     @Json(name = "id")
-    val id: Long,
+    val id: Long?,
     @SerializedName("content")
     @Json(name = "content")
-    val content: String,
+    val content: String?,
     @SerializedName("type")
     @Json(name = "type")
-    val type: String,
+    val type: String?,
+    @SerializedName("realTimeUpdateType")
+    @Json(name = "realTimeUpdateType")
+    val realTimeUpdateType: String,
     @SerializedName("isHostRead")
     @Json(name = "isHostRead")
-    val isHostRead: Boolean,
+    val isHostRead: Boolean?,
     @SerializedName("isGuestRead")
     @Json(name = "isGuestRead")
-    val isGuestRead: Boolean,
+    val isGuestRead: Boolean?,
     @SerializedName("senderId")
     @Json(name = "senderId")
-    val senderId: Long,
+    val senderId: Long?,
     @SerializedName("senderNickname")
     @Json(name = "senderNickname")
-    val senderNickname: String,
+    val senderNickname: String?,
     @SerializedName("createdAt")
     @Json(name = "createdAt")
-    val timestamp: String
+    val timestamp: String?
 
 ): Parcelable
