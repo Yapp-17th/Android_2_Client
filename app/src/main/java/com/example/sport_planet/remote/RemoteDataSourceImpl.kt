@@ -25,4 +25,6 @@ class RemoteDataSourceImpl : RemoteDataSource{
     override fun applyBoard(boardId: Long, param: JsonObject): Single<ApplyBoardResponse> = api.applyBoard(boardId, param)
 
     override fun approveBoard(boardId: Long, param: JsonObject): Single<ApplyBoardResponse> = api.approveBoard(boardId, param)
+
+    override fun disapproveBoard(boardId: Long, param: JsonObject): Single<ApplyBoardResponse> = api.disapproveBoard(boardId, param)
 }

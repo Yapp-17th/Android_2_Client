@@ -23,5 +23,7 @@ interface RemoteDataSource{
 
     fun approveBoard(boardId:Long, param: JsonObject) : Single<ApplyBoardResponse>
 
+    fun disapproveBoard(boardId:Long, param: JsonObject) : Single<ApplyBoardResponse>
+
     //fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse>
 }

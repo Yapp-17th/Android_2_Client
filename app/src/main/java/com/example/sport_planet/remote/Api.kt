@@ -56,4 +56,11 @@ interface Api {
         @Body param: JsonObject
     ): Single<ApplyBoardResponse>
 
+    @Headers("Authorization: Bearer $jwt")
+    @HTTP(method = "DELETE", path = "/v1/board/{boardId}/approve", hasBody = true)
+    fun disapproveBoard(
+        @Path("boardId") boardId: Long,
+        @Body param: JsonObject
+    ): Single<ApplyBoardResponse>
+
 }
