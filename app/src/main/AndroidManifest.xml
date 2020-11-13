@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".presentation.chatting.ChattingActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge"></activity>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge"
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".presentation.filter.FilterActivity"></activity>
         <activity android:name=".presentation.profile.ExerciseDialog"
             tools:ignore="Instantiatable"></activity>

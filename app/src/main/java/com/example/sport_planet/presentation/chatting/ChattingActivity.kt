@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.chatting
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,19 +14,18 @@ import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
-import com.example.sport_planet.util.KeyboardVisibilityUtils
-import com.example.sport_planet.util.Util
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 
-class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting) {
-
-    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
+class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting){
 
     private lateinit var chatRoomInfo: ChattingRoomListResponse.Data
     private lateinit var chattingAdapter: ChattingAdapter
+
+    private lateinit var layoutChangeListener: View.OnLayoutChangeListener
+
     private val chattingActivityViewModel: ChattingActivityViewModel
          by lazy {
              ViewModelProvider(this).get(ChattingActivityViewModel::class.java)
@@ -36,16 +36,21 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        keyboardVisibilityUtils = KeyboardVisibilityUtils(window,
-            onShowKeyboard = { keyboardHeight ->
-                rv_activity_chatting_recyclerview.run {
-                    scrollBy(scrollX, scrollY - Util.dpToPx(this@ChattingActivity, 44F).toInt() + keyboardHeight)
-                }
-            })
-
         chatRoomInfo = intent.getParcelableExtra("chattingRoomInfo")!!
 
         chattingAdapter = ChattingAdapter(chatRoomInfo)
+
+        layoutChangeListener = View.OnLayoutChangeListener { view, left, top, right, bottom, oldleft, oldtop, oldright, oldbottom->
+
+            if (oldbottom != 0) {
+                if (rv_activity_chatting_recyclerview.canScrollVertically(0)) {
+                    val pixelsToScrollVertically: Int = oldbottom - bottom
+                    rv_activity_chatting_recyclerview.scrollBy(0, pixelsToScrollVertically)
+                }
+            }
+        }
+
+        rv_activity_chatting_recyclerview.addOnLayoutChangeListener(layoutChangeListener)
 
         this.runOnUiThread {
             binding.toolbarActivityChatting.run {
@@ -112,8 +117,8 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
     }
 
     override fun onDestroy() {
+        rv_activity_chatting_recyclerview.removeOnLayoutChangeListener(layoutChangeListener)
         chattingActivityViewModel.disposeStomp()
-        keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroy()
     }
 
