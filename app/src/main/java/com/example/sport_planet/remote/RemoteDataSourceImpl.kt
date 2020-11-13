@@ -1,18 +1,19 @@
 package com.example.sport_planet.remote
 
-import com.beust.klaxon.JsonObject
 import com.example.sport_planet.model.*
-//import com.example.sport_planet.model.LoginResponse
-//import com.example.sport_planet.model.ServerCallBackResponse
+import com.beust.klaxon.JsonObject
 import com.example.sport_planet.remote.NetworkHelper.api
+import com.example.sport_planet.remote.NetworkHelper.api2
 import io.reactivex.Single
 
 class RemoteDataSourceImpl : RemoteDataSource{
-    override fun getExercise(): Single<ExerciseResponse> = api.getExercise()
+    override fun getExercise(): Single<ExerciseResponse> = api2.getExercise()
 
-    override fun getRegion(): Single<RegionResponse> = api.getRegion()
+    override fun getRegion(): Single<RegionResponse> = api2.getRegion()
 
-    //override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> = api.postSignIn(userInfo)
+    override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> = api.postSignIn(userInfo)
+
+    override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> = api.postSignUp(userSignUp)
 
     override fun makeChattingRoom(param: JsonObject): Single<MakeChattingRoomResponse> = api.makeChattingRoom(param)
 
