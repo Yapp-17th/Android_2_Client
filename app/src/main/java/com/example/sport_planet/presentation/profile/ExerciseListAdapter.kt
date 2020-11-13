@@ -8,7 +8,7 @@ import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemExerciseListBinding
 import kotlinx.android.synthetic.main.item_exercise_list.view.*
 
-class ExerciseListAdapter(private val onClickAction: (String) -> Unit) :
+class ExerciseListAdapter(private val onClickAction: (String,Int) -> Unit) :
     RecyclerView.Adapter<ExerciseListAdapter.ExerciseListViewHolder>() {
     private val items = mutableListOf<String>()
 
@@ -39,9 +39,10 @@ class ExerciseListAdapter(private val onClickAction: (String) -> Unit) :
         init {
             binding.root.iv_x.setOnClickListener {
                 val item = items[adapterPosition]
+                val id = adapterPosition
                 items.remove(item)
                 notifyDataSetChanged()
-                onClickAction(item)
+                onClickAction(item,id)
             }
         }
 
