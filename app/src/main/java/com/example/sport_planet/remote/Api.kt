@@ -61,5 +61,5 @@ interface Api {
     @POST("/v1/user/my-profile/history/evaluate/report")
     fun postEvaluateReport(@Body evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse>
 
-    
+
 }

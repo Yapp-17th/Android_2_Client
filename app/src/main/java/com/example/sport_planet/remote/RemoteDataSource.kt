@@ -1,14 +1,41 @@
 package com.example.sport_planet.remote
 
+import com.example.sport_planet.data.request.EvaluateReportRequest
+import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
 import io.reactivex.Single
 
-interface RemoteDataSource{
-    fun getExercise() : Single<ExerciseResponse>
+interface RemoteDataSource {
+    fun getExercise(): Single<ExerciseResponse>
 
-    fun getRegion() : Single<RegionResponse>
+    fun getRegion(): Single<RegionResponse>
 
     fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse>
 
     fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse>
+
+    fun getMyProfile(): Single<ServerCallBackResponse>
+
+    fun putMyProfile(myViewEditRequest: MyViewEditRequest): Single<ServerCallBackResponse>
+
+    fun getViewHistory(userId: Long): Single<HistoryResponse>
+
+    fun getMyViewHistory(): Single<MyViewHistoryResponse>
+
+    fun getOthersHistory(userId: Long): Single<OtherHistoryResponse>
+
+    fun getBookMarks(): Single<MyBookMarksResponse>
+
+    fun getApplyList(boardId: Long): Single<ApplyListResponse>
+
+    fun getEvaluateList(boardId: Long): Single<EvaluateListResponse>
+
+    fun putEvaluateIsLike(
+        boardId: Long,
+        userId: Long,
+        isLike: Boolean
+    ): Single<ServerCallBackResponse>
+
+    fun postEvaluateReport(evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse>
+
 }
