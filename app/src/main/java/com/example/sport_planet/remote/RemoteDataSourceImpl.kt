@@ -18,7 +18,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
     override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> =
         api.postSignUp(userSignUp)
 
-    override fun getMyProfile(): Single<ServerCallBackResponse> = api2.getMyProfile()
+    override fun getMyProfile(): Single<HistoryResponse> = api2.getMyProfile()
 
     override fun putMyProfile(myViewEditRequest: MyViewEditRequest): Single<ServerCallBackResponse> =
         api2.putMyProfile(myViewEditRequest)

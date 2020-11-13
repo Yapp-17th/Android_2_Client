@@ -22,7 +22,7 @@ interface Api {
 
     // 마이페이지 API
     @GET("/v1/user/my-profile")
-    fun getMyProfile(): Single<ServerCallBackResponse>
+    fun getMyProfile(): Single<HistoryResponse>
 
     @PUT("/v1/user/my-profile")
     fun putMyProfile(@Body myViewEditRequest: MyViewEditRequest): Single<ServerCallBackResponse>

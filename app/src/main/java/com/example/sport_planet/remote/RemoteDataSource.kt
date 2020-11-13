@@ -14,7 +14,7 @@ interface RemoteDataSource {
 
     fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse>
 
-    fun getMyProfile(): Single<ServerCallBackResponse>
+    fun getMyProfile(): Single<HistoryResponse>
 
     fun putMyProfile(myViewEditRequest: MyViewEditRequest): Single<ServerCallBackResponse>
 
