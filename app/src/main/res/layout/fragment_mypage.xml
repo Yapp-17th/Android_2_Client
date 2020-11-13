@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.example.sport_planet.presentation.mypage.MyPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/fragment_my_page_margin_16dp"
+            android:text="@={vm.userName}"
             android:textColor="@color/black"
             android:textSize="@dimen/fragment_my_page_text_size_18sp"
             app:layout_constraintStart_toEndOf="@id/iv_profile_image"
@@ -70,6 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/fragment_my_page_margin_6dp"
             android:gravity="center"
+            android:text="@={vm.like}"
             android:textColor="@color/dark_gray"
             app:drawableStartCompat="@drawable/icons_18_px_likes"
             app:layout_constraintStart_toEndOf="@id/iv_profile_image"
@@ -83,6 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/fragment_my_page_margin_6dp"
             android:gravity="center"
+            android:text="@={vm.dislike}"
             android:textColor="@color/dark_gray"
             app:drawableStartCompat="@drawable/icons_18_px_dislikes"
             app:layout_constraintStart_toEndOf="@id/tv_like"
@@ -181,6 +187,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_my_page_margin_10dp"
             android:lineSpacingExtra="@dimen/fragment_my_page_spacing_line_3dp"
+            android:text="@={vm.info}"
             android:textColor="@color/dark_gray"
             app:layout_constraintStart_toStartOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/tv_intro_title"
@@ -225,6 +232,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_my_page_margin_10dp"
+            android:text="@={vm.city}"
             android:textColor="@color/dark_gray"
             app:layout_constraintStart_toStartOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/tv_address_title"
