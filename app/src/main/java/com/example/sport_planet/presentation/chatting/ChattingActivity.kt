@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
-
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting){
 
     private lateinit var chatRoomInfo: ChattingRoomListResponse.Data
@@ -40,8 +39,9 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
         chattingAdapter = ChattingAdapter(chatRoomInfo)
 
-        layoutChangeListener = View.OnLayoutChangeListener { view, left, top, right, bottom, oldleft, oldtop, oldright, oldbottom->
+        chattingActivityViewModel.initSocket(chatRoomInfo.id)
 
+        layoutChangeListener = View.OnLayoutChangeListener { view, left, top, right, bottom, oldleft, oldtop, oldright, oldbottom->
             if (oldbottom != 0) {
                 if (rv_activity_chatting_recyclerview.canScrollVertically(0)) {
                     val pixelsToScrollVertically: Int = oldbottom - bottom
@@ -60,16 +60,15 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                     this.setSeparator(SeparatorEnum.GUEST)
                 this.title.text = chatRoomInfo.opponentNickname
             }
-        }
-
-        rv_activity_chatting_recyclerview.run {
-            adapter = chattingAdapter
-            layoutManager = LinearLayoutManager(this@ChattingActivity)
-            setHasFixedSize(true)
+            rv_activity_chatting_recyclerview.run {
+                adapter = chattingAdapter
+                layoutManager = LinearLayoutManager(this@ChattingActivity)
+                setHasFixedSize(true)
+            }
         }
 
         chattingActivityViewModel.settingChattingMessageList(chatRoomInfo.id)
-        chattingActivityViewModel.ChattingMessageListResponseLiveData.observe(this,
+        chattingActivityViewModel.chattingMessageListResponseLiveData.observe(this,
             Observer {
                 this.runOnUiThread {
                     tv_activity_chatting_board_title.text = it.boardTitle
@@ -82,15 +81,16 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         )
 
-        chattingActivityViewModel.settingStomp(chatRoomInfo.id, chatRoomInfo.hostId)
-        chattingActivityViewModel.ChattingMessageLiveData.observe(this,
+        chattingActivityViewModel.chattingMessageLiveData.observe(this,
             Observer {
-                chattingAdapter.addChattingMessage(it)
-                rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
+                this.runOnUiThread {
+                    chattingAdapter.addChattingMessage(it)
+                    rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
+                }
             }
         )
 
-        chattingActivityViewModel.ApprovalStatusLiveData.observe(this,
+        chattingActivityViewModel.approvalStatusLiveData.observe(this,
             Observer {
                 approvalStatusEnum = approvalStatus(it)
                 bt_activity_chatting_approval_status.setApprovalStatusButton(approvalStatusEnum)
@@ -98,13 +98,14 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         )
 
         bt_custom_approval_button.setOnClickListener {
-            when(approvalStatusEnum){
-                ApprovalStatusButtonEnum.GUEST_APPLY -> chattingActivityViewModel.applyBoard(chatRoomInfo.boardId, chatRoomInfo.id)
-                ApprovalStatusButtonEnum.HOST_APPROVE -> chattingActivityViewModel.approveBoard(chatRoomInfo.boardId, chatRoomInfo.id, chatRoomInfo.guestId)
-                ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE -> { chattingActivityViewModel.disapproveBoard(chatRoomInfo.boardId, chatRoomInfo.id, chatRoomInfo.guestId)
-                }
-                else -> bt_custom_approval_button.isEnabled = false
-            }
+           this.runOnUiThread {
+               when(approvalStatusEnum){
+                   ApprovalStatusButtonEnum.GUEST_APPLY -> chattingActivityViewModel.applyBoard(chatRoomInfo.boardId, chatRoomInfo.id)
+                   ApprovalStatusButtonEnum.HOST_APPROVE -> chattingActivityViewModel.approveBoard(chatRoomInfo.boardId, chatRoomInfo.id, chatRoomInfo.guestId)
+                   ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE -> chattingActivityViewModel.disapproveBoard(chatRoomInfo.boardId, chatRoomInfo.id, chatRoomInfo.guestId)
+                   else -> bt_custom_approval_button.isEnabled = false
+               }
+           }
         }
 
         bt_activity_chatting_send.setOnClickListener{
@@ -118,22 +119,23 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     override fun onDestroy() {
         rv_activity_chatting_recyclerview.removeOnLayoutChangeListener(layoutChangeListener)
-        chattingActivityViewModel.disposeStomp()
+        chattingActivityViewModel.disconnectSocket()
         super.onDestroy()
     }
 
     fun approvalStatus(status: String): ApprovalStatusButtonEnum{
         return when(UserInfo.USER_ID){
             chatRoomInfo.guestId -> when(status){
-                "APPROVED" -> ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
                 "APPLIED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
-                "PENDING"  -> ApprovalStatusButtonEnum.GUEST_APPLY
+                "APPROVED" -> ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
+                "DISAPPROVED"  -> ApprovalStatusButtonEnum.GUEST_APPLY
                 else -> throw IllegalArgumentException("적절하지 않은 Guest AppliedStatus")
             }
             chatRoomInfo.hostId  -> when(status){
-                "APPROVED" -> ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE
+                "PENDING" -> ApprovalStatusButtonEnum.HOST_NONE
                 "APPLIED"  -> ApprovalStatusButtonEnum.HOST_APPROVE
-                "PENDING"  -> ApprovalStatusButtonEnum.HOST_NONE
+                "APPROVED" -> ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE
+                "DISAPPROVED"  -> ApprovalStatusButtonEnum.HOST_APPROVE
                 else -> throw IllegalArgumentException("적절하지 않은 Host AppliedStatus")
             }
             else -> throw IllegalArgumentException("적절하지 않은 User Id")

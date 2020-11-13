@@ -38,9 +38,11 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
         }
 
         rv_fragment_chatting_recyclerview.run{
-            adapter = chattingRoomAdapter
-            layoutManager = LinearLayoutManager(this@ChattingFragment.context)
-            setHasFixedSize(true)
+            activity?.runOnUiThread {
+                adapter = chattingRoomAdapter
+                layoutManager = LinearLayoutManager(this@ChattingFragment.context)
+                setHasFixedSize(true)
+            }
         }
 
         bt_fragment_test.setOnClickListener {
@@ -53,7 +55,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
         settingChattingRoomList()
     }
 
-    fun settingChattingRoomList(){
+    private fun settingChattingRoomList(){
         viewModel.settingChattingRoomList()
         viewModel.ChattingRoomListResponseLiveData.observe(this,
             Observer {
