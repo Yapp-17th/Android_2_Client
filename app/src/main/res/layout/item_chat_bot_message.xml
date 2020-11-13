@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="ItemReceivedTalkMessage"
+            name="ItemChatBotMessage"
             type="com.example.sport_planet.model.ChattingMessageResponse" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,28 +13,28 @@
         android:paddingTop="@dimen/item_talk_message_msg_paddingTop_16dp">
 
         <TextView
-            android:id="@+id/tv_received_talk_message_sender_nickname"
+            android:id="@+id/tv_chat_bot_message_sender_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="58dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="달리자 88"
+            android:text="운동플래닛 알림"
             style="@style/regular_basic_12sp"
-            android:textColor="@color/gray9c9c9c" />
+            android:textColor="@color/gray9c9c9c"/>
 
         <ImageView
-            android:id="@+id/iv_received_talk_message_profile_img"
+            android:id="@+id/iv_chat_bot_message_profile_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_talk_message_msg_margin_16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/profile_34_px" />
+            android:src="@drawable/app_profile_34_px" />
 
         <TextView
-            android:id="@+id/tv_received_talk_message_content"
+            android:id="@+id/tv_chat_bot_message_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="@dimen/item_talk_message_msg_maxwidth_225dp"
@@ -44,16 +44,16 @@
             android:paddingBottom="8dp"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
-            android:text="@string/received_talk_message_content"
+            android:text="챗봇 알림 메세지"
             style="@style/regular_basic_14sp"
             android:textColor="@color/black121212"
-            app:layout_constraintLeft_toRightOf="@id/iv_received_talk_message_profile_img"
-            app:layout_constraintTop_toBottomOf="@+id/tv_received_talk_message_sender_nickname"
+            app:layout_constraintLeft_toRightOf="@id/iv_chat_bot_message_profile_img"
+            app:layout_constraintTop_toBottomOf="@+id/tv_chat_bot_message_sender_nickname"
             android:background="@drawable/item_message_border"
             android:backgroundTint="@color/white"/>
 
         <TextView
-            android:id="@+id/tv_received_talk_message_timestamp"
+            android:id="@+id/tv_chat_bot_message_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -61,15 +61,7 @@
             style="@style/regular_basic_12sp"
             android:textColor="@color/gray9c9c9c"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_content" />
-
-        <TextView
-            android:id="@+id/tv_received_talk_message_isread"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_timestamp" />
+            app:layout_constraintLeft_toRightOf="@id/tv_chat_bot_message_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
