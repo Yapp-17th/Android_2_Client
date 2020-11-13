@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
+
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting){
 
     private lateinit var chatRoomInfo: ChattingRoomListResponse.Data
