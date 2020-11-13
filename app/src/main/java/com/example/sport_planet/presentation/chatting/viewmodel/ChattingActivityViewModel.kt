@@ -1,5 +1,6 @@
 package com.example.sport_planet.presentation.chatting.viewmodel
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +14,9 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.gmail.bishoybasily.stomp.lib.Event
 import com.gmail.bishoybasily.stomp.lib.StompClient
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import org.json.JSONException
 import org.json.JSONObject
@@ -22,25 +25,28 @@ import kotlin.properties.Delegates
 
 class ChattingActivityViewModel : BaseViewModel() {
 
+    private val TAG = "ChattingActivityViewModel"
+
     private val remoteDataSourceImpl = RemoteDataSourceImpl()
 
     private lateinit var chattingMessage: ChattingMessageResponse
 
-    private val _ChattingMessageListResponseLiveData = MutableLiveData<ChattingMessageListResponse>()
-    val ChattingMessageListResponseLiveData: LiveData<ChattingMessageListResponse>
-        get() = _ChattingMessageListResponseLiveData
+    private val _chattingMessageListResponseLiveData = MutableLiveData<ChattingMessageListResponse>()
+    val chattingMessageListResponseLiveData: LiveData<ChattingMessageListResponse>
+        get() = _chattingMessageListResponseLiveData
 
-    private val _ChattingMessageLiveData = MutableLiveData<ChattingMessageResponse>()
-    val ChattingMessageLiveData: LiveData<ChattingMessageResponse>
-        get() = _ChattingMessageLiveData
+    private val _chattingMessageLiveData = MutableLiveData<ChattingMessageResponse>()
+    val chattingMessageLiveData: LiveData<ChattingMessageResponse>
+        get() = _chattingMessageLiveData
 
-    private val _ApprovalStatusLiveData = MutableLiveData<String>()
-    val ApprovalStatusLiveData: LiveData<String>
-        get() = _ApprovalStatusLiveData
+    private val _approvalStatusLiveData = MutableLiveData<String>()
+    val approvalStatusLiveData: LiveData<String>
+        get() = _approvalStatusLiveData
 
-    private lateinit var stomp: StompClient
+    private lateinit var stompClient: StompClient
     private lateinit var stompConnection: Disposable
     private lateinit var topic: Disposable
+    private var closeSocket = false
 
     private var chatRoomId by Delegates.notNull<Long>()
     private var chattingMessageJsonObject = JSONObject()
@@ -48,24 +54,31 @@ class ChattingActivityViewModel : BaseViewModel() {
     fun settingChattingMessageList(chatRoomId: Long){
         compositeDisposable.add(
             remoteDataSourceImpl.getChattingMessageList(chatRoomId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     it.run {
-                        _ApprovalStatusLiveData.postValue(it.appliedStatus)
-                        _ChattingMessageListResponseLiveData.postValue(it)
+                        _approvalStatusLiveData.postValue(it.appliedStatus)
+                        _chattingMessageListResponseLiveData.postValue(it)
                     }
-                },{})
+            },{
+                    Log.d(TAG, it.localizedMessage)
+                })
         )
     }
 
-    fun makeChattingMessageRead(chatRoomId: Long, messageId: Long){
+    private fun makeChattingMessageRead(chatRoomId: Long, messageId: Long){
         compositeDisposable.add(
             remoteDataSourceImpl.makeChattingMessageRead(chatRoomId, messageId)
                 .subscribe({
-                },{})
+                    Log.d(TAG, it.message)
+                },{
+                    Log.d(TAG, it.localizedMessage)}
+                )
         )
     }
 
-    fun settingStomp(chatRoomId: Long, hostId: Long) {
+    fun initSocket(chatRoomId: Long) {
         val url = ChattingConstant.URL
         val intervalMillis = 5000L
         val client = OkHttpClient.Builder()
@@ -76,37 +89,50 @@ class ChattingActivityViewModel : BaseViewModel() {
 
         this.chatRoomId = chatRoomId
 
-        stomp = StompClient(client, intervalMillis).apply { this@apply.url = url }
-        stompConnection = stomp.connect().subscribe {
-            when (it.type) {
-                Event.Type.OPENED -> {
-                    topic = stomp.join("/sub/chat/room/${this.chatRoomId}").subscribe {
-                        stompMessage ->
-                        chattingMessage = Klaxon().parse<ChattingMessageResponse>(stompMessage)!!
-                        when(chattingMessage.realTimeUpdateType) {
-                            "APPLIED" -> _ApprovalStatusLiveData.postValue("APPLIED")
-                            "APPROVED" -> _ApprovalStatusLiveData.postValue("APPROVED")
-                            "DISAPPROVED" -> _ApprovalStatusLiveData.postValue("APPLIED")
-                            else -> {
-                                makeChattingMessageRead(this.chatRoomId, chattingMessage.id!!)
-                                _ChattingMessageLiveData.postValue(chattingMessage)
-                            }
-                        }
+        stompClient = StompClient(client, intervalMillis).apply { this@apply.url = url }
 
+        stompConnection = stompClient.connect()
+            .subscribe ({
+                when (it.type) {
+                    Event.Type.OPENED -> {
+                        Log.d(TAG, "[OPENED]: 웹소켓 OPEN")
+                        topic = stompClient.join("/sub/chat/room/${this.chatRoomId}")
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe ({ stompMessage ->
+                                chattingMessage = Klaxon().parse<ChattingMessageResponse>(stompMessage)!!
+                                when(chattingMessage.realTimeUpdateType) {
+                                    "MESSAGE_READ" -> {
+                                        makeChattingMessageRead(this.chatRoomId, chattingMessage.id!!)
+                                        _chattingMessageLiveData.postValue(chattingMessage)
+                                    }
+                                    else -> {
+                                        _approvalStatusLiveData.postValue(chattingMessage.realTimeUpdateType)
+                                    }
+                                }
+                            }, {
+                                Log.d(TAG, it.localizedMessage)
+                            })
                     }
-                }
-                Event.Type.CLOSED -> {
-                }
-                Event.Type.ERROR -> {
-                }
+                    Event.Type.CLOSED -> {
+                        if(!closeSocket)
+                            Log.d(TAG, "[CLOSED]: 웹소켓 비정상적인 CLOSE")
+                        else
+                            Log.d(TAG, "[CLOSED]: 웹소켓 정상적인 CLOSE")
+                    }
+                    Event.Type.ERROR -> {
+                        Log.d(TAG, "[ERROR]: 웹소켓 ERROR")
+                    }
             }
-        }
+        },{Log.d("에러", it.localizedMessage)})
     }
 
-    fun disposeStomp(){
+    fun disconnectSocket(){
+        closeSocket = true
         stompConnection.dispose()
     }
 
+    @SuppressLint("CheckResult")
     fun sendMessage(chattingMessageContent: String){
         try {
             chattingMessageJsonObject.put("content", chattingMessageContent)
@@ -117,7 +143,14 @@ class ChattingActivityViewModel : BaseViewModel() {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        stomp.send("/pub/v1/chat/message", chattingMessageJsonObject.toString()).subscribe()
+        stompClient.send("/pub/v1/chat/message", chattingMessageJsonObject.toString())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.d(TAG, it.toString())
+            },{
+                Log.d(TAG, it.toString()) }
+            )
     }
 
     fun applyBoard(boardId: Long, chatRoomId: Long){
@@ -125,11 +158,13 @@ class ChattingActivityViewModel : BaseViewModel() {
         applyBoardObject.put("chatRoomId", chatRoomId)
         compositeDisposable.add(
             remoteDataSourceImpl.applyBoard(boardId, applyBoardObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("신청 성공: ", it.toString())
-            },{
-                    Log.d("신청 실패: ", it.toString())
-                })
+                    Log.d(TAG, it.message)
+                },{
+                    Log.d(TAG, it.localizedMessage)}
+                )
         )
     }
 
@@ -139,11 +174,13 @@ class ChattingActivityViewModel : BaseViewModel() {
         approveBoardObject["guestId"] = guestId
         compositeDisposable.add(
             remoteDataSourceImpl.approveBoard(boardId, approveBoardObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("승인 성공: ", it.toString())
+                    Log.d(TAG, it.message)
                 },{
-                    Log.d("승인 실패: ", it.toString())
-                })
+                    Log.d(TAG, it.localizedMessage)}
+                )
         )
     }
 
@@ -153,11 +190,13 @@ class ChattingActivityViewModel : BaseViewModel() {
         disapproveBoardObject["guestId"] = guestId
         compositeDisposable.add(
             remoteDataSourceImpl.disapproveBoard(boardId, disapproveBoardObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("취소 성공: ", it.toString())
+                    Log.d(TAG, it.message)
                 },{
-                    Log.d("취소 실패: ", it.toString())
-                })
+                    Log.d(TAG, it.localizedMessage) }
+                )
         )
     }
 }
