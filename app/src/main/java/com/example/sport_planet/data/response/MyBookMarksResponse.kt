@@ -1,4 +1,6 @@
-package com.example.sport_planet.model
+package com.example.sport_planet.data.response
+
+import com.example.sport_planet.data.model.MyBookMarksModel
 
 data class MyBookMarksResponse(
     val status: Int,

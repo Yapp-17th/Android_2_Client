@@ -1,4 +1,4 @@
-package com.example.sport_planet.model
+package com.example.sport_planet.data.request
 
 data class EvaluateReportRequest(
     val userId : Long,

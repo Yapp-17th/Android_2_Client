@@ -2,14 +2,13 @@ package com.example.sport_planet.presentation.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityProfileBinding
-import com.example.sport_planet.model.ExerciseResponse
-import com.example.sport_planet.model.RegionResponse
+import com.example.sport_planet.data.response.ExerciseResponse
+import com.example.sport_planet.data.response.RegionResponse
 import com.example.sport_planet.presentation.base.BaseAcceptDialog
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.main.MainActivity

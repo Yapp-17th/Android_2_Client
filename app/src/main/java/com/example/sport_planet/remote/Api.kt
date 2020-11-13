@@ -1,6 +1,6 @@
 package com.example.sport_planet.remote
 
-import com.example.sport_planet.model.*
+import com.example.sport_planet.data.response.*
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET

@@ -4,8 +4,8 @@ import android.view.*
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentHomeBinding
-import com.example.sport_planet.model.enums.MenuEnum
-import com.example.sport_planet.model.enums.SeparatorEnum
+import com.example.sport_planet.data.enums.MenuEnum
+import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.home.adapter.HomeRecyclerAdapter
 

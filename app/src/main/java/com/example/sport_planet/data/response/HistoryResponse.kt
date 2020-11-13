@@ -1,9 +1,9 @@
-package com.example.sport_planet.model
+package com.example.sport_planet.data.response
 
 
 import com.google.gson.annotations.SerializedName
 
-data class MyViewResponse(
+data class HistoryResponse(
     @SerializedName("data")
     val data: Data,
     @SerializedName("message")
@@ -12,7 +12,7 @@ data class MyViewResponse(
     val status: Int,
     @SerializedName("success")
     val success: Boolean
-) {
+){
     data class Data(
         @SerializedName("category")
         val category: List<String>,

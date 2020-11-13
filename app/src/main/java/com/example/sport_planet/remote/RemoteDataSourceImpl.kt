@@ -1,6 +1,6 @@
 package com.example.sport_planet.remote
 
-import com.example.sport_planet.model.*
+import com.example.sport_planet.data.response.*
 import com.example.sport_planet.remote.NetworkHelper.api
 import com.example.sport_planet.remote.NetworkHelper.api2
 import io.reactivex.Single

@@ -1,11 +1,10 @@
 package com.example.sport_planet.presentation.profile
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.sport_planet.model.ExerciseResponse
-import com.example.sport_planet.model.RegionResponse
-import com.example.sport_planet.model.SignUpResponse
+import com.example.sport_planet.data.response.ExerciseResponse
+import com.example.sport_planet.data.response.RegionResponse
+import com.example.sport_planet.data.response.SignUpResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 

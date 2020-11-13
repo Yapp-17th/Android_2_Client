@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityLoginBinding
-import com.example.sport_planet.model.LoginResponse
+import com.example.sport_planet.data.response.LoginResponse
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.presentation.profile.ProfileActivity
