@@ -1,4 +1,22 @@
 <resources>
+    <string-array name="count_list">
+        <item>1명</item>
+        <item>2명</item>
+        <item>3명</item>
+        <item>4명</item>
+        <item>5명</item>
+        <item>6명</item>
+        <item>7명</item>
+        <item>8명</item>
+        <item>9명</item>
+        <item>10명</item>
+        <item>11명</item>
+        <item>12명</item>
+        <item>13명</item>
+        <item>14명</item>
+        <item>15명</item>
+    </string-array>
+
     <string name="app_name">운동플래닛</string>
     <string name="home">홈</string>
     <string name="write">글쓰기</string>
