@@ -51,7 +51,7 @@ class CustomToolbar : ConstraintLayout {
 
     fun setSeparator(item: SeparatorEnum) {
         when (item) {
-            SeparatorEnum.HOST, SeparatorEnum.GUEST -> {
+            SeparatorEnum.Host, SeparatorEnum.Guest -> {
                 binding.separator.visibility = View.VISIBLE
                 binding.separator.text = item.name
                 binding.separator.setTextColor(context.getColor(item.colorId))

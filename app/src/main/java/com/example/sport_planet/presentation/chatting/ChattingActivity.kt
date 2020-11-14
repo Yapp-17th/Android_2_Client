@@ -56,9 +56,9 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         this.runOnUiThread {
             binding.toolbarActivityChatting.run {
                 if (chatRoomInfo.hostId != UserInfo.USER_ID)
-                    this.setSeparator(SeparatorEnum.HOST)
+                    this.setSeparator(SeparatorEnum.Host)
                 else
-                    this.setSeparator(SeparatorEnum.GUEST)
+                    this.setSeparator(SeparatorEnum.Guest)
                 this.title.text = chatRoomInfo.opponentNickname
             }
             rv_activity_chatting_recyclerview.run {
