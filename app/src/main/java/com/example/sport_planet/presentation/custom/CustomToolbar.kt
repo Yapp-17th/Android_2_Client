@@ -75,10 +75,11 @@ class CustomToolbar : ConstraintLayout {
         }
     }
 
-    private fun setTitle(title: String?) {
+    fun setTitle(title: String?) {
         if (binding.back.visibility == View.GONE && binding.separator.visibility == View.GONE) {
-            (binding.title.layoutParams as LinearLayout.LayoutParams).leftMargin =
-                Util.dpToPx(context, 8.0f).toInt()
+            (binding.title.layoutParams as LayoutParams).leftMargin =
+                Util.dpToPx(context, 16.0f).toInt()
+            binding.title.textSize = 20F
         }
 
         title?.run {
@@ -86,7 +87,7 @@ class CustomToolbar : ConstraintLayout {
         }
     }
 
-    private fun setBackButtonVisible(visible: Boolean) {
+    fun setBackButtonVisible(visible: Boolean) {
         if (visible) {
             binding.back.visibility = View.VISIBLE
         } else {
