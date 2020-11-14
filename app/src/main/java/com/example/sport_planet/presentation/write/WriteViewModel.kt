@@ -10,15 +10,6 @@ import java.util.*
 
 class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
 
-    fun getBoardContent(boardId: Long) {
-        remote.getBoardContent(boardId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { isLoading.onNext(true) }
-            .doAfterTerminate { isLoading.onNext(false) }
-            .subscribe({}, { it.printStackTrace() })
-            .addTo(compositeDisposable)
-    }
-
     fun postBoard(
         title: String,
         content: String,
@@ -38,6 +29,15 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
             }, {
                 it.printStackTrace()
             })
+            .addTo(compositeDisposable)
+    }
+
+    fun getBoardContent(boardId: Long) {
+        remote.getBoardContent(boardId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { isLoading.onNext(true) }
+            .doAfterTerminate { isLoading.onNext(false) }
+            .subscribe({}, { it.printStackTrace() })
             .addTo(compositeDisposable)
     }
 
