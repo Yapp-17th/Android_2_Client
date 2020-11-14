@@ -1,5 +1,6 @@
 package com.example.sport_planet.presentation.write
 
+import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentWriteBinding
@@ -14,6 +15,8 @@ class WriteFragment private constructor() :
     override val viewModel: WriteViewModel = ViewModelProvider(this).get(WriteViewModel::class.java)
 
     override fun init() {
+        val countingList = (1..15).toList()
+        val adapter = ArrayAdapter(this, R.layout.item_member_count, countingList.toMutableList())
 
     }
 }
