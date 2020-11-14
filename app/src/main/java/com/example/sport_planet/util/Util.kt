@@ -1,7 +1,10 @@
 package com.example.sport_planet.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.TypedValue
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Util {
     fun dpToPx(context: Context, dp: Float): Float {
@@ -10,5 +13,12 @@ object Util {
             dp,
             context?.resources?.displayMetrics
         )
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun String.formatTo(dateFormat: String = "a h:mm"): String {
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA)
+        val formatter = SimpleDateFormat(dateFormat, Locale.KOREA)
+        return formatter.format(parser.parse(this))
     }
 }
