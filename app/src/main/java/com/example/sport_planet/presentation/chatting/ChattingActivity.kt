@@ -59,7 +59,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                     this.setSeparator(SeparatorEnum.Host)
                 else
                     this.setSeparator(SeparatorEnum.Guest)
-                this.title.text = chatRoomInfo.opponentNickname
+                this.setTitle(chatRoomInfo.opponentNickname)
             }
             rv_activity_chatting_recyclerview.run {
                 adapter = chattingAdapter

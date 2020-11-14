@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentChattingBinding
 import com.example.sport_planet.model.ChattingRoomListResponse
+import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.adapter.ChattingRoomAdapter
@@ -31,9 +32,9 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
         activity?.runOnUiThread {
             binding.toolbarFragmentChatting.run {
-                this.back.visibility = View.GONE
-                this.title.text = "  채팅"
-                this.title.textSize = 20F
+                this.setSeparator(SeparatorEnum.NONE)
+                this.setBackButtonVisible(false)
+                this.setTitle("채팅")
             }
         }
 
