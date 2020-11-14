@@ -22,7 +22,7 @@ class BaseAcceptDialog : BaseDialogFragment<DialogBaseAcceptBinding>(R.layout.di
             if (it != 0)
                 binding.ivTitleImage.setImageResource(it)
         }
-        binding.tvTitle.text = arguments?.getString("dialogTitleText")
+        binding.tvTitle.text = arguments?.getString("dialogTitleText").toString()
         binding.tvOk.setOnClickListener {
             mListener?.onAccept()
             dismiss()

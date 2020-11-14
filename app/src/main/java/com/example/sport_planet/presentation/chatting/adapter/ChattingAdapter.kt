@@ -1,40 +1,54 @@
 package com.example.sport_planet.presentation.chatting.adapter
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.databinding.*
-import com.example.sport_planet.presentation.chatting.ChattingInfo
-import com.example.sport_planet.presentation.chatting.model.ChattingMessage
-import java.lang.IllegalArgumentException
+import com.example.sport_planet.model.ChattingMessageResponse
+import com.example.sport_planet.model.ChattingRoomListResponse
+import com.example.sport_planet.presentation.chatting.ChattingConstant
+import com.example.sport_planet.presentation.chatting.UserInfo
+import com.example.sport_planet.util.Util.formatTo
 
-
-class ChattingAdapter(private val context: Context) : RecyclerView.Adapter<ChattingAdapter.Holder>()
+class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
-    private val chattingInfo = ChattingInfo
 
-    private val NOTICE_MESSAGE_VIEW = 0
-    private val RECEIVED_PROFILE_MESSAGE_VIEW = 1
-    private val SENT_PROFILE_MESSAGE_VIEW = 2
-    private val RECEIVED_TALK_MESSAGE_VIEW = 3
-    private val SENT_TALK_MESSAGE_VIEW = 4
+    private val BOT_MESSAGE_VIEW = 0
+    private val NOTICE_MESSAGE_VIEW = 1
+    private val RECEIVED_PROFILE_MESSAGE_VIEW = 2
+    private val SENT_PROFILE_MESSAGE_VIEW = 3
+    private val RECEIVED_TALK_MESSAGE_VIEW = 4
+    private val SENT_TALK_MESSAGE_VIEW = 5
 
-    private var chattingMessages = ArrayList<ChattingMessage>()
+    private var chattingMessages = ArrayList<ChattingMessageResponse>()
 
-    fun addChattingMessage(message: ChattingMessage){
-        chattingMessages.add(message)
+    fun settingChattingMessageList(chattingMessageList: ArrayList<ChattingMessageResponse>){
+        chattingMessages = chattingMessageList
+        notifyDataSetChanged()
+    }
+
+    fun addChattingMessage(chattingMessage: ChattingMessageResponse){
+        chattingMessages.add(chattingMessage)
         notifyDataSetChanged()
     }
 
     inner class Holder(val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(chattingMessage: ChattingMessage, context: Context){
+        @SuppressLint("SimpleDateFormat")
+        fun bind(chattingMessage: ChattingMessageResponse){
             val messageViewType = itemViewType
 
             when(messageViewType){
+
+                BOT_MESSAGE_VIEW->{
+                    (binding as ItemChatBotMessageBinding).let {
+                        it.tvChatBotMessageContent.text = chattingMessage.content
+                        it.tvChatBotMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
+                    }
+                }
 
                 NOTICE_MESSAGE_VIEW -> {
                     (binding as ItemNoticeMessageBinding).let {
@@ -43,22 +57,50 @@ class ChattingAdapter(private val context: Context) : RecyclerView.Adapter<Chatt
                 }
 
                 RECEIVED_PROFILE_MESSAGE_VIEW -> {
-
+                    (binding as ItemReceivedProfileMessageBinding).let {
+                        it.tvReceivedProfileMessageSenderNickname.text = chattingMessage.senderNickname
+                        it.tvReceivedProfileMessageNickname.text = chattingMessage.senderNickname
+                        it.tvReceivedProfileMessageIntroduce.text = chattingMessage.content
+                        it.tvReceivedProfileMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
+                    }
                 }
                 SENT_PROFILE_MESSAGE_VIEW -> {
-
+                    (binding as ItemSentProfileMessageBinding).let {
+                        it.tvSentProfileMessageNickname.text = chattingMessage.senderNickname
+                        it.tvSentProfileMessageIntroduce.text = chattingMessage.content
+                        it.tvSentProfileMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
+                    }
                 }
 
                 RECEIVED_TALK_MESSAGE_VIEW -> {
                     (binding as ItemReceivedTalkMessageBinding).let {
+                        it.tvReceivedTalkMessageSenderNickname.text = chattingMessage.senderNickname
                         it.tvReceivedTalkMessageContent.text = chattingMessage.content
-                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.timestamp
+                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
                     }
                 }
                 SENT_TALK_MESSAGE_VIEW -> {
                     (binding as ItemSentTalkMessageBinding).let {
                         it.tvSentTalkMessageContent.text = chattingMessage.content
-                        it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp
+                        it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
+/*
+                        when(ChattingInfo.USER_ID){
+                            chatRoomInfo.hostId -> {
+                                if(!chattingMessage.isGuestRead)
+                                  it.tvSentTalkMessageIsread.text = "1"
+                                else
+                                  it.tvSentTalkMessageIsread.text = null
+                            }
+                            chatRoomInfo.guestId -> {
+                                if(!chattingMessage.isHostRead)
+                                  it.tvSentTalkMessageIsread.text = "1"
+                                else
+                                  it.tvSentTalkMessageIsread.text = null
+                            }
+
+                        }
+ */
+
                     }
                 }
 
@@ -69,15 +111,24 @@ class ChattingAdapter(private val context: Context) : RecyclerView.Adapter<Chatt
 
     override fun getItemViewType(position: Int) : Int{
 
-        val currentItem: ChattingMessage = chattingMessages[position]
+        val currentItem: ChattingMessageResponse = chattingMessages[position]
         val messageType = currentItem.type
         val messageSender = currentItem.senderId
 
         when(messageType){
 
-            ChattingInfo.MESSAGE_TYPE_TALK -> {
+            ChattingConstant.CHAT_BOT_TYPE -> BOT_MESSAGE_VIEW
+
+            ChattingConstant.PROFILE_TYPE -> {
                 return when(messageSender){
-                    ChattingInfo.SENDER_ID -> SENT_TALK_MESSAGE_VIEW
+                    UserInfo.USER_ID -> SENT_PROFILE_MESSAGE_VIEW
+                    else -> RECEIVED_PROFILE_MESSAGE_VIEW
+                }
+            }
+
+            ChattingConstant.TALK_TYPE -> {
+                return when(messageSender){
+                    UserInfo.USER_ID -> SENT_TALK_MESSAGE_VIEW
                     else -> RECEIVED_TALK_MESSAGE_VIEW
                 }
             }
@@ -90,13 +141,15 @@ class ChattingAdapter(private val context: Context) : RecyclerView.Adapter<Chatt
 
         val messageViewBinding = when(messageViewType){
 
-            NOTICE_MESSAGE_VIEW -> ItemNoticeMessageBinding.inflate(LayoutInflater.from(context), parent, false)
+            BOT_MESSAGE_VIEW -> ItemChatBotMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-            RECEIVED_PROFILE_MESSAGE_VIEW -> ItemReceivedProfileMessageBinding.inflate(LayoutInflater.from(context), parent, false)
-            SENT_PROFILE_MESSAGE_VIEW -> ItemSentProfileMessageBinding.inflate(LayoutInflater.from(context), parent, false)
+            NOTICE_MESSAGE_VIEW -> ItemNoticeMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-            RECEIVED_TALK_MESSAGE_VIEW -> ItemReceivedTalkMessageBinding.inflate(LayoutInflater.from(context), parent, false)
-            SENT_TALK_MESSAGE_VIEW -> ItemSentTalkMessageBinding.inflate(LayoutInflater.from(context), parent, false)
+            RECEIVED_PROFILE_MESSAGE_VIEW -> ItemReceivedProfileMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            SENT_PROFILE_MESSAGE_VIEW -> ItemSentProfileMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+            RECEIVED_TALK_MESSAGE_VIEW -> ItemReceivedTalkMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            SENT_TALK_MESSAGE_VIEW -> ItemSentTalkMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
             else -> throw IllegalArgumentException("적절하지 않은 MessageViewType")
         }
@@ -109,7 +162,8 @@ class ChattingAdapter(private val context: Context) : RecyclerView.Adapter<Chatt
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(chattingMessages[position], context)
+        //holder.setIsRecyclable(false)
+        holder.bind(chattingMessages[position])
     }
 
     fun RecyclerView.smoothSnapToPosition(position: Int, snapMode: Int = LinearSmoothScroller.SNAP_TO_START) {
