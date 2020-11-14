@@ -98,5 +98,10 @@
     <dimen name="fragment_my_page_text_size_18sp">18sp</dimen>
     <dimen name="fragment_my_page_text_size_20sp">20sp</dimen>
 
-
+    <!-- fragment_setting.xml -->
+    <dimen name="fragment_setting_margin_12dp">12dp</dimen>
+    <dimen name="fragment_setting_margin_16dp">16dp</dimen>
+    <dimen name="fragment_setting_margin_20dp">20dp</dimen>
+    <dimen name="fragment_setting_padding_16dp">16dp</dimen>
+    <dimen name="fragment_setting_text_size_20sp">20sp</dimen>
 </resources>
