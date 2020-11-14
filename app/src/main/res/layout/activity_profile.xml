@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.example.sport_planet.presentation.profile.ProfileViewModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,7 +61,8 @@
                 android:background="@null"
                 android:hint="@string/activity_profile_hint_name"
                 android:inputType="textPersonName"
-                android:paddingHorizontal="@dimen/activity_profile_padding_16dp" />
+                android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
+                android:text="@={vm.userName}" />
 
             <EditText
                 android:id="@+id/et_email"
@@ -64,7 +72,8 @@
                 android:background="@null"
                 android:hint="@string/activity_profile_hint_email"
                 android:inputType="textEmailAddress"
-                android:paddingHorizontal="@dimen/activity_profile_padding_16dp" />
+                android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
+                android:text="@={vm.userEmail}" />
 
             <EditText
                 android:id="@+id/et_nick_name"
@@ -72,9 +81,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@null"
+                android:imeOptions="actionDone"
                 android:hint="@string/activity_profile_hint_nick_name"
                 android:inputType="textPersonName"
-                android:paddingHorizontal="@dimen/activity_profile_padding_16dp" />
+                android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
+                android:text="@={vm.userNickname}" />
 
             <TextView
                 android:id="@+id/tv_interest_excise"
@@ -96,6 +107,7 @@
                     android:layout_height="match_parent"
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
+                    android:onClick="@{() -> vm.showExercisePopup()}"
                     android:text="@string/activity_profile_interest_excise_popup"
                     android:textColor="@color/blue233c93"
                     app:drawableEndCompat="@drawable/icons_18_px_toggle"
@@ -131,6 +143,7 @@
                     android:layout_height="match_parent"
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
+                    android:onClick="@{() -> vm.showRegionPopup()}"
                     android:text="@string/activity_profile_residence_popup"
                     android:textColor="@color/blue233c93"
                     app:drawableEndCompat="@drawable/icons_18_px_toggle"
@@ -186,7 +199,8 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/activity_profile_hint_introduce_myself"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:text="@={vm.userIntroduceMyself}" />
 
             <TextView
                 android:id="@+id/tv_start"
@@ -195,11 +209,12 @@
                 android:layout_height="52dp"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="@dimen/activity_profile_margin_16dp"
-                android:background="@color/darkblue"
-                android:enabled="true"
+                android:background="@color/grayefefef"
+                android:enabled="false"
                 android:gravity="center"
+                android:onClick="@{() ->vm.postSignUp()}"
                 android:text="@string/activity_profile_start"
-                android:textColor="@color/white" />
+                android:textColor="@color/gray9c9c9c" />
 
         </LinearLayout>
     </ScrollView>

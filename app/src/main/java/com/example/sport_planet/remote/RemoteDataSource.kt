@@ -1,16 +1,18 @@
 package com.example.sport_planet.remote
 
-//import com.example.sport_planet.model.LoginResponse
-//import com.example.sport_planet.model.ServerCallBackResponse
+import com.example.sport_planet.model.*
 import com.example.sport_planet.model.enums.TimeFilterEnum
-import com.example.sport_planet.model.response.*
+import com.example.sport_planet.model.response.BoardContentResponse
+import com.example.sport_planet.model.response.BoardListResponse
+import com.example.sport_planet.model.response.CommonResponse
+import com.google.gson.JsonObject
 import io.reactivex.Single
 import java.util.*
 
-interface RemoteDataSource {
-    fun getExercise(): Single<ExerciseResponse>
+interface RemoteDataSource{
+    fun getExercise() : Single<ExerciseResponse>
 
-    fun getRegion(): Single<RegionResponse>
+    fun getRegion() : Single<RegionResponse>
 
 //    fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse>
 
@@ -69,5 +71,21 @@ interface RemoteDataSource {
         reportType: Long,
         content: String
     ): Single<CommonResponse>
-}
+    fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse>
 
+    fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse>
+
+    fun makeChattingRoom(param: JsonObject) : Single<MakeChattingRoomResponse>
+
+    fun getChattingRoomList() : Single<ChattingRoomListResponse>
+
+    fun getChattingMessageList(chatRoomId: Long) : Single<ChattingMessageListResponse>
+
+    fun makeChattingMessageRead(chatRoomId: Long, messageId: Long) : Single<MakeChattingMessageReadResponse>
+
+    fun applyBoard(boardId:Long, param: JsonObject) : Single<ApplyBoardResponse>
+
+    fun approveBoard(boardId:Long, param: JsonObject) : Single<ApplyBoardResponse>
+
+    fun disapproveBoard(boardId:Long, param: JsonObject) : Single<ApplyBoardResponse>
+}

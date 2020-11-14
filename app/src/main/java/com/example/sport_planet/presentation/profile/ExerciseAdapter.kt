@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemExerciseRegionBinding
 
-class ExerciseAdapter(private val onClickAction: (String) -> Unit) :
+class ExerciseAdapter(private val onClickAction: (String,Long) -> Unit) :
     RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
     private val items = mutableListOf<String>()
     private val selectItems = mutableListOf<String>()
@@ -44,7 +44,7 @@ class ExerciseAdapter(private val onClickAction: (String) -> Unit) :
                 if (selectItems.contains(items[adapterPosition])) {
                     selectItems.remove(items[adapterPosition])
                     binding.tvText.setColorAndBackground(R.color.black, R.color.white)
-                    onClickAction(item)
+                    onClickAction(item,adapterPosition+1L)
                 } else {
                     if (selectItems.size < 3) {
                         selectItems.add(items[adapterPosition])
@@ -52,7 +52,7 @@ class ExerciseAdapter(private val onClickAction: (String) -> Unit) :
                             R.color.darkblue,
                             R.color.darkblue_opacity
                         )
-                        onClickAction(item)
+                        onClickAction(item,adapterPosition+1L)
                     }
                 }
             }
