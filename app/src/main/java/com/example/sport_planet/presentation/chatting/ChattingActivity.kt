@@ -60,6 +60,9 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 else
                     this.setSeparator(SeparatorEnum.Guest)
                 this.setTitle(chatRoomInfo.opponentNickname)
+                this.back.setOnClickListener {
+                    finish()
+                }
             }
             rv_activity_chatting_recyclerview.run {
                 adapter = chattingAdapter
@@ -127,9 +130,10 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
     fun approvalStatus(status: String): ApprovalStatusButtonEnum{
         return when(UserInfo.USER_ID){
             chatRoomInfo.guestId -> when(status){
+                "PENDING" -> ApprovalStatusButtonEnum.GUEST_APPLY
                 "APPLIED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
                 "APPROVED" -> ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
-                "DISAPPROVED"  -> ApprovalStatusButtonEnum.GUEST_APPLY
+                "DISAPPROVED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
                 else -> throw IllegalArgumentException("적절하지 않은 Guest AppliedStatus")
             }
             chatRoomInfo.hostId  -> when(status){
