@@ -18,13 +18,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:title="" />
 
-        <EditText
-            android:id="@+id/edt_title"
+        <View
+            android:id="@+id/view_divider_1"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="1dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@color/white_gray"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <EditText
+            android:id="@+id/edt_title"
+            style="@style/medium_basic_16sp"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="@null"
+            android:hint="글 제목 (20자 이내)"
+            android:textColor="@color/black121212"
+            app:layout_constraintEnd_toEndOf="@id/view_divider_1"
+            app:layout_constraintStart_toStartOf="@id/view_divider_1"
+            app:layout_constraintTop_toBottomOf="@id/view_divider_1" />
 
         <LinearLayout
             android:id="@+id/linear_empty"
@@ -35,52 +48,84 @@
             app:layout_constraintStart_toStartOf="@id/edt_title"
             app:layout_constraintTop_toBottomOf="@id/edt_title" />
 
-        <LinearLayout
-            android:id="@+id/linear_member_count"
-            android:layout_width="0dp"
+
+        <TextView
+            android:id="@+id/tv_container_count"
+            style="@style/medium_basic_16sp"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@id/edt_title"
-            app:layout_constraintStart_toStartOf="@id/edt_title"
-            app:layout_constraintTop_toBottomOf="@id/linear_empty">
+            android:gravity="center"
+            android:text="모집인원"
+            android:textColor="@color/black121212"
+            app:layout_constraintStart_toStartOf="@id/linear_empty"
+            app:layout_constraintTop_toBottomOf="@id/linear_empty" />
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_centerHorizontal="true"
-                android:spinnerMode="dropdown" />
+        <Spinner
+            android:id="@+id/spinner_count"
+            android:layout_width="94dp"
+            android:layout_height="32dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="14dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toBottomOf="@id/tv_container_count"
+            app:layout_constraintStart_toEndOf="@id/tv_container_count"
+            app:layout_constraintTop_toTopOf="@id/tv_container_count" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_date"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_container_date"
+            style="@style/medium_basic_16sp"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@id/edt_title"
-            app:layout_constraintStart_toStartOf="@id/edt_title"
-            app:layout_constraintTop_toBottomOf="@id/linear_member_count" />
+            android:gravity="center"
+            android:text="모집날짜"
+            android:textColor="@color/black121212"
+            app:layout_constraintStart_toStartOf="@id/tv_container_count"
+            app:layout_constraintTop_toBottomOf="@id/tv_container_count" />
 
-        <LinearLayout
-            android:id="@+id/linear_place"
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/medium_basic_14sp"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
+            android:layout_height="32dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_container_date"
             app:layout_constraintEnd_toEndOf="@id/edt_title"
-            app:layout_constraintStart_toStartOf="@id/edt_title"
-            app:layout_constraintTop_toBottomOf="@id/linear_date" />
+            app:layout_constraintStart_toStartOf="@id/spinner_count"
+            app:layout_constraintTop_toTopOf="@id/tv_container_date" />
+
+        <TextView
+            android:id="@+id/tv_container_place"
+            style="@style/medium_basic_16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="모집장소"
+            android:textColor="@color/black121212"
+            app:layout_constraintStart_toStartOf="@id/tv_container_date"
+            app:layout_constraintTop_toBottomOf="@id/tv_container_date" />
+
+        <EditText
+            style="@style/medium_basic_14sp"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="@id/tv_container_place"
+            app:layout_constraintEnd_toEndOf="@id/edt_title"
+            app:layout_constraintStart_toStartOf="@id/spinner_count"
+            app:layout_constraintTop_toTopOf="@id/tv_container_place" />
 
         <EditText
             android:id="@+id/edt_body"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:background="@null"
             android:gravity="left|top"
             android:hint="@string/activity_write_body_hint"
             app:layout_constraintBottom_toTopOf="@id/btn_posting"
             app:layout_constraintEnd_toEndOf="@id/edt_title"
             app:layout_constraintStart_toStartOf="@id/edt_title"
-            app:layout_constraintTop_toBottomOf="@id/linear_place" />
+            app:layout_constraintTop_toBottomOf="@id/tv_container_place" />
 
         <Button
             android:id="@+id/btn_posting"
@@ -89,7 +134,6 @@
             android:layout_height="52dp"
             android:layout_marginBottom="16dp"
             android:enabled="false"
-            android:text="게시글"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/edt_title"
             app:layout_constraintStart_toStartOf="@id/edt_title" />
