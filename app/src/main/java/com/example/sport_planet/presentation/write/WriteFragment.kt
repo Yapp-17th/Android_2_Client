@@ -1,5 +1,6 @@
 package com.example.sport_planet.presentation.write
 
+import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -8,6 +9,9 @@ import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentWriteBinding
 import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseFragment
+import com.example.sport_planet.presentation.write.date.DateDialogFragment
+import com.example.sport_planet.presentation.write.date.DateListener
+import java.util.*
 
 class WriteFragment private constructor() :
     BaseFragment<FragmentWriteBinding, WriteViewModel>(R.layout.fragment_write) {
@@ -16,8 +20,22 @@ class WriteFragment private constructor() :
         ViewModelProvider(this).get(WriteViewModel::class.java)
     }
 
-    override fun init() {
+    private val dateDialog: DateDialogFragment by lazy {
+        DateDialogFragment.newInstance()
+    }
 
+    private val dateListener: DateListener = object : DateListener {
+        override fun confirm(date: Date) {
+
+        }
+
+        override fun cancel() {
+            dateDialog.dismiss()
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.toolbar.run {
             setSeparator(SeparatorEnum.NONE)
         }
@@ -47,6 +65,9 @@ class WriteFragment private constructor() :
     }
 
     companion object {
+        const val DATE_DIALOG = "DATE_DIALOG"
+        const val TIME_DIALOG = "TIME_DIALOG"
+
         fun newInstance() = WriteFragment()
     }
 }
