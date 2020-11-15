@@ -20,44 +20,44 @@ interface Api {
     fun postSignUp(@Body userSignUp : SignUpResponse) : Single<ServerCallBackResponse>
 
     @Headers("Authorization: Bearer $jwt")
-    @POST("/v1/chat/room")
+    @POST("/api/chatting-service/v1/chat/room")
     fun makeChattingRoom(
         @Body param: JsonObject
     ): Single<MakeChattingRoomResponse>
 
     @Headers("Authorization: Bearer $jwt")
-    @GET("/v1/chat/room")
+    @GET("/api/chatting-service/v1/chat/room")
     fun getChattingRoomList(): Single<ChattingRoomListResponse>
 
     @Headers("Authorization: Bearer $jwt")
-    @GET("/v1/chat/room/{chatRoomId}/message")
+    @GET("/api/chatting-service/v1/chat/room/{chatRoomId}/message")
     fun getChattingMessageList(
         @Path("chatRoomId") chatRoomId: Long
     ): Single<ChattingMessageListResponse>
 
     @Headers("Authorization: Bearer $jwt")
-    @PUT("/v1/chat/room/{chatRoomId}/message/{messageId}")
+    @PUT("/api/chatting-service/v1/chat/room/{chatRoomId}/message/{messageId}")
     fun makeChattingMessageRead(
         @Path("chatRoomId") boardId: Long,
         @Path("messageId") messageId: Long
     ): Single<MakeChattingMessageReadResponse>
 
     @Headers("Authorization: Bearer $jwt")
-    @POST("/v1/board/{boardId}/apply")
+    @POST("/api/chatting-service/v1/board/{boardId}/apply")
     fun applyBoard(
         @Path("boardId") boardId: Long,
         @Body param: JsonObject
     ): Single<ApplyBoardResponse>
 
     @Headers("Authorization: Bearer $jwt")
-    @POST("/v1/board/{boardId}/approve")
+    @POST("/api/chatting-service/v1/board/{boardId}/approve")
     fun approveBoard(
         @Path("boardId") boardId: Long,
         @Body param: JsonObject
     ): Single<ApplyBoardResponse>
 
     @Headers("Authorization: Bearer $jwt")
-    @HTTP(method = "DELETE", path = "/v1/board/{boardId}/approve", hasBody = true)
+    @HTTP(method = "DELETE", path = "/api/chatting-service/v1/board/{boardId}/approve", hasBody = true)
     fun disapproveBoard(
         @Path("boardId") boardId: Long,
         @Body param: JsonObject
