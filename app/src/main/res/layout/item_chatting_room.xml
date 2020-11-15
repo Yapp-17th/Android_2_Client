@@ -9,9 +9,11 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="76dp"
+        android:layout_height="wrap_content"
         android:id="@+id/layout_chatting_room_item"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:paddingRight="16dp"
+        android:paddingBottom="17dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -73,7 +75,7 @@
 
         <TextView
             android:id="@+id/tv_chatting_room_last_message_content"
-            android:layout_width="266dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
@@ -82,6 +84,7 @@
             android:textColor="@color/gray595757"
             app:layout_constraintStart_toEndOf="@id/layout_chatting_room_iv_container"
             app:layout_constraintTop_toBottomOf="@id/tv_chatting_room_position"
+            app:layout_constraintEnd_toEndOf="parent"
             android:singleLine="true"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
