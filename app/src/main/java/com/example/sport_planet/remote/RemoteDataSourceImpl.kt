@@ -4,7 +4,6 @@ package com.example.sport_planet.remote
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
-import com.example.sport_planet.model.*
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.remote.NetworkHelper.api
 import com.example.sport_planet.remote.NetworkHelper.api2
@@ -17,7 +16,6 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> =
         api.postSignIn(userInfo)
-
 
     override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> =
         api.postSignUp(userSignUp)
@@ -50,8 +48,6 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun postEvaluateReport(evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse> =
         api2.postEvaluateReport(evaluateReportRequest)
-
-    override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> = api.postSignUp(userSignUp)
 
     override fun makeChattingRoom(param: JsonObject): Single<MakeChattingRoomResponse> = api.makeChattingRoom(param)
 

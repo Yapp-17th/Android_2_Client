@@ -5,7 +5,7 @@
     <data>
         <variable
             name="itemChattingRoom"
-            type="com.example.sport_planet.model.ChattingRoomListResponse.Data" />
+            type="com.example.sport_planet.data.response.ChattingRoomListResponse" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
