@@ -7,11 +7,11 @@ enum class SeparatorEnum {
         override val colorId: Int
             get() = R.color.black
     },
-    HOST {
+    Host {
         override val colorId: Int
             get() = R.color.pink
     },
-    GUEST {
+    Guest {
         override val colorId: Int
             get() = R.color.skyblue
     };

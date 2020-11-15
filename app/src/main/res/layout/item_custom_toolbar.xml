@@ -5,7 +5,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/common_app_bar_size">
+        android:layout_height="@dimen/common_app_bar_size"
+        android:background="@drawable/custom_toolbar_border">
 
         <ImageView
             android:id="@+id/back"

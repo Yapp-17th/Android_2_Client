@@ -6,18 +6,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
+import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.model.ChattingMessageResponse
 import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.model.enums.ApprovalStatusButtonEnum
-import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
-import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
-
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting){
 
@@ -56,10 +54,10 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         this.runOnUiThread {
             binding.toolbarActivityChatting.run {
                 if (chatRoomInfo.hostId != UserInfo.USER_ID)
-                    this.setSeparator(SeparatorEnum.HOST)
+                    this.setSeparator(SeparatorEnum.Host)
                 else
-                    this.setSeparator(SeparatorEnum.GUEST)
-                this.title.text = chatRoomInfo.opponentNickname
+                    this.setSeparator(SeparatorEnum.Guest)
+                this.setTitle(chatRoomInfo.opponentNickname)
             }
             rv_activity_chatting_recyclerview.run {
                 adapter = chattingAdapter
