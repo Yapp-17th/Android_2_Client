@@ -1,13 +1,13 @@
 package com.example.sport_planet.presentation.profile
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.sport_planet.model.ExerciseResponse
-import com.example.sport_planet.model.RegionResponse
-import com.example.sport_planet.model.SignUpResponse
+import com.example.sport_planet.data.response.ExerciseResponse
+import com.example.sport_planet.data.response.RegionResponse
+import com.example.sport_planet.data.response.SignUpResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSourceImpl
+import com.example.sport_planet.util.applySchedulers
 
 class ProfileViewModel : BaseViewModel() {
     private val remoteDataSourceImpl = RemoteDataSourceImpl()
@@ -60,7 +60,7 @@ class ProfileViewModel : BaseViewModel() {
         _userExerciseIdList.value = userExerciseIdList
     }
 
-    fun setUserRegion(userRegion: String,userRegionId:Long) {
+    fun setUserRegion(userRegion: String, userRegionId: Long) {
         _userRegion.value = userRegion
         _userRegionId.value = userRegionId
     }
@@ -100,10 +100,14 @@ class ProfileViewModel : BaseViewModel() {
             category = userExerciseIdList.value!!,
             intro = userIntroduceMyself.value.toString()
         )
-        compositeDisposable.add(RemoteDataSourceImpl().postSignUp(signUpResponse).subscribe({
-            _postSignUpStatus.postValue(it.status)
-            _postSignUpStatusMessage.postValue(it.message)
-        }, {}))
+        compositeDisposable.add(
+            RemoteDataSourceImpl().postSignUp(signUpResponse)
+                .applySchedulers()
+                .subscribe({
+                _postSignUpStatus.postValue(it.status)
+                _postSignUpStatusMessage.postValue(it.message)
+            }, {})
+        )
     }
 }
 
