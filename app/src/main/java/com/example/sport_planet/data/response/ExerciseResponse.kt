@@ -1,9 +1,9 @@
-package com.example.sport_planet.model
+package com.example.sport_planet.data.response
 
 
 import com.google.gson.annotations.SerializedName
 
-data class RegionResponse(
+data class ExerciseResponse(
     @SerializedName("data")
     val data: List<Data>,
     @SerializedName("message")
@@ -15,7 +15,7 @@ data class RegionResponse(
 ) {
     data class Data(
         @SerializedName("id")
-        val id: Int,
+        val id: Long,
         @SerializedName("name")
         val name: String
     )

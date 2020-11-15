@@ -80,4 +80,18 @@
     <string name="activity_filter_title">검색 필터 설정</string>
     <string name="activity_filter_ok">필터적용</string>
     <string name="activity_filter_reset">초기화</string>
+
+    <!-- fragment_mypage.xml -->
+    <string name="fragment_my_page_title">마이페이지</string>
+    <string name="fragment_my_page_edit_profile">프로필 수정</string>
+    <string name="fragment_my_page_history">히스토리</string>
+    <string name="fragment_my_page_bookmark">스크랩</string>
+    <string name="fragment_my_page_setting">설정</string>
+    <string name="fragment_my_page_intro_title">기본소개</string>
+    <string name="fragment_my_page_excise_title">관심운동</string>
+    <string name="fragment_my_page_address_title">거주지역</string>
+
+    <!-- fragment_setting.xml -->
+    <string name="fragment_setting_version">버전 1.0.0</string>
+    <string name="fragment_setting_logout">탈퇴하기</string>
 </resources>
