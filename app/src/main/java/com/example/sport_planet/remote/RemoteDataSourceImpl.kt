@@ -8,6 +8,7 @@ import com.example.sport_planet.model.*
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.remote.NetworkHelper.api
 import com.example.sport_planet.remote.NetworkHelper.api2
+import com.example.sport_planet.remote.NetworkHelper.api3
 import io.reactivex.Single
 
 class RemoteDataSourceImpl : RemoteDataSource {
@@ -22,36 +23,34 @@ class RemoteDataSourceImpl : RemoteDataSource {
     override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> =
         api.postSignUp(userSignUp)
 
-    override fun getMyProfile(): Single<HistoryResponse> = api2.getMyProfile()
+    override fun getMyProfile(): Single<HistoryResponse> = api3.getMyProfile()
 
     override fun putMyProfile(myViewEditRequest: MyViewEditRequest): Single<ServerCallBackResponse> =
-        api2.putMyProfile(myViewEditRequest)
+        api3.putMyProfile(myViewEditRequest)
 
-    override fun getViewHistory(userId: Long): Single<HistoryResponse> = api2.getViewHistory(userId)
+    override fun getViewHistory(userId: Long): Single<HistoryResponse> = api3.getViewHistory(userId)
 
-    override fun getMyViewHistory(): Single<MyViewHistoryResponse> = api2.getMyViewHistory()
+    override fun getMyViewHistory(): Single<MyViewHistoryResponse> = api3.getMyViewHistory()
 
     override fun getOthersHistory(userId: Long): Single<OtherHistoryResponse> =
-        api2.getOthersHistory(userId)
+        api3.getOthersHistory(userId)
 
-    override fun getBookMarks(): Single<MyBookMarksResponse> = api2.getBookMarks()
+    override fun getBookMarks(): Single<MyBookMarksResponse> = api3.getBookMarks()
 
-    override fun getApplyList(boardId: Long): Single<ApplyListResponse> = api2.getApplyList(boardId)
+    override fun getApplyList(boardId: Long): Single<ApplyListResponse> = api3.getApplyList(boardId)
 
     override fun getEvaluateList(boardId: Long): Single<EvaluateListResponse> =
-        api2.getEvaluateList(boardId)
+        api3.getEvaluateList(boardId)
 
     override fun putEvaluateIsLike(
         boardId: Long,
         userId: Long,
         isLike: Boolean
     ): Single<ServerCallBackResponse> =
-        api2.putEvaluateIsLike(boardId = boardId, userId = userId, isLike = isLike)
+        api3.putEvaluateIsLike(boardId = boardId, userId = userId, isLike = isLike)
 
     override fun postEvaluateReport(evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse> =
-        api2.postEvaluateReport(evaluateReportRequest)
-
-    override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> = api.postSignUp(userSignUp)
+        api3.postEvaluateReport(evaluateReportRequest)
 
     override fun makeChattingRoom(param: JsonObject): Single<MakeChattingRoomResponse> = api.makeChattingRoom(param)
 

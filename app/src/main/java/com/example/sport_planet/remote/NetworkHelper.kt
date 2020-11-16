@@ -6,14 +6,17 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object NetworkHelper{
+object NetworkHelper {
+    private const val token =
+        "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MDU1OTMxODQsImlhdCI6MTYwNTUwNjc4NCwianRpIjoiMDQ5MzM2NTQtMWI2NC00NTllLWIyNDUtZmM4OTM3MDM4ZmU0IiwidXNlcklkIjoiMSJ9.km0_5XoBgNlQXVf4jnLsuAsJNEv014ey711yr_SMAsOm1jV7659M7VfohXOyVs485-qIA3-MLOKGFcXCgWm4-Q"
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.NONE
         })
-        .addInterceptor{
+        .addInterceptor {
             val request = it.request()
                 .newBuilder()
+                .addHeader("Authorization", "Bearer $token")
                 .build()
             it.proceed(request)
         }.build()
@@ -23,14 +26,15 @@ object NetworkHelper{
          변수를 여러개 해서 사용합니다.
          추후에 합쳐지면 변수를 하나로 수정하는 작업을 진행 하겠습니다 - 민호 -
      */
+    // 로그인 회원가입
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://ec2-54-180-29-231.ap-northeast-2.compute.amazonaws.com:8080") // 채팅
-        //.baseUrl("http://ec2-54-180-29-231.ap-northeast-2.compute.amazonaws.com:8082")
+        .baseUrl("http://54.82.105.93:8080")
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    // 운동종목, 주소
     private val retrofit2 = Retrofit.Builder()
         .baseUrl("http://18.215.230.51:8080")
         .client(okHttpClient)
@@ -38,6 +42,15 @@ object NetworkHelper{
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    // 마이페이지
+    private val retrofit3 = Retrofit.Builder()
+        .baseUrl("http://54.152.162.26:8080")
+        .client(okHttpClient)
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
     val api: Api = retrofit.create(Api::class.java)
     val api2: Api = retrofit2.create(Api::class.java)
+    val api3: Api = retrofit3.create(Api::class.java)
 }
