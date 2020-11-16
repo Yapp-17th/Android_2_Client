@@ -8,14 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.databinding.ActivityChattingBinding
-import com.example.sport_planet.model.ChattingMessageResponse
-import com.example.sport_planet.model.ChattingRoomListResponse
-import com.example.sport_planet.model.enums.ApprovalStatusButtonEnum
+import com.example.sport_planet.data.response.ChattingMessageResponse
+import com.example.sport_planet.data.response.ChattingRoomListResponse
+import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
+import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting){
 
@@ -58,6 +59,9 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 else
                     this.setSeparator(SeparatorEnum.Guest)
                 this.setTitle(chatRoomInfo.opponentNickname)
+                this.back.setOnClickListener {
+                    finish()
+                }
             }
             rv_activity_chatting_recyclerview.run {
                 adapter = chattingAdapter
@@ -122,12 +126,13 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         super.onDestroy()
     }
 
-    fun approvalStatus(status: String): ApprovalStatusButtonEnum{
+    fun approvalStatus(status: String): ApprovalStatusButtonEnum {
         return when(UserInfo.USER_ID){
             chatRoomInfo.guestId -> when(status){
+                "PENDING" -> ApprovalStatusButtonEnum.GUEST_APPLY
                 "APPLIED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
                 "APPROVED" -> ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
-                "DISAPPROVED"  -> ApprovalStatusButtonEnum.GUEST_APPLY
+                "DISAPPROVED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
                 else -> throw IllegalArgumentException("적절하지 않은 Guest AppliedStatus")
             }
             chatRoomInfo.hostId  -> when(status){

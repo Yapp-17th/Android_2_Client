@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemChattingRoomBinding
-import com.example.sport_planet.model.ChattingRoomListResponse
+import com.example.sport_planet.data.response.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.ChattingActivity
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.util.Util.formatTo
@@ -24,7 +24,7 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
 
     fun settingChattingRoomList(chattingRoomList: ArrayList<ChattingRoomListResponse.Data>){
         chattingRooms = chattingRoomList
-        chattingRooms.sortByDescending { chattingRoom -> chattingRoom.lastMessage.timestamp }
+        chattingRooms.sortByDescending { chattingRoom -> chattingRoom.lastMessage.createdAt }
         notifyDataSetChanged()
     }
 
@@ -41,7 +41,7 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
             }
 
             binding.tvChattingRoomNickname.text = chattingRoom.opponentNickname
-            binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage.timestamp!!.formatTo()
+            binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage.createdAt!!.formatTo()
             binding.tvChattingRoomLastMessageContent.text = chattingRoom.lastMessage.content
             binding.layoutChattingRoomItem.setOnClickListener {
 

@@ -5,7 +5,6 @@ import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
 
-import com.example.sport_planet.model.*
 import com.beust.klaxon.JsonObject
 
 import io.reactivex.Single
@@ -18,7 +17,6 @@ interface RemoteDataSource {
     fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse>
 
     fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse>
-
 
     fun getMyProfile(): Single<HistoryResponse>
 
