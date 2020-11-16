@@ -94,4 +94,7 @@
     <!-- fragment_setting.xml -->
     <string name="fragment_setting_version">버전 1.0.0</string>
     <string name="fragment_setting_logout">탈퇴하기</string>
+
+    <!-- fragment_edit_profile.xml -->
+    <string name="fragment_edit_profile_edit_text">프로필 수정하기</string>
 </resources>
