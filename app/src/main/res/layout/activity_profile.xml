@@ -21,17 +21,13 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
+            android:weightSum="1"
             tools:context=".presentation.profile.ProfileActivity">
 
             <com.example.sport_planet.presentation.custom.CustomToolbar
                 android:id="@+id/custom_tool_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-            <View
-                android:id="@+id/v_divider_1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/white_gray" />
 
             <EditText
                 android:id="@+id/et_name"
@@ -186,9 +182,10 @@
                 android:id="@+id/tv_start"
                 style="@style/medium_basic_16sp"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="0dp"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="@dimen/activity_profile_margin_16dp"
+                android:layout_weight="0.3"
                 android:background="@color/grayefefef"
                 android:enabled="false"
                 android:gravity="center"
