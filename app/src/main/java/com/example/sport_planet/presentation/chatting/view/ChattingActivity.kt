@@ -1,4 +1,4 @@
-package com.example.sport_planet.presentation.chatting
+package com.example.sport_planet.presentation.chatting.view
 
 import android.os.Bundle
 import android.view.View
@@ -12,6 +12,7 @@ import com.example.sport_planet.data.response.ChattingMessageResponse
 import com.example.sport_planet.data.response.ChattingRoomListResponse
 import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
 import kotlinx.android.synthetic.main.activity_chatting.*
