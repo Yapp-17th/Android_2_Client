@@ -25,6 +25,8 @@ interface Api {
     @POST("login-service/v1/user/sign-up")
     fun postSignUp(@Body userSignUp: SignUpResponse): Single<ServerCallBackResponse>
 
+    @DELETE("login-service/v1/user/withdraw")
+    fun deleteUser() : Single<ServerCallBackResponse>
     // 마이페이지 API
     @GET("mypage-service/v1/user/my-profile")
     fun getMyProfile(): Single<HistoryResponse>
