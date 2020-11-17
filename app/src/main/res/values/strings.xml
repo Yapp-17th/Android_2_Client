@@ -19,6 +19,9 @@
     <!-- activity_login -->
     <string name="login_button_text1">카카오톡으로 간편로그인</string>
 
+    <!-- fragment_chatting -->
+    <string name="fragment_chatting_nothing">활동 참가신청과 함께\n채팅을 시작하세요!</string>
+
     <!-- activity_chatting -->
     <string name="activity_chatting_board_title">급하게 농구 용병 3명 구합니다.</string>
     <string name="activity_chatting_visit_original_board">원글보기</string>기
