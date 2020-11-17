@@ -24,7 +24,7 @@ object NetworkHelper{
          추후에 합쳐지면 변수를 하나로 수정하는 작업을 진행 하겠습니다 - 민호 -
      */
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://54.180.29.231") // 채팅
+        .baseUrl("http://13.124.197.125") // 채팅
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
         .addConverterFactory(GsonConverterFactory.create())
