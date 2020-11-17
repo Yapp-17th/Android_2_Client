@@ -23,30 +23,10 @@
             android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
             tools:context=".presentation.profile.ProfileActivity">
 
-            <LinearLayout
+            <com.example.sport_planet.presentation.custom.CustomToolbar
+                android:id="@+id/custom_tool_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/iv_back_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/activity_profile_margin_8dp"
-                    android:layout_marginEnd="@dimen/activity_profile_margin_8dp"
-                    android:padding="@dimen/activity_profile_padding_8dp"
-                    android:src="@drawable/icons_24_px_back_arrow" />
-
-                <TextView
-                    style="@style/bold_basic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/activity_profile_head"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/activity_profile_text_size_20sp" />
-            </LinearLayout>
-
+                android:layout_height="wrap_content"/>
             <View
                 android:id="@+id/v_divider_1"
                 android:layout_width="match_parent"
@@ -212,7 +192,6 @@
                 android:background="@color/grayefefef"
                 android:enabled="false"
                 android:gravity="center"
-                android:onClick="@{() ->vm.postSignUp()}"
                 android:text="@string/activity_profile_start"
                 android:textColor="@color/gray9c9c9c" />
 

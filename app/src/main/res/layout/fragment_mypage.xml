@@ -187,7 +187,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_my_page_margin_10dp"
             android:lineSpacingExtra="@dimen/fragment_my_page_spacing_line_3dp"
-            android:text="@={vm.info}"
+            android:text="@={vm.intro}"
             android:textColor="@color/dark_gray"
             app:layout_constraintStart_toStartOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/tv_intro_title"
