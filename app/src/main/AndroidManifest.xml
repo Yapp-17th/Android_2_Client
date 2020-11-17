@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sport_planet">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,10 +18,12 @@
         <activity
             android:name=".presentation.chatting.ChattingActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge"
+
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".presentation.filter.FilterActivity" />
         <activity android:name=".presentation.profile.ExerciseDialog" />
         <activity android:name=".presentation.profile.ProfileActivity" />
+
         <activity android:name=".presentation.login.LoginActivity" />
         <activity android:name=".presentation.main.MainActivity">
             <intent-filter>

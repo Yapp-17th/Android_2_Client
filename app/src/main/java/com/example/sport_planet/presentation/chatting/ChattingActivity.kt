@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
-
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting){
 
     private lateinit var chatRoomInfo: ChattingRoomListResponse.Data
@@ -56,10 +55,13 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         this.runOnUiThread {
             binding.toolbarActivityChatting.run {
                 if (chatRoomInfo.hostId != UserInfo.USER_ID)
-                    this.setSeparator(SeparatorEnum.HOST)
+                    this.setSeparator(SeparatorEnum.Host)
                 else
-                    this.setSeparator(SeparatorEnum.GUEST)
-                this.title.text = chatRoomInfo.opponentNickname
+                    this.setSeparator(SeparatorEnum.Guest)
+                this.setTitle(chatRoomInfo.opponentNickname)
+                this.back.setOnClickListener {
+                    finish()
+                }
             }
             rv_activity_chatting_recyclerview.run {
                 adapter = chattingAdapter
@@ -124,12 +126,13 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         super.onDestroy()
     }
 
-    fun approvalStatus(status: String): ApprovalStatusButtonEnum{
+    fun approvalStatus(status: String): ApprovalStatusButtonEnum {
         return when(UserInfo.USER_ID){
             chatRoomInfo.guestId -> when(status){
+                "PENDING" -> ApprovalStatusButtonEnum.GUEST_APPLY
                 "APPLIED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
                 "APPROVED" -> ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
-                "DISAPPROVED"  -> ApprovalStatusButtonEnum.GUEST_APPLY
+                "DISAPPROVED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
                 else -> throw IllegalArgumentException("적절하지 않은 Guest AppliedStatus")
             }
             chatRoomInfo.hostId  -> when(status){

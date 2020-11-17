@@ -4,7 +4,6 @@ package com.example.sport_planet.remote
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
-import com.example.sport_planet.model.*
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.remote.NetworkHelper.api
 import io.reactivex.Single
@@ -16,7 +15,6 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> =
         api.postSignIn(userInfo)
-
 
     override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> =
         api.postSignUp(userSignUp)

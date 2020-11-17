@@ -9,7 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemCustomApprovalButtonBinding
-import com.example.sport_planet.model.enums.ApprovalStatusButtonEnum
+import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
 
 class CustomApprovalStatusButton: ConstraintLayout {
     constructor(context: Context) : super(context)
