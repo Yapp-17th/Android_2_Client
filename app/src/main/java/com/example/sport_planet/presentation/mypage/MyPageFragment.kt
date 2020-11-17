@@ -1,30 +1,32 @@
 package com.example.sport_planet.presentation.mypage
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentMypageBinding
 import com.example.sport_planet.presentation.base.BaseFragment
-import com.example.sport_planet.presentation.base.BaseViewModel
+import com.example.sport_planet.presentation.mypage.editProfile.EditProfileFragment
+import com.example.sport_planet.presentation.mypage.history.HistoryActivity
+import com.example.sport_planet.presentation.mypage.setting.SettingFragment
 
 class MyPageFragment private constructor() :
-    BaseFragment<FragmentMypageBinding, BaseViewModel>(R.layout.fragment_mypage) {
+    BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.layout.fragment_mypage) {
     companion object {
         fun newInstance() = MyPageFragment()
     }
 
     private val myPageExerciseListAdapter = MyPageExerciseListAdapter()
-    override val viewModel: BaseViewModel
-        get() = TODO("Not yet implemented")
 
-    private val viewModel2: MyPageViewModel by lazy {
+    override val viewModel: MyPageViewModel by lazy {
         ViewModelProvider(this).get(MyPageViewModel::class.java)
     }
 
     override fun init() {
-        binding.vm = viewModel2
-        viewModel2.getMyProfile()
+        binding.vm = viewModel
+        viewModel.getMyProfile()
         binding.rvContent.adapter = myPageExerciseListAdapter
 
     }
@@ -33,21 +35,29 @@ class MyPageFragment private constructor() :
         super.onActivityCreated(savedInstanceState)
         observeLiveData()
         binding.tvEditProfile.setOnClickListener {
-            // TODO: 2020-11-13 프로필 수정 페이지로 이동
+            moveFragment(EditProfileFragment.newInstance())
         }
         binding.tvHistory.setOnClickListener {
-            // TODO: 2020-11-13 히스토리 페이지로 이동
+            val intent = Intent(context,HistoryActivity::class.java)
+            startActivity(intent)
         }
         binding.tvBookmark.setOnClickListener {
             // TODO: 2020-11-13 스크랩 페이지로 이동
         }
         binding.tvSetting.setOnClickListener {
-            // TODO: 2020-11-13 설정 페이지로 이동
+            moveFragment(SettingFragment.newInstance())
         }
     }
 
+    private fun moveFragment(fragment : Fragment) {
+        parentFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.frame, fragment)
+            .commit()
+    }
+
     private fun observeLiveData() {
-        viewModel2.category.observe(viewLifecycleOwner, Observer {
+        viewModel.category.observe(viewLifecycleOwner, Observer {
             myPageExerciseListAdapter.setItem(it)
         })
     }

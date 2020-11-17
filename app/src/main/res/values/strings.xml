@@ -101,4 +101,9 @@
 
     <!-- fragment_edit_profile.xml -->
     <string name="fragment_edit_profile_edit_text">프로필 수정하기</string>
+
+    <!-- activity_history.xml -->
+    <string name="activity_history_tab_title_1">진행중</string>
+    <string name="activity_history_tab_title_2">활동완료</string>
+    <string name="activity_history_title">히스토리</string>
 </resources>
