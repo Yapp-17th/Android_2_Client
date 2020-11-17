@@ -1,4 +1,4 @@
-package com.example.sport_planet.presentation.mypage
+package com.example.sport_planet.presentation.mypage.setting
 
 import android.content.Intent
 import android.util.Log

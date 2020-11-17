@@ -1,4 +1,4 @@
-package com.example.sport_planet.presentation.mypage
+package com.example.sport_planet.presentation.mypage.setting
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.example.sport_planet.presentation.mypage
+package com.example.sport_planet.presentation.mypage.editProfile
 
 import android.view.View
 import androidx.lifecycle.Observer
