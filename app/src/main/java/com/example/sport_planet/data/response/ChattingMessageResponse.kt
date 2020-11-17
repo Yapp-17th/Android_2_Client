@@ -21,6 +21,8 @@ data class ChattingMessageResponse (
     val isHostRead: Boolean?,
     @SerializedName("isGuestRead")
     val isGuestRead: Boolean?,
+    @SerializedName("chatRoomId")
+    val chatRoomId: Long?,
     @SerializedName("senderId")
     val senderId: Long?,
     @SerializedName("senderNickname")
