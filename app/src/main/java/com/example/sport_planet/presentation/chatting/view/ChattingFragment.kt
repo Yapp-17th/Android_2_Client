@@ -1,5 +1,6 @@
-package com.example.sport_planet.presentation.chatting
+package com.example.sport_planet.presentation.chatting.view
 
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +16,8 @@ import kotlinx.android.synthetic.main.fragment_chatting.*
 
 class ChattingFragment private constructor(): BaseFragment<FragmentChattingBinding,BaseViewModel>(R.layout.fragment_chatting) {
     companion object {
-        fun newInstance() = ChattingFragment()
+        fun newInstance() =
+            ChattingFragment()
     }
 
     override val viewModel: ChattingFragmentViewModel
@@ -51,16 +53,23 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
     override fun onStart() {
         super.onStart()
-        settingChattingRoomList()
-    }
-
-    private fun settingChattingRoomList(){
         viewModel.settingChattingRoomList()
-        viewModel.ChattingRoomListResponseLiveData.observe(this,
+        viewModel.chattingRoomListResponseLiveData.observe(this,
             Observer {
                 chattingRoomAdapter.settingChattingRoomList(it.data as ArrayList<ChattingRoomListResponse.Data>)
+                if(chattingRoomAdapter.itemCount == 0){
+                    iv_chatting_fragment_nothing.visibility = View.VISIBLE
+                    tv_chatting_fragment_nothing.visibility = View.VISIBLE
+                }
             }
         )
+        viewModel.initSocket()
+
+    }
+
+    override fun onDestroy() {
+        viewModel.disconnectSocket()
+        super.onDestroy()
     }
 
 }
