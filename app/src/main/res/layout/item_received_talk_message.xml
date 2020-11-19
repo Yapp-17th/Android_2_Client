@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.example.sport_planet.util.Util" />
         <variable
             name="ItemReceivedTalkMessage"
             type="com.example.sport_planet.data.response.ChattingMessageResponse" />
@@ -19,7 +20,7 @@
             android:layout_marginStart="58dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="달리자 88"
+            android:text="@{ItemReceivedTalkMessage.senderNickname}"
             style="@style/regular_basic_12sp"
             android:textColor="@color/gray9c9c9c" />
 
@@ -44,7 +45,7 @@
             android:paddingBottom="8dp"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
-            android:text="@string/received_talk_message_content"
+            android:text="@{ItemReceivedTalkMessage.content}"
             style="@style/regular_basic_14sp"
             android:textColor="@color/black121212"
             app:layout_constraintLeft_toRightOf="@id/iv_received_talk_message_profile_img"
@@ -57,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="@string/received_talk_message_timestamp"
+            android:text="@{Util.formatTo(ItemReceivedTalkMessage.createdAt)}"
             style="@style/regular_basic_12sp"
             android:textColor="@color/gray9c9c9c"
             app:layout_constraintBottom_toBottomOf="parent"

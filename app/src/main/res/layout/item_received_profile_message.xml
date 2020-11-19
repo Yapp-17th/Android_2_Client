@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.example.sport_planet.util.Util" />
         <variable
             name="ItemReceivedProfileMessage"
             type="com.example.sport_planet.data.response.ChattingMessageResponse" />
@@ -19,7 +20,7 @@
             android:layout_marginStart="58dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="달리자 88"
+            android:text="@{ItemReceivedProfileMessage.senderNickname}"
             style="@style/regular_basic_12sp"
             android:textColor="@color/gray9c9c9c"/>
 
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="18dp"
-                android:text="@string/received_profile_message_nickname"
+                android:text="@{ItemReceivedProfileMessage.senderNickname}"
                 style="@style/bold_basic_14sp"
                 android:textColor="@color/black121212"
                 app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +121,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
-                android:text="@string/received_profile_message_introduce"
+                android:text="@{ItemReceivedProfileMessage.content}"
                 style="@style/regular_basic_14sp"
                 android:textColor="@color/black121212"
                 app:layout_constraintStart_toStartOf="parent"
@@ -147,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="@string/received_profile_message_timestamp"
+            android:text="@{Util.formatTo(ItemReceivedProfileMessage.createdAt)}"
             style="@style/regular_basic_12sp"
             android:textColor="@color/gray9c9c9c"
             app:layout_constraintBottom_toBottomOf="parent"

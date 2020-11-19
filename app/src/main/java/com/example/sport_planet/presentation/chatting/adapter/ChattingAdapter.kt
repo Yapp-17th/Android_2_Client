@@ -11,17 +11,17 @@ import com.example.sport_planet.data.response.ChattingRoomListResponse
 import com.example.sport_planet.databinding.*
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo
-import com.example.sport_planet.util.Util.formatTo
 
 class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
 
-    private val BOT_MESSAGE_VIEW = 0
-    private val NOTICE_MESSAGE_VIEW = 1
-    private val RECEIVED_PROFILE_MESSAGE_VIEW = 2
-    private val SENT_PROFILE_MESSAGE_VIEW = 3
-    private val RECEIVED_TALK_MESSAGE_VIEW = 4
-    private val SENT_TALK_MESSAGE_VIEW = 5
+    private val BOT_NOTICE_MESSAGE_VIEW = 0
+    private val BOT_MESSAGE_VIEW = 1
+    private val NOTICE_MESSAGE_VIEW = 2
+    private val RECEIVED_PROFILE_MESSAGE_VIEW = 3
+    private val SENT_PROFILE_MESSAGE_VIEW = 4
+    private val RECEIVED_TALK_MESSAGE_VIEW = 5
+    private val SENT_TALK_MESSAGE_VIEW = 6
 
     private var chattingMessages = ArrayList<ChattingMessageResponse>()
 
@@ -43,64 +43,43 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
 
             when(messageViewType){
 
-                BOT_MESSAGE_VIEW->{
+                BOT_NOTICE_MESSAGE_VIEW -> {
+                    (binding as ItemChatBotNoticeMessageBinding).let {
+                        it.itemChatBotNoticeMessage = chattingMessage
+                    }
+                }
+
+                BOT_MESSAGE_VIEW ->{
                     (binding as ItemChatBotMessageBinding).let {
-                        it.tvChatBotMessageContent.text = chattingMessage.content
-                        it.tvChatBotMessageTimestamp.text = chattingMessage.createdAt!!.formatTo()
+                        it.itemChatBotMessage = chattingMessage
                     }
                 }
 
                 NOTICE_MESSAGE_VIEW -> {
                     (binding as ItemNoticeMessageBinding).let {
-                        it.tvNoticeMessageContent.text = chattingMessage.content
+                        it.itemNoticeMessage = chattingMessage
                     }
                 }
 
                 RECEIVED_PROFILE_MESSAGE_VIEW -> {
                     (binding as ItemReceivedProfileMessageBinding).let {
-                        it.tvReceivedProfileMessageSenderNickname.text = chattingMessage.senderNickname
-                        it.tvReceivedProfileMessageNickname.text = chattingMessage.senderNickname
-                        it.tvReceivedProfileMessageIntroduce.text = chattingMessage.content
-                        it.tvReceivedProfileMessageTimestamp.text = chattingMessage.createdAt!!.formatTo()
+                        it.itemReceivedProfileMessage = chattingMessage
                     }
                 }
                 SENT_PROFILE_MESSAGE_VIEW -> {
                     (binding as ItemSentProfileMessageBinding).let {
-                        it.tvSentProfileMessageNickname.text = chattingMessage.senderNickname
-                        it.tvSentProfileMessageIntroduce.text = chattingMessage.content
-                        it.tvSentProfileMessageTimestamp.text = chattingMessage.createdAt!!.formatTo()
+                        it.itemSentProfileMessage = chattingMessage
                     }
                 }
 
                 RECEIVED_TALK_MESSAGE_VIEW -> {
                     (binding as ItemReceivedTalkMessageBinding).let {
-                        it.tvReceivedTalkMessageSenderNickname.text = chattingMessage.senderNickname
-                        it.tvReceivedTalkMessageContent.text = chattingMessage.content
-                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.createdAt!!.formatTo()
+                        it.itemReceivedTalkMessage = chattingMessage
                     }
                 }
                 SENT_TALK_MESSAGE_VIEW -> {
                     (binding as ItemSentTalkMessageBinding).let {
-                        it.tvSentTalkMessageContent.text = chattingMessage.content
-                        it.tvSentTalkMessageTimestamp.text = chattingMessage.createdAt!!.formatTo()
-/*
-                        when(ChattingInfo.USER_ID){
-                            chatRoomInfo.hostId -> {
-                                if(!chattingMessage.isGuestRead)
-                                  it.tvSentTalkMessageIsread.text = "1"
-                                else
-                                  it.tvSentTalkMessageIsread.text = null
-                            }
-                            chatRoomInfo.guestId -> {
-                                if(!chattingMessage.isHostRead)
-                                  it.tvSentTalkMessageIsread.text = "1"
-                                else
-                                  it.tvSentTalkMessageIsread.text = null
-                            }
-
-                        }
- */
-
+                        it.itemSentTalkMessage = chattingMessage
                     }
                 }
 
@@ -115,32 +94,33 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
         val messageType = currentItem.type
         val messageSender = currentItem.senderId
 
-        when(messageType){
+        return when(messageType){
 
-            ChattingConstant.CHAT_BOT_TYPE -> BOT_MESSAGE_VIEW
+            ChattingConstant.CHAT_BOT_NOTICE_MESSAGE_TYPE -> BOT_NOTICE_MESSAGE_VIEW
+            ChattingConstant.CHAT_BOT_MESSAGE_TYPE -> BOT_MESSAGE_VIEW
 
-            ChattingConstant.PROFILE_TYPE -> {
-                return when(messageSender){
+            ChattingConstant.PROFILE_MESSAGE_TYPE -> {
+                when(messageSender){
                     UserInfo.USER_ID -> SENT_PROFILE_MESSAGE_VIEW
                     else -> RECEIVED_PROFILE_MESSAGE_VIEW
                 }
             }
 
-            ChattingConstant.TALK_TYPE -> {
-                return when(messageSender){
+            ChattingConstant.TALK_MESSAGE_TYPE -> {
+                when(messageSender){
                     UserInfo.USER_ID -> SENT_TALK_MESSAGE_VIEW
                     else -> RECEIVED_TALK_MESSAGE_VIEW
                 }
             }
+            else -> throw IllegalArgumentException("적절하지 않은 MessageViewType")
         }
-
-        return super.getItemViewType(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, messageViewType: Int): Holder {
 
         val messageViewBinding = when(messageViewType){
 
+            BOT_NOTICE_MESSAGE_VIEW -> ItemChatBotNoticeMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             BOT_MESSAGE_VIEW -> ItemChatBotMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
             NOTICE_MESSAGE_VIEW -> ItemNoticeMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -162,7 +142,6 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        //holder.setIsRecyclable(false)
         holder.bind(chattingMessages[position])
     }
 
