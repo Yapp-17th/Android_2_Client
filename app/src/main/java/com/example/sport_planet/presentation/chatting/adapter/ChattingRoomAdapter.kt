@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemChattingRoomBinding
 import com.example.sport_planet.data.response.ChattingRoomListResponse
-import com.example.sport_planet.presentation.chatting.ChattingActivity
+import com.example.sport_planet.presentation.chatting.view.ChattingActivity
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.util.Util.formatTo
 import kotlin.collections.ArrayList
@@ -34,10 +34,16 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
 
             if (chattingRoom.unreadMessages == 0)
                 binding.ivChattingRoomUnreadMessage.visibility = View.INVISIBLE
+            else
+                binding.ivChattingRoomUnreadMessage.visibility = View.VISIBLE
 
             if(chattingRoom.hostId != UserInfo.USER_ID ){
                 binding.tvChattingRoomPosition.text = "Host"
                 binding.tvChattingRoomPosition.setTextColor(ContextCompat.getColor(context, R.color.pink))
+            }
+            else{
+                binding.tvChattingRoomPosition.text = "Guest"
+                binding.tvChattingRoomPosition.setTextColor(ContextCompat.getColor(context, R.color.skyblue))
             }
 
             binding.tvChattingRoomNickname.text = chattingRoom.opponentNickname
