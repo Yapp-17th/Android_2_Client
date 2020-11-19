@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkHelper {
     private const val token =
-        "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MDU1OTMxODQsImlhdCI6MTYwNTUwNjc4NCwianRpIjoiMDQ5MzM2NTQtMWI2NC00NTllLWIyNDUtZmM4OTM3MDM4ZmU0IiwidXNlcklkIjoiMSJ9.km0_5XoBgNlQXVf4jnLsuAsJNEv014ey711yr_SMAsOm1jV7659M7VfohXOyVs485-qIA3-MLOKGFcXCgWm4-Q"
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIxIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjFAZ21haWwuY29tIiwidXNlcklkIjoiMSJ9.Bmbhc-I1r-L-dW5vUzvB9jRsPPKtcqYXutAyWKqkPrc"
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.NONE

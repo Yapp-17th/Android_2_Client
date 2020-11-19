@@ -12,8 +12,7 @@ import com.example.sport_planet.presentation.mypage.editProfile.EditProfileFragm
 import com.example.sport_planet.presentation.mypage.history.HistoryActivity
 import com.example.sport_planet.presentation.mypage.setting.SettingFragment
 
-class MyPageFragment private constructor() :
-    BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.layout.fragment_mypage) {
+class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.layout.fragment_mypage) {
     companion object {
         fun newInstance() = MyPageFragment()
     }
