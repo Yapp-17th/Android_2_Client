@@ -68,7 +68,11 @@
     <string name="dialog_select_title">관심 운동을 선택해주세요 (최대3개)</string>
     <string name="dialog_region_title">거주 지역을 선택해주세요</string>
     <string name="dialog_base_accept_ok">확인</string>
+    <string name="dialog_base_accept_cancel">취소</string>
     <string name="dialog_show_finished_popup">회원가입을 축하드립니다!\n운동플래닛과 건강한 운동생활을\n시작해보세요!</string>
+    <string name="dialog_logout_title">삭제하기 전, 다시 한 번 생각해주세요!</string>
+    <string name="dialog_logout_body">계정을 삭제하면 프로필 정보, 활동기록, 관심활동, 채팅기록 등 모든 활동정보가 사라집니다.</string>
+    <string name="dialog_logout_ok">계정 삭제하기</string>
 
     <!-- activity_home -->
     <string name="filter_option_text">검색 필터</string>
@@ -94,4 +98,12 @@
     <!-- fragment_setting.xml -->
     <string name="fragment_setting_version">버전 1.0.0</string>
     <string name="fragment_setting_logout">탈퇴하기</string>
+
+    <!-- fragment_edit_profile.xml -->
+    <string name="fragment_edit_profile_edit_text">프로필 수정하기</string>
+
+    <!-- activity_history.xml -->
+    <string name="activity_history_tab_title_1">진행중</string>
+    <string name="activity_history_tab_title_2">활동완료</string>
+    <string name="activity_history_title">히스토리</string>
 </resources>

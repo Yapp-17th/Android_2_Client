@@ -12,58 +12,62 @@ const val jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIxIiwiaW
 
 interface Api {
     //   로그인 API
-    @GET("/v1/exercise")
+    @GET("base-service/v1/exercise")
     fun getExercise(): Single<ExerciseResponse>
 
-    @GET("/v1/address/city")
+    @GET("base-service/v1/address/city")
     fun getRegion(): Single<RegionResponse>
 
-    @POST("/v1/user/sign-in")
+    @POST("login-service/v1/user/sign-in")
     fun postSignIn(@Body userInfo: LoginResponse): Single<ServerCallBackResponse>
 
-    @POST("/v1/user/sign-up")
+
+    @POST("login-service/v1/user/sign-up")
     fun postSignUp(@Body userSignUp: SignUpResponse): Single<ServerCallBackResponse>
 
+    @DELETE("login-service/v1/user/withdraw")
+    fun deleteUser() : Single<ServerCallBackResponse>
     // 마이페이지 API
-    @GET("/v1/user/my-profile")
+    @GET("mypage-service/v1/user/my-profile")
     fun getMyProfile(): Single<HistoryResponse>
 
-    @PUT("/v1/user/my-profile")
+    @PUT("mypage-service/v1/user/my-profile")
     fun putMyProfile(@Body myViewEditRequest: MyViewEditRequest): Single<ServerCallBackResponse>
 
-    @GET("/v1/user/{userId}/profile")
+    @GET("mypage-service/v1/user/{userId}/profile")
     fun getViewHistory(
         @Path("userId") userId: Long
     ): Single<HistoryResponse>
 
-    @GET("/v1/user/my-profile/history")
+    @GET("mypage-service/v1/user/my-profile/history")
     fun getMyViewHistory(
         @Query("type") type: String = "continue"
     ): Single<MyViewHistoryResponse>
 
-    @GET("/v1/user/{userId}/profile/history")
+    @GET("mypage-service/v1/user/{userId}/profile/history")
     fun getOthersHistory(
         @Path("userId") userId: Long
     ): Single<OtherHistoryResponse>
 
-    @GET("/v1/user/my-profile/bookmark")
+    @GET("mypage-service/v1/user/my-profile/bookmark")
     fun getBookMarks(): Single<MyBookMarksResponse>
 
-    @GET("/v1/user/my-profile/history/{boardId}/applied")
+    @GET("mypage-service/v1/user/my-profile/history/{boardId}/applied")
     fun getApplyList(@Path("boardId") boardId: Long): Single<ApplyListResponse>
 
-    @GET("/v1/user/my-profile/history/{boardId}/evaluate")
+    @GET("mypage-service/v1/user/my-profile/history/{boardId}/evaluate")
     fun getEvaluateList(@Path("boardId") boardId: Long): Single<EvaluateListResponse>
 
-    @PUT("/v1/user/my-profile/history/{boardId}/evaluate/{userId}?isLike=true")
+    @PUT("mypage-service/v1/user/my-profile/history/{boardId}/evaluate/{userId}?isLike=true")
     fun putEvaluateIsLike(
         @Path("boardId") boardId: Long,
         @Path("userId") userId: Long,
         @Query("isLike") isLike: Boolean
     ): Single<ServerCallBackResponse>
 
-    @POST("/v1/user/my-profile/history/evaluate/report")
+    @POST("mypage-service/v1/user/my-profile/history/evaluate/report")
     fun postEvaluateReport(@Body evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse>
+
 
     @Headers("Authorization: Bearer $jwt")
     @POST("/api/chatting-service/v1/chat/room")
