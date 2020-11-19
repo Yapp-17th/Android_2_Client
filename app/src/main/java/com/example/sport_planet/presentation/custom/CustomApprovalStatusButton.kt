@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemCustomApprovalButtonBinding
 import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
+import com.example.sport_planet.presentation.chatting.ChattingConstant
 
 class CustomApprovalStatusButton: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -39,6 +40,25 @@ class CustomApprovalStatusButton: ConstraintLayout {
                     this.background.setTint(context.getColor(item.backgroundColorId))
                     this.strokeColor = ColorStateList.valueOf(context.getColor(item.strokeColorId))
                 }
+            }
+        }
+    }
+
+    fun approvalStatus(isHost: Boolean, status: String): ApprovalStatusButtonEnum {
+        return when(isHost){
+            false -> when(status){
+                ChattingConstant.PENDING_STATUS -> ApprovalStatusButtonEnum.GUEST_APPLY
+                ChattingConstant.APPLIED_STATUS -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
+                ChattingConstant.APPROVED_STATUS -> ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
+                ChattingConstant.DISAPPROVED_STATUS -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
+                else -> throw IllegalArgumentException("적절하지 않은 Guest AppliedStatus")
+            }
+            true  -> when(status){
+                ChattingConstant.PENDING_STATUS -> ApprovalStatusButtonEnum.HOST_NONE
+                ChattingConstant.APPLIED_STATUS -> ApprovalStatusButtonEnum.HOST_APPROVE
+                ChattingConstant.APPROVED_STATUS -> ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE
+                ChattingConstant.DISAPPROVED_STATUS -> ApprovalStatusButtonEnum.HOST_APPROVE
+                else -> throw IllegalArgumentException("적절하지 않은 Host AppliedStatus")
             }
         }
     }

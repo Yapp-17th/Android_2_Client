@@ -140,7 +140,7 @@ class ChattingActivityViewModel : BaseViewModel() {
     fun sendMessage(chattingMessageContent: String){
         try {
             chattingMessageJsonObject.put("content", chattingMessageContent)
-            chattingMessageJsonObject.put("type", ChattingConstant.TALK_TYPE)
+            chattingMessageJsonObject.put("type", ChattingConstant.TALK_MESSAGE_TYPE)
             chattingMessageJsonObject.put("senderId", UserInfo.USER_ID)
             chattingMessageJsonObject.put("chatRoomId", this.chatRoomId)
 

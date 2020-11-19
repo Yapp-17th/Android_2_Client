@@ -18,8 +18,11 @@ import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivity
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
+import kotlin.properties.Delegates
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting){
+
+    private var isHost by Delegates.notNull<Boolean>()
 
     private lateinit var chatRoomInfo: ChattingRoomListResponse.Data
     private lateinit var chattingAdapter: ChattingAdapter
@@ -37,6 +40,8 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         super.onCreate(savedInstanceState)
 
         chatRoomInfo = intent.getParcelableExtra("chattingRoomInfo")!!
+
+        isHost = chatRoomInfo.hostId == UserInfo.USER_ID
 
         chattingAdapter = ChattingAdapter(chatRoomInfo)
 
@@ -78,10 +83,11 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                     tv_activity_chatting_board_title.text = it.boardTitle
                     chattingAdapter.settingChattingMessageList(it.data as ArrayList<ChattingMessageResponse>)
                 }
-                if(it.firstUnreadMessageId == -1)
+
+                if (it.firstUnreadMessageId == -1)
                     rv_activity_chatting_recyclerview.scrollToPosition(chattingAdapter.itemCount - 1)
                 else
-                    rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId -1)
+                    rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId - 1)
             }
         )
 
@@ -96,7 +102,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
         chattingActivityViewModel.approvalStatusLiveData.observe(this,
             Observer {
-                approvalStatusEnum = approvalStatus(it)
+                approvalStatusEnum = bt_activity_chatting_approval_status.approvalStatus(isHost, it)
                 bt_activity_chatting_approval_status.setApprovalStatusButton(approvalStatusEnum)
             }
         )
@@ -125,25 +131,5 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         rv_activity_chatting_recyclerview.removeOnLayoutChangeListener(layoutChangeListener)
         chattingActivityViewModel.disconnectSocket()
         super.onDestroy()
-    }
-
-    fun approvalStatus(status: String): ApprovalStatusButtonEnum {
-        return when(UserInfo.USER_ID){
-            chatRoomInfo.guestId -> when(status){
-                "PENDING" -> ApprovalStatusButtonEnum.GUEST_APPLY
-                "APPLIED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
-                "APPROVED" -> ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
-                "DISAPPROVED"  -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
-                else -> throw IllegalArgumentException("적절하지 않은 Guest AppliedStatus")
-            }
-            chatRoomInfo.hostId  -> when(status){
-                "PENDING" -> ApprovalStatusButtonEnum.HOST_NONE
-                "APPLIED"  -> ApprovalStatusButtonEnum.HOST_APPROVE
-                "APPROVED" -> ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE
-                "DISAPPROVED"  -> ApprovalStatusButtonEnum.HOST_APPROVE
-                else -> throw IllegalArgumentException("적절하지 않은 Host AppliedStatus")
-            }
-            else -> throw IllegalArgumentException("적절하지 않은 User Id")
-        }
     }
 }
