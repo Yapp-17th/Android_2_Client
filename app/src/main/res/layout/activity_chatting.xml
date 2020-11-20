@@ -45,7 +45,6 @@
                 android:id="@+id/bt_activity_chatting_visit_original_board"
                 android:layout_width="@dimen/activity_chatting_btn_width_76dp"
                 android:layout_height="@dimen/activity_chatting_btn_height_32dp"
-                android:text="@string/activity_chatting_visit_original_board"
                 style="@style/medium_basic_14sp"
                 android:textColor="@color/blue364ea0"
                 android:background="@drawable/activity_chatting_btn_border"
