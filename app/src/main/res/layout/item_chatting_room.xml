@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.example.sport_planet.presentation.chatting.UserInfo" />
+        <import type="android.view.View" />
+        <import type="com.example.sport_planet.util.Util" />
         <variable
-            name="itemChattingRoom"
-            type="com.example.sport_planet.data.response.ChattingRoomListResponse" />
+            name="ItemChattingRoom"
+            type="com.example.sport_planet.data.response.ChattingRoomListResponse.Data" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="52dp"
                 android:layout_marginTop="15dp"
-                app:srcCompat="@drawable/icons_12_px_badge" />
+                app:srcCompat="@drawable/icons_12_px_badge"
+                android:visibility="@{ItemChattingRoom.unreadMessages == 0 ? View.INVISIBLE : View.VISIBLE}"/>
         </RelativeLayout>
 
         <TextView
@@ -45,9 +49,9 @@
             android:layout_marginTop="13dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/layout_chatting_room_iv_container"
-            android:text="Guest"
+            android:text="@{ItemChattingRoom.hostId == UserInfo.INSTANCE.USER_ID ? @string/Host : @string/Guest}"
             style="@style/bold_basic_14sp"
-            android:textColor="@color/skyblue"/>
+            android:textColor="@{ItemChattingRoom.hostId == UserInfo.INSTANCE.USER_ID ? @color/pink : @color/skyblue}"/>
 
         <TextView
             android:id="@+id/tv_chatting_room_nickname"
@@ -57,7 +61,7 @@
             android:layout_marginTop="13dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_chatting_room_position"
-            android:text="달리자 88"
+            android:text="@{ItemChattingRoom.opponentNickname}"
             style="@style/bold_basic_14sp"
             android:textColor="@color/black121212"/>
 
@@ -69,7 +73,7 @@
             android:layout_marginTop="15.5dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_chatting_room_nickname"
-            android:text="오후 1:00"
+            android:text="@{Util.formatTo(ItemChattingRoom.lastMessage.createdAt)}"
             style="@style/medium_basic_12sp"
             android:textColor="@color/gray9c9c9c"/>
 
@@ -79,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:text="같이 운동하고 싶어서 신청 했어요!"
+            android:text="@{ItemChattingRoom.lastMessage.content}"
             style="@style/regular_basic_14sp"
             android:textColor="@color/gray595757"
             app:layout_constraintStart_toEndOf="@id/layout_chatting_room_iv_container"

@@ -4,18 +4,16 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
+import com.example.sport_planet.data.model.ChatRoomInfo
 import com.example.sport_planet.databinding.ItemChattingRoomBinding
 import com.example.sport_planet.data.response.ChattingRoomListResponse
-import com.example.sport_planet.presentation.chatting.view.ChattingActivity
 import com.example.sport_planet.presentation.chatting.UserInfo
-import com.example.sport_planet.util.Util.formatTo
+import com.example.sport_planet.presentation.chatting.view.ChattingActivity
 import kotlin.collections.ArrayList
 
 class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
@@ -32,27 +30,11 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
         @SuppressLint("ResourceAsColor", "SetTextI18n")
         fun bind(chattingRoom: ChattingRoomListResponse.Data){
 
-            if (chattingRoom.unreadMessages == 0)
-                binding.ivChattingRoomUnreadMessage.visibility = View.INVISIBLE
-            else
-                binding.ivChattingRoomUnreadMessage.visibility = View.VISIBLE
+            binding.itemChattingRoom = chattingRoom
 
-            if(chattingRoom.hostId != UserInfo.USER_ID ){
-                binding.tvChattingRoomPosition.text = "Host"
-                binding.tvChattingRoomPosition.setTextColor(ContextCompat.getColor(context, R.color.pink))
-            }
-            else{
-                binding.tvChattingRoomPosition.text = "Guest"
-                binding.tvChattingRoomPosition.setTextColor(ContextCompat.getColor(context, R.color.skyblue))
-            }
-
-            binding.tvChattingRoomNickname.text = chattingRoom.opponentNickname
-            binding.tvChattingRoomLastMessageTimestamp.text = chattingRoom.lastMessage.createdAt!!.formatTo()
-            binding.tvChattingRoomLastMessageContent.text = chattingRoom.lastMessage.content
             binding.layoutChattingRoomItem.setOnClickListener {
-
                 val intent = Intent(context, ChattingActivity::class.java)
-                intent.putExtra("chattingRoomInfo", chattingRoom)
+                intent.putExtra("chatRoomInfo", ChatRoomInfo(chattingRoom.id, chattingRoom.boardId, chattingRoom.guestId, chattingRoom.hostId == UserInfo.USER_ID, chattingRoom.opponentNickname))
                 startActivity(context, intent, null)
             }
         }
@@ -70,6 +52,10 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(chattingRooms[position])
+    }
+
+    override fun getItemId(position: Int): Long {
+        return chattingRooms[position].id
     }
 
     override fun getItemCount(): Int {
