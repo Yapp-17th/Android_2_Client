@@ -21,12 +21,6 @@ object NetworkHelper {
             it.proceed(request)
         }.build()
 
-    /*
-         현재 알렉스님과 소연님의 서버가 다르기때문에 baseUrl를 따로 설정해야돼서 임시 방편으로
-         변수를 여러개 해서 사용합니다.
-         추후에 합쳐지면 변수를 하나로 수정하는 작업을 진행 하겠습니다 - 민호 -
-     */
-    // 로그인 회원가입
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://13.124.197.125/api/")
         .client(okHttpClient)

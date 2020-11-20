@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="items"
+            type="com.example.sport_planet.data.model.ApplyListModel" />
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:text="@{items.host ? @string/item_history_ing_host : @string/item_history_ing_guest}"
             android:layout_marginStart="14dp"
             tools:text="Guest" />
 
@@ -30,9 +36,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
+            android:text="@{items.guestName}"
             tools:text="오동동" />
 
-        <view
+        <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
@@ -43,10 +50,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
+            android:text="@{items.applyStatus.name}"
             android:background="@drawable/shape_round_corner_light_gray"
             android:paddingHorizontal="10dp"
             android:paddingVertical="3dp"
-            tools:text="오동동" />
+            tools:text="신청중" />
     </LinearLayout>
 
 </layout>
