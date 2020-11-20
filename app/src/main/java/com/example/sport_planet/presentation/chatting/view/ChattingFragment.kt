@@ -27,6 +27,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
     override fun init() {
         chattingRoomAdapter = ChattingRoomAdapter(requireContext())
+        chattingRoomAdapter.setHasStableIds(true)
 
         binding.vm = viewModel
 

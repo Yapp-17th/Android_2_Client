@@ -4,15 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.data.response.ChattingMessageResponse
-import com.example.sport_planet.data.response.ChattingRoomListResponse
 import com.example.sport_planet.databinding.*
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo
 
-class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : RecyclerView.Adapter<ChattingAdapter.Holder>()
+class ChattingAdapter() : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
 
     private val BOT_NOTICE_MESSAGE_VIEW = 0
@@ -137,26 +135,15 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
         return Holder(messageViewBinding)
     }
 
+    override fun getItemId(position: Int): Long {
+        return chattingMessages[position].messageId!!
+    }
+
     override fun getItemCount(): Int {
         return chattingMessages.size
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(chattingMessages[position])
-    }
-
-    fun RecyclerView.smoothSnapToPosition(position: Int, snapMode: Int = LinearSmoothScroller.SNAP_TO_START) {
-
-        val smoothScroller = object: LinearSmoothScroller(this.context) {
-            override fun getVerticalSnapPreference(): Int {
-                return snapMode
-            }
-
-            override fun getHorizontalSnapPreference(): Int {
-                return snapMode
-            }
-        }
-        smoothScroller.targetPosition = position
-        layoutManager?.startSmoothScroll(smoothScroller)
     }
 }
