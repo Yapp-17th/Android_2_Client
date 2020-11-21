@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.data.model.ChatRoomInfo
+import com.example.sport_planet.data.response.ChattingMessageResponse
 import com.example.sport_planet.databinding.ItemChattingRoomBinding
 import com.example.sport_planet.data.response.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.UserInfo
@@ -18,10 +19,22 @@ import kotlin.collections.ArrayList
 
 class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
 
+    private var chattingRoomsHashMap = HashMap<Long, ChattingRoomListResponse.Data>()
     private var chattingRooms = ArrayList<ChattingRoomListResponse.Data>()
 
-    fun settingChattingRoomList(chattingRoomList: ArrayList<ChattingRoomListResponse.Data>){
-        chattingRooms = chattingRoomList
+    fun settingChattingRoomList(chattingRoomList: HashMap<Long, ChattingRoomListResponse.Data>){
+        chattingRoomsHashMap = chattingRoomList
+        chattingRooms = ArrayList(chattingRoomsHashMap.values)
+        chattingRooms.sortByDescending { chattingRoom -> chattingRoom.lastMessage.createdAt }
+        notifyDataSetChanged()
+    }
+
+    fun updateChattingRoomList(chattingRoomId: Long, lastMessage: ChattingMessageResponse){
+        chattingRoomsHashMap[chattingRoomId]!!.apply {
+            this.lastMessage = lastMessage
+            this.unreadMessages += 1
+        }
+        chattingRooms = ArrayList(chattingRoomsHashMap.values)
         chattingRooms.sortByDescending { chattingRoom -> chattingRoom.lastMessage.createdAt }
         notifyDataSetChanged()
     }

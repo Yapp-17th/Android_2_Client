@@ -29,6 +29,10 @@ class ChattingFragmentViewModel : BaseViewModel(){
 
     private lateinit var chattingMessage: ChattingMessageResponse
 
+    private val _chattingMessageLiveData = MutableLiveData<ChattingMessageResponse>()
+    val chattingMessageLiveData: LiveData<ChattingMessageResponse>
+        get() = _chattingMessageLiveData
+
     private val _chattingRoomListResponseLiveData = MutableLiveData<ChattingRoomListResponse>()
     val chattingRoomListResponseLiveData: LiveData<ChattingRoomListResponse>
         get() = _chattingRoomListResponseLiveData
@@ -92,7 +96,12 @@ class ChattingFragmentViewModel : BaseViewModel(){
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe ({ stompMessage ->
                                 Log.d(TAG, stompMessage)
-                                settingChattingRoomList()
+                                chattingMessage = Json.parse(ChattingMessageResponse.serializer(), stompMessage)
+                                when(chattingMessage.realTimeUpdateType) {
+                                    "MESSAGE_READ" -> {
+                                        _chattingMessageLiveData.postValue(chattingMessage)
+                                    }
+                                }
                             }, {
                                 Log.d(TAG, it.localizedMessage)
                             })

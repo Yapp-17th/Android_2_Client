@@ -20,6 +20,8 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
             ChattingFragment()
     }
 
+    private var chattingRoomsHashMap = HashMap<Long, ChattingRoomListResponse.Data>()
+
     override val viewModel: ChattingFragmentViewModel
         by lazy { ViewModelProvider(this).get(ChattingFragmentViewModel::class.java) }
 
@@ -54,18 +56,34 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
     override fun onStart() {
         super.onStart()
+
         viewModel.settingChattingRoomList()
+
         viewModel.chattingRoomListResponseLiveData.observe(this,
             Observer {
-                chattingRoomAdapter.settingChattingRoomList(it.data as ArrayList<ChattingRoomListResponse.Data>)
+                for(chattingRoom in it.data){
+                    chattingRoomsHashMap[chattingRoom.id] = chattingRoom
+                }
+                chattingRoomAdapter.settingChattingRoomList(chattingRoomsHashMap)
                 if(chattingRoomAdapter.itemCount == 0){
                     iv_chatting_fragment_nothing.visibility = View.VISIBLE
                     tv_chatting_fragment_nothing.visibility = View.VISIBLE
                 }
             }
         )
+
         viewModel.initSocket()
 
+        viewModel.chattingMessageLiveData.observe(this,
+            Observer {
+                if(chattingRoomsHashMap[it.chatRoomId] != null){
+                    chattingRoomAdapter.updateChattingRoomList(it.chatRoomId!!, it)
+                }
+                else {
+                    viewModel.settingChattingRoomList()
+                }
+            }
+        )
     }
 
     override fun onDestroy() {

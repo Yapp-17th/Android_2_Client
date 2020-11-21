@@ -28,8 +28,8 @@ data class ChattingRoomListResponse (
         @SerializedName("createdAt")
         val createdAt: String,
         @SerializedName("lastMessage")
-        val lastMessage: ChattingMessageResponse,
+        var lastMessage: ChattingMessageResponse,
         @SerializedName("unreadMessages")
-        val unreadMessages: Int
+        var unreadMessages: Int
     ): Parcelable
 }
