@@ -37,6 +37,9 @@
     <string name="sent_profile_message_dislikes">00</string>
     <string name="sent_profile_message_text1">기본소개</string>
 
+    <!-- activity_chatting -->
+    <string name="activity_chatting_origin_board">원글보기</string>
+
     <!-- activity_profile -->
     <string name="activity_profile_head">프로필 작성</string>
     <string name="activity_profile_hint_name">이름</string>

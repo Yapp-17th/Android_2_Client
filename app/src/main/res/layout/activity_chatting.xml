@@ -28,24 +28,20 @@
 
             <TextView
                 android:id="@+id/tv_activity_chatting_board_title"
-                android:layout_width="@dimen/activity_chatting_board_title_maxwidth_166dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 style="@style/regular_basic_14sp"
                 android:textColor="@color/black121212"
                 android:singleLine="true"
-                android:layout_gravity="center"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                />
+                android:layout_gravity="center" />
 
             <Button
                 android:id="@+id/bt_activity_chatting_visit_original_board"
                 android:layout_width="@dimen/activity_chatting_btn_width_76dp"
                 android:layout_height="@dimen/activity_chatting_btn_height_32dp"
                 style="@style/medium_basic_14sp"
+                android:text="@string/activity_chatting_origin_board"
                 android:textColor="@color/blue364ea0"
                 android:background="@drawable/activity_chatting_btn_border"
                 android:backgroundTint="@color/white"
@@ -74,6 +70,7 @@
             android:paddingBottom="16dp"/>
 
         <LinearLayout
+            android:id="@+id/layout_activity_chatting_keyboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
