@@ -49,9 +49,9 @@
             android:layout_marginTop="13dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/layout_chatting_room_iv_container"
-            android:text="@{ItemChattingRoom.hostId == UserInfo.INSTANCE.USER_ID ? @string/Host : @string/Guest}"
+            android:text="@{ItemChattingRoom.hostId != UserInfo.INSTANCE.USER_ID ? @string/Host : @string/Guest}"
             style="@style/bold_basic_14sp"
-            android:textColor="@{ItemChattingRoom.hostId == UserInfo.INSTANCE.USER_ID ? @color/pink : @color/skyblue}"/>
+            android:textColor="@{ItemChattingRoom.hostId != UserInfo.INSTANCE.USER_ID ? @color/pink : @color/skyblue}"/>
 
         <TextView
             android:id="@+id/tv_chatting_room_nickname"
