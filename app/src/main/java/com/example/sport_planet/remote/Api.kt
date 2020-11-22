@@ -76,6 +76,13 @@ interface Api {
     fun getChattingRoomList(): Single<ChattingRoomListResponse>
 
     @Headers("Authorization: Bearer $jwt")
+    @HTTP(method = "DELETE", path = "/api/chatting-service/v1/chat/room/{chatRoomId}")
+    fun leaveChattingRoom(
+        @Path("chatRoomId") chatRoomId: Long
+    ): Single<CommonServerResponse>
+
+
+    @Headers("Authorization: Bearer $jwt")
     @GET("/api/chatting-service/v1/chat/room/{chatRoomId}/message")
     fun getChattingMessageList(
         @Path("chatRoomId") chatRoomId: Long
@@ -93,21 +100,20 @@ interface Api {
     fun applyBoard(
         @Path("boardId") boardId: Long,
         @Body param: JsonObject
-    ): Single<ApplyBoardResponse>
+    ): Single<CommonServerResponse>
 
     @Headers("Authorization: Bearer $jwt")
     @POST("/api/chatting-service/v1/board/{boardId}/approve")
     fun approveBoard(
         @Path("boardId") boardId: Long,
         @Body param: JsonObject
-    ): Single<ApplyBoardResponse>
+    ): Single<CommonServerResponse>
 
     @Headers("Authorization: Bearer $jwt")
     @HTTP(method = "DELETE", path = "/api/chatting-service/v1/board/{boardId}/approve", hasBody = true)
     fun disapproveBoard(
         @Path("boardId") boardId: Long,
         @Body param: JsonObject
-    ): Single<ApplyBoardResponse>
-
+    ): Single<CommonServerResponse>
 
 }

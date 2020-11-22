@@ -46,14 +46,16 @@ interface RemoteDataSource {
 
     fun getChattingRoomList() : Single<ChattingRoomListResponse>
 
+    fun leaveChattingRoom(chatRoomId: Long) : Single<CommonServerResponse>
+
     fun getChattingMessageList(chatRoomId: Long) : Single<ChattingMessageListResponse>
 
     fun makeChattingMessageRead(chatRoomId: Long, messageId: Long) : Single<MakeChattingMessageReadResponse>
 
-    fun applyBoard(boardId:Long, param: JsonObject) : Single<ApplyBoardResponse>
+    fun applyBoard(boardId:Long, param: JsonObject) : Single<CommonServerResponse>
 
-    fun approveBoard(boardId:Long, param: JsonObject) : Single<ApplyBoardResponse>
+    fun approveBoard(boardId:Long, param: JsonObject) : Single<CommonServerResponse>
 
-    fun disapproveBoard(boardId:Long, param: JsonObject) : Single<ApplyBoardResponse>
+    fun disapproveBoard(boardId:Long, param: JsonObject) : Single<CommonServerResponse>
 
 }
