@@ -169,7 +169,6 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
     }
 
     fun approvalStatusButtonOnClick(){
-        Log.d("야야", ">>>>??"+_approvalStatusLiveData.value.toString())
         when(_approvalStatusLiveData.value){
             ApprovalStatusButtonEnum.GUEST_APPLY -> applyBoard()
             ApprovalStatusButtonEnum.HOST_APPROVE -> approveBoard()
