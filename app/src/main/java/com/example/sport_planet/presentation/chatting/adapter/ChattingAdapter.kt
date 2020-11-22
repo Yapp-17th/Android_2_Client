@@ -42,21 +42,15 @@ class ChattingAdapter() : RecyclerView.Adapter<ChattingAdapter.Holder>()
             when(messageViewType){
 
                 BOT_NOTICE_MESSAGE_VIEW -> {
-                    (binding as ItemChatBotNoticeMessageBinding).let {
-                        it.itemChatBotNoticeMessage = chattingMessage
-                    }
+                    (binding as ItemChatBotNoticeMessageBinding).itemChatBotNoticeMessage = chattingMessage
                 }
 
                 BOT_MESSAGE_VIEW ->{
-                    (binding as ItemChatBotMessageBinding).let {
-                        it.itemChatBotMessage = chattingMessage
-                    }
+                    (binding as ItemChatBotMessageBinding).itemChatBotMessage = chattingMessage
                 }
 
                 NOTICE_MESSAGE_VIEW -> {
-                    (binding as ItemNoticeMessageBinding).let {
-                        it.itemNoticeMessage = chattingMessage
-                    }
+                    (binding as ItemNoticeMessageBinding).itemNoticeMessage = chattingMessage
                 }
 
                 RECEIVED_PROFILE_MESSAGE_VIEW -> {
@@ -71,14 +65,10 @@ class ChattingAdapter() : RecyclerView.Adapter<ChattingAdapter.Holder>()
                 }
 
                 RECEIVED_TALK_MESSAGE_VIEW -> {
-                    (binding as ItemReceivedTalkMessageBinding).let {
-                        it.itemReceivedTalkMessage = chattingMessage
-                    }
+                    (binding as ItemReceivedTalkMessageBinding).itemReceivedTalkMessage = chattingMessage
                 }
                 SENT_TALK_MESSAGE_VIEW -> {
-                    (binding as ItemSentTalkMessageBinding).let {
-                        it.itemSentTalkMessage = chattingMessage
-                    }
+                    (binding as ItemSentTalkMessageBinding).itemSentTalkMessage = chattingMessage
                 }
 
                 else -> throw IllegalArgumentException("적절하지 않은 MessageViewType")
