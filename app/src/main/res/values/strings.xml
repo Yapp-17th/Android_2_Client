@@ -37,6 +37,11 @@
     <string name="sent_profile_message_dislikes">00</string>
     <string name="sent_profile_message_text1">기본소개</string>
 
+    <!-- item_custon_dialog -->
+    <string name="custom_dialog_content1">호스트에게 간단한 프로필과 함께 참가신청이 보내집니다.</string>
+    <string name="custom_dialog_cancle">취소</string>
+    <string name="custom_dialog_ok1">신청하기</string>
+
     <!-- activity_chatting -->
     <string name="activity_chatting_origin_board">원글보기</string>
 
