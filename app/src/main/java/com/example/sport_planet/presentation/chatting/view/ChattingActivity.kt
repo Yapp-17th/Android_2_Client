@@ -1,7 +1,6 @@
 package com.example.sport_planet.presentation.chatting.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +14,7 @@ import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
+import com.example.sport_planet.presentation.custom.CustomDialog
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
@@ -119,7 +119,19 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         )
 
         bt_custom_approval_button.setOnClickListener {
-            chattingActivityViewModel.approvalStatusButtonOnClick()
+            when(chattingActivityViewModel.approvalStatusLiveData.value){
+                ApprovalStatusButtonEnum.GUEST_APPLY -> {
+                    val dialog = CustomDialog.CustomDialogBuilder()
+                        .setContent(getString(R.string.custom_dialog_content1))
+                        .setOKText(getString(R.string.custom_dialog_ok1))
+                        .setOnOkClickedListener{
+                            chattingActivityViewModel.approvalStatusButtonOnClick()
+                        }.create()
+                    dialog.show(supportFragmentManager, dialog.tag)
+                }
+                else -> chattingActivityViewModel.approvalStatusButtonOnClick()
+
+            }
         }
 
         bt_activity_chatting_send.setOnClickListener{
