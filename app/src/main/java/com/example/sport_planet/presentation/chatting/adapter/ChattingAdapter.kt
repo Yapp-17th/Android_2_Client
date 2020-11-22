@@ -94,17 +94,17 @@ class ChattingAdapter() : RecyclerView.Adapter<ChattingAdapter.Holder>()
 
         return when(messageType){
 
-            ChattingConstant.CHAT_BOT_NOTICE_MESSAGE_TYPE -> BOT_NOTICE_MESSAGE_VIEW
-            ChattingConstant.CHAT_BOT_MESSAGE_TYPE -> BOT_MESSAGE_VIEW
+            ChattingConstant.CHAT_BOT_NOTICE_MESSAGE -> BOT_NOTICE_MESSAGE_VIEW
+            ChattingConstant.CHAT_BOT_MESSAGE -> BOT_MESSAGE_VIEW
 
-            ChattingConstant.PROFILE_MESSAGE_TYPE -> {
+            ChattingConstant.PROFILE_MESSAGE -> {
                 when(messageSender){
                     UserInfo.USER_ID -> SENT_PROFILE_MESSAGE_VIEW
                     else -> RECEIVED_PROFILE_MESSAGE_VIEW
                 }
             }
 
-            ChattingConstant.TALK_MESSAGE_TYPE -> {
+            ChattingConstant.TALK_MESSAGE -> {
                 when(messageSender){
                     UserInfo.USER_ID -> SENT_TALK_MESSAGE_VIEW
                     else -> RECEIVED_TALK_MESSAGE_VIEW
