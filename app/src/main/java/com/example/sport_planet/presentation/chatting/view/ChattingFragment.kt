@@ -1,5 +1,7 @@
 package com.example.sport_planet.presentation.chatting.view
 
+import android.app.AlertDialog
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +12,7 @@ import com.example.sport_planet.databinding.FragmentChattingBinding
 import com.example.sport_planet.data.response.ChattingRoomListResponse
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.base.BaseViewModel
+import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.adapter.ChattingRoomAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_chatting.*
@@ -20,7 +23,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
             ChattingFragment()
     }
 
-    private var chattingRoomsHashMap = HashMap<Long, ChattingRoomListResponse.Data>()
+    private lateinit var chattingRoomsHashMap : HashMap<Long, ChattingRoomListResponse.Data>
 
     override val viewModel: ChattingFragmentViewModel
         by lazy { ViewModelProvider(this).get(ChattingFragmentViewModel::class.java) }
@@ -28,7 +31,9 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
     private lateinit var chattingRoomAdapter: ChattingRoomAdapter
 
     override fun init() {
-        chattingRoomAdapter = ChattingRoomAdapter(requireContext())
+        chattingRoomAdapter = ChattingRoomAdapter(
+            requireContext()
+        ) { chattingRoomItem -> leaveChattingRoomDialog(chattingRoomItem)}
         chattingRoomAdapter.setHasStableIds(true)
 
         binding.vm = viewModel
@@ -49,9 +54,6 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
             }
         }
 
-        bt_fragment_test.setOnClickListener {
-            viewModel.makeChattingRoom()
-        }
     }
 
     override fun onStart() {
@@ -61,6 +63,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
         viewModel.chattingRoomListResponseLiveData.observe(this,
             Observer {
+                chattingRoomsHashMap = HashMap()
                 for(chattingRoom in it.data){
                     chattingRoomsHashMap[chattingRoom.id] = chattingRoom
                 }
@@ -68,6 +71,10 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
                 if(chattingRoomAdapter.itemCount == 0){
                     iv_chatting_fragment_nothing.visibility = View.VISIBLE
                     tv_chatting_fragment_nothing.visibility = View.VISIBLE
+                }
+                else {
+                    iv_chatting_fragment_nothing.visibility = View.INVISIBLE
+                    tv_chatting_fragment_nothing.visibility = View.INVISIBLE
                 }
             }
         )
@@ -77,7 +84,10 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
         viewModel.chattingMessageLiveData.observe(this,
             Observer {
                 if(chattingRoomsHashMap[it.chatRoomId] != null){
-                    chattingRoomAdapter.updateChattingRoomList(it.chatRoomId!!, it)
+                    when(it.realTimeUpdateType){
+                        ChattingConstant.REAL_TIME_MESSAGE_READ -> chattingRoomAdapter.updateChattingRoomList(it.chatRoomId!!, it)
+                        ChattingConstant.REAL_TIME_USER_EXITED -> viewModel.settingChattingRoomList()
+                    }
                 }
                 else {
                     viewModel.settingChattingRoomList()
@@ -89,6 +99,14 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
     override fun onDestroy() {
         viewModel.disconnectSocket()
         super.onDestroy()
+    }
+
+    private fun leaveChattingRoomDialog(chattingRoomItem: ChattingRoomListResponse.Data) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("채팅방을 나가시겠습니까?")
+            .setNegativeButton("아니요") { _, _ -> }
+            .setPositiveButton("네") { _, _ -> viewModel.leaveChattingRoom(chattingRoomItem.id) }
+        builder.show()
     }
 
 }

@@ -17,7 +17,10 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.view.ChattingActivity
 import kotlin.collections.ArrayList
 
-class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
+class ChattingRoomAdapter(
+    val context: Context,
+    val chattingRoomItemLongClick: (ChattingRoomListResponse.Data) -> Unit
+) : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
 
     private var chattingRoomsHashMap = HashMap<Long, ChattingRoomListResponse.Data>()
     private var chattingRooms = ArrayList<ChattingRoomListResponse.Data>()
@@ -49,6 +52,11 @@ class ChattingRoomAdapter(val context: Context) : RecyclerView.Adapter<ChattingR
                 val intent = Intent(context, ChattingActivity::class.java)
                 intent.putExtra("chatRoomInfo", ChatRoomInfo(chattingRoom.id, chattingRoom.boardId, chattingRoom.guestId, chattingRoom.hostId == UserInfo.USER_ID, chattingRoom.opponentNickname))
                 startActivity(context, intent, null)
+            }
+
+            itemView.setOnLongClickListener {
+                chattingRoomItemLongClick(chattingRoom)
+                true
             }
         }
     }

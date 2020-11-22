@@ -74,6 +74,17 @@ class ChattingFragmentViewModel : BaseViewModel(){
         )
     }
 
+    fun leaveChattingRoom(chatRoomId: Long){
+        compositeDisposable.add(
+            remoteDataSourceImpl.leaveChattingRoom(chatRoomId)
+                .applySchedulers()
+                .subscribe(
+                    {
+                    },{}
+                )
+        )
+    }
+
     @OptIn(UnstableDefault::class)
     fun initSocket() {
         val url = ChattingConstant.URL
@@ -95,13 +106,8 @@ class ChattingFragmentViewModel : BaseViewModel(){
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe ({ stompMessage ->
-                                Log.d(TAG, stompMessage)
                                 chattingMessage = Json.parse(ChattingMessageResponse.serializer(), stompMessage)
-                                when(chattingMessage.realTimeUpdateType) {
-                                    "MESSAGE_READ" -> {
-                                        _chattingMessageLiveData.postValue(chattingMessage)
-                                    }
-                                }
+                                _chattingMessageLiveData.postValue(chattingMessage)
                             }, {
                                 Log.d(TAG, it.localizedMessage)
                             })
