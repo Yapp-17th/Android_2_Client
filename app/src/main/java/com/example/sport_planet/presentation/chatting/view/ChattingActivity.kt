@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.chatting.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,10 +26,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     private lateinit var chattingAdapter: ChattingAdapter
 
-    private val chattingActivityViewModel: ChattingActivityViewModel
-         by lazy {
-             ViewModelProvider(this).get(ChattingActivityViewModel::class.java)
-         }
+    private lateinit var chattingActivityViewModel: ChattingActivityViewModel
 
     private lateinit var approvalStatusEnum: ApprovalStatusButtonEnum
 
@@ -42,6 +40,10 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         super.onCreate(savedInstanceState)
 
         chatRoomInfo = intent.getParcelableExtra("chatRoomInfo")!!
+
+        chattingActivityViewModel =
+            ViewModelProvider(this, ChattingActivityViewModel.ViewModelFactory(chatRoomInfo))
+                .get(ChattingActivityViewModel::class.java)
 
         chattingAdapter = ChattingAdapter()
         chattingAdapter.setHasStableIds(true)
@@ -112,18 +114,12 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
         chattingActivityViewModel.approvalStatusLiveData.observe(this,
             Observer {
-                approvalStatusEnum = bt_activity_chatting_approval_status.approvalStatus(chatRoomInfo.isHost, it)
-                bt_activity_chatting_approval_status.setApprovalStatusButton(approvalStatusEnum)
+                bt_activity_chatting_approval_status.setApprovalStatusButton(it)
             }
         )
 
         bt_custom_approval_button.setOnClickListener {
-            when(approvalStatusEnum){
-                ApprovalStatusButtonEnum.GUEST_APPLY -> chattingActivityViewModel.applyBoard(chatRoomInfo.boardId, chatRoomInfo.chatRoomId)
-                ApprovalStatusButtonEnum.HOST_APPROVE -> chattingActivityViewModel.approveBoard(chatRoomInfo.boardId, chatRoomInfo.chatRoomId, chatRoomInfo.guestId)
-                ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE -> chattingActivityViewModel.disapproveBoard(chatRoomInfo.boardId, chatRoomInfo.chatRoomId, chatRoomInfo.guestId)
-                else -> bt_custom_approval_button.isEnabled = false
-            }
+            chattingActivityViewModel.approvalStatusButtonOnClick()
         }
 
         bt_activity_chatting_send.setOnClickListener{
