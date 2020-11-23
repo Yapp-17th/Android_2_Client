@@ -39,8 +39,11 @@
 
     <!-- item_custon_dialog -->
     <string name="custom_dialog_content1">호스트에게 간단한 프로필과 함께 참가신청이 보내집니다.</string>
+    <string name="custom_dialog_content2">채팅방에서 나가시겠습니까?\n나가기를 하면 대화내용이 모두 삭제되며 채팅목록에서도 지워집니다.</string>
     <string name="custom_dialog_cancle">취소</string>
     <string name="custom_dialog_ok1">신청하기</string>
+    <string name="custom_dialog_ok2">나가기</string>
+
 
     <!-- activity_chatting -->
     <string name="activity_chatting_origin_board">원글보기</string>
