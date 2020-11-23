@@ -3,8 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View" />
         <variable
-            name="chattingViewModel"
+            name="ChattingViewModel"
             type="com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +21,7 @@
             android:layout_gravity="center"
             app:strokeWidth="1dp"
             app:cornerRadius="@dimen/activity_chatting_btn_corner_radius_20dp"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            android:stateListAnimator="@null" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
