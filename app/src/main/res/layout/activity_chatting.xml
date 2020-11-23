@@ -2,8 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View" />
         <variable
-            name="chattingViewModel"
+            name="ChattingViewModel"
             type="com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel" />
     </data>
     <LinearLayout
@@ -56,7 +57,7 @@
                 android:id="@+id/bt_activity_chatting_approval_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
 
         </LinearLayout>
 
@@ -97,8 +98,7 @@
                 android:id="@+id/bt_activity_chatting_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icons_24_px_send_disabled"
-                android:background="@color/white"
+                android:background="@drawable/activity_chatting_send_btn"
                 android:layout_gravity="center"
                 android:layout_marginRight="@dimen/activity_chatting_send_btn_marginRight_13dp" />
         </LinearLayout>
