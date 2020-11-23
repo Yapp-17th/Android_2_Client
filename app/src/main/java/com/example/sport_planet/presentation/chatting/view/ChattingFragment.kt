@@ -1,7 +1,5 @@
 package com.example.sport_planet.presentation.chatting.view
 
-import android.app.AlertDialog
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +13,7 @@ import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.adapter.ChattingRoomAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingFragmentViewModel
+import com.example.sport_planet.presentation.custom.CustomDialog
 import kotlinx.android.synthetic.main.fragment_chatting.*
 
 class ChattingFragment private constructor(): BaseFragment<FragmentChattingBinding,BaseViewModel>(R.layout.fragment_chatting) {
@@ -102,11 +101,13 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
     }
 
     private fun leaveChattingRoomDialog(chattingRoomItem: ChattingRoomListResponse.Data) {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setMessage("채팅방을 나가시겠습니까?")
-            .setNegativeButton("아니요") { _, _ -> }
-            .setPositiveButton("네") { _, _ -> viewModel.leaveChattingRoom(chattingRoomItem.id) }
-        builder.show()
+        val dialog = CustomDialog.CustomDialogBuilder()
+            .setContent(getString(R.string.custom_dialog_content2))
+            .setOKText(getString(R.string.custom_dialog_ok2))
+            .setOnOkClickedListener{
+                viewModel.leaveChattingRoom(chattingRoomItem.id)
+            }.create()
+        dialog.show(parentFragmentManager, dialog.tag)
     }
 
 }
