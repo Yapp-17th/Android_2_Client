@@ -12,6 +12,8 @@ enum class ApprovalStatusButtonEnum {
             get() = R.color.white
         override val strokeColorId: Int
             get() = R.color.black121212
+        override val isClickable: Boolean
+            get() = false
     },
     HOST_APPROVE {
         override val buttonText: String
@@ -22,6 +24,8 @@ enum class ApprovalStatusButtonEnum {
             get() = R.color.blue364ea0
         override val strokeColorId: Int
             get() = R.color.blue364ea0
+        override val isClickable: Boolean
+            get() = true
     },
     HOST_APPROVE_CANCLE {
         override val buttonText: String
@@ -32,6 +36,8 @@ enum class ApprovalStatusButtonEnum {
             get() = R.color.white
         override val strokeColorId: Int
             get() = R.color.blue364ea0
+        override val isClickable: Boolean
+            get() = true
     },
     GUEST_APPLY {
         override val buttonText: String
@@ -42,6 +48,8 @@ enum class ApprovalStatusButtonEnum {
             get() = R.color.blue364ea0
         override val strokeColorId: Int
             get() = R.color.blue364ea0
+        override val isClickable: Boolean
+            get() = true
     },
     GUEST_APPROVE_AWAIT {
         override val buttonText: String
@@ -52,6 +60,8 @@ enum class ApprovalStatusButtonEnum {
             get() = R.color.grayefefef
         override val strokeColorId: Int
             get() = R.color.gray9c9c9c
+        override val isClickable: Boolean
+            get() = false
     },
     GUEST_APPROVE_SUCCESS {
         override val buttonText: String
@@ -62,9 +72,12 @@ enum class ApprovalStatusButtonEnum {
             get() = R.color.gray9c9c9c
         override val strokeColorId: Int
             get() = R.color.gray9c9c9c
+        override val isClickable: Boolean
+            get() = false
     };
     abstract val buttonText: String
     abstract val textColorId: Int
     abstract val backgroundColorId: Int
     abstract val strokeColorId: Int
+    abstract val isClickable: Boolean
 }

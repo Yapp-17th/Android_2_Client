@@ -37,8 +37,9 @@ class CustomApprovalStatusButton: ConstraintLayout {
                         binding.btCustomApprovalButton.visibility = View.VISIBLE
                     this.text = item.buttonText
                     this.setTextColor(context.getColor(item.textColorId))
-                    this.background.setTint(context.getColor(item.backgroundColorId))
                     this.strokeColor = ColorStateList.valueOf(context.getColor(item.strokeColorId))
+                    this.setBackgroundColor(context.getColor(item.backgroundColorId))
+                    this.isClickable = item.isClickable
                 }
             }
         }
