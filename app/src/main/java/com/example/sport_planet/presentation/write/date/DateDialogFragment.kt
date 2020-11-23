@@ -10,9 +10,11 @@ import com.example.sport_planet.R
 import com.example.sport_planet.databinding.DialogDateBinding
 import java.util.*
 
-class DateDialogFragment private constructor() : DialogFragment() {
+class DateDialogFragment private constructor() :
+    DialogFragment(),
+    View.OnClickListener {
     private lateinit var binding: DialogDateBinding
-    private val dateListener: DateListener? = null
+    private var dateListener: DateListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,14 +28,20 @@ class DateDialogFragment private constructor() : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.calendar.minDate = System.currentTimeMillis()
+        binding.btnConfirm.setOnClickListener(this)
+        binding.btnCancel.setOnClickListener(this)
+    }
 
-        binding.btnConfirm.setOnClickListener {
-            dateListener?.confirm(Date(binding.calendar.date))
+    override fun onClick(v: View?) {
+        when(v) {
+            binding.btnConfirm -> dateListener?.confirm(Date(binding.calendar.date))
+            binding.btnCancel ->  dateListener?.cancel()
         }
+        this.dismiss()
+    }
 
-        binding.btnCancel.setOnClickListener {
-            dateListener?.cancel()
-        }
+    fun setListener(listener: DateListener) {
+        this.dateListener = listener
     }
 
     companion object {

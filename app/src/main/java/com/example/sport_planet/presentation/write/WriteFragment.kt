@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentWriteBinding
@@ -11,6 +12,8 @@ import com.example.sport_planet.model.enums.SeparatorEnum
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.write.date.DateDialogFragment
 import com.example.sport_planet.presentation.write.date.DateListener
+import com.example.sport_planet.presentation.write.time.TimeDialogFragment
+import com.example.sport_planet.presentation.write.time.TimeListener
 import java.util.*
 
 class WriteFragment private constructor() :
@@ -21,16 +24,14 @@ class WriteFragment private constructor() :
     }
 
     private val dateDialog: DateDialogFragment by lazy {
-        DateDialogFragment.newInstance()
+        DateDialogFragment.newInstance().apply {
+            setListener(dateListener)
+        }
     }
 
-    private val dateListener: DateListener = object : DateListener {
-        override fun confirm(date: Date) {
-
-        }
-
-        override fun cancel() {
-            dateDialog.dismiss()
+    private val timeDialog: TimeDialogFragment by lazy {
+        TimeDialogFragment.newInstance().apply {
+            setListener(timeListener)
         }
     }
 
@@ -62,6 +63,29 @@ class WriteFragment private constructor() :
                 }
 
             }
+    }
+
+    private val dateListener: DateListener = object : DateListener {
+        override fun confirm(date: Date) {
+            viewModel.date = date
+            timeDialog.show(childFragmentManager.beginTransaction(), "")
+        }
+
+        override fun cancel() {
+            viewModel.clearDateAndTime()
+        }
+    }
+
+    private val timeListener: TimeListener = object : TimeListener {
+        override fun confirm(time: String) {
+            viewModel.time = time
+            // api call
+        }
+
+        override fun cancel() {
+            viewModel.clearDateAndTime()
+        }
+
     }
 
     companion object {

@@ -8,11 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.DialogTimeBinding
-import java.util.*
 
-class TimeDialogFragment private constructor() : DialogFragment() {
+class TimeDialogFragment private constructor() :
+    DialogFragment(),
+    View.OnClickListener {
     private lateinit var binding: DialogTimeBinding
-    private val timeListener: TimeListener? = null
+    private var timeListener: TimeListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,25 +27,29 @@ class TimeDialogFragment private constructor() : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnConfirm.setOnClickListener {
-            timeListener?.confirm()
-        }
+        binding.btnConfirm.setOnClickListener(this)
+        binding.btnCancel.setOnClickListener(this)
 
-        binding.btnCancel.setOnClickListener {
-            timeListener?.cancel()
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            binding.btnConfirm -> timeListener?.confirm("")
+            binding.btnCancel -> timeListener?.cancel()
         }
+        this.dismiss()
+    }
+
+    fun setListener(listener: TimeListener) {
+        this.timeListener = listener
     }
 
     companion object {
-        fun newInstance(date: Date): TimeDialogFragment {
-            val fragment = TimeDialogFragment()
-            //
-            return fragment
-        }
+        fun newInstance() = TimeDialogFragment()
     }
 }
 
 interface TimeListener {
-    fun confirm(date: Date, time: String)
+    fun confirm(time: String)
     fun cancel()
 }
