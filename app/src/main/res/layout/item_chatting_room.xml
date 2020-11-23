@@ -14,9 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/layout_chatting_room_item"
-        android:background="@color/white"
         android:paddingRight="16dp"
-        android:paddingBottom="17dp">
+        android:paddingBottom="17dp"
+        android:background="?attr/selectableItemBackground">
 
         <RelativeLayout
             android:layout_width="wrap_content"

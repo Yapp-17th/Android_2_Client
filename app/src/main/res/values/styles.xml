@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="colorControlHighlight">@color/grayefefef</item>
     </style>
 
     <style name="ChattingAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
