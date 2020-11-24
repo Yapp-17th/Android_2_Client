@@ -15,6 +15,9 @@ import com.example.sport_planet.databinding.ItemChattingRoomBinding
 import com.example.sport_planet.data.response.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.view.ChattingActivity
+import com.example.sport_planet.util.Util
+import com.perfomer.blitz.setTimeAgo
+import kotlinx.android.synthetic.main.item_chatting_room.view.*
 import kotlin.collections.ArrayList
 
 class ChattingRoomAdapter(
@@ -47,6 +50,8 @@ class ChattingRoomAdapter(
         fun bind(chattingRoom: ChattingRoomListResponse.Data){
 
             binding.itemChattingRoom = chattingRoom
+
+            binding.tvChattingRoomLastMessageTimestamp.setTimeAgo(Util.dateToMillis(chattingRoom.lastMessage.createdAt!!))
 
             binding.layoutChattingRoomItem.setOnClickListener {
                 val intent = Intent(context, ChattingActivity::class.java)
