@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
@@ -8,10 +8,30 @@
             name="ItemChatBotNoticeMessage"
             type="com.example.sport_planet.data.response.ChattingMessageResponse" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingTop="@dimen/item_talk_message_msg_paddingTop_16dp">
+
+    <TextView
+        android:id="@+id/tv_notice_message_content"
+        style="@style/medium_basic_12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:background="@drawable/item_message_border"
+        android:backgroundTint="@color/grayefefef"
+        android:paddingLeft="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+        android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+        android:paddingRight="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+        android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/gray9c9c9c" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_chat_bot_message_sender_nickname"
@@ -82,4 +102,5 @@
             app:layout_constraintLeft_toRightOf="@id/layout_chat_bot_notice_message_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
