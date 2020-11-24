@@ -29,4 +29,11 @@ object Util {
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.KOREA)
         return parser.parse(date).time
     }
+
+    @SuppressLint("SimpleDateFormat")
+    fun formatToDate(date: String): String {
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.KOREA)
+        val formatter = SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREA)
+        return formatter.format(parser.parse(date))
+    }
 }
