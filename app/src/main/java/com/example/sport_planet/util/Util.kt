@@ -26,7 +26,7 @@ object Util {
     @JvmStatic
     @SuppressLint("SimpleDateFormat")
     fun dateToMillis(date: String): Long {
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA)
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.KOREA)
         return parser.parse(date).time
     }
 }
