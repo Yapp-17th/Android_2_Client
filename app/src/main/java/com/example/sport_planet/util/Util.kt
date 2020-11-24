@@ -22,4 +22,11 @@ object Util {
         val formatter = SimpleDateFormat("a h:mm", Locale.KOREA)
         return formatter.format(parser.parse(date)!!)
     }
+
+    @JvmStatic
+    @SuppressLint("SimpleDateFormat")
+    fun dateToMillis(date: String): Long {
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA)
+        return parser.parse(date).time
+    }
 }
