@@ -30,6 +30,13 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         binding.lifecycleOwner = this
         init()
     }
+    protected fun onBackPressed() {
+        if (parentFragmentManager.backStackEntryCount > 0) {
+            parentFragmentManager.popBackStack()
+        } else {
+            activity?.finish()
+        }
+    }
 
     abstract fun init()
 

@@ -7,6 +7,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkHelper {
+    private const val token =
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIxIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjFAZ21haWwuY29tIiwidXNlcklkIjoiMSJ9.Bmbhc-I1r-L-dW5vUzvB9jRsPPKtcqYXutAyWKqkPrc"
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.NONE
@@ -14,10 +16,7 @@ object NetworkHelper {
         .addInterceptor {
             val request = it.request()
                 .newBuilder()
-                .addHeader(
-                    "Authorization",
-                    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MDQ3NTQ2MjAsImlhdCI6MTYwNDY2ODIyMCwianRpIjoiNjAxZjhlZjUtMDlkZC00M2E4LWIxNDEtMmVkYzIzMzhmOWFiIiwidXNlcklkIjoiMSJ9.iGcz5rOzHLIOKaRFwic5gPSQkVGo894UE1cqJDOfd1KFs0h30Om7osRQ94wJaqIK0KZ8bP8zsTK2dE4QGcoHWw"
-                )
+                .addHeader("Authorization", "Bearer $token")
                 .build()
             it.proceed(request)
         }.build()
@@ -29,7 +28,6 @@ object NetworkHelper {
      */
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://ec2-54-180-29-231.ap-northeast-2.compute.amazonaws.com:8080") // 채팅
-        //.baseUrl("http://ec2-54-180-29-231.ap-northeast-2.compute.amazonaws.com:8082")
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
         .addConverterFactory(GsonConverterFactory.create())

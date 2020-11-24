@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sport_planet.data.response.ChattingMessageResponse
+import com.example.sport_planet.data.response.ChattingRoomListResponse
 import com.example.sport_planet.databinding.*
-import com.example.sport_planet.model.ChattingMessageResponse
-import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.util.Util.formatTo
@@ -32,7 +32,7 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
 
     fun addChattingMessage(chattingMessage: ChattingMessageResponse){
         chattingMessages.add(chattingMessage)
-        notifyDataSetChanged()
+        notifyItemInserted(itemCount)
     }
 
     inner class Holder(val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root){
@@ -46,7 +46,7 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
                 BOT_MESSAGE_VIEW->{
                     (binding as ItemChatBotMessageBinding).let {
                         it.tvChatBotMessageContent.text = chattingMessage.content
-                        it.tvChatBotMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
+                        it.tvChatBotMessageTimestamp.text = chattingMessage.createdAt!!.formatTo()
                     }
                 }
 
@@ -61,14 +61,14 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
                         it.tvReceivedProfileMessageSenderNickname.text = chattingMessage.senderNickname
                         it.tvReceivedProfileMessageNickname.text = chattingMessage.senderNickname
                         it.tvReceivedProfileMessageIntroduce.text = chattingMessage.content
-                        it.tvReceivedProfileMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
+                        it.tvReceivedProfileMessageTimestamp.text = chattingMessage.createdAt!!.formatTo()
                     }
                 }
                 SENT_PROFILE_MESSAGE_VIEW -> {
                     (binding as ItemSentProfileMessageBinding).let {
                         it.tvSentProfileMessageNickname.text = chattingMessage.senderNickname
                         it.tvSentProfileMessageIntroduce.text = chattingMessage.content
-                        it.tvSentProfileMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
+                        it.tvSentProfileMessageTimestamp.text = chattingMessage.createdAt!!.formatTo()
                     }
                 }
 
@@ -76,13 +76,13 @@ class ChattingAdapter(val chatRoomInfo: ChattingRoomListResponse.Data) : Recycle
                     (binding as ItemReceivedTalkMessageBinding).let {
                         it.tvReceivedTalkMessageSenderNickname.text = chattingMessage.senderNickname
                         it.tvReceivedTalkMessageContent.text = chattingMessage.content
-                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
+                        it.tvReceivedTalkMessageTimestamp.text = chattingMessage.createdAt!!.formatTo()
                     }
                 }
                 SENT_TALK_MESSAGE_VIEW -> {
                     (binding as ItemSentTalkMessageBinding).let {
                         it.tvSentTalkMessageContent.text = chattingMessage.content
-                        it.tvSentTalkMessageTimestamp.text = chattingMessage.timestamp!!.formatTo()
+                        it.tvSentTalkMessageTimestamp.text = chattingMessage.createdAt!!.formatTo()
 /*
                         when(ChattingInfo.USER_ID){
                             chatRoomInfo.hostId -> {

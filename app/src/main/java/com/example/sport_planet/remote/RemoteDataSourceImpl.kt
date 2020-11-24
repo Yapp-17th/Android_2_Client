@@ -1,29 +1,74 @@
 package com.example.sport_planet.remote
 
-import com.example.sport_planet.model.*
+import com.beust.klaxon.JsonObject
+import com.example.sport_planet.data.request.EvaluateReportRequest
+import com.example.sport_planet.data.request.MyViewEditRequest
+import com.example.sport_planet.data.response.*
 import com.example.sport_planet.model.request.BookMarkRequest
-import com.example.sport_planet.model.request.PostBoardIdRequest
+import com.example.sport_planet.data.response.request.PostBoardIdRequest
 import com.example.sport_planet.model.request.PostBoardRequest
 import com.example.sport_planet.model.request.ReportRequest
-import com.example.sport_planet.model.response.BoardContentResponse
-import com.example.sport_planet.model.response.BoardListResponse
+import com.example.sport_planet.data.response.response.BoardContentResponse
+import com.example.sport_planet.data.response.response.BoardListResponse
 import com.example.sport_planet.model.response.CommonResponse
 import com.example.sport_planet.remote.NetworkHelper.api
 import com.example.sport_planet.remote.NetworkHelper.api2
-import com.google.gson.JsonObject
 import io.reactivex.Single
 import java.util.*
 
-class RemoteDataSourceImpl : RemoteDataSource {
+class RemoteDataSourceImpl : RemoteDataSource{
     override fun getExercise(): Single<ExerciseResponse> = api2.getExercise()
+    override fun getRegion(): Single<RegionResponse> {
+        TODO("Not yet implemented")
+    }
 
-    override fun getRegion(): Single<RegionResponse> = api2.getRegion()
+    override fun getMyProfile(): Single<HistoryResponse> = api.getMyProfile()
+    override fun putMyProfile(myViewEditRequest: MyViewEditRequest): Single<ServerCallBackResponse> {
+        TODO("Not yet implemented")
+    }
 
-    override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> =
-        api.postSignIn(userInfo)
+    override fun getViewHistory(userId: Long): Single<HistoryResponse> {
+        TODO("Not yet implemented")
+    }
 
-    override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> =
-        api.postSignUp(userSignUp)
+    override fun getMyViewHistory(): Single<MyViewHistoryResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getOthersHistory(userId: Long): Single<OtherHistoryResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getBookMarks(): Single<MyBookMarksResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getApplyList(boardId: Long): Single<ApplyListResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getEvaluateList(boardId: Long): Single<EvaluateListResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override fun putEvaluateIsLike(
+        boardId: Long,
+        userId: Long,
+        isLike: Boolean
+    ): Single<ServerCallBackResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override fun postEvaluateReport(evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> = api.postSignIn(userInfo)
+
+    override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> = api.postSignUp(userSignUp)
+    override fun deleteUser(): Single<ServerCallBackResponse> {
+        TODO("Not yet implemented")
+    }
 
     override fun makeChattingRoom(param: JsonObject): Single<MakeChattingRoomResponse> =
         api.makeChattingRoom(param)

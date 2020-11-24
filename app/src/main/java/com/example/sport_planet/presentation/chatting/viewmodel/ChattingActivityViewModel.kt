@@ -5,13 +5,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.beust.klaxon.JsonObject
-import com.beust.klaxon.Klaxon
-import com.example.sport_planet.model.ChattingMessageListResponse
-import com.example.sport_planet.model.ChattingMessageResponse
+import com.example.sport_planet.data.response.ChattingMessageListResponse
+import com.example.sport_planet.data.response.ChattingMessageResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.remote.RemoteDataSourceImpl
+import com.example.sport_planet.util.applySchedulers
 import com.gmail.bishoybasily.stomp.lib.Event
 import com.gmail.bishoybasily.stomp.lib.StompClient
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,6 +22,8 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
+import kotlinx.serialization.*
+import kotlinx.serialization.json.Json
 
 class ChattingActivityViewModel : BaseViewModel() {
 
@@ -54,8 +56,7 @@ class ChattingActivityViewModel : BaseViewModel() {
     fun settingChattingMessageList(chatRoomId: Long){
         compositeDisposable.add(
             remoteDataSourceImpl.getChattingMessageList(chatRoomId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .applySchedulers()
                 .subscribe({
                     it.run {
                         _approvalStatusLiveData.postValue(it.appliedStatus)
@@ -70,6 +71,7 @@ class ChattingActivityViewModel : BaseViewModel() {
     private fun makeChattingMessageRead(chatRoomId: Long, messageId: Long){
         compositeDisposable.add(
             remoteDataSourceImpl.makeChattingMessageRead(chatRoomId, messageId)
+                .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
                 },{
@@ -78,6 +80,7 @@ class ChattingActivityViewModel : BaseViewModel() {
         )
     }
 
+    @OptIn(UnstableDefault::class)
     fun initSocket(chatRoomId: Long) {
         val url = ChattingConstant.URL
         val intervalMillis = 5000L
@@ -100,11 +103,11 @@ class ChattingActivityViewModel : BaseViewModel() {
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe ({ stompMessage ->
-                                chattingMessage = Klaxon().parse<ChattingMessageResponse>(stompMessage)!!
+                                chattingMessage = Json.parse(ChattingMessageResponse.serializer(), stompMessage)
                                 when(chattingMessage.realTimeUpdateType) {
                                     "MESSAGE_READ" -> {
-                                        makeChattingMessageRead(this.chatRoomId, chattingMessage.id!!)
                                         _chattingMessageLiveData.postValue(chattingMessage)
+                                        makeChattingMessageRead(this.chatRoomId, chattingMessage.id!!)
                                     }
                                     else -> {
                                         _approvalStatusLiveData.postValue(chattingMessage.realTimeUpdateType)
@@ -113,6 +116,7 @@ class ChattingActivityViewModel : BaseViewModel() {
                             }, {
                                 Log.d(TAG, it.localizedMessage)
                             })
+
                     }
                     Event.Type.CLOSED -> {
                         if(!closeSocket)
@@ -143,6 +147,7 @@ class ChattingActivityViewModel : BaseViewModel() {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
+
         stompClient.send("/pub/v1/chat/message", chattingMessageJsonObject.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -158,8 +163,7 @@ class ChattingActivityViewModel : BaseViewModel() {
         applyBoardObject.put("chatRoomId", chatRoomId)
         compositeDisposable.add(
             remoteDataSourceImpl.applyBoard(boardId, applyBoardObject)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
                 },{
@@ -174,8 +178,7 @@ class ChattingActivityViewModel : BaseViewModel() {
         approveBoardObject["guestId"] = guestId
         compositeDisposable.add(
             remoteDataSourceImpl.approveBoard(boardId, approveBoardObject)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
                 },{
@@ -190,8 +193,7 @@ class ChattingActivityViewModel : BaseViewModel() {
         disapproveBoardObject["guestId"] = guestId
         compositeDisposable.add(
             remoteDataSourceImpl.disapproveBoard(boardId, disapproveBoardObject)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
                 },{
