@@ -14,7 +14,7 @@ class DateDialogFragment private constructor() :
     DialogFragment(),
     View.OnClickListener {
     private lateinit var binding: DialogDateBinding
-    private var dateListener: DateListener? = null
+    private lateinit var dateListener: DateListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,9 +33,9 @@ class DateDialogFragment private constructor() :
     }
 
     override fun onClick(v: View?) {
-        when(v) {
+        when (v) {
             binding.btnConfirm -> dateListener?.confirm(Date(binding.calendar.date))
-            binding.btnCancel ->  dateListener?.cancel()
+            binding.btnCancel -> dateListener?.cancel()
         }
         this.dismiss()
     }

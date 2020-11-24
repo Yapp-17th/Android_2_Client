@@ -1,5 +1,6 @@
 package com.example.sport_planet.presentation.chatting
 
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +25,9 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
     private lateinit var chattingRoomAdapter: ChattingRoomAdapter
 
-    override fun init() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         chattingRoomAdapter = ChattingRoomAdapter(requireContext())
 
         binding.vm = viewModel
@@ -37,7 +40,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
             }
         }
 
-        rv_fragment_chatting_recyclerview.run{
+        binding.rvFragmentChattingRecyclerview.run{
             activity?.runOnUiThread {
                 adapter = chattingRoomAdapter
                 layoutManager = LinearLayoutManager(this@ChattingFragment.context)
@@ -45,7 +48,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
             }
         }
 
-        bt_fragment_test.setOnClickListener {
+        binding.btFragmentTest.setOnClickListener {
             viewModel.makeChattingRoom()
         }
     }

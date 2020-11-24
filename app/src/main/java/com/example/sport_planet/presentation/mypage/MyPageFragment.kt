@@ -18,7 +18,4 @@ class MyPageFragment private constructor() : BaseFragment<FragmentMypageBinding,
     override val viewModel: BaseViewModel
         get() = TODO("Not yet implemented")
 
-    override fun init() {
-    }
-
 }

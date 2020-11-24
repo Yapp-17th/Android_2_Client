@@ -14,6 +14,7 @@ import com.example.sport_planet.presentation.write.date.DateDialogFragment
 import com.example.sport_planet.presentation.write.date.DateListener
 import com.example.sport_planet.presentation.write.time.TimeDialogFragment
 import com.example.sport_planet.presentation.write.time.TimeListener
+import java.text.SimpleDateFormat
 import java.util.*
 
 class WriteFragment private constructor() :
@@ -47,6 +48,7 @@ class WriteFragment private constructor() :
                 R.array.count_list,
                 R.layout.item_member_count
             )
+
         binding.spinnerCount.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -63,12 +65,19 @@ class WriteFragment private constructor() :
                 }
 
             }
+
+        binding.tvDate.text = SimpleDateFormat(getString(R.string.write_date_format)).format(System.currentTimeMillis())
+
+        binding.tvDate.setOnClickListener {
+            dateDialog.show(childFragmentManager.beginTransaction(), DATE_DIALOG)
+        }
     }
 
     private val dateListener: DateListener = object : DateListener {
         override fun confirm(date: Date) {
             viewModel.date = date
-            timeDialog.show(childFragmentManager.beginTransaction(), "")
+            timeDialog.show(childFragmentManager.beginTransaction(), TIME_DIALOG)
+            dateDialog.dismiss()
         }
 
         override fun cancel() {
@@ -79,13 +88,13 @@ class WriteFragment private constructor() :
     private val timeListener: TimeListener = object : TimeListener {
         override fun confirm(time: String) {
             viewModel.time = time
+            timeDialog.dismiss()
             // api call
         }
 
         override fun cancel() {
             viewModel.clearDateAndTime()
         }
-
     }
 
     companion object {

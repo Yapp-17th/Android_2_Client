@@ -13,7 +13,7 @@ class TimeDialogFragment private constructor() :
     DialogFragment(),
     View.OnClickListener {
     private lateinit var binding: DialogTimeBinding
-    private var timeListener: TimeListener? = null
+    private lateinit var timeListener: TimeListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,10 +26,8 @@ class TimeDialogFragment private constructor() :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.btnConfirm.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
-
     }
 
     override fun onClick(v: View?) {

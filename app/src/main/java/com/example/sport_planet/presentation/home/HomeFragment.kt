@@ -1,5 +1,6 @@
 package com.example.sport_planet.presentation.home
 
+import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
@@ -19,8 +20,8 @@ class HomeFragment private constructor() :
     override val viewModel: HomeViewModel
             by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
 
-
-    override fun init() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         activity?.runOnUiThread {
             binding.toolbar?.run {
                 binding.toolbar.setSeparator(SeparatorEnum.GUEST)
