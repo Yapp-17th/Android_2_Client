@@ -24,7 +24,7 @@
             android:orientation="horizontal"
             android:paddingLeft="@dimen/activity_chatting_layout_paddingLeftRight_16dp"
             android:paddingRight="@dimen/activity_chatting_layout_paddingLeftRight_16dp"
-            android:background="@color/white">
+            android:background="@drawable/custom_toolbar_border">
 
             <TextView
                 android:id="@+id/tv_activity_chatting_board_title"
@@ -60,7 +60,8 @@
             <com.example.sport_planet.presentation.custom.CustomApprovalStatusButton
                 android:id="@+id/bt_activity_chatting_approval_status"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
 
@@ -75,21 +76,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
 
             <EditText
                 android:id="@+id/et_activity_chatting_message_content"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/activity_chatting_edit_text_height_34dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
                 android:background="@drawable/activity_chatting_edit_text_border"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/activity_chatting_edit_text_marginLeft_16dp"
                 android:layout_marginRight="@dimen/activity_chatting_edit_text_marginRight_11dp"
-                android:paddingLeft="@dimen/activity_chatting_edit_text_PaddingLeft_12dp"/>
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="@dimen/activity_chatting_edit_text_PaddingLeft_12dp"
+                android:paddingRight="@dimen/activity_chatting_edit_text_PaddingLeft_12dp"/>
 
             <ImageButton
                 android:id="@+id/bt_activity_chatting_send"

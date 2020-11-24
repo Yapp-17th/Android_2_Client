@@ -10,8 +10,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemCustomToolbarBinding
-import com.example.sport_planet.model.enums.MenuEnum
-import com.example.sport_planet.model.enums.SeparatorEnum
+import com.example.sport_planet.data.enums.MenuEnum
+import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.util.Util
 
 class CustomToolbar : ConstraintLayout {
@@ -51,7 +51,7 @@ class CustomToolbar : ConstraintLayout {
 
     fun setSeparator(item: SeparatorEnum) {
         when (item) {
-            SeparatorEnum.HOST, SeparatorEnum.GUEST -> {
+            SeparatorEnum.Host, SeparatorEnum.Guest -> {
                 binding.separator.visibility = View.VISIBLE
                 binding.separator.text = item.name
                 binding.separator.setTextColor(context.getColor(item.colorId))
@@ -75,10 +75,11 @@ class CustomToolbar : ConstraintLayout {
         }
     }
 
-    private fun setTitle(title: String?) {
+    fun setTitle(title: String?) {
         if (binding.back.visibility == View.GONE && binding.separator.visibility == View.GONE) {
-            (binding.title.layoutParams as LinearLayout.LayoutParams).leftMargin =
-                Util.dpToPx(context, 8.0f).toInt()
+            (binding.title.layoutParams as LayoutParams).leftMargin =
+                Util.dpToPx(context, 16.0f).toInt()
+            binding.title.textSize = 20F
         }
 
         title?.run {
@@ -86,7 +87,7 @@ class CustomToolbar : ConstraintLayout {
         }
     }
 
-    private fun setBackButtonVisible(visible: Boolean) {
+    fun setBackButtonVisible(visible: Boolean) {
         if (visible) {
             binding.back.visibility = View.VISIBLE
         } else {

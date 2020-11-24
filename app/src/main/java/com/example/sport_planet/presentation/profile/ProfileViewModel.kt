@@ -1,19 +1,20 @@
 package com.example.sport_planet.presentation.profile
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.sport_planet.model.ExerciseResponse
-import com.example.sport_planet.model.RegionResponse
-import com.example.sport_planet.model.SignUpResponse
+import com.example.sport_planet.data.request.MyViewEditRequest
+import com.example.sport_planet.data.response.ExerciseResponse
+import com.example.sport_planet.data.response.RegionResponse
+import com.example.sport_planet.data.response.SignUpResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSourceImpl
+import com.example.sport_planet.util.applySchedulers
 
 class ProfileViewModel : BaseViewModel() {
     private val remoteDataSourceImpl = RemoteDataSourceImpl()
 
     private val _userToken = MutableLiveData<String>()
-    val userToken: LiveData<String> get() = _userToken
+    private val userToken: LiveData<String> get() = _userToken
 
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> get() = _userId
@@ -22,13 +23,13 @@ class ProfileViewModel : BaseViewModel() {
     val userExerciseList: LiveData<List<String>> get() = _userExerciseList
 
     private val _userExerciseIdList = MutableLiveData<List<Long>>()
-    val userExerciseIdList: LiveData<List<Long>> get() = _userExerciseIdList
+    private val userExerciseIdList: LiveData<List<Long>> get() = _userExerciseIdList
 
     private val _userRegion = MutableLiveData<String>()
     val userRegion: LiveData<String> get() = _userRegion
 
     private val _userRegionId = MutableLiveData<Long>()
-    val userRegionId: LiveData<Long> get() = _userRegionId
+    private val userRegionId: LiveData<Long> get() = _userRegionId
 
     private val _exerciseList = MutableLiveData<ExerciseResponse>()
     val exerciseList: LiveData<ExerciseResponse> get() = _exerciseList
@@ -60,7 +61,7 @@ class ProfileViewModel : BaseViewModel() {
         _userExerciseIdList.value = userExerciseIdList
     }
 
-    fun setUserRegion(userRegion: String,userRegionId:Long) {
+    fun setUserRegion(userRegion: String, userRegionId: Long) {
         _userRegion.value = userRegion
         _userRegionId.value = userRegionId
     }
@@ -100,10 +101,33 @@ class ProfileViewModel : BaseViewModel() {
             category = userExerciseIdList.value!!,
             intro = userIntroduceMyself.value.toString()
         )
-        compositeDisposable.add(RemoteDataSourceImpl().postSignUp(signUpResponse).subscribe({
-            _postSignUpStatus.postValue(it.status)
-            _postSignUpStatusMessage.postValue(it.message)
-        }, {}))
+        compositeDisposable.add(
+            RemoteDataSourceImpl().postSignUp(signUpResponse)
+                .applySchedulers()
+                .subscribe({
+                    _postSignUpStatus.postValue(it.status)
+                    _postSignUpStatusMessage.postValue(it.message)
+                }, {})
+        )
+    }
+
+    fun editProfile() {
+        val myProfile = MyViewEditRequest(
+            userName = userName.value.toString(),
+            address = userRegionId.value!!,
+            category = userExerciseIdList.value!!,
+            email = userEmail.value.toString(),
+            intro = userIntroduceMyself.value.toString(),
+            nickName = userNickname.value.toString()
+        )
+        compositeDisposable.add(
+            RemoteDataSourceImpl().putMyProfile(myProfile)
+                .applySchedulers()
+                .subscribe({
+                    _postSignUpStatus.postValue(it.status)
+                    _postSignUpStatusMessage.postValue(it.message)
+                },{})
+        )
     }
 }
 

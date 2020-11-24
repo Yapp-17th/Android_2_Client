@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.beust.klaxon.JsonObject
-import com.example.sport_planet.model.ChattingRoomListResponse
+import com.example.sport_planet.data.response.ChattingRoomListResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 

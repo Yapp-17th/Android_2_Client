@@ -2,17 +2,18 @@ package com.example.sport_planet.presentation.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
+import com.example.sport_planet.data.response.ExerciseResponse
+import com.example.sport_planet.data.response.RegionResponse
 import com.example.sport_planet.databinding.ActivityProfileBinding
-import com.example.sport_planet.model.ExerciseResponse
-import com.example.sport_planet.model.RegionResponse
 import com.example.sport_planet.presentation.base.BaseAcceptDialog
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.login.LoginActivity
 import com.example.sport_planet.presentation.main.MainActivity
+import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
 
@@ -23,12 +24,18 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         super.onCreate(savedInstanceState)
         initViewModel()
         observeLiveData()
-
+        binding.tvStart.setOnClickListener {
+            viewModel.postSignUp()
+        }
     }
 
     private fun initViewModel() {
         binding.vm = viewModel
-
+        binding.customToolBar.title.text = getString(R.string.activity_profile_head)
+        binding.customToolBar.back.setOnClickListener {
+            val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
+            startActivity(intent)
+        }
         intent.getStringExtra("userToken")?.let { viewModel.setUserToken(it) }
         intent.getStringExtra("userId")?.let { viewModel.setUserId(it) }
         intent.getStringExtra("userEmail")?.let { viewModel.userEmail.value = it }
@@ -126,7 +133,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         dialog.show(supportFragmentManager, "")
     }
 
-    private fun showFinishedPopup(text:String) {
+    private fun showFinishedPopup(text: String) {
         val dialog = BaseAcceptDialog.newInstance(
             dialogTitleText = text,
             dialogImage = R.drawable.profile_finish_logo,
@@ -138,7 +145,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 startActivity(intent)
             }
         })
-        dialog.show(supportFragmentManager,"")
+        dialog.show(supportFragmentManager, "")
     }
 
     private fun getExerciseItem(item: String, idItem: Int) {

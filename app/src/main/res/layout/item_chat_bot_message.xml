@@ -5,7 +5,7 @@
     <data>
         <variable
             name="ItemChatBotMessage"
-            type="com.example.sport_planet.model.ChattingMessageResponse" />
+            type="com.example.sport_planet.data.response.ChattingMessageResponse" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:id="@+id/tv_chat_bot_message_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="@dimen/item_talk_message_msg_maxwidth_225dp"
+            android:maxWidth="@dimen/item_talk_message_msg_maxwidth_260dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
             android:paddingTop="8dp"
