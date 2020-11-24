@@ -84,4 +84,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0" // JVM dependency
 
+    implementation 'com.github.perfomer:blitz:1.0.9' // self-updating relative time
+
 }
