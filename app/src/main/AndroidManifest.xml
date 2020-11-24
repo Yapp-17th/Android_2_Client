@@ -14,14 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".presentation.mypage.history.HistoryActivity"></activity>
+        <activity android:name=".presentation.mypage.history.HistoryActivity"/>
         <activity
             android:name=".presentation.chatting.ChattingActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge"
 
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".presentation.filter.FilterActivity" />
-        <activity android:name=".presentation.profile.ExerciseDialog" />
         <activity android:name=".presentation.profile.ProfileActivity" />
 
         <activity android:name=".presentation.login.LoginActivity" />

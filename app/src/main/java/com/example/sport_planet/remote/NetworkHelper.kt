@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkHelper {
     private const val token =
-        "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MDU1OTMxODQsImlhdCI6MTYwNTUwNjc4NCwianRpIjoiMDQ5MzM2NTQtMWI2NC00NTllLWIyNDUtZmM4OTM3MDM4ZmU0IiwidXNlcklkIjoiMSJ9.km0_5XoBgNlQXVf4jnLsuAsJNEv014ey711yr_SMAsOm1jV7659M7VfohXOyVs485-qIA3-MLOKGFcXCgWm4-Q"
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIxIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjFAZ21haWwuY29tIiwidXNlcklkIjoiMSJ9.Bmbhc-I1r-L-dW5vUzvB9jRsPPKtcqYXutAyWKqkPrc"
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.NONE
@@ -21,12 +21,6 @@ object NetworkHelper {
             it.proceed(request)
         }.build()
 
-    /*
-         현재 알렉스님과 소연님의 서버가 다르기때문에 baseUrl를 따로 설정해야돼서 임시 방편으로
-         변수를 여러개 해서 사용합니다.
-         추후에 합쳐지면 변수를 하나로 수정하는 작업을 진행 하겠습니다 - 민호 -
-     */
-    // 로그인 회원가입
     private val retrofit = Retrofit.Builder()
 
         .baseUrl("http://13.124.197.125/api/")

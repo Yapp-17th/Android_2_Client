@@ -27,7 +27,7 @@
             <com.example.sport_planet.presentation.custom.CustomToolbar
                 android:id="@+id/custom_tool_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <EditText
                 android:id="@+id/et_name"
@@ -39,6 +39,10 @@
                 android:inputType="textPersonName"
                 android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
                 android:text="@={vm.userName}" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white_gray"/>
 
             <EditText
                 android:id="@+id/et_email"
@@ -50,6 +54,10 @@
                 android:inputType="textEmailAddress"
                 android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
                 android:text="@={vm.userEmail}" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white_gray"/>
 
             <EditText
                 android:id="@+id/et_nick_name"
@@ -57,11 +65,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@null"
-                android:imeOptions="actionDone"
                 android:hint="@string/activity_profile_hint_nick_name"
+                android:imeOptions="actionDone"
                 android:inputType="textPersonName"
                 android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
                 android:text="@={vm.userNickname}" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white_gray"/>
 
             <TextView
                 android:id="@+id/tv_interest_excise"
@@ -175,6 +187,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/activity_profile_hint_introduce_myself"
+                android:imeOptions="actionDone"
                 android:inputType="textMultiLine"
                 android:text="@={vm.userIntroduceMyself}" />
 
@@ -185,7 +198,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="@dimen/activity_profile_margin_16dp"
-                android:layout_weight="0.3"
+                android:layout_weight="0.4"
                 android:background="@color/grayefefef"
                 android:enabled="false"
                 android:gravity="center"
