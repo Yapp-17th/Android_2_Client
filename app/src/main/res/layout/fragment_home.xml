@@ -44,6 +44,7 @@
                 layout="@layout/item_home_filter_time"
                 android:layout_width="@dimen/item_filter_time_width"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="12dp"
                 app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

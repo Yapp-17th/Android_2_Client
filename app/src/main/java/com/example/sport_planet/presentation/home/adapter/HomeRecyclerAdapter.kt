@@ -28,6 +28,7 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>
     override fun getItemCount(): Int = items.size
 
     fun setItems(items: List<BoardModel>) {
+        items.sortedBy { it.groupStatus.code }
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()

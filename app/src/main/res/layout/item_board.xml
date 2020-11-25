@@ -83,5 +83,69 @@
             app:layout_constraintTop_toTopOf="@id/tv_dayCount"
             tools:text="asdkfaksldfjakdsnflasdfnlsadnflsandflsnadflnsadlfnkasdjfl" />
 
+        <TextView
+            android:id="@+id/tv_status"
+            style="@style/medium_basic"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:background="@drawable/shape_round_corner_darkblue"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_dayCount"
+            app:layout_constraintTop_toBottomOf="@id/tv_dayCount"
+            tools:text="모집중" />
+
+        <TextView
+            android:id="@+id/tv_exercise"
+            style="@style/medium_basic"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/shape_round_corner_light_gray"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@color/dark_gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_status"
+            app:layout_constraintStart_toEndOf="@id/tv_status"
+            app:layout_constraintTop_toTopOf="@id/tv_status"
+            tools:text="농구" />
+
+        <TextView
+            android:id="@+id/tv_region"
+            style="@style/medium_basic"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/shape_round_corner_light_gray"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@color/dark_gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_exercise"
+            app:layout_constraintStart_toEndOf="@id/tv_exercise"
+            app:layout_constraintTop_toTopOf="@id/tv_exercise"
+            tools:text="중랑구" />
+
+        <TextView
+            tools:text="12/15명"
+            android:id="@+id/tv_peopleCount"
+            style="@style/medium_basic"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/shape_round_corner_light_gray"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@color/dark_gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_region"
+            app:layout_constraintStart_toEndOf="@id/tv_region"
+            app:layout_constraintTop_toTopOf="@id/tv_region" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
