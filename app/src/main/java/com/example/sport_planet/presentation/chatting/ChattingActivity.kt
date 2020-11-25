@@ -6,11 +6,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
+import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
+import com.example.sport_planet.data.response.ChattingMessageResponse
+import com.example.sport_planet.data.response.ChattingRoomListResponse
 import com.example.sport_planet.databinding.ActivityChattingBinding
-import com.example.sport_planet.model.ChattingMessageResponse
-import com.example.sport_planet.model.ChattingRoomListResponse
-import com.example.sport_planet.model.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel

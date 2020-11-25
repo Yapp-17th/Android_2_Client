@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemBoardBinding
-import com.example.sport_planet.model.BoardModel
+import com.example.sport_planet.data.model.BoardModel
 
 class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
     private val items: ArrayList<BoardModel> = arrayListOf()

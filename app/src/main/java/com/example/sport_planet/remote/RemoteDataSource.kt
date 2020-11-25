@@ -5,9 +5,9 @@ import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
 import com.example.sport_planet.model.enums.TimeFilterEnum
-import com.example.sport_planet.data.response.response.BoardContentResponse
-import com.example.sport_planet.data.response.response.BoardListResponse
-import com.example.sport_planet.model.response.CommonResponse
+import com.example.sport_planet.data.response.board.BoardContentResponse
+import com.example.sport_planet.data.response.board.BoardListResponse
+import com.example.sport_planet.data.response.common.CommonResponse
 import io.reactivex.Single
 import java.util.*
 
@@ -72,10 +72,17 @@ interface RemoteDataSource {
     ): Single<CommonResponse>
 
     fun getBoardList(
+        size: Int = 20,
+        page: Int = 0,
+        sorting: String = TimeFilterEnum.TIME_LATEST.text
+    ): Single<BoardListResponse>
+
+    fun getBoardList(
+        size: Int = 20,
         page: Int = 0,
         sorting: String = TimeFilterEnum.TIME_LATEST.text,
-        category: Long = 0,
-        city: Long = 0
+        category: String = "",
+        city: String = ""
     ): Single<BoardListResponse>
 
     fun getBoardContent(

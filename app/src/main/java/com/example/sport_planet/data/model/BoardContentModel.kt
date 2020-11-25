@@ -1,4 +1,4 @@
-package com.example.sport_planet.model
+package com.example.sport_planet.data.model
 
 import com.example.sport_planet.data.response.GroupStatus
 import com.example.sport_planet.data.response.HostModel

@@ -1,4 +1,4 @@
-package com.example.sport_planet.model.response
+package com.example.sport_planet.data.response.common
 
 import com.google.gson.annotations.SerializedName
 

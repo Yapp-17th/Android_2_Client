@@ -1,7 +1,7 @@
-package com.example.sport_planet.model.request
+package com.example.sport_planet.data.request.board
 
 import com.google.gson.annotations.SerializedName
 
-data class BookMarkRequest(
+data class BoardHiddenRequest(
     @SerializedName("boardId") val boardId: Long
 )

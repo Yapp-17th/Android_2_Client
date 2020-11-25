@@ -1,6 +1,9 @@
 package com.example.sport_planet.presentation.home
 
-import android.view.*
+import android.view.ContextMenu
+import android.view.MenuItem
+import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.MenuEnum
@@ -25,9 +28,11 @@ class HomeFragment private constructor() :
                 ).get(HomeViewModel::class.java)
             }
 
+    private val adapter = HomeRecyclerAdapter()
+
     override fun init() {
         activity?.runOnUiThread {
-            binding.toolbar?.run {
+            binding.toolbar.run {
                 binding.toolbar.setSeparator(SeparatorEnum.Guest)
                 binding.toolbar.setMenu(MenuEnum.MENU)
             }
@@ -35,7 +40,11 @@ class HomeFragment private constructor() :
 
         binding.vm = viewModel
 
-        binding.recBoard.adapter = HomeRecyclerAdapter()
+        binding.recBoard.adapter = adapter
+
+        viewModel.boardList.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) adapter.setItems(it)
+        })
 
         registerForContextMenu(binding.clFilterTime)
     }

@@ -5,13 +5,13 @@ import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
 import com.example.sport_planet.model.enums.TimeFilterEnum
-import com.example.sport_planet.model.request.BookMarkRequest
-import com.example.sport_planet.data.response.request.PostBoardIdRequest
-import com.example.sport_planet.model.request.PostBoardRequest
-import com.example.sport_planet.model.request.ReportRequest
-import com.example.sport_planet.data.response.response.BoardContentResponse
-import com.example.sport_planet.data.response.response.BoardListResponse
-import com.example.sport_planet.model.response.CommonResponse
+import com.example.sport_planet.data.request.board.BookMarkRequest
+import com.example.sport_planet.data.request.board.PostBoardIdRequest
+import com.example.sport_planet.data.request.board.PostBoardRequest
+import com.example.sport_planet.data.request.board.ReportRequest
+import com.example.sport_planet.data.response.board.BoardContentResponse
+import com.example.sport_planet.data.response.board.BoardListResponse
+import com.example.sport_planet.data.response.common.CommonResponse
 import io.reactivex.Single
 import retrofit2.http.*
 const val jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIxIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjFAZ21haWwuY29tIiwidXNlcklkIjoiMSJ9.Bmbhc-I1r-L-dW5vUzvB9jRsPPKtcqYXutAyWKqkPrc"
@@ -125,10 +125,18 @@ interface Api {
 
     @GET("/v1/board")
     fun getBoardList(
+        @Query("size") size: Int = 20,
+        @Query("page") page: Int = 0,
+        @Query("sorting") sorting: String = TimeFilterEnum.TIME_LATEST.text
+    ): Single<BoardListResponse>
+
+    @GET("/v1/board")
+    fun getBoardList(
+        @Query("size") size: Int = 20,
         @Query("page") page: Int = 0,
         @Query("sorting") sorting: String = TimeFilterEnum.TIME_LATEST.text,
-        @Query("category") category: Long,
-        @Query("city") city: Long
+        @Query(encoded = true, value = "category") category: String,
+        @Query(encoded = true, value = "city") city: String
     ): Single<BoardListResponse>
 
     @GET("v1/board/{boardId}")

@@ -3,7 +3,7 @@ package com.example.sport_planet.presentation.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sport_planet.model.BoardModel
+import com.example.sport_planet.data.model.BoardModel
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers

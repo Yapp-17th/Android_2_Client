@@ -1,7 +1,7 @@
-package com.example.sport_planet.model.response
+package com.example.sport_planet.data.response.board
 
 
-import com.example.sport_planet.model.BoardModel
+import com.example.sport_planet.data.model.BoardModel
 import com.google.gson.annotations.SerializedName
 
 data class BoardListResponse(

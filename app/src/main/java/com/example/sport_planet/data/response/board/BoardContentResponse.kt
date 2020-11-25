@@ -1,6 +1,6 @@
-package com.example.sport_planet.model.response
+package com.example.sport_planet.data.response.board
 
-import com.example.sport_planet.model.BoardContentModel
+import com.example.sport_planet.data.model.BoardContentModel
 import com.google.gson.annotations.SerializedName
 
 

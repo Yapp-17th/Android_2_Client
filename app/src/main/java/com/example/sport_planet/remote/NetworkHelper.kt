@@ -1,5 +1,6 @@
 package com.example.sport_planet.remote
 
+import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,12 +14,16 @@ object NetworkHelper {
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.NONE
         })
-        .addInterceptor {
-            val request = it.request()
+        .addInterceptor { chain ->
+            val request = chain.request()
                 .newBuilder()
                 .addHeader("Authorization", "Bearer $token")
+                .addHeader("userId", "1")
                 .build()
-            it.proceed(request)
+            Log.d("okhttp", "request : $request")
+            val response = chain.proceed(request)
+            Log.d("okhttp", "response : $response")
+            response
         }.build()
 
     /*
@@ -34,7 +39,7 @@ object NetworkHelper {
         .build()
 
     private val retrofit2 = Retrofit.Builder()
-        .baseUrl("http://18.215.230.51:8080")
+        .baseUrl("http://35.173.244.190:8083")
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
         .addConverterFactory(GsonConverterFactory.create())
