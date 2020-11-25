@@ -35,11 +35,11 @@
             android:layout_marginLeft="8dp"
             android:fontFamily="@font/noto_sans_kr_bold"
             android:gravity="center_vertical"
+            android:textColor="@color/black121212"
             android:textSize="@dimen/common_app_bar_text_size"
             app:layout_constraintLeft_toRightOf="@id/separator"
             app:layout_constraintRight_toLeftOf="@id/menu"
-            tools:text="제목"
-            android:textColor="@color/black121212"/>
+            tools:text="제목" />
 
         <LinearLayout
             android:id="@+id/menu"
@@ -49,6 +49,11 @@
             app:layout_constraintLeft_toRightOf="@id/title"
             app:layout_constraintRight_toRightOf="parent" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white_gray"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -21,6 +21,15 @@
         <activity android:name=".presentation.profile.ExerciseDialog"
             tools:ignore="Instantiatable"></activity>
         <activity android:name=".presentation.profile.ProfileActivity"></activity>
+        <activity android:name=".presentation.mypage.history.HistoryActivity"/>
+        <activity
+            android:name=".presentation.chatting.ChattingActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge"
+
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".presentation.filter.FilterActivity" />
+        <activity android:name=".presentation.profile.ProfileActivity" />
+
         <activity android:name=".presentation.login.LoginActivity" />
         <activity android:name=".presentation.main.MainActivity" >
             <intent-filter>

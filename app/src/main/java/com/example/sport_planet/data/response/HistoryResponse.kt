@@ -20,8 +20,8 @@ data class HistoryResponse(
         val city: String,
         @SerializedName("dislike")
         val dislike: Long,
-        @SerializedName("info")
-        val info: String,
+        @SerializedName("intro")
+        val intro: String,
         @SerializedName("isMine")
         val isMine: Boolean,
         @SerializedName("like")

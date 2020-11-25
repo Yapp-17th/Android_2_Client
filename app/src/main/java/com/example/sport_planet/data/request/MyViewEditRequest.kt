@@ -2,8 +2,8 @@ package com.example.sport_planet.data.request
 
 
 data class MyViewEditRequest(
-    val address: String,
-    val category: List<String>,
+    val address: Long,
+    val category: List<Long>,
     val email: String,
     val intro: String,
     val nickName: String,

@@ -104,4 +104,16 @@
     <dimen name="fragment_setting_margin_20dp">20dp</dimen>
     <dimen name="fragment_setting_padding_16dp">16dp</dimen>
     <dimen name="fragment_setting_text_size_20sp">20sp</dimen>
+
+    <!-- item_history_ing.xml -->
+    <dimen name="item_history_ing_margin_8dp">8dp</dimen>
+    <dimen name="item_history_ing_margin_10dp">10dp</dimen>
+    <dimen name="item_history_ing_margin_12dp">12dp</dimen>
+    <dimen name="item_history_ing_margin_14dp">14dp</dimen>
+    <dimen name="item_history_ing_margin_16dp">16dp</dimen>
+    <dimen name="item_history_ing_margin_18dp">18dp</dimen>
+    <dimen name="item_history_ing_margin_20dp">20dp</dimen>
+    <dimen name="item_history_ing_padding_3dp">3dp</dimen>
+    <dimen name="item_history_ing_padding_10dp">10dp</dimen>
+
 </resources>

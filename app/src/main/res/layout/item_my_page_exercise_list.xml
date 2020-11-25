@@ -13,9 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_interest_excise"
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/activity_chatting_edit_text_border"
+        android:background="@drawable/fragment_excrise_list_round"
         android:orientation="horizontal">
 
         <TextView
@@ -23,13 +23,14 @@
             style="@style/regular_basic_14sp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/item_exercise_list_margin_12dp"
+            android:padding="8dp"
+            android:layout_marginHorizontal="16dp"
             android:autoSizeTextType="uniform"
-            android:background="@color/white_gray"
             android:gravity="center"
             android:text="@{item}"
             android:textColor="@color/dark_gray"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="축구" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
