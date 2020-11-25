@@ -224,16 +224,14 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
         return when(isHost){
             false -> when(status){
                 ChattingConstant.REAL_TIME_PENDING -> ApprovalStatusButtonEnum.GUEST_APPLY
-                ChattingConstant.REAL_TIME_APPLIED -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
+                ChattingConstant.REAL_TIME_APPLIED, ChattingConstant.REAL_TIME_DISAPPROVED -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
                 ChattingConstant.REAL_TIME_APPROVED -> ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
-                ChattingConstant.REAL_TIME_DISAPPROVED -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
                 else -> throw IllegalArgumentException("적절하지 않은 Guest AppliedStatus")
             }
             true  -> when(status){
                 ChattingConstant.REAL_TIME_PENDING -> ApprovalStatusButtonEnum.HOST_NONE
-                ChattingConstant.REAL_TIME_APPLIED -> ApprovalStatusButtonEnum.HOST_APPROVE
+                ChattingConstant.REAL_TIME_APPLIED, ChattingConstant.REAL_TIME_DISAPPROVED -> ApprovalStatusButtonEnum.HOST_APPROVE
                 ChattingConstant.REAL_TIME_APPROVED -> ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE
-                ChattingConstant.REAL_TIME_DISAPPROVED -> ApprovalStatusButtonEnum.HOST_APPROVE
                 else -> throw IllegalArgumentException("적절하지 않은 Host AppliedStatus")
             }
         }

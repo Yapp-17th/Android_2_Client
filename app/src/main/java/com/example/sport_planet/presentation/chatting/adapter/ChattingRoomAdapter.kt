@@ -17,7 +17,6 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.view.ChattingActivity
 import com.example.sport_planet.util.Util
 import com.perfomer.blitz.setTimeAgo
-import kotlinx.android.synthetic.main.item_chatting_room.view.*
 import kotlin.collections.ArrayList
 
 class ChattingRoomAdapter(
