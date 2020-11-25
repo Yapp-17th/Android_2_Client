@@ -125,15 +125,15 @@ interface Api {
 
     @GET("/v1/board")
     fun getBoardList(
-        @Query("size") size: Int = 20,
         @Query("page") page: Int = 0,
+        @Query("size") size: Int = 20,
         @Query("sorting") sorting: String = TimeFilterEnum.TIME_LATEST.text
     ): Single<BoardListResponse>
 
     @GET("/v1/board")
     fun getBoardList(
-        @Query("size") size: Int = 20,
         @Query("page") page: Int = 0,
+        @Query("size") size: Int = 20,
         @Query("sorting") sorting: String = TimeFilterEnum.TIME_LATEST.text,
         @Query(encoded = true, value = "category") category: String,
         @Query(encoded = true, value = "city") city: String

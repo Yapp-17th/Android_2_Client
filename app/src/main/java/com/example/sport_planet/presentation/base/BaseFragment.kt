@@ -9,12 +9,14 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes val layoutId: Int
 ) : Fragment() {
     protected lateinit var binding: B
     protected abstract val viewModel: VM
+    protected val compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater,

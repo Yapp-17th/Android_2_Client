@@ -8,10 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.MenuEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
+import com.example.sport_planet.data.model.BoardModel
 import com.example.sport_planet.databinding.FragmentHomeBinding
 import com.example.sport_planet.presentation.base.BaseFragment
+import com.example.sport_planet.presentation.home.adapter.BookMarkClickListener
 import com.example.sport_planet.presentation.home.adapter.HomeRecyclerAdapter
 import com.example.sport_planet.remote.RemoteDataSourceImpl
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 
 
 class HomeFragment private constructor() :
@@ -28,7 +32,14 @@ class HomeFragment private constructor() :
                 ).get(HomeViewModel::class.java)
             }
 
-    private val adapter = HomeRecyclerAdapter()
+    private val adapter =
+        HomeRecyclerAdapter(
+            View.OnClickListener { },
+            object : BookMarkClickListener {
+                override fun onClick(item: BoardModel) {
+                    viewModel.bookmarkChange(item)
+                }
+            })
 
     override fun init() {
         activity?.runOnUiThread {
@@ -46,12 +57,17 @@ class HomeFragment private constructor() :
             if (it.isNotEmpty()) adapter.setItems(it)
         })
 
+        viewModel.showRecyclerViewRefresh
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { adapter.notifyDataSetChanged() }
+            .addTo(compositeDisposable)
+
         registerForContextMenu(binding.clFilterTime)
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.getWriteList()
+        viewModel.getBoardList()
     }
 
     override fun onCreateContextMenu(
