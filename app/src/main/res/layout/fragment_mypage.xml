@@ -96,7 +96,7 @@
             android:paddingHorizontal="@dimen/fragment_my_page_padding_12dp"
             android:paddingVertical="@dimen/fragment_my_page_padding_8dp"
             android:text="@string/fragment_my_page_edit_profile"
-            android:textColor="@color/darkblue"
+            android:textColor="@color/dark_blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_nickname" />
 

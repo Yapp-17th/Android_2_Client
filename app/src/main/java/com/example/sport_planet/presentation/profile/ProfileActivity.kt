@@ -184,7 +184,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         } else {
             binding.tvStart.run {
                 isEnabled = true
-                setBackgroundColor(resources.getColor(R.color.darkblue, null))
+                setBackgroundColor(resources.getColor(R.color.dark_blue, null))
                 setTextColor(resources.getColor(R.color.white, null))
 
             }
