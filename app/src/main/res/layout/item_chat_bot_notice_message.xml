@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="com.example.sport_planet.util.Util" />
         <variable
-            name="ItemChatBotMessage"
+            name="ItemChatBotNoticeMessage"
             type="com.example.sport_planet.data.response.ChattingMessageResponse" />
     </data>
     <LinearLayout
@@ -55,35 +55,52 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/app_profile_34_px" />
 
-        <TextView
-            android:id="@+id/tv_chat_bot_message_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="@dimen/item_talk_message_msg_maxwidth_260dp"
-            android:layout_marginLeft="8dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_chat_bot_notice_message_container"
+            android:layout_width="@dimen/item_profile_message_msg_maxwidth_190dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:text="@{ItemChatBotMessage.content}"
-            style="@style/regular_basic_14sp"
-            android:textColor="@color/black121212"
-            app:layout_constraintLeft_toRightOf="@id/iv_chat_bot_message_profile_img"
-            app:layout_constraintTop_toBottomOf="@+id/tv_chat_bot_message_sender_nickname"
+            app:layout_constraintStart_toEndOf="@id/iv_chat_bot_message_profile_img"
+            app:layout_constraintTop_toBottomOf="@id/tv_chat_bot_message_sender_nickname"
             android:background="@drawable/item_message_border"
-            android:backgroundTint="@color/white"/>
+            android:backgroundTint="@color/white">
+
+            <TextView
+                android:id="@+id/tv_chat_bot_notice_message_content"
+                android:layout_width="158dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                android:layout_marginTop="8dp"
+                android:text="@{ItemChatBotNoticeMessage.content}"
+                style="@style/regular_basic_14sp"
+                android:textColor="@color/black121212"/>
+
+            <Button
+                android:id="@+id/bt_chat_bot_notice_message_content_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="이용규칙 보러가기"
+                style="@style/regular_basic_14sp"
+                android:textColor="@color/black121212"
+                app:layout_constraintTop_toBottomOf="@id/tv_chat_bot_notice_message_content"
+                android:background="@drawable/item_message_visit_profile_btn_border"
+                android:backgroundTint="@color/blued5daeb"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/tv_chat_bot_message_timestamp"
+            android:id="@+id/tv_chat_bot_notice_message_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="@{Util.formatTo(ItemChatBotMessage.createdAt)}"
+            android:text="@{Util.formatTo(ItemChatBotNoticeMessage.createdAt)}"
             style="@style/regular_basic_12sp"
             android:textColor="@color/gray9c9c9c"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/tv_chat_bot_message_content" />
+            app:layout_constraintLeft_toRightOf="@id/layout_chat_bot_notice_message_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

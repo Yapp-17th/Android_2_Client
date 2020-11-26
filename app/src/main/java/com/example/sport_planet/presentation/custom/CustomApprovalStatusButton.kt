@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemCustomApprovalButtonBinding
 import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
+import com.example.sport_planet.presentation.chatting.ChattingConstant
 
 class CustomApprovalStatusButton: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -32,10 +33,13 @@ class CustomApprovalStatusButton: ConstraintLayout {
             ApprovalStatusButtonEnum.HOST_NONE -> binding.btCustomApprovalButton.visibility = View.GONE
             else -> {
                 binding.btCustomApprovalButton.run {
+                    if(binding.btCustomApprovalButton.visibility == View.GONE)
+                        binding.btCustomApprovalButton.visibility = View.VISIBLE
                     this.text = item.buttonText
                     this.setTextColor(context.getColor(item.textColorId))
-                    this.background.setTint(context.getColor(item.backgroundColorId))
                     this.strokeColor = ColorStateList.valueOf(context.getColor(item.strokeColorId))
+                    this.setBackgroundColor(context.getColor(item.backgroundColorId))
+                    this.isClickable = item.isClickable
                 }
             }
         }

@@ -22,7 +22,6 @@ object NetworkHelper {
         }.build()
 
     private val retrofit = Retrofit.Builder()
-
         .baseUrl("http://13.124.197.125/api/")
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
