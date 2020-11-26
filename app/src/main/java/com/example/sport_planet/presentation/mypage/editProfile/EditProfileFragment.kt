@@ -160,7 +160,7 @@ class EditProfileFragment :
         } else {
             binding.tvStart.run {
                 isEnabled = true
-                setBackgroundColor(resources.getColor(R.color.darkblue, null))
+                setBackgroundColor(resources.getColor(R.color.dark_blue, null))
                 setTextColor(resources.getColor(R.color.white, null))
 
             }

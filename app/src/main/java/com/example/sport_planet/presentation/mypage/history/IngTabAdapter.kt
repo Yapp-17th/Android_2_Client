@@ -66,7 +66,7 @@ class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
             binding.rvExpand.adapter = ingTabExpandAdapter
             binding.root.setOnClickListener {
                 val item = historyItem[adapterPosition]
-//                if (historyItem[adapterPosition].host) {
+                if (historyItem[adapterPosition].host) {
                 if (selectedItems.get(adapterPosition)) {
                     selectedItems.delete(adapterPosition)
                     binding.run {
@@ -102,7 +102,7 @@ class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
                             }
                         }
                     }, 100)
-//                    }
+                    }
                 }
             }
 
