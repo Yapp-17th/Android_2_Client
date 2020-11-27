@@ -22,11 +22,12 @@ object NetworkHelper {
         }.build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://13.124.197.125/api/")
+        .baseUrl("http://52.78.52.254/api/")
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     val api: Api = retrofit.create(Api::class.java)
+
 }

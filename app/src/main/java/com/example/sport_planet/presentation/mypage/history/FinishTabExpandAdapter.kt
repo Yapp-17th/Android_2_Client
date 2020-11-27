@@ -57,7 +57,7 @@ class FinishTabExpandAdapter(private val onClickAction: (Long) -> Unit) :
 
             binding.ivLikes.setOnClickListener {
                 compositeDisposable.add(
-                    RemoteDataSourceImpl().getEvaluateList2(boardIdItem).applySchedulers()
+                    RemoteDataSourceImpl().getEvaluateList(boardIdItem).applySchedulers()
                         .subscribe({ response ->
                             val updateItem = response.data.find { it == item }
                             if (updateItem != null) {
@@ -78,7 +78,7 @@ class FinishTabExpandAdapter(private val onClickAction: (Long) -> Unit) :
             }
             binding.ivDisLikes.setOnClickListener {
                 compositeDisposable.add(
-                    RemoteDataSourceImpl().getEvaluateList2(boardIdItem).applySchedulers()
+                    RemoteDataSourceImpl().getEvaluateList(boardIdItem).applySchedulers()
                         .subscribe({ response ->
                             val updateItem = response.data.find { it == item }
                             if (updateItem != null) {
@@ -102,7 +102,7 @@ class FinishTabExpandAdapter(private val onClickAction: (Long) -> Unit) :
         }
         private fun putLike(userId: Long, like: Boolean) {
             compositeDisposable.add(
-                RemoteDataSourceImpl().putEvaluateIsLike2(boardIdItem, userId, like)
+                RemoteDataSourceImpl().putEvaluateIsLike(boardIdItem, userId, like)
                     .applySchedulers()
                     .subscribe({}, {})
             )
