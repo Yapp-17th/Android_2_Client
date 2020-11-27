@@ -3,9 +3,9 @@ package com.example.sport_planet.presentation.profile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sport_planet.data.request.MyViewEditRequest
-import com.example.sport_planet.data.response.ExerciseResponse
-import com.example.sport_planet.data.response.RegionResponse
-import com.example.sport_planet.data.response.SignUpResponse
+import com.example.sport_planet.data.response.basic.ExerciseResponse
+import com.example.sport_planet.data.response.basic.RegionResponse
+import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.example.sport_planet.util.applySchedulers

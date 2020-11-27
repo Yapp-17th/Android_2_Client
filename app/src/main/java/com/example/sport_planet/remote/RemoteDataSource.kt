@@ -6,6 +6,11 @@ import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
 
 import com.beust.klaxon.JsonObject
+import com.example.sport_planet.data.response.basic.ExerciseResponse
+import com.example.sport_planet.data.response.basic.RegionResponse
+import com.example.sport_planet.data.response.login.LoginResponse
+import com.example.sport_planet.data.response.login.SignUpResponse
+import com.example.sport_planet.data.response.mypage.*
 
 import io.reactivex.Single
 

@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.mypage.history.HistoryActivity">
+        tools:context=".presentation.mypage.history.view.HistoryActivity">
 
         <com.example.sport_planet.presentation.custom.CustomToolbar
             android:id="@+id/custom_tool_bar"

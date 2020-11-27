@@ -7,6 +7,16 @@ import com.example.sport_planet.data.response.*
 import io.reactivex.Single
 import retrofit2.http.*
 import com.beust.klaxon.JsonObject
+import com.example.sport_planet.data.response.basic.ExerciseResponse
+import com.example.sport_planet.data.response.basic.RegionResponse
+import com.example.sport_planet.data.response.login.LoginResponse
+import com.example.sport_planet.data.response.login.SignUpResponse
+import com.example.sport_planet.data.response.mypage.*
+import com.example.sport_planet.model.ChattingMessageListResponse
+import com.example.sport_planet.model.ChattingRoomListResponse
+import com.example.sport_planet.model.MakeChattingMessageReadResponse
+import com.example.sport_planet.model.MakeChattingRoomResponse
+
 
 interface Api {
     //   로그인 API
