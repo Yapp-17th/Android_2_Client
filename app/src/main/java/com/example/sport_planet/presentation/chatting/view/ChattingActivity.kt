@@ -9,12 +9,14 @@ import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.data.model.ChatRoomInfo
+import com.example.sport_planet.data.model.ChattingMessageModel
 import com.example.sport_planet.data.response.ChattingMessageResponse
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
 import com.example.sport_planet.presentation.custom.CustomDialog
+import com.example.sport_planet.util.Util
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
@@ -28,13 +30,26 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     private lateinit var chattingActivityViewModel: ChattingActivityViewModel
 
-    private lateinit var approvalStatusEnum: ApprovalStatusButtonEnum
-
     private var isPageFilledWithItems by Delegates.notNull<Boolean>()
 
     private lateinit var layoutChangeListener: View.OnLayoutChangeListener
 
     private var pixelsToScrollVertically by Delegates.notNull<Int>()
+
+    private var chattingMessages = ArrayList<ChattingMessageModel>()
+
+    private lateinit var priorDate: String
+    private lateinit var thisDate: String
+    private var isSameDate by Delegates.notNull<Boolean>()
+
+    private lateinit var priorTime: String
+    private lateinit var thisTime: String
+    private var isSameTime by Delegates.notNull<Int>()
+
+    private val IS_NOT_SAME_TIME_MESSAGE = 0
+    private val IS_SAME_TIME_HEADER_MESSAGE = 1
+    private val IS_SAME_TIME_BODY_MESSAGE = 2
+    private val IS_SAME_TIME_FOOTER_MESSAGE = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,10 +87,27 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         chattingActivityViewModel.settingChattingMessageList(chatRoomInfo.chatRoomId)
         chattingActivityViewModel.chattingMessageListResponseLiveData.observe(this,
             Observer {
-                this.runOnUiThread {
-                    tv_activity_chatting_board_title.text = it.boardTitle
-                    chattingAdapter.settingChattingMessageList(it.data as ArrayList<ChattingMessageResponse>)
+                tv_activity_chatting_board_title.text = it.boardTitle
+
+                for(chattingMessage in it.data) {
+
+                    chattingMessageFactory(chattingMessage, false)
+
+                    chattingMessages.add(ChattingMessageModel(
+                        chattingMessage.content!!,
+                        chattingMessage.type!!,
+                        chattingMessage.messageId!!,
+                        chattingMessage.senderId!!,
+                        chattingMessage.senderNickname!!,
+                        thisDate,
+                        thisTime,
+                        isSameDate,
+                        isSameTime
+                    ))
                 }
+
+                chattingAdapter.settingChattingMessageList(chattingMessages)
+
                 rv_activity_chatting_recyclerview.postDelayed(Runnable {
                     isPageFilledWithItems =
                         rv_activity_chatting_recyclerview.computeVerticalScrollRange() > rv_activity_chatting_recyclerview.height;
@@ -105,10 +137,22 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
         chattingActivityViewModel.chattingMessageLiveData.observe(this,
             Observer {
-                this.runOnUiThread {
-                    chattingAdapter.addChattingMessage(it)
-                    rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
-                }
+
+                chattingMessageFactory(it, true)
+
+                chattingAdapter.addChattingMessage(ChattingMessageModel(
+                    it.content!!,
+                    it.type!!,
+                    it.messageId!!,
+                    it.senderId!!,
+                    it.senderNickname!!,
+                    thisDate,
+                    thisTime,
+                    isSameDate,
+                    isSameTime
+                ))
+
+                rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
             }
         )
 
@@ -147,5 +191,43 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         chattingActivityViewModel.disconnectSocket()
         rv_activity_chatting_recyclerview.removeOnLayoutChangeListener(layoutChangeListener)
         super.onDestroy()
+    }
+
+    private fun chattingMessageFactory(chattingMessage: ChattingMessageResponse, update: Boolean){
+        thisDate = Util.toDateFormat(chattingMessage.createdAt!!)
+        thisTime = Util.toTimeFormat(chattingMessage.createdAt!!)
+
+        if(chattingMessage.messageId!! > 0) {
+            val priorMessageId = chattingMessage.messageId.toInt() - 1
+
+            priorDate = chattingMessages[priorMessageId].createdDate
+            isSameDate = priorDate == thisDate
+
+            priorTime = chattingMessages[priorMessageId].createdTime
+
+            if(thisTime == priorTime && chattingMessage.senderId == chattingMessages[priorMessageId].senderId && chattingMessage.type == chattingMessages[priorMessageId].type){
+                when(chattingMessages[priorMessageId].isSameTime){
+                    IS_NOT_SAME_TIME_MESSAGE -> {
+                        chattingMessages[priorMessageId].isSameTime = IS_SAME_TIME_HEADER_MESSAGE
+                        if(update)
+                            chattingAdapter.updateChattingMessage(priorMessageId, chattingMessages[priorMessageId])
+                        isSameTime = IS_SAME_TIME_FOOTER_MESSAGE
+                    }
+                    IS_SAME_TIME_FOOTER_MESSAGE -> {
+                        chattingMessages[priorMessageId].isSameTime = IS_SAME_TIME_BODY_MESSAGE
+                        if(update)
+                            chattingAdapter.updateChattingMessage(priorMessageId, chattingMessages[priorMessageId])
+                        isSameTime = IS_SAME_TIME_FOOTER_MESSAGE
+                    }
+                }
+            }
+            else{
+                isSameTime = IS_NOT_SAME_TIME_MESSAGE
+            }
+        }
+        else{
+            isSameDate = false
+            isSameTime = IS_NOT_SAME_TIME_MESSAGE
+        }
     }
 }

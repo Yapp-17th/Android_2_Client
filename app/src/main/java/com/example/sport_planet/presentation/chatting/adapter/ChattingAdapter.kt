@@ -6,16 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sport_planet.data.response.ChattingMessageResponse
+import com.example.sport_planet.data.model.ChattingMessageModel
 import com.example.sport_planet.databinding.*
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo
-import com.example.sport_planet.util.Util
-import kotlin.properties.Delegates
 
 class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
-
     private val BOT_NOTICE_MESSAGE_VIEW = 0
     private val BOT_MESSAGE_VIEW = 1
     private val NOTICE_MESSAGE_VIEW = 2
@@ -24,100 +21,167 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
     private val RECEIVED_TALK_MESSAGE_VIEW = 5
     private val SENT_TALK_MESSAGE_VIEW = 6
 
-    private var chattingMessages = ArrayList<ChattingMessageResponse>()
+    private val IS_NOT_SAME_TIME_MESSAGE = 0
+    private val IS_SAME_TIME_HEADER_MESSAGE = 1
+    private val IS_SAME_TIME_BODY_MESSAGE = 2
+    private val IS_SAME_TIME_FOOTER_MESSAGE = 3
 
-    private lateinit var priorDate: String
-    private lateinit var thisDate: String
-    private var isSameDay by Delegates.notNull<Boolean>()
+    private var chattingMessages = ArrayList<ChattingMessageModel>()
 
-    fun settingChattingMessageList(chattingMessageList: ArrayList<ChattingMessageResponse>){
+    fun settingChattingMessageList(chattingMessageList: ArrayList<ChattingMessageModel>){
         chattingMessages = chattingMessageList
         notifyDataSetChanged()
     }
 
-    fun addChattingMessage(chattingMessage: ChattingMessageResponse){
+    fun addChattingMessage(chattingMessage: ChattingMessageModel){
         chattingMessages.add(chattingMessage)
         notifyItemInserted(itemCount)
+    }
+
+    fun updateChattingMessage(position: Int, chattingMessage: ChattingMessageModel){
+        chattingMessages[position].isSameTime = chattingMessage.isSameTime
+        notifyItemChanged(position)
     }
 
     inner class Holder(val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root){
 
         @SuppressLint("SimpleDateFormat")
-        fun bind(chattingMessage: ChattingMessageResponse){
-            val messageViewType = itemViewType
+        fun bind(chattingMessage: ChattingMessageModel){
 
-            thisDate = Util.formatToDate(chattingMessage.createdAt!!)
-            if(position >= 1) {
-                priorDate = Util.formatToDate(chattingMessages[position - 1].createdAt!!)
-                isSameDay = priorDate == thisDate
-            }
-
-            when(messageViewType){
+            when(itemViewType){
 
                 BOT_NOTICE_MESSAGE_VIEW -> {
                     (binding as ItemChatBotNoticeMessageBinding).let {
                         it.itemChatBotNoticeMessage = chattingMessage
-                        it.tvNoticeMessageContent.text = thisDate
+
+                        if (!chattingMessage.isSameDate) {
+                            it.tvNoticeMessageContent.visibility = View.VISIBLE
+                            it.tvNoticeMessageContent.text = chattingMessage.createdDate
+                        } else
+                            it.tvNoticeMessageContent.visibility = View.GONE
                     }
                 }
 
                 BOT_MESSAGE_VIEW ->{
-                    (binding as ItemChatBotMessageBinding).itemChatBotMessage = chattingMessage
-                    if(!isSameDay) {
-                        binding.tvNoticeMessageContent.visibility = View.VISIBLE
-                        binding.tvNoticeMessageContent.text = thisDate
+                    (binding as ItemChatBotMessageBinding).let {
+                        it.itemChatBotMessage = chattingMessage
+
+                        if (!chattingMessage.isSameDate) {
+                            it.tvNoticeMessageContent.visibility = View.VISIBLE
+                            it.tvNoticeMessageContent.text = chattingMessage.createdDate
+                        } else
+                            it.tvNoticeMessageContent.visibility = View.GONE
                     }
-                    else
-                        binding.tvNoticeMessageContent.visibility = View.GONE
                 }
 
                 NOTICE_MESSAGE_VIEW -> {
-                    (binding as ItemNoticeMessageBinding).itemNoticeMessage = chattingMessage
+                    (binding as ItemNoticeMessageBinding).let {
+                        it.itemNoticeMessage = chattingMessage
+
+                        if (!chattingMessage.isSameDate) {
+                            it.tvNoticeMessageContent.visibility = View.VISIBLE
+                            it.tvNoticeMessageContent.text = chattingMessage.createdDate
+                        } else
+                            it.tvNoticeMessageContent.visibility = View.GONE
+                    }
                 }
 
                 RECEIVED_PROFILE_MESSAGE_VIEW -> {
                     (binding as ItemReceivedProfileMessageBinding).let {
                         it.itemReceivedProfileMessage = chattingMessage
+
+                        if (!chattingMessage.isSameDate) {
+                            it.tvNoticeMessageContent.visibility = View.VISIBLE
+                            it.tvNoticeMessageContent.text = chattingMessage.createdDate
+                        } else
+                            it.tvNoticeMessageContent.visibility = View.GONE
                     }
-                    if(!isSameDay) {
-                        binding.tvNoticeMessageContent.visibility = View.VISIBLE
-                        binding.tvNoticeMessageContent.text = thisDate
-                    }
-                    else
-                        binding.tvNoticeMessageContent.visibility = View.GONE
                 }
 
                 SENT_PROFILE_MESSAGE_VIEW -> {
                     (binding as ItemSentProfileMessageBinding).let {
                         it.itemSentProfileMessage = chattingMessage
+
+                        if (!chattingMessage.isSameDate) {
+                            it.tvNoticeMessageContent.visibility = View.VISIBLE
+                            it.tvNoticeMessageContent.text = chattingMessage.createdDate
+                        } else
+                            it.tvNoticeMessageContent.visibility = View.GONE
                     }
-                    if(!isSameDay){
-                        binding.tvNoticeMessageContent.visibility = View.VISIBLE
-                        binding.tvNoticeMessageContent.text = thisDate
-                    }
-                    else
-                        binding.tvNoticeMessageContent.visibility = View.GONE
                 }
 
                 RECEIVED_TALK_MESSAGE_VIEW -> {
-                    (binding as ItemReceivedTalkMessageBinding).itemReceivedTalkMessage = chattingMessage
-                    if(!isSameDay){
-                        binding.tvNoticeMessageContent.visibility = View.VISIBLE
-                        binding.tvNoticeMessageContent.text = thisDate
+                    (binding as ItemReceivedTalkMessageBinding).let {
+                        it.itemReceivedTalkMessage = chattingMessage
+
+                        if (!chattingMessage.isSameDate) {
+                            it.tvNoticeMessageContent.visibility = View.VISIBLE
+                            it.tvNoticeMessageContent.text = chattingMessage.createdDate
+                        } else
+                            it.tvNoticeMessageContent.visibility = View.GONE
+
+                        when(chattingMessage.isSameTime){
+                            IS_NOT_SAME_TIME_MESSAGE -> {
+                                it.ivReceivedTalkMessageProfileImg.visibility = View.VISIBLE
+                                it.tvReceivedTalkMessageSenderNickname.visibility = View.VISIBLE
+                                it.tvReceivedTalkMessageTimestamp.visibility = View.VISIBLE
+                            }
+
+                            IS_SAME_TIME_HEADER_MESSAGE -> {
+                                it.ivReceivedTalkMessageProfileImg.visibility = View.VISIBLE
+                                it.tvReceivedTalkMessageSenderNickname.visibility = View.VISIBLE
+                                it.tvReceivedTalkMessageTimestamp.visibility = View.GONE
+                                it.viewItemReceivedTalkMessageMargin.visibility = View.VISIBLE
+                            }
+
+                            IS_SAME_TIME_BODY_MESSAGE -> {
+                                it.ivReceivedTalkMessageProfileImg.visibility = View.GONE
+                                it.tvReceivedTalkMessageSenderNickname.visibility = View.GONE
+                                it.tvReceivedTalkMessageTimestamp.visibility = View.GONE
+                                it.viewItemReceivedTalkMessageMargin.visibility = View.GONE
+                            }
+
+                            IS_SAME_TIME_FOOTER_MESSAGE -> {
+                                it.ivReceivedTalkMessageProfileImg.visibility = View.GONE
+                                it.tvReceivedTalkMessageSenderNickname.visibility = View.GONE
+                                it.tvReceivedTalkMessageTimestamp.visibility = View.VISIBLE
+                                it.viewItemReceivedTalkMessageMargin.visibility = View.GONE
+                            }
+                        }
                     }
-                    else
-                        binding.tvNoticeMessageContent.visibility = View.GONE
                 }
 
                 SENT_TALK_MESSAGE_VIEW -> {
                     (binding as ItemSentTalkMessageBinding).let {
                         it.itemSentTalkMessage = chattingMessage
-                        if(!isSameDay){
+
+                        if (!chattingMessage.isSameDate) {
                             it.tvNoticeMessageContent.visibility = View.VISIBLE
-                            it.tvNoticeMessageContent.text = thisDate
-                        }
-                        else
+                            it.tvNoticeMessageContent.text = chattingMessage.createdDate
+                        } else
                             it.tvNoticeMessageContent.visibility = View.GONE
+
+                        when(chattingMessage.isSameTime){
+                            IS_NOT_SAME_TIME_MESSAGE -> {
+                                it.tvSentTalkMessageTimestamp.visibility = View.VISIBLE
+                                it.viewItemReceivedTalkMessageMargin.visibility = View.VISIBLE
+                            }
+
+                            IS_SAME_TIME_HEADER_MESSAGE -> {
+                                it.tvSentTalkMessageTimestamp.visibility = View.GONE
+                                it.viewItemReceivedTalkMessageMargin.visibility = View.VISIBLE
+                            }
+
+                            IS_SAME_TIME_BODY_MESSAGE -> {
+                                it.tvSentTalkMessageTimestamp.visibility = View.GONE
+                                it.viewItemReceivedTalkMessageMargin.visibility = View.GONE
+                            }
+
+                            IS_SAME_TIME_FOOTER_MESSAGE -> {
+                                it.tvSentTalkMessageTimestamp.visibility = View.VISIBLE
+                                it.viewItemReceivedTalkMessageMargin.visibility = View.GONE
+                            }
+                        }
                     }
                 }
 
@@ -128,7 +192,7 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 
     override fun getItemViewType(position: Int) : Int{
 
-        val currentItem: ChattingMessageResponse = chattingMessages[position]
+        val currentItem: ChattingMessageModel = chattingMessages[position]
         val messageType = currentItem.type
         val messageSender = currentItem.senderId
 
@@ -189,4 +253,5 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(chattingMessages[position])
     }
+
 }
