@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlinx-serialization'
 
 android {
     compileSdkVersion 30
@@ -66,14 +67,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    //    kakao
-    implementation "com.kakao.sdk:v2-user:2.0.3"
+    implementation "com.kakao.sdk:v2-user:2.0.3" // 카카오 로그인
 
-    //    json 변환
-    implementation 'com.beust:klaxon:5.0.1'
-
-    //    stomp
-    implementation 'com.github.bishoybasily:stomp:2.0.5'
+    implementation 'com.github.bishoybasily:stomp:2.0.5' // stomp
     implementation 'com.squareup.okhttp3:okhttp:4.3.1'
 
     implementation 'com.google.android.material:material:1.2.1'
@@ -81,7 +77,13 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
-    // viewPager
-    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    // JsonObject 변환
+    implementation 'com.beust:klaxon:5.0.1'
+
+    // kotlin serialization
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0" // JVM dependency
+
+    implementation 'com.github.perfomer:blitz:1.0.9' // self-updating relative time
 
 }
