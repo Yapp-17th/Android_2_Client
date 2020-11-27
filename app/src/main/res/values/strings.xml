@@ -5,6 +5,45 @@
     <string name="chatting">채팅</string>
     <string name="mypage">마이페이지</string>
 
+    <!-- chatting self-updating relative time translate-->
+    <string name="blitz_future">미래</string>
+    <string name="blitz_now">방금 전</string>
+
+    <string name="blitz_single_minute">1분 전</string>
+    <string name="blitz_single_hour">1시간 전</string>
+    <string name="blitz_single_day">어제</string>
+    <string name="blitz_single_week">1주 전</string>
+    <string name="blitz_single_month">1달 전</string>
+    <string name="blitz_single_year">1년 전</string>
+
+    <plurals name="blitz_seconds">
+        <item quantity="other">%d초 전</item>
+    </plurals>
+
+    <plurals name="blitz_minutes">
+        <item quantity="other">%d분 전</item>
+    </plurals>
+
+    <plurals name="blitz_hours">
+        <item quantity="other">%d시간 전</item>
+    </plurals>
+
+    <plurals name="blitz_days">
+        <item quantity="other">%d일 전</item>
+    </plurals>
+
+    <plurals name="blitz_weeks">
+        <item quantity="other">%d주 전</item>
+    </plurals>
+
+    <plurals name="blitz_months">
+        <item quantity="other">%d달 전</item>
+    </plurals>
+
+    <plurals name="blitz_years">
+        <item quantity="other">%d년 전</item>
+    </plurals>
+
     <!-- kakao_native_app_key -->
     <string name="kakao_native_app_key">27b6df70cdf8f39d98b68da14b2650bd</string>
 
@@ -19,38 +58,34 @@
     <!-- activity_login -->
     <string name="login_button_text1">카카오톡으로 간편로그인</string>
 
-    <!-- activity_chatting -->
-    <string name="activity_chatting_board_title">급하게 농구 용병 3명 구합니다.</string>
-    <string name="activity_chatting_visit_original_board">원글보기</string>기
-    <string name="activity_chatting_approval_status">승인상태</string>
+    <!-- fragment_chatting -->
+    <string name="fragment_chatting_nothing">활동 참가신청과 함께\n채팅을 시작하세요!</string>
 
-    <!-- item_notice_message -->
-    <string name="notice_message_content">‘짹짹’님이 참여를 승인했습니다</string>
+    <!-- item_chatting_room -->
+    <string name="Host">Host</string>
+    <string name="Guest">Guest</string>
 
     <!-- item_received_profile_message -->
-    <string name="received_profile_message_nickname">달리자88</string>
     <string name="received_profile_message_likes">00</string>
     <string name="received_profile_message_dislikes">00</string>
     <string name="received_profile_message_text1">기본소개</string>
-    <string name="received_profile_message_introduce">함께 운동할 사람 구합니다.웬만한 운동 다 좋아하고요,빡겜할 사람 찾아요!</string>
     <string name="received_profile_message_visit_profile">프로필 놀러가기</string>
-    <string name="received_profile_message_timestamp">13:00</string>
-
-    <!-- item_received_talk_message -->
-    <string name="received_talk_message_content">안녕하세요!</string>
-    <string name="received_talk_message_timestamp">14:00</string>
 
     <!-- item_sent_profile_message -->
-    <string name="sent_profile_message_nickname">짹짹</string>
     <string name="sent_profile_message_likes">00</string>
     <string name="sent_profile_message_dislikes">00</string>
     <string name="sent_profile_message_text1">기본소개</string>
-    <string name="sent_profile_message_introduce">안녕하세요! 독서와 운동을 좋아하는 짹짹입니다. 같이 모여서 운동하면서 건강과 재미 둘 다 잡아봐요!</string>
-    <string name="sent_profile_message_timestamp">15:00</string>
 
-    <!-- item_sent_talk_message -->
-    <string name="sent_talk_message_content">참가 신청합니다!</string>
-    <string name="sent_talk_message_timestamp">16:00</string>
+    <!-- item_custon_dialog -->
+    <string name="custom_dialog_content1">호스트에게 간단한 프로필과 함께 참가신청이 보내집니다.</string>
+    <string name="custom_dialog_content2">채팅방에서 나가시겠습니까?\n나가기를 하면 대화내용이 모두 삭제되며 채팅목록에서도 지워집니다.</string>
+    <string name="custom_dialog_cancle">취소</string>
+    <string name="custom_dialog_ok1">신청하기</string>
+    <string name="custom_dialog_ok2">나가기</string>
+
+
+    <!-- activity_chatting -->
+    <string name="activity_chatting_origin_board">원글보기</string>
 
     <!-- activity_profile -->
     <string name="activity_profile_head">프로필 작성</string>

@@ -17,6 +17,7 @@ import com.example.sport_planet.model.ChattingRoomListResponse
 import com.example.sport_planet.model.MakeChattingMessageReadResponse
 import com.example.sport_planet.model.MakeChattingRoomResponse
 
+
 interface Api {
     //   로그인 API
     @GET("base-service/v1/exercise")

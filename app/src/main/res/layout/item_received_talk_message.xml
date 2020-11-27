@@ -3,73 +3,96 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.example.sport_planet.util.Util" />
         <variable
             name="ItemReceivedTalkMessage"
-            type="com.example.sport_planet.model.ChattingMessageResponse" />
+            type="com.example.sport_planet.data.response.ChattingMessageResponse" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingTop="@dimen/item_talk_message_msg_paddingTop_16dp">
 
         <TextView
-            android:id="@+id/tv_received_talk_message_sender_nickname"
+            android:id="@+id/tv_notice_message_content"
+            style="@style/medium_basic_12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="58dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="달리자 88"
-            style="@style/regular_basic_12sp"
+            android:background="@drawable/item_message_border"
+            android:backgroundTint="@color/graye5e5e5"
+            android:paddingLeft="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+            android:paddingRight="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+            android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+            android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
             android:textColor="@color/gray9c9c9c" />
 
-        <ImageView
-            android:id="@+id/iv_received_talk_message_profile_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/item_talk_message_msg_margin_16dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/profile_34_px" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_received_talk_message_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="@dimen/item_talk_message_msg_maxwidth_225dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:text="@string/received_talk_message_content"
-            style="@style/regular_basic_14sp"
-            android:textColor="@color/black121212"
-            app:layout_constraintLeft_toRightOf="@id/iv_received_talk_message_profile_img"
-            app:layout_constraintTop_toBottomOf="@+id/tv_received_talk_message_sender_nickname"
-            android:background="@drawable/item_message_border"
-            android:backgroundTint="@color/white"/>
+            <TextView
+                android:id="@+id/tv_received_talk_message_sender_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="58dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{ItemReceivedTalkMessage.senderNickname}"
+                style="@style/regular_basic_12sp"
+                android:textColor="@color/gray9c9c9c" />
 
-        <TextView
-            android:id="@+id/tv_received_talk_message_timestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="@string/received_talk_message_timestamp"
-            style="@style/regular_basic_12sp"
-            android:textColor="@color/gray9c9c9c"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_content" />
+            <ImageView
+                android:id="@+id/iv_received_talk_message_profile_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/item_talk_message_msg_margin_16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/profile_34_px" />
 
-        <TextView
-            android:id="@+id/tv_received_talk_message_isread"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_timestamp" />
+            <TextView
+                android:id="@+id/tv_received_talk_message_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="@dimen/item_talk_message_msg_maxwidth_260dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="@{ItemReceivedTalkMessage.content}"
+                style="@style/regular_basic_14sp"
+                android:textColor="@color/black121212"
+                app:layout_constraintLeft_toRightOf="@id/iv_received_talk_message_profile_img"
+                app:layout_constraintTop_toBottomOf="@+id/tv_received_talk_message_sender_nickname"
+                android:background="@drawable/item_message_border"
+                android:backgroundTint="@color/white"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_received_talk_message_timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="@{Util.formatTo(ItemReceivedTalkMessage.createdAt)}"
+                style="@style/regular_basic_12sp"
+                android:textColor="@color/gray9c9c9c"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_content" />
+
+            <TextView
+                android:id="@+id/tv_received_talk_message_isread"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_timestamp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

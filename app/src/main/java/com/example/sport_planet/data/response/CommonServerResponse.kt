@@ -1,11 +1,11 @@
-package com.example.sport_planet.model
+package com.example.sport_planet.data.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ApplyBoardResponse (
+data class CommonServerResponse (
     @SerializedName("transactionTime")
     val transactionTime: String,
     @SerializedName("status")

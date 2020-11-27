@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sport_planet">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,8 +21,18 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".presentation.filter.FilterActivity" />
         <activity android:name=".presentation.profile.ProfileActivity" />
+
+        <activity android:name=".presentation.chatting.view.ChattingActivity"
+            android:theme="@style/ChattingAppTheme"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".presentation.filter.FilterActivity"></activity>
+        <activity android:name=".presentation.profile.ExerciseDialog"
+            tools:ignore="Instantiatable"></activity>
+        <activity android:name=".presentation.profile.ProfileActivity"></activity>
+        <activity android:name=".presentation.mypage.history.HistoryActivity"/>
+
         <activity android:name=".presentation.login.LoginActivity" />
-        <activity android:name=".presentation.main.MainActivity">
+        <activity android:name=".presentation.main.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

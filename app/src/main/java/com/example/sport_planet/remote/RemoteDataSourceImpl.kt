@@ -4,7 +4,6 @@ package com.example.sport_planet.remote
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
-import com.example.sport_planet.model.*
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.response.basic.ExerciseResponse
 import com.example.sport_planet.data.response.basic.RegionResponse
@@ -21,7 +20,6 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> =
         api.postSignIn(userInfo)
-
 
     override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> =
         api.postSignUp(userSignUp)
@@ -61,14 +59,16 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun getChattingRoomList(): Single<ChattingRoomListResponse> = api.getChattingRoomList()
 
+    override fun leaveChattingRoom(chatRoomId: Long): Single<CommonServerResponse> = api.leaveChattingRoom(chatRoomId)
+
     override fun getChattingMessageList(chatRoomId: Long): Single<ChattingMessageListResponse> = api.getChattingMessageList(chatRoomId)
 
     override fun makeChattingMessageRead(chatRoomId: Long, messageId: Long): Single<MakeChattingMessageReadResponse> = api.makeChattingMessageRead(chatRoomId, messageId)
 
-    override fun applyBoard(boardId: Long, param: JsonObject): Single<ApplyBoardResponse> = api.applyBoard(boardId, param)
+    override fun applyBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse> = api.applyBoard(boardId, param)
 
-    override fun approveBoard(boardId: Long, param: JsonObject): Single<ApplyBoardResponse> = api.approveBoard(boardId, param)
+    override fun approveBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse> = api.approveBoard(boardId, param)
 
-    override fun disapproveBoard(boardId: Long, param: JsonObject): Single<ApplyBoardResponse> = api.disapproveBoard(boardId, param)
+    override fun disapproveBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse> = api.disapproveBoard(boardId, param)
 
 }

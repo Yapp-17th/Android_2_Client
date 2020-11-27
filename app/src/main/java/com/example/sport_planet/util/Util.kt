@@ -15,10 +15,25 @@ object Util {
         )
     }
 
+    @JvmStatic
     @SuppressLint("SimpleDateFormat")
-    fun String.formatTo(dateFormat: String = "a h:mm"): String {
+    fun formatTo(date: String): String {
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA)
-        val formatter = SimpleDateFormat(dateFormat, Locale.KOREA)
-        return formatter.format(parser.parse(this))
+        val formatter = SimpleDateFormat("a h:mm", Locale.KOREA)
+        return formatter.format(parser.parse(date)!!)
+    }
+
+    @JvmStatic
+    @SuppressLint("SimpleDateFormat")
+    fun dateToMillis(date: String): Long {
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.KOREA)
+        return parser.parse(date).time
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun formatToDate(date: String): String {
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.KOREA)
+        val formatter = SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREA)
+        return formatter.format(parser.parse(date))
     }
 }

@@ -1,5 +1,6 @@
-package com.example.sport_planet.model
+package com.example.sport_planet.data.response
 
+import com.example.sport_planet.data.response.ChattingMessageResponse
 import com.google.gson.annotations.SerializedName
 
 data class MakeChattingMessageReadResponse (

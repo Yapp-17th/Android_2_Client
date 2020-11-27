@@ -1,4 +1,4 @@
-package com.example.sport_planet.model
+package com.example.sport_planet.data.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -28,8 +28,8 @@ data class ChattingRoomListResponse (
         @SerializedName("createdAt")
         val createdAt: String,
         @SerializedName("lastMessage")
-        val lastMessage: ChattingMessageResponse,
+        var lastMessage: ChattingMessageResponse,
         @SerializedName("unreadMessages")
-        val unreadMessages: Int
+        var unreadMessages: Int
     ): Parcelable
 }

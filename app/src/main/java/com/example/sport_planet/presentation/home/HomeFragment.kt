@@ -23,7 +23,7 @@ class HomeFragment private constructor() :
     override fun init() {
         activity?.runOnUiThread {
             binding.toolbar?.run {
-                binding.toolbar.setSeparator(SeparatorEnum.GUEST)
+                binding.toolbar.setSeparator(SeparatorEnum.Guest)
                 binding.toolbar.setMenu(MenuEnum.MENU)
             }
         }

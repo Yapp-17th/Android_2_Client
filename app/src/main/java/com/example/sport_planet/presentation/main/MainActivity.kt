@@ -1,14 +1,11 @@
 package com.example.sport_planet.presentation.main
 
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModel
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityMainBinding
 import com.example.sport_planet.presentation.base.BaseActivity
-import com.example.sport_planet.presentation.chatting.ChattingFragment
+import com.example.sport_planet.presentation.chatting.view.ChattingFragment
 import com.example.sport_planet.presentation.home.HomeFragment
 import com.example.sport_planet.presentation.mypage.MyPageFragment
 import com.example.sport_planet.presentation.write.WriteFragment
