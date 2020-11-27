@@ -5,6 +5,11 @@ import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
 import com.beust.klaxon.JsonObject
+import com.example.sport_planet.data.response.basic.ExerciseResponse
+import com.example.sport_planet.data.response.basic.RegionResponse
+import com.example.sport_planet.data.response.login.LoginResponse
+import com.example.sport_planet.data.response.login.SignUpResponse
+import com.example.sport_planet.data.response.mypage.*
 import com.example.sport_planet.remote.NetworkHelper.api
 import io.reactivex.Single
 
@@ -28,7 +33,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun getViewHistory(userId: Long): Single<HistoryResponse> = api.getViewHistory(userId)
 
-    override fun getMyViewHistory(): Single<MyViewHistoryResponse> = api.getMyViewHistory()
+    override fun getMyViewHistory(type : String): Single<MyViewHistoryResponse> = api.getMyViewHistory(type)
 
     override fun getOthersHistory(userId: Long): Single<OtherHistoryResponse> =
         api.getOthersHistory(userId)

@@ -6,8 +6,8 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
-import com.example.sport_planet.data.response.ExerciseResponse
-import com.example.sport_planet.data.response.RegionResponse
+import com.example.sport_planet.data.response.basic.ExerciseResponse
+import com.example.sport_planet.data.response.basic.RegionResponse
 import com.example.sport_planet.databinding.ActivityProfileBinding
 import com.example.sport_planet.presentation.base.BaseAcceptDialog
 import com.example.sport_planet.presentation.base.BaseActivity
@@ -184,7 +184,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         } else {
             binding.tvStart.run {
                 isEnabled = true
-                setBackgroundColor(resources.getColor(R.color.darkblue, null))
+                setBackgroundColor(resources.getColor(R.color.dark_blue, null))
                 setTextColor(resources.getColor(R.color.white, null))
 
             }

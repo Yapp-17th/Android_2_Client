@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.mypage.history.HistoryActivity">
+        tools:context=".presentation.mypage.history.view.HistoryActivity">
 
         <com.example.sport_planet.presentation.custom.CustomToolbar
             android:id="@+id/custom_tool_bar"
@@ -19,10 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/custom_tool_bar"
-            app:tabIndicatorColor="@color/darkblue"
+            app:tabIndicatorColor="@color/dark_blue"
             app:tabPaddingEnd="-1dp"
             app:tabPaddingStart="-1dp"
-            app:tabSelectedTextColor="@color/darkblue"
+            app:tabSelectedTextColor="@color/dark_blue"
             app:tabTextAppearance="@style/medium_basic_16sp"
             app:tabTextColor="@color/light_gray" />
 

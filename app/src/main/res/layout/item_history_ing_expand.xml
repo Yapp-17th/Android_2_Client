@@ -5,7 +5,7 @@
     <data>
         <variable
             name="items"
-            type="com.example.sport_planet.data.model.ApplyListModel" />
+            type="com.example.sport_planet.data.model.mypage.ApplyListModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

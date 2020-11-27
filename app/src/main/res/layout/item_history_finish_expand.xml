@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="items"
+            type="com.example.sport_planet.data.response.mypage.EvaluateListResponse" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_gray_2"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/item_history_finish_expand_padding_30dp"
+        android:paddingVertical="@dimen/item_history_finish_expand_padding_16dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/profile_34_px" />
+
+        <TextView
+            android:id="@+id/tv_host_guest"
+            style="@style/bold_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/item_history_finish_expand_margin_14dp"
+            android:text="@{items.host ? @string/item_history_ing_host : @string/item_history_ing_guest}"
+            android:textColor="@{items.host ? @color/pink : @color/skyblue}"
+            tools:text="Guest" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            style="@style/bold_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/item_history_finish_expand_margin_8dp"
+            android:text="@{items.userName}"
+            android:textColor="@color/black"
+            tools:text="오동동" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/iv_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/item_history_finish_expand_margin_12dp"
+            android:src="@{items.like ? @drawable/icons_18_px_likes_fill :  @drawable/icons_18_px_likes}" />
+
+        <ImageView
+            android:id="@+id/iv_dis_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/item_history_finish_expand_margin_12dp"
+            android:src="@{items.dislike ? @drawable/icons_18_px_dislikes_fill :  @drawable/icons_18_px_dislikes}" />
+
+        <TextView
+            android:id="@+id/tv_report"
+            style="@style/regular_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/item_history_finish_expand_report"
+            android:textColor="@color/dark_gray" />
+    </LinearLayout>
+
+</layout>
