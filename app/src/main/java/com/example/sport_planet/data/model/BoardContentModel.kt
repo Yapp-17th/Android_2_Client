@@ -28,6 +28,8 @@ fun BoardContentModel.toBoardModel(): BoardModel {
             exercise = exercise,
             city = city,
             isBookMark = isBookMark,
-            boardTime = boardTime
+            boardTime = boardTime,
+            recruitNumber = recruitNumber,
+            recruitedNumber = recruitedNumber
     )
 }

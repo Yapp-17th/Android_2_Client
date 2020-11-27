@@ -131,7 +131,6 @@
             tools:text="중랑구" />
 
         <TextView
-            tools:text="12/15명"
             android:id="@+id/tv_peopleCount"
             style="@style/medium_basic"
             android:layout_width="wrap_content"
@@ -144,7 +143,8 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_region"
             app:layout_constraintStart_toEndOf="@id/tv_region"
-            app:layout_constraintTop_toTopOf="@id/tv_region" />
+            app:layout_constraintTop_toTopOf="@id/tv_region"
+            tools:text="12/15명" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
