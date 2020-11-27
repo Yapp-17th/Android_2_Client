@@ -1,5 +1,6 @@
 package com.example.sport_planet.presentation.mypage.history
 
+import android.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
@@ -37,6 +38,10 @@ class FinishTabFragment :
                 finishTabAdapter.setApplyListItem(it)
             }
         })
+        viewModel.isSuccess.observe(viewLifecycleOwner, Observer {
+            if(it)
+                showSuccessDialog()
+        })
     }
 
     private fun getApplyList(myViewHistoryModel: MyViewHistoryModel) {
@@ -51,6 +56,14 @@ class FinishTabFragment :
             }
         })
         dialog.show(parentFragmentManager, "")
+    }
+    private fun showSuccessDialog(){
+        AlertDialog.Builder(requireContext()).apply {
+            setView(R.layout.dialog_success)
+            create()
+            show()
+        }
+
     }
 
     companion object {

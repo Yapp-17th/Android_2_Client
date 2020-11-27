@@ -16,6 +16,9 @@ class FinishTabViewModel : BaseViewModel() {
     private val _applyList = MutableLiveData<List<EvaluateListResponse.EvaluateListModel>>()
     val applyList: LiveData<List<EvaluateListResponse.EvaluateListModel>> get() = _applyList
 
+    private val _isSuccess = MutableLiveData<Boolean>()
+    val isSuccess : LiveData<Boolean> get() = _isSuccess
+
     fun getHistory() {
         compositeDisposable.add(
             RemoteDataSourceImpl()
@@ -48,6 +51,7 @@ class FinishTabViewModel : BaseViewModel() {
                 .postEvaluateReport(evaluateReportRequest)
                 .applySchedulers()
                 .subscribe({
+                    _isSuccess.value = true
                 }, {
                     it.printStackTrace()
                 })
