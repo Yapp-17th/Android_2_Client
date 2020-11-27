@@ -6,7 +6,7 @@
 
         <variable
             name="items"
-            type="com.example.sport_planet.data.response.mypage.EvaluateListResponse" />
+            type="com.example.sport_planet.data.response.mypage.EvaluateListResponse.EvaluateListModel" />
     </data>
 
     <LinearLayout
