@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
-import com.example.sport_planet.data.model.MyBookMarksModel
+import com.example.sport_planet.data.model.mypage.MyBookMarksModel
 import com.example.sport_planet.databinding.ItemScrapBinding
 
 class ScrapAdapter(private val onClickDeleteAction: (Long,Boolean) -> Unit, private val onClickGoBoardAction :(Long) -> Unit) :

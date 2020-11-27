@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
-import com.example.sport_planet.data.model.MyViewHistoryModel
+import com.example.sport_planet.data.model.mypage.MyViewHistoryModel
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.databinding.FragmentFinishTabBinding
 import com.example.sport_planet.presentation.base.BaseFragment

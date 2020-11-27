@@ -1,18 +1,18 @@
-package com.example.sport_planet.data.model
+package com.example.sport_planet.data.model.mypage
 
 import com.google.gson.annotations.SerializedName
 
 data class ApplyListModel(
-        @SerializedName("applyStatus")
+    @SerializedName("applyStatus")
         val applyStatus: ApplyStatus,
-        @SerializedName("chattingRoomId")
+    @SerializedName("chattingRoomId")
         val chattingRoomId: Int,
-        @SerializedName("guestId")
+    @SerializedName("guestId")
         val guestId: Int,
-        @SerializedName("guestName")
+    @SerializedName("guestName")
         val guestName: String,
-        @SerializedName("host")
+    @SerializedName("host")
         val host: Boolean,
-        @SerializedName("hostId")
+    @SerializedName("hostId")
         val hostId: Int
     )

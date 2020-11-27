@@ -1,4 +1,4 @@
-package com.example.sport_planet.data.response
+package com.example.sport_planet.data.response.mypage
 
 data class EvaluateListResponse(
     val status : Int,

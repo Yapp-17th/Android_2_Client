@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
-import com.example.sport_planet.data.response.EvaluateListResponse
+import com.example.sport_planet.data.response.mypage.EvaluateListResponse
 import com.example.sport_planet.databinding.ItemHistoryFinishExpandBinding
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.example.sport_planet.util.applySchedulers

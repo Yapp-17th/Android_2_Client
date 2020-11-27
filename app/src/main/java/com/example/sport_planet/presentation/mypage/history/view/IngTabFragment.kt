@@ -3,7 +3,7 @@ package com.example.sport_planet.presentation.mypage.history.view
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
-import com.example.sport_planet.data.model.MyViewHistoryModel
+import com.example.sport_planet.data.model.mypage.MyViewHistoryModel
 import com.example.sport_planet.databinding.FragmentIngTabBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.mypage.history.adapter.IngTabAdapter

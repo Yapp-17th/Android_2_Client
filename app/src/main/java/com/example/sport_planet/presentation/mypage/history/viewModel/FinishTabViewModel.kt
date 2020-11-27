@@ -2,9 +2,9 @@ package com.example.sport_planet.presentation.mypage.history.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.sport_planet.data.model.MyViewHistoryModel
+import com.example.sport_planet.data.model.mypage.MyViewHistoryModel
 import com.example.sport_planet.data.request.EvaluateReportRequest
-import com.example.sport_planet.data.response.EvaluateListResponse
+import com.example.sport_planet.data.response.mypage.EvaluateListResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.example.sport_planet.util.applySchedulers

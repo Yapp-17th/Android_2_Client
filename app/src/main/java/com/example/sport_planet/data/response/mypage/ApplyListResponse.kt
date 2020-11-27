@@ -1,6 +1,6 @@
-package com.example.sport_planet.data.response
+package com.example.sport_planet.data.response.mypage
 
-import com.example.sport_planet.data.model.ApplyListModel
+import com.example.sport_planet.data.model.mypage.ApplyListModel
 
 data class ApplyListResponse(
     val status : Int,

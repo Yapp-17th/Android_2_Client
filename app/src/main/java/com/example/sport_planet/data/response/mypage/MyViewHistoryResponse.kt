@@ -1,7 +1,7 @@
-package com.example.sport_planet.data.response
+package com.example.sport_planet.data.response.mypage
 
 
-import com.example.sport_planet.data.model.MyViewHistoryModel
+import com.example.sport_planet.data.model.mypage.MyViewHistoryModel
 import com.google.gson.annotations.SerializedName
 
 data class MyViewHistoryResponse(

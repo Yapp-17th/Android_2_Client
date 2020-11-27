@@ -1,5 +1,6 @@
 package com.example.sport_planet.data.response
 
+import com.example.sport_planet.data.response.basic.AddressResponse
 import java.time.LocalDateTime
 
 data class BoardResponse(

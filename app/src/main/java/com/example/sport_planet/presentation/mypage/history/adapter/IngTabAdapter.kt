@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
-import com.example.sport_planet.data.model.ApplyListModel
-import com.example.sport_planet.data.model.MyViewHistoryModel
+import com.example.sport_planet.data.model.mypage.ApplyListModel
+import com.example.sport_planet.data.model.mypage.MyViewHistoryModel
 import com.example.sport_planet.databinding.ItemHistoryIngBinding
 
 class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
