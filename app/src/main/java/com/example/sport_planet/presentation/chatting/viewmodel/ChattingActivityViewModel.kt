@@ -4,14 +4,18 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.beust.klaxon.JsonObject
-import com.beust.klaxon.Klaxon
-import com.example.sport_planet.model.ChattingMessageListResponse
-import com.example.sport_planet.model.ChattingMessageResponse
+import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
+import com.example.sport_planet.data.model.ChatRoomInfo
+import com.example.sport_planet.data.response.ChattingMessageListResponse
+import com.example.sport_planet.data.response.ChattingMessageResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.remote.RemoteDataSourceImpl
+import com.example.sport_planet.util.applySchedulers
 import com.gmail.bishoybasily.stomp.lib.Event
 import com.gmail.bishoybasily.stomp.lib.StompClient
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,9 +25,10 @@ import okhttp3.OkHttpClient
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
-import kotlin.properties.Delegates
+import kotlinx.serialization.*
+import kotlinx.serialization.json.Json
 
-class ChattingActivityViewModel : BaseViewModel() {
+class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseViewModel() {
 
     private val TAG = "ChattingActivityViewModel"
 
@@ -39,8 +44,8 @@ class ChattingActivityViewModel : BaseViewModel() {
     val chattingMessageLiveData: LiveData<ChattingMessageResponse>
         get() = _chattingMessageLiveData
 
-    private val _approvalStatusLiveData = MutableLiveData<String>()
-    val approvalStatusLiveData: LiveData<String>
+    private val _approvalStatusLiveData = MutableLiveData<ApprovalStatusButtonEnum>()
+    val approvalStatusLiveData: LiveData<ApprovalStatusButtonEnum>
         get() = _approvalStatusLiveData
 
     private lateinit var stompClient: StompClient
@@ -48,17 +53,25 @@ class ChattingActivityViewModel : BaseViewModel() {
     private lateinit var topic: Disposable
     private var closeSocket = false
 
-    private var chatRoomId by Delegates.notNull<Long>()
     private var chattingMessageJsonObject = JSONObject()
+
+    class ViewModelFactory(private val chatRoomInfo: ChatRoomInfo) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return if (modelClass.isAssignableFrom(ChattingActivityViewModel::class.java)) {
+                ChattingActivityViewModel(chatRoomInfo) as T
+            } else {
+                throw IllegalArgumentException()
+            }
+        }
+    }
 
     fun settingChattingMessageList(chatRoomId: Long){
         compositeDisposable.add(
             remoteDataSourceImpl.getChattingMessageList(chatRoomId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .applySchedulers()
                 .subscribe({
                     it.run {
-                        _approvalStatusLiveData.postValue(it.appliedStatus)
+                        _approvalStatusLiveData.postValue(approvalStatus(chatRoomInfo.isHost, it.appliedStatus))
                         _chattingMessageListResponseLiveData.postValue(it)
                     }
             },{
@@ -70,6 +83,7 @@ class ChattingActivityViewModel : BaseViewModel() {
     private fun makeChattingMessageRead(chatRoomId: Long, messageId: Long){
         compositeDisposable.add(
             remoteDataSourceImpl.makeChattingMessageRead(chatRoomId, messageId)
+                .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
                 },{
@@ -78,6 +92,7 @@ class ChattingActivityViewModel : BaseViewModel() {
         )
     }
 
+    @OptIn(UnstableDefault::class)
     fun initSocket(chatRoomId: Long) {
         val url = ChattingConstant.URL
         val intervalMillis = 5000L
@@ -87,8 +102,6 @@ class ChattingActivityViewModel : BaseViewModel() {
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .build()
 
-        this.chatRoomId = chatRoomId
-
         stompClient = StompClient(client, intervalMillis).apply { this@apply.url = url }
 
         stompConnection = stompClient.connect()
@@ -96,23 +109,24 @@ class ChattingActivityViewModel : BaseViewModel() {
                 when (it.type) {
                     Event.Type.OPENED -> {
                         Log.d(TAG, "[OPENED]: 웹소켓 OPEN")
-                        topic = stompClient.join("/sub/chat/room/${this.chatRoomId}")
+                        topic = stompClient.join("/sub/chat/room/${chatRoomInfo.chatRoomId}")
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe ({ stompMessage ->
-                                chattingMessage = Klaxon().parse<ChattingMessageResponse>(stompMessage)!!
+                                chattingMessage = Json.parse(ChattingMessageResponse.serializer(), stompMessage)
                                 when(chattingMessage.realTimeUpdateType) {
                                     "MESSAGE_READ" -> {
-                                        makeChattingMessageRead(this.chatRoomId, chattingMessage.id!!)
                                         _chattingMessageLiveData.postValue(chattingMessage)
+                                        makeChattingMessageRead(chatRoomInfo.chatRoomId, chattingMessage.id!!)
                                     }
                                     else -> {
-                                        _approvalStatusLiveData.postValue(chattingMessage.realTimeUpdateType)
+                                        _approvalStatusLiveData.postValue(approvalStatus(chatRoomInfo.isHost, chattingMessage.realTimeUpdateType!!))
                                     }
                                 }
                             }, {
                                 Log.d(TAG, it.localizedMessage)
                             })
+
                     }
                     Event.Type.CLOSED -> {
                         if(!closeSocket)
@@ -136,13 +150,14 @@ class ChattingActivityViewModel : BaseViewModel() {
     fun sendMessage(chattingMessageContent: String){
         try {
             chattingMessageJsonObject.put("content", chattingMessageContent)
-            chattingMessageJsonObject.put("type", ChattingConstant.TALK_TYPE)
+            chattingMessageJsonObject.put("type", ChattingConstant.TALK_MESSAGE)
             chattingMessageJsonObject.put("senderId", UserInfo.USER_ID)
-            chattingMessageJsonObject.put("chatRoomId", this.chatRoomId)
+            chattingMessageJsonObject.put("chatRoomId", chatRoomInfo.chatRoomId)
 
         } catch (e: JSONException) {
             e.printStackTrace()
         }
+
         stompClient.send("/pub/v1/chat/message", chattingMessageJsonObject.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -153,13 +168,20 @@ class ChattingActivityViewModel : BaseViewModel() {
             )
     }
 
-    fun applyBoard(boardId: Long, chatRoomId: Long){
+    fun approvalStatusButtonOnClick(){
+        when(_approvalStatusLiveData.value){
+            ApprovalStatusButtonEnum.GUEST_APPLY -> applyBoard()
+            ApprovalStatusButtonEnum.HOST_APPROVE -> approveBoard()
+            ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE -> disapproveBoard()
+        }
+    }
+
+    fun applyBoard(){
         val applyBoardObject = JsonObject()
-        applyBoardObject.put("chatRoomId", chatRoomId)
+        applyBoardObject.put("chatRoomId", chatRoomInfo.chatRoomId)
         compositeDisposable.add(
-            remoteDataSourceImpl.applyBoard(boardId, applyBoardObject)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            remoteDataSourceImpl.applyBoard(chatRoomInfo.boardId, applyBoardObject)
+                .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
                 },{
@@ -168,14 +190,13 @@ class ChattingActivityViewModel : BaseViewModel() {
         )
     }
 
-    fun approveBoard(boardId: Long, chatRoomId: Long, guestId: Long){
+    fun approveBoard(){
         val approveBoardObject = JsonObject()
-        approveBoardObject["chatRoomId"] = chatRoomId
-        approveBoardObject["guestId"] = guestId
+        approveBoardObject["chatRoomId"] = chatRoomInfo.chatRoomId
+        approveBoardObject["guestId"] = chatRoomInfo.guestId
         compositeDisposable.add(
-            remoteDataSourceImpl.approveBoard(boardId, approveBoardObject)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            remoteDataSourceImpl.approveBoard(chatRoomInfo.boardId, approveBoardObject)
+                .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
                 },{
@@ -184,19 +205,35 @@ class ChattingActivityViewModel : BaseViewModel() {
         )
     }
 
-    fun disapproveBoard(boardId: Long, chatRoomId: Long, guestId: Long){
+    fun disapproveBoard(){
         val disapproveBoardObject = JsonObject()
-        disapproveBoardObject["chatRoomId"] = chatRoomId
-        disapproveBoardObject["guestId"] = guestId
+        disapproveBoardObject["chatRoomId"] = chatRoomInfo.chatRoomId
+        disapproveBoardObject["guestId"] = chatRoomInfo.guestId
         compositeDisposable.add(
-            remoteDataSourceImpl.disapproveBoard(boardId, disapproveBoardObject)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            remoteDataSourceImpl.disapproveBoard(chatRoomInfo.boardId, disapproveBoardObject)
+                .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
                 },{
                     Log.d(TAG, it.localizedMessage) }
                 )
         )
+    }
+
+    fun approvalStatus(isHost: Boolean, status: String): ApprovalStatusButtonEnum {
+        return when(isHost){
+            false -> when(status){
+                ChattingConstant.REAL_TIME_PENDING -> ApprovalStatusButtonEnum.GUEST_APPLY
+                ChattingConstant.REAL_TIME_APPLIED, ChattingConstant.REAL_TIME_DISAPPROVED -> ApprovalStatusButtonEnum.GUEST_APPROVE_AWAIT
+                ChattingConstant.REAL_TIME_APPROVED -> ApprovalStatusButtonEnum.GUEST_APPROVE_SUCCESS
+                else -> throw IllegalArgumentException("적절하지 않은 Guest AppliedStatus")
+            }
+            true  -> when(status){
+                ChattingConstant.REAL_TIME_PENDING -> ApprovalStatusButtonEnum.HOST_NONE
+                ChattingConstant.REAL_TIME_APPLIED, ChattingConstant.REAL_TIME_DISAPPROVED -> ApprovalStatusButtonEnum.HOST_APPROVE
+                ChattingConstant.REAL_TIME_APPROVED -> ApprovalStatusButtonEnum.HOST_APPROVE_CANCLE
+                else -> throw IllegalArgumentException("적절하지 않은 Host AppliedStatus")
+            }
+        }
     }
 }

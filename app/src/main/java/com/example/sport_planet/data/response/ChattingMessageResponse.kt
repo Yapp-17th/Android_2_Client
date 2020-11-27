@@ -1,39 +1,35 @@
-package com.example.sport_planet.model
+package com.example.sport_planet.data.response
 
 import android.os.Parcelable
-import com.beust.klaxon.Json
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import kotlinx.serialization.Serializable
 
 @Parcelize
+@Serializable
 data class ChattingMessageResponse (
 
     @SerializedName("id")
-    @Json(name = "id")
     val id: Long?,
     @SerializedName("content")
-    @Json(name = "content")
     val content: String?,
     @SerializedName("type")
-    @Json(name = "type")
     val type: String?,
     @SerializedName("realTimeUpdateType")
-    @Json(name = "realTimeUpdateType")
-    val realTimeUpdateType: String,
+    val realTimeUpdateType: String?,
     @SerializedName("isHostRead")
-    @Json(name = "isHostRead")
     val isHostRead: Boolean?,
     @SerializedName("isGuestRead")
-    @Json(name = "isGuestRead")
     val isGuestRead: Boolean?,
+    @SerializedName("messageId")
+    val messageId: Long?,
+    @SerializedName("chatRoomId")
+    val chatRoomId: Long?,
     @SerializedName("senderId")
-    @Json(name = "senderId")
     val senderId: Long?,
     @SerializedName("senderNickname")
-    @Json(name = "senderNickname")
     val senderNickname: String?,
     @SerializedName("createdAt")
-    @Json(name = "createdAt")
-    val timestamp: String?
+    val createdAt: String?
 
 ): Parcelable
