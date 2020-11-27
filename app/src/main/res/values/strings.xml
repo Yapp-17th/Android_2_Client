@@ -113,4 +113,6 @@
     <string name="item_history_ing_guest">guest</string>
     <string name="item_history_ing_expand">더보기</string>
     <string name="item_history_ing_unexpand">접기</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
