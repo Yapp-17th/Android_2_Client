@@ -57,6 +57,10 @@ class HomeRecyclerAdapter(
                 bookMarkClickListener.onClick(item)
             }
             binding.tvNickname.text = item.hostName
+            binding.tvStatus.text = item.groupStatus.name
+            binding.tvExercise.text = item.exercise
+            binding.tvRegion.text = item.city
+            binding.tvPeopleCount.text = item.boardTime
         }
     }
 }

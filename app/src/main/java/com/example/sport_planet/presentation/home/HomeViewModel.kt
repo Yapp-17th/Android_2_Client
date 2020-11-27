@@ -16,12 +16,13 @@ class HomeViewModel(private val remote: RemoteDataSource) :
     BaseViewModel() {
 
     val boardList: MutableLiveData<List<BoardModel>> = MutableLiveData()
+    val pageCount: MutableLiveData<Int> = MutableLiveData(0)
     private var _boardList: ArrayList<BoardModel> = ArrayList()
 
     val showRecyclerViewRefresh: PublishSubject<Boolean> = PublishSubject.create()
 
-    fun getBoardList() {
-        remote.getBoardList()
+    fun getBoardList(page: Int = 0) {
+        remote.getBoardList(page = page)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d("okhttp", "getWriteList : $it")
@@ -52,6 +53,10 @@ class HomeViewModel(private val remote: RemoteDataSource) :
                 it.printStackTrace()
             })
             .addTo(compositeDisposable)
+    }
+
+    fun addBoardNextPage() {
+
     }
 
     private fun changeBoardListItem(oldBoard: BoardModel) {

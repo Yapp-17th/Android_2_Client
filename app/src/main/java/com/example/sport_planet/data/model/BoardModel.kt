@@ -10,5 +10,6 @@ data class BoardModel(
     val groupStatus: GroupStatus,
     val exercise: String,
     val city: String,
-    val isBookMark: Boolean
+    val isBookMark: Boolean,
+    val boardTime: String
 )

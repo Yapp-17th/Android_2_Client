@@ -5,6 +5,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.MenuEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
@@ -52,6 +54,20 @@ class HomeFragment private constructor() :
         binding.vm = viewModel
 
         binding.recBoard.adapter = adapter
+        binding.recBoard.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val rec = binding.recBoard
+                var lastVisibleItemPosition =
+                    (rec.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                var itemTotalCount =
+                    (rec.adapter as HomeRecyclerAdapter).itemCount
+
+                if (lastVisibleItemPosition + 1 == itemTotalCount) {
+                    viewModel.addBoardNextPage()
+                }
+            }
+        })
 
         viewModel.boardList.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) adapter.setItems(it)

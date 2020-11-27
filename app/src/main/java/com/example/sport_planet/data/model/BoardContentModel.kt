@@ -14,7 +14,8 @@ data class BoardContentModel(
         val place: String,
         val recruitNumber: Int,
         val recruitedNumber: Int,
-        val title: String
+        val title: String,
+        val boardTime: String
 )
 
 fun BoardContentModel.toBoardModel(): BoardModel {
@@ -26,6 +27,7 @@ fun BoardContentModel.toBoardModel(): BoardModel {
             groupStatus = groupStatus,
             exercise = exercise,
             city = city,
-            isBookMark = isBookMark
+            isBookMark = isBookMark,
+            boardTime = boardTime
     )
 }
