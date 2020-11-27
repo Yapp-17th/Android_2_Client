@@ -1,4 +1,4 @@
-package com.example.sport_planet.data.response
+package com.example.sport_planet.data.response.chatting
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

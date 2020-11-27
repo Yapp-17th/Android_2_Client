@@ -6,7 +6,7 @@
         <import type="com.example.sport_planet.util.Util" />
         <variable
             name="ItemChatBotMessage"
-            type="com.example.sport_planet.data.response.ChattingMessageResponse" />
+            type="com.example.sport_planet.data.model.chatting.ChattingMessageModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="@{Util.formatTo(ItemChatBotMessage.createdAt)}"
+            android:text="@{ItemChatBotMessage.createdTime}"
             style="@style/regular_basic_12sp"
             android:textColor="@color/gray9c9c9c"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -8,7 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkHelper {
     private const val token =
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIzIiwiaWF0IjoxNjA2NDY0NjkyLCJleHAiOjE2MzgwMDA2OTUsImF1ZCI6IiIsInN1YiI6InRlc3RlcjNAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiIzIn0.xTD558ZkoXQ4eBRSO4sL8BKQkD-Os-BdtvKWuWcu_J0"
+        //"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIyIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjJAZ21haWwuY29tIiwidXNlcklkIjoiMiJ9.iMoSPe9k5Uj6w8qa4eaOIQqjIzI5Scuts3tBbQ4p79g"
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIxIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjFAZ21haWwuY29tIiwidXNlcklkIjoiMSJ9.Bmbhc-I1r-L-dW5vUzvB9jRsPPKtcqYXutAyWKqkPrc"
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.NONE
@@ -29,5 +30,4 @@ object NetworkHelper {
         .build()
 
     val api: Api = retrofit.create(Api::class.java)
-
 }
