@@ -6,13 +6,12 @@
         <import type="com.example.sport_planet.util.Util" />
         <variable
             name="ItemSentTalkMessage"
-            type="com.example.sport_planet.data.response.ChattingMessageResponse" />
+            type="com.example.sport_planet.data.model.ChattingMessageModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/item_talk_message_msg_paddingTop_16dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_notice_message_content"
@@ -25,14 +24,20 @@
             android:paddingRight="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
             android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
             android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
             android:layout_gravity="center"
             android:textColor="@color/gray9c9c9c" />
 
+        <View
+            android:id="@+id/view_item_received_talk_message_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="8dp"/>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:id="@+id/tv_sent_talk_message_content"
@@ -57,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:text="@{Util.formatTo(ItemSentTalkMessage.createdAt)}"
+                android:text="@{ItemSentTalkMessage.createdTime}"
                 style="@style/regular_basic_12sp"
                 android:textColor="@color/gray9c9c9c"
                 app:layout_constraintBottom_toBottomOf="parent"
