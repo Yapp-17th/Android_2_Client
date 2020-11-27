@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="items"
+            type="com.example.sport_planet.data.model.MyBookMarksModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_history_ing_margin_16dp"
+            android:layout_marginTop="@dimen/item_history_ing_margin_14dp"
+            android:src="@drawable/ic_profile_46dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_host_guest"
+            style="@style/bold_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_history_ing_margin_12dp"
+            android:text="@string/item_history_ing_host"
+            android:textColor="@color/pink"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_profile"
+            tools:text="Host" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            style="@style/bold_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_history_ing_margin_8dp"
+            android:text="@{items.hostName}"
+            app:layout_constraintStart_toEndOf="@id/tv_host_guest"
+            app:layout_constraintTop_toTopOf="@id/iv_profile"
+            tools:text="짹짹" />
+
+        <ImageView
+            android:id="@+id/iv_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:src="@drawable/icons_24_px_clipping_button_enabled"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_nickname" />
+
+        <TextView
+            android:id="@+id/tv_d_day"
+            style="@style/medium_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_history_ing_margin_12dp"
+            android:text="@{items.time}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            tools:text="[D-Day]" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/regular_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_history_ing_margin_8dp"
+            android:text="@{items.title}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintStart_toEndOf="@id/tv_d_day"
+            tools:text="급하게 농구 용병 3명 구합니다!" />
+
+        <LinearLayout
+            android:id="@+id/ll_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_history_ing_margin_18dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/v_line_1"
+            app:layout_constraintStart_toStartOf="@id/tv_d_day"
+            app:layout_constraintTop_toBottomOf="@id/tv_d_day">
+
+            <TextView
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/item_history_ing_margin_10dp"
+                android:background="@drawable/shape_round_corner_darkblue"
+                android:paddingHorizontal="@dimen/item_history_ing_padding_10dp"
+                android:paddingVertical="@dimen/item_history_ing_padding_3dp"
+                android:text="@{items.groupStatus}"
+                android:textColor="@color/white"
+                tools:text="진행중" />
+
+            <TextView
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/item_history_ing_margin_10dp"
+                android:background="@drawable/shape_round_corner_darkblue_opacity"
+                android:paddingHorizontal="@dimen/item_history_ing_padding_10dp"
+                android:paddingVertical="@dimen/item_history_ing_padding_3dp"
+                android:text="@{items.exercise}"
+                android:textColor="@color/dark_gray"
+                tools:text="농구" />
+
+            <TextView
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/item_history_ing_margin_10dp"
+                android:background="@drawable/shape_round_corner_darkblue_opacity"
+                android:paddingHorizontal="@dimen/item_history_ing_padding_10dp"
+                android:paddingVertical="@dimen/item_history_ing_padding_3dp"
+                android:text="@{items.city}"
+                android:textColor="@color/dark_gray"
+                tools:text="은평구" />
+
+            <TextView
+                android:id="@+id/tv_recruit_number"
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_round_corner_darkblue_opacity"
+                android:paddingHorizontal="@dimen/item_history_ing_padding_10dp"
+                android:paddingVertical="@dimen/item_history_ing_padding_3dp"
+                android:text="@string/item_history_ing_recruit_number"
+                android:textColor="@color/dark_gray"
+                tools:text="2/3명" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v_line_1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_label" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

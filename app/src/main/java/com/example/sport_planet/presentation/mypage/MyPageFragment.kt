@@ -10,6 +10,7 @@ import com.example.sport_planet.databinding.FragmentMypageBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.mypage.editProfile.EditProfileFragment
 import com.example.sport_planet.presentation.mypage.history.view.HistoryActivity
+import com.example.sport_planet.presentation.mypage.scrap.ScrapFragment
 import com.example.sport_planet.presentation.mypage.setting.SettingFragment
 
 class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.layout.fragment_mypage) {
@@ -41,7 +42,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.la
             startActivity(intent)
         }
         binding.tvBookmark.setOnClickListener {
-            // TODO: 2020-11-13 스크랩 페이지로 이동
+            moveFragment(ScrapFragment.newInstance())
         }
         binding.tvSetting.setOnClickListener {
             moveFragment(SettingFragment.newInstance())
