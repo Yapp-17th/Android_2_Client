@@ -148,4 +148,19 @@
     <string name="item_history_ing_guest">guest</string>
     <string name="item_history_ing_expand">더보기</string>
     <string name="item_history_ing_unexpand">접기</string>
+    <string name="item_history_finish_expand_report">신고</string>
+
+    <!-- dialog_report.xml -->
+    <string name="dialog_report_title">신고하려는 내용을 선택해주세요.</string>
+    <string name="dialog_report_text_1">중간에 연락이 두절됐어요</string>
+    <string name="dialog_report_text_2">활동에 참여하지 않았어요</string>
+    <string name="dialog_report_text_3">사전 연락없이 30분 이상 지각했어요</string>
+    <string name="dialog_report_text_4">원치 않는 연락을 계속 보내요</string>
+    <string name="dialog_report_text_5">욕설 및 비 매너 행위를 했어요</string>
+    <string name="dialog_report_text_6">대관비 등 활동 내 비용을 내지 않았어요</string>
+    <string name="dialog_report_text_7">활동을 중간에 취소했어요</string>
+    <string name="dialog_report_text_8">기타 :</string>
+    <string name="dialog_report_etc_hint">내용을 입력해주세요</string>
+    <string name="dialog_report_report">신고하기</string>
+    <string name="dialog_success_body">신고가 정상적으로 접수되었습니다.</string>
 </resources>

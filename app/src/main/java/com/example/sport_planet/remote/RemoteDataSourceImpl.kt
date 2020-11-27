@@ -28,7 +28,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun getViewHistory(userId: Long): Single<HistoryResponse> = api.getViewHistory(userId)
 
-    override fun getMyViewHistory(): Single<MyViewHistoryResponse> = api.getMyViewHistory()
+    override fun getMyViewHistory(type : String): Single<MyViewHistoryResponse> = api.getMyViewHistory(type)
 
     override fun getOthersHistory(userId: Long): Single<OtherHistoryResponse> =
         api.getOthersHistory(userId)

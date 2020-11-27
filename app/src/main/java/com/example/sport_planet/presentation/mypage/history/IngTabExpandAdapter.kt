@@ -50,7 +50,7 @@ class IngTabExpandAdapter : RecyclerView.Adapter<IngTabExpandAdapter.IngTabExpan
                 1, 2 -> {
                     binding.tvLabel.setTextColor(
                         binding.root.resources.getColor(
-                            R.color.darkblue,
+                            R.color.dark_blue,
                             null
                         )
                     )

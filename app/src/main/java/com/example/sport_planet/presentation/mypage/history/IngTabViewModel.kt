@@ -20,7 +20,7 @@ class IngTabViewModel : BaseViewModel() {
     fun getHistory() {
         compositeDisposable.add(
             RemoteDataSourceImpl()
-                .getMyViewHistory()
+                .getMyViewHistory("continue")
                 .applySchedulers()
                 .subscribe({
                     if (it.success) {

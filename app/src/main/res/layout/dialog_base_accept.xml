@@ -31,7 +31,7 @@
             style="@style/medium_basic"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:background="@color/darkblue"
+            android:background="@color/dark_blue"
             android:gravity="center"
             android:text="@string/dialog_base_accept_ok"
             android:textColor="@color/white" />

@@ -39,7 +39,7 @@ interface Api {
 
     @GET("mypage-service/v1/user/my-profile/history")
     fun getMyViewHistory(
-        @Query("type") type: String = "continue"
+        @Query("type") type: String
     ): Single<MyViewHistoryResponse>
 
     @GET("mypage-service/v1/user/{userId}/profile/history")
@@ -56,7 +56,7 @@ interface Api {
     @GET("mypage-service/v1/user/my-profile/history/{boardId}/evaluate")
     fun getEvaluateList(@Path("boardId") boardId: Long): Single<EvaluateListResponse>
 
-    @PUT("mypage-service/v1/user/my-profile/history/{boardId}/evaluate/{userId}?isLike=true")
+    @PUT("mypage-service/v1/user/my-profile/history/{boardId}/evaluate/{userId}")
     fun putEvaluateIsLike(
         @Path("boardId") boardId: Long,
         @Path("userId") userId: Long,
@@ -65,6 +65,7 @@ interface Api {
 
     @POST("mypage-service/v1/user/my-profile/history/evaluate/report")
     fun postEvaluateReport(@Body evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse>
+
 
     // 채팅 API
     @POST("chatting-service/v1/chat/room")

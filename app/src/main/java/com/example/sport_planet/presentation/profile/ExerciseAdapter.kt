@@ -49,7 +49,7 @@ class ExerciseAdapter(private val onClickAction: (String,Long) -> Unit) :
                     if (selectItems.size < 3) {
                         selectItems.add(items[adapterPosition])
                         binding.tvText.setColorAndBackground(
-                            R.color.darkblue,
+                            R.color.dark_blue,
                             R.color.darkblue_opacity
                         )
                         onClickAction(item,adapterPosition+1L)

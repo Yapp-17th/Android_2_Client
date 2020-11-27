@@ -11,6 +11,6 @@ data class EvaluateListResponse(
         val userName : String,
         val isHost : Boolean,
         val isLike : Boolean,
-        val isDisLike : Boolean
+        val isDislike : Boolean
     )
 }

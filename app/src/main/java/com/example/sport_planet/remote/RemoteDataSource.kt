@@ -26,7 +26,7 @@ interface RemoteDataSource {
 
     fun getViewHistory(userId: Long): Single<HistoryResponse>
 
-    fun getMyViewHistory(): Single<MyViewHistoryResponse>
+    fun getMyViewHistory(type : String): Single<MyViewHistoryResponse>
 
     fun getOthersHistory(userId: Long): Single<OtherHistoryResponse>
 

@@ -10,18 +10,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
-import com.example.sport_planet.data.model.ApplyListModel
 import com.example.sport_planet.data.model.MyViewHistoryModel
-import com.example.sport_planet.databinding.ItemHistoryIngBinding
-import java.util.*
+import com.example.sport_planet.data.response.EvaluateListResponse
+import com.example.sport_planet.databinding.ItemHistoryFinishBinding
 
-class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
-    RecyclerView.Adapter<IngTabAdapter.IngTabViewHolder>() {
+class FinishTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit,private val dialogListener : (Long) -> Unit) :
+    RecyclerView.Adapter<FinishTabAdapter.FinishTabViewHolder>() {
 
     val historyItem = mutableListOf<MyViewHistoryModel>()
-    val applyListItem = mutableListOf<ApplyListModel>()
+    val applyListItem = mutableListOf<EvaluateListResponse.EvaluateListModel>()
     private var selectedItems: SparseBooleanArray = SparseBooleanArray()
-
 
     fun setMyViewHistoryItem(item: List<MyViewHistoryModel>) {
         historyItem.clear()
@@ -29,7 +27,7 @@ class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
         notifyDataSetChanged()
     }
 
-    fun setApplyListItem(item: List<ApplyListModel>) {
+    fun setApplyListItem(item: List<EvaluateListResponse.EvaluateListModel>) {
         applyListItem.clear()
         applyListItem.addAll(item)
         notifyDataSetChanged()
@@ -39,34 +37,33 @@ class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
         return position.toLong()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngTabViewHolder {
-        val binding = DataBindingUtil.inflate<ItemHistoryIngBinding>(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FinishTabViewHolder {
+        val binding = DataBindingUtil.inflate<ItemHistoryFinishBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.item_history_ing,
+            R.layout.item_history_finish,
             parent,
             false
         )
-        return IngTabViewHolder(binding)
+        return FinishTabViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: FinishTabViewHolder, position: Int) {
+        holder.bind(historyItem[position])
     }
 
     override fun getItemCount(): Int = historyItem.size
 
-    override fun onBindViewHolder(holder: IngTabViewHolder, position: Int) {
-        holder.bind(historyItem[position])
-    }
-
-    inner class IngTabViewHolder(private val binding: ItemHistoryIngBinding) :
+    inner class FinishTabViewHolder(private val binding: ItemHistoryFinishBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
-            val ingTabExpandAdapter: IngTabExpandAdapter by lazy {
-                IngTabExpandAdapter().apply {
+            val finishTabExpandAdapter: FinishTabExpandAdapter by lazy {
+                FinishTabExpandAdapter(dialogListener).apply {
                     setHasStableIds(true)
                 }
             }
-            binding.rvExpand.adapter = ingTabExpandAdapter
+            binding.rvExpand.adapter = finishTabExpandAdapter
             binding.root.setOnClickListener {
                 val item = historyItem[adapterPosition]
-                if (historyItem[adapterPosition].host) {
                 if (selectedItems.get(adapterPosition)) {
                     selectedItems.delete(adapterPosition)
                     binding.run {
@@ -85,7 +82,9 @@ class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
                     onClickListener(item)
                     Handler(Looper.getMainLooper()).postDelayed({
                         run {
-                            ingTabExpandAdapter.setApplyListItem(applyListItem)
+                            finishTabExpandAdapter.setApplyListItem(applyListItem)
+                            finishTabExpandAdapter.boardIdItem =
+                                historyItem[adapterPosition].boardInfo.boardId
                             selectedItems.put(adapterPosition, true)
                             binding.run {
                                 rvExpand.visibility = View.VISIBLE
@@ -101,24 +100,20 @@ class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
                                 }
                             }
                         }
-                    }, 100)
-                    }
+                    }, 500)
                 }
             }
-
         }
 
-        fun bind(historyItem: MyViewHistoryModel) {
+        fun bind(item: MyViewHistoryModel) {
             binding.run {
-                items = historyItem
+                items = item
                 tvRecruitNumber.text = root.resources.getString(
                     R.string.item_history_ing_recruit_number,
-                    historyItem.boardInfo.recruitedNumber,
-                    historyItem.boardInfo.recruitNumber
+                    item.boardInfo.recruitedNumber,
+                    item.boardInfo.recruitNumber
                 )
             }
-
-
         }
     }
 }
