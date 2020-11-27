@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.databinding.FragmentChattingBinding
-import com.example.sport_planet.data.response.ChattingRoomListResponse
+import com.example.sport_planet.data.response.chatting.ChattingRoomListResponse
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingConstant

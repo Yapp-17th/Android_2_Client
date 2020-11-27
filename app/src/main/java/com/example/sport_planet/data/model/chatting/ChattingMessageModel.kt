@@ -1,4 +1,4 @@
-package com.example.sport_planet.data.model
+package com.example.sport_planet.data.model.chatting
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

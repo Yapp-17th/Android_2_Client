@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
-import com.example.sport_planet.data.model.ChatRoomInfo
-import com.example.sport_planet.data.model.ChattingMessageModel
-import com.example.sport_planet.data.response.ChattingMessageResponse
+import com.example.sport_planet.data.model.chatting.ChatRoomInfo
+import com.example.sport_planet.data.model.chatting.ChattingMessageModel
+import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
@@ -93,17 +93,19 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
                     chattingMessageFactory(chattingMessage, false)
 
-                    chattingMessages.add(ChattingMessageModel(
-                        chattingMessage.content!!,
-                        chattingMessage.type!!,
-                        chattingMessage.messageId!!,
-                        chattingMessage.senderId!!,
-                        chattingMessage.senderNickname!!,
-                        thisDate,
-                        thisTime,
-                        isSameDate,
-                        isSameTime
-                    ))
+                    chattingMessages.add(
+                        ChattingMessageModel(
+                            chattingMessage.content!!,
+                            chattingMessage.type!!,
+                            chattingMessage.messageId!!,
+                            chattingMessage.senderId!!,
+                            chattingMessage.senderNickname!!,
+                            thisDate,
+                            thisTime,
+                            isSameDate,
+                            isSameTime
+                        )
+                    )
                 }
 
                 chattingAdapter.settingChattingMessageList(chattingMessages)
@@ -140,17 +142,19 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
                 chattingMessageFactory(it, true)
 
-                chattingAdapter.addChattingMessage(ChattingMessageModel(
-                    it.content!!,
-                    it.type!!,
-                    it.messageId!!,
-                    it.senderId!!,
-                    it.senderNickname!!,
-                    thisDate,
-                    thisTime,
-                    isSameDate,
-                    isSameTime
-                ))
+                chattingAdapter.addChattingMessage(
+                    ChattingMessageModel(
+                        it.content!!,
+                        it.type!!,
+                        it.messageId!!,
+                        it.senderId!!,
+                        it.senderNickname!!,
+                        thisDate,
+                        thisTime,
+                        isSameDate,
+                        isSameTime
+                    )
+                )
 
                 rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
             }

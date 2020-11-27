@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sport_planet.data.model.ChattingMessageModel
+import com.example.sport_planet.data.model.chatting.ChattingMessageModel
 import com.example.sport_planet.databinding.*
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo

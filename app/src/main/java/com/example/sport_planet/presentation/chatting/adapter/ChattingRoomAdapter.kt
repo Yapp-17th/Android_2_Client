@@ -9,10 +9,10 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
-import com.example.sport_planet.data.model.ChatRoomInfo
-import com.example.sport_planet.data.response.ChattingMessageResponse
+import com.example.sport_planet.data.model.chatting.ChatRoomInfo
+import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.databinding.ItemChattingRoomBinding
-import com.example.sport_planet.data.response.ChattingRoomListResponse
+import com.example.sport_planet.data.response.chatting.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.view.ChattingActivity
 import com.example.sport_planet.util.Util
@@ -54,7 +54,15 @@ class ChattingRoomAdapter(
 
             binding.layoutChattingRoomItem.setOnClickListener {
                 val intent = Intent(context, ChattingActivity::class.java)
-                intent.putExtra("chatRoomInfo", ChatRoomInfo(chattingRoom.id, chattingRoom.boardId, chattingRoom.guestId, chattingRoom.hostId == UserInfo.USER_ID, chattingRoom.opponentNickname))
+                intent.putExtra("chatRoomInfo",
+                    ChatRoomInfo(
+                        chattingRoom.id,
+                        chattingRoom.boardId,
+                        chattingRoom.guestId,
+                        chattingRoom.hostId == UserInfo.USER_ID,
+                        chattingRoom.opponentNickname
+                    )
+                )
                 startActivity(context, intent, null)
             }
 
