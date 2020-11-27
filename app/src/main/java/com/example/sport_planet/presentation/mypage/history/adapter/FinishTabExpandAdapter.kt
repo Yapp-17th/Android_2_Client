@@ -1,10 +1,8 @@
-package com.example.sport_planet.presentation.mypage.history
+package com.example.sport_planet.presentation.mypage.history.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.data.response.EvaluateListResponse
@@ -33,7 +31,7 @@ class FinishTabExpandAdapter(private val onClickAction: (Long) -> Unit) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FinishTabExpandAdapter.FinishTabExpandViewHolder {
+    ): FinishTabExpandViewHolder {
         val binding = DataBindingUtil.inflate<ItemHistoryFinishExpandBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_history_finish_expand, parent, false
@@ -42,7 +40,7 @@ class FinishTabExpandAdapter(private val onClickAction: (Long) -> Unit) :
     }
 
     override fun onBindViewHolder(
-        holder: FinishTabExpandAdapter.FinishTabExpandViewHolder,
+        holder: FinishTabExpandViewHolder,
         position: Int
     ) {
         holder.bind(applyListItem[position])

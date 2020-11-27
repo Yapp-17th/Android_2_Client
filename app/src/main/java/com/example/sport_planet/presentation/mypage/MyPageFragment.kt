@@ -9,7 +9,7 @@ import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentMypageBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.mypage.editProfile.EditProfileFragment
-import com.example.sport_planet.presentation.mypage.history.HistoryActivity
+import com.example.sport_planet.presentation.mypage.history.view.HistoryActivity
 import com.example.sport_planet.presentation.mypage.setting.SettingFragment
 
 class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.layout.fragment_mypage) {
@@ -37,7 +37,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.la
             moveFragment(EditProfileFragment.newInstance())
         }
         binding.tvHistory.setOnClickListener {
-            val intent = Intent(context,HistoryActivity::class.java)
+            val intent = Intent(context, HistoryActivity::class.java)
             startActivity(intent)
         }
         binding.tvBookmark.setOnClickListener {

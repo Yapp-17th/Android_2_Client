@@ -1,4 +1,4 @@
-package com.example.sport_planet.presentation.mypage.history
+package com.example.sport_planet.presentation.mypage.history.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

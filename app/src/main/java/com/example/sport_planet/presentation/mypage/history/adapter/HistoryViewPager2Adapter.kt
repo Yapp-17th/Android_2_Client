@@ -1,4 +1,4 @@
-package com.example.sport_planet.presentation.mypage.history
+package com.example.sport_planet.presentation.mypage.history.adapter
 
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle

@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".presentation.mypage.history.HistoryActivity"/>
+        <activity android:name=".presentation.mypage.history.view.HistoryActivity"/>
         <activity
             android:name=".presentation.chatting.ChattingActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge"

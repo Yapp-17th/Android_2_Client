@@ -1,4 +1,4 @@
-package com.example.sport_planet.presentation.mypage.history
+package com.example.sport_planet.presentation.mypage.history.view
 
 import android.app.AlertDialog
 import androidx.lifecycle.Observer
@@ -8,6 +8,9 @@ import com.example.sport_planet.data.model.MyViewHistoryModel
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.databinding.FragmentFinishTabBinding
 import com.example.sport_planet.presentation.base.BaseFragment
+import com.example.sport_planet.presentation.mypage.history.viewModel.FinishTabViewModel
+import com.example.sport_planet.presentation.mypage.history.ReportDialog
+import com.example.sport_planet.presentation.mypage.history.adapter.FinishTabAdapter
 
 class FinishTabFragment :
     BaseFragment<FragmentFinishTabBinding, FinishTabViewModel>(R.layout.fragment_finish_tab) {

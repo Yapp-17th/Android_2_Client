@@ -1,10 +1,11 @@
-package com.example.sport_planet.presentation.mypage.history
+package com.example.sport_planet.presentation.mypage.history.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityHistoryBinding
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.mypage.history.adapter.HistoryViewPager2Adapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
