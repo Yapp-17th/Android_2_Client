@@ -25,7 +25,7 @@
             android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
             android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="4dp"
             android:layout_gravity="center"
             android:visibility="@{!ItemChatBotNoticeMessage.sameDate ? View.VISIBLE : View.GONE }"
             android:text="@{ItemChatBotNoticeMessage.createdDate}"
@@ -33,7 +33,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
 
         <TextView
             android:id="@+id/tv_chat_bot_message_sender_nickname"
