@@ -20,7 +20,7 @@ object Util {
     fun toTimeFormat(date: String): String {
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA)
         val formatter = SimpleDateFormat("a h:mm", Locale.KOREA)
-        return formatter.format(parser.parse(date)!!)
+        return formatter.format(parser.parse(date))
     }
 
     @SuppressLint("SimpleDateFormat")
