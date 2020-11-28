@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.example.sport_planet.util.Util" />
+        <import type="android.view.View" />
+        <import type="com.example.sport_planet.presentation.chatting.ChattingConstant" />
         <variable
             name="ItemSentTalkMessage"
             type="com.example.sport_planet.data.model.chatting.ChattingMessageModel" />
@@ -24,15 +25,18 @@
             android:paddingRight="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
             android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
             android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="12dp"
             android:layout_gravity="center"
+            android:visibility="@{!ItemSentTalkMessage.sameDate ? View.VISIBLE : View.GONE }"
+            android:text="@{ItemSentTalkMessage.createdDate}"
             android:textColor="@color/gray9c9c9c" />
 
         <View
             android:id="@+id/view_item_received_talk_message_margin"
             android:layout_width="wrap_content"
-            android:layout_height="8dp"/>
+            android:layout_height="8dp"
+            android:visibility="@{ItemSentTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_NOT_SAME_TIME_MESSAGE || ItemSentTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_SAME_TIME_HEADER_MESSAGE ? View.VISIBLE : View.GONE}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -66,15 +70,9 @@
                 style="@style/regular_basic_12sp"
                 android:textColor="@color/gray9c9c9c"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tv_sent_talk_message_content"/>
+                app:layout_constraintRight_toLeftOf="@id/tv_sent_talk_message_content"
+                android:visibility="@{ItemSentTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_NOT_SAME_TIME_MESSAGE || ItemSentTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_SAME_TIME_FOOTER_MESSAGE ? View.VISIBLE : View.GONE}"/>
 
-            <TextView
-                android:id="@+id/tv_sent_talk_message_isread"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tv_sent_talk_message_timestamp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </layout>

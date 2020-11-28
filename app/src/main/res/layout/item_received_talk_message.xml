@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.example.sport_planet.util.Util" />
+        <import type="android.view.View" />
+        <import type="com.example.sport_planet.presentation.chatting.ChattingConstant" />
         <variable
             name="ItemReceivedTalkMessage"
             type="com.example.sport_planet.data.model.chatting.ChattingMessageModel" />
@@ -27,12 +28,15 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="4dp"
             android:layout_gravity="center"
+            android:visibility="@{!ItemReceivedTalkMessage.sameDate ? View.VISIBLE : View.GONE }"
+            android:text="@{ItemReceivedTalkMessage.createdDate}"
             android:textColor="@color/gray9c9c9c" />
 
         <View
             android:id="@+id/view_item_received_talk_message_margin"
             android:layout_width="wrap_content"
-            android:layout_height="8dp"/>
+            android:layout_height="8dp"
+            android:visibility="@{ItemReceivedTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_NOT_SAME_TIME_MESSAGE || ItemReceivedTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_SAME_TIME_HEADER_MESSAGE ? View.VISIBLE : View.GONE}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -52,7 +56,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_received_talk_message_content" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_received_talk_message_content"
+                android:visibility="@{ItemReceivedTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_NOT_SAME_TIME_MESSAGE || ItemReceivedTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_SAME_TIME_HEADER_MESSAGE ? View.VISIBLE : View.GONE}"/>
 
             <ImageView
                 android:id="@+id/iv_received_talk_message_profile_img"
@@ -62,7 +67,8 @@
                 android:layout_marginTop="8dp"
                 android:src="@drawable/profile_34_px"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="@{ItemReceivedTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_NOT_SAME_TIME_MESSAGE || ItemReceivedTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_SAME_TIME_HEADER_MESSAGE ? View.VISIBLE : View.GONE}"/>
 
             <TextView
                 android:id="@+id/tv_received_talk_message_content"
@@ -100,7 +106,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_timestamp" />
+                app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_timestamp"
+                android:visibility="@{ItemReceivedTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_NOT_SAME_TIME_MESSAGE || ItemReceivedTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_SAME_TIME_FOOTER_MESSAGE ? View.VISIBLE : View.GONE}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
