@@ -98,15 +98,7 @@
                 android:text="@{ItemReceivedTalkMessage.createdTime}"
                 android:textColor="@color/gray9c9c9c"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_content" />
-
-            <TextView
-                android:id="@+id/tv_received_talk_message_isread"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_timestamp"
+                app:layout_constraintLeft_toRightOf="@id/tv_received_talk_message_content"
                 android:visibility="@{ItemReceivedTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_NOT_SAME_TIME_MESSAGE || ItemReceivedTalkMessage.isSameTime() == ChattingConstant.INSTANCE.IS_SAME_TIME_FOOTER_MESSAGE ? View.VISIBLE : View.GONE}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

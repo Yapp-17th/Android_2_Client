@@ -118,7 +118,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                         rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId)
                     if(!isPageFilledWithItems)
                         rv_activity_chatting_recyclerview.addOnLayoutChangeListener(layoutChangeListener)
-                },5)
+                },20)
             }
         )
 
