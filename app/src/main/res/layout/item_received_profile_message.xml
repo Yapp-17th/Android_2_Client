@@ -7,6 +7,9 @@
         <variable
             name="ItemReceivedProfileMessage"
             type="com.example.sport_planet.data.model.chatting.ChattingMessageModel" />
+        <variable
+            name="ProfileMessageContent"
+            type="com.example.sport_planet.data.model.chatting.ProfileMessageContentModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="18dp"
-                    android:text="@{ItemReceivedProfileMessage.senderNickname}"
+                    android:text="@{ProfileMessageContent.senderNickname}"
                     style="@style/bold_basic_14sp"
                     android:textColor="@color/black121212"
                     app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
-                    android:text="@string/received_profile_message_likes"
+                    android:text="@{String.valueOf(ProfileMessageContent.like)}"
                     style="@style/regular_basic_14sp"
                     android:textColor="@color/black121212"
                     app:layout_constraintTop_toTopOf="@id/iv_received_profile_message_likes"
@@ -117,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
-                    android:text="@string/received_profile_message_dislikes"
+                    android:text="@{String.valueOf(ProfileMessageContent.dislike)}"
                     style="@style/regular_basic_14sp"
                     android:textColor="@color/black121212"
                     app:layout_constraintTop_toTopOf="@id/iv_received_profile_message_dislikes"
@@ -144,7 +147,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
-                    android:text="@{ItemReceivedProfileMessage.content}"
+                    android:text="@{ProfileMessageContent.intro}"
                     style="@style/regular_basic_14sp"
                     android:textColor="@color/black121212"
                     app:layout_constraintStart_toStartOf="parent"

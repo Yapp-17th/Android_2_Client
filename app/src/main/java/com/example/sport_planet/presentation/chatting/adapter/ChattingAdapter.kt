@@ -6,9 +6,12 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.data.model.chatting.ChattingMessageModel
+import com.example.sport_planet.data.model.chatting.ProfileMessageContentModel
 import com.example.sport_planet.databinding.*
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo
+import kotlinx.serialization.UnstableDefault
+import kotlinx.serialization.json.Json
 
 class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
@@ -38,6 +41,7 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 
     inner class Holder(val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root){
 
+        @OptIn(UnstableDefault::class)
         @SuppressLint("SimpleDateFormat")
         fun bind(chattingMessage: ChattingMessageModel){
 
@@ -52,11 +56,17 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
                 }
 
                 RECEIVED_PROFILE_MESSAGE_VIEW -> {
-                    (binding as ItemReceivedProfileMessageBinding).itemReceivedProfileMessage = chattingMessage
+                    (binding as ItemReceivedProfileMessageBinding).let {
+                        it.itemReceivedProfileMessage = chattingMessage
+                        it.profileMessageContent = Json.parse(ProfileMessageContentModel.serializer(), chattingMessage.content)
+                    }
                 }
 
                 SENT_PROFILE_MESSAGE_VIEW -> {
-                    (binding as ItemSentProfileMessageBinding).itemSentProfileMessage = chattingMessage
+                    (binding as ItemSentProfileMessageBinding).let {
+                        it.itemSentProfileMessage = chattingMessage
+                        it.profileMessageContent = Json.parse(ProfileMessageContentModel.serializer(), chattingMessage.content)
+                    }
                 }
 
                 RECEIVED_TALK_MESSAGE_VIEW -> {
