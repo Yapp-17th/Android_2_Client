@@ -22,6 +22,8 @@ import com.example.sport_planet.util.Util
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting){
@@ -38,6 +40,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     private var pixelsToScrollVertically by Delegates.notNull<Int>()
 
+    private lateinit var chattingMessageQueue: Queue<ChattingMessageResponse>
     private var chattingMessages = ArrayList<ChattingMessageModel>()
 
     private lateinit var priorDate: String
@@ -141,10 +144,16 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         }
 
+        chattingMessageQueue = LinkedList()
+
         chattingActivityViewModel.chattingMessageLiveData.observe(this,
             Observer {
 
-                chattingMessageFactory(it, true)
+                chattingMessageQueue.add(it)
+
+                while(!chattingMessageQueue.isEmpty()){
+                    chattingMessageFactory(chattingMessageQueue.poll()!!, true)
+                }
 
                 chattingAdapter.addChattingMessage(
                     ChattingMessageModel(
