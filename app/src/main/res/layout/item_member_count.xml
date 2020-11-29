@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/countNumber"
+    style="@style/regular_basic_14sp"
+    android:layout_width="92dp"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    android:layout_height="32dp"
+    android:gravity="center_vertical"
+    android:textColor="@color/black121212" />

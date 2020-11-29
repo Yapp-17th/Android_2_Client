@@ -1,8 +1,7 @@
 package com.example.sport_planet.presentation.home
 
-import android.view.ContextMenu
-import android.view.MenuItem
-import android.view.View
+import android.os.Bundle
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,7 +42,8 @@ class HomeFragment private constructor() :
                 }
             })
 
-    override fun init() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         activity?.runOnUiThread {
             binding.toolbar.run {
                 binding.toolbar.setSeparator(SeparatorEnum.Guest)
@@ -113,5 +113,8 @@ class HomeFragment private constructor() :
             }
         }
         return true
+    }
+
+    override fun init() {
     }
 }

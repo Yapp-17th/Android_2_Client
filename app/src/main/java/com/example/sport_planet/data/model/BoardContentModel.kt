@@ -1,14 +1,11 @@
 package com.example.sport_planet.data.model
 
-import com.example.sport_planet.data.response.GroupStatus
-import com.example.sport_planet.data.response.HostModel
-
 data class BoardContentModel(
         val boardId: Long,
         val city: String,
         val content: String,
         val exercise: String,
-        val groupStatus: GroupStatus,
+        val groupStatusModel: GroupStatusModel,
         val host: HostModel,
         val isBookMark: Boolean,
         val place: String,
@@ -24,7 +21,7 @@ fun BoardContentModel.toBoardModel(): BoardModel {
             hostId = host.hostId,
             hostName = host.hostName,
             title = title,
-            groupStatus = groupStatus,
+            groupStatus = groupStatusModel,
             exercise = exercise,
             city = city,
             isBookMark = isBookMark,

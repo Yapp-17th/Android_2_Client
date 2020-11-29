@@ -1,4 +1,22 @@
 <resources>
+    <string-array name="count_list">
+        <item>1명</item>
+        <item>2명</item>
+        <item>3명</item>
+        <item>4명</item>
+        <item>5명</item>
+        <item>6명</item>
+        <item>7명</item>
+        <item>8명</item>
+        <item>9명</item>
+        <item>10명</item>
+        <item>11명</item>
+        <item>12명</item>
+        <item>13명</item>
+        <item>14명</item>
+        <item>15명</item>
+    </string-array>
+
     <string name="app_name">운동플래닛</string>
     <string name="home">홈</string>
     <string name="write">글쓰기</string>
@@ -68,11 +86,7 @@
     <string name="dialog_select_title">관심 운동을 선택해주세요 (최대3개)</string>
     <string name="dialog_region_title">거주 지역을 선택해주세요</string>
     <string name="dialog_base_accept_ok">확인</string>
-    <string name="dialog_base_accept_cancel">취소</string>
     <string name="dialog_show_finished_popup">회원가입을 축하드립니다!\n운동플래닛과 건강한 운동생활을\n시작해보세요!</string>
-    <string name="dialog_logout_title">삭제하기 전, 다시 한 번 생각해주세요!</string>
-    <string name="dialog_logout_body">계정을 삭제하면 프로필 정보, 활동기록, 관심활동, 채팅기록 등 모든 활동정보가 사라집니다.</string>
-    <string name="dialog_logout_ok">계정 삭제하기</string>
 
     <!-- activity_home -->
     <string name="filter_option_text">검색 필터</string>
@@ -84,6 +98,11 @@
     <string name="activity_filter_title">검색 필터 설정</string>
     <string name="activity_filter_ok">필터적용</string>
     <string name="activity_filter_reset">초기화</string>
+
+    <string name="countNumber">%d명</string>
+    <string name="activity_write_body_hint">활동에 관한 게시글 내용을 작성해주세요!\n( 활동과 관련없는 악의성, 선정적 내용은 사전 고지없이 삭제될 수 있습니다. )</string>
+
+    <string name="write_date_format">yyyy년 MM월 dd일 HH시 mm분</string>
 
     <!-- fragment_mypage.xml -->
     <string name="fragment_my_page_title">마이페이지</string>

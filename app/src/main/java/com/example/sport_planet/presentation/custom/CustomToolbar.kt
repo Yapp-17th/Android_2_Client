@@ -16,12 +16,18 @@ import com.example.sport_planet.util.Util
 
 class CustomToolbar : ConstraintLayout {
     constructor(context: Context) : super(context)
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
+
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
+        getAttrs(attributeSet)
+    }
+
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int) : super(
         context,
         attributeSet,
         defStyleAttr
-    )
+    ) {
+        getAttrs(attributeSet)
+    }
 
     private val binding: ItemCustomToolbarBinding = DataBindingUtil.inflate(
         LayoutInflater.from(context),
