@@ -1,12 +1,17 @@
 package com.example.sport_planet.presentation.custom
 
+import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.example.sport_planet.R
-import kotlinx.android.synthetic.main.item_custom_dialog.*
+import kotlinx.android.synthetic.main.dialog_common.dialog_common_cancle
+import kotlinx.android.synthetic.main.dialog_common.view.*
 
 class CustomDialog : DialogFragment() {
     private lateinit var content: String
@@ -19,19 +24,32 @@ class CustomDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.item_custom_dialog, container, false)
+        val view = inflater.inflate(R.layout.dialog_common, container, false)
         return view.rootView
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val windowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        val params: ViewGroup.LayoutParams? = dialog?.window?.attributes
+        val deviceWidth = size.x
+        params?.width = (deviceWidth * 0.9).toInt()
+        dialog?.window?.attributes = params as WindowManager.LayoutParams
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         view?.apply {
-            item_custom_dialog_content.text = content
-            item_custom_dialog_ok.text = okText
-            item_custom_dialog_cancle.setOnClickListener {
+            dialog_common_content.text = Html.fromHtml(content)
+            dialog_common_ok.text = okText
+            dialog_common_cancle.setOnClickListener {
                 dismiss()
             }
-            item_custom_dialog_ok.setOnClickListener {
+            dialog_common_ok.setOnClickListener {
                 listener.onOKClicked()
                 dismiss()
             }
