@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:text="@{ItemChattingRoom.lastMessage.type != ChattingConstant.INSTANCE.PROFILE_MESSAGE ? ItemChattingRoom.lastMessage.content : @string/ProfileMessageLastMessage}"
+            android:text="@{!ItemChattingRoom.lastMessage.type.equals(ChattingConstant.INSTANCE.PROFILE_MESSAGE) ? ItemChattingRoom.lastMessage.content :  @string/ProfileMessageLastMessage}"
             style="@style/regular_basic_14sp"
             android:textColor="@color/gray595757"
             app:layout_constraintStart_toEndOf="@id/layout_chatting_room_iv_container"
