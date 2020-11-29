@@ -1,8 +1,10 @@
 package com.example.sport_planet.presentation.chatting.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.data.model.chatting.ChattingMessageModel
@@ -10,10 +12,11 @@ import com.example.sport_planet.data.model.chatting.ProfileMessageContentModel
 import com.example.sport_planet.databinding.*
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo
+import com.example.sport_planet.presentation.custom.CustomNoticeDialog
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 
-class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
+class ChattingAdapter(val context: Context) : RecyclerView.Adapter<ChattingAdapter.Holder>()
 {
     private val BOT_NOTICE_MESSAGE_VIEW = 0
     private val BOT_MESSAGE_VIEW = 1
@@ -49,6 +52,14 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
 
                 BOT_NOTICE_MESSAGE_VIEW -> {
                     (binding as ItemChatBotNoticeMessageBinding).itemChatBotNoticeMessage = chattingMessage
+                    binding.btChatBotNoticeMessageContentDetail.setOnClickListener {
+                        val dialog = CustomNoticeDialog.CustomNoticeDialogBuilder()
+                            .setOnOkClickedListener {
+
+                            }
+                            .create()
+                        dialog.show((context as AppCompatActivity).supportFragmentManager, dialog.tag)
+                    }
                 }
 
                 BOT_MESSAGE_VIEW ->{
