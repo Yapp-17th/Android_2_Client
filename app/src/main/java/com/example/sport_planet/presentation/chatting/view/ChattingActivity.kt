@@ -60,7 +60,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             ViewModelProvider(this, ChattingActivityViewModel.ViewModelFactory(chatRoomInfo))
                 .get(ChattingActivityViewModel::class.java)
 
-        chattingAdapter = ChattingAdapter()
+        chattingAdapter = ChattingAdapter(this)
         chattingAdapter.setHasStableIds(true)
 
         chattingActivityViewModel.initSocket(chatRoomInfo.chatRoomId)
@@ -183,8 +183,8 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             when(chattingActivityViewModel.approvalStatusLiveData.value){
                 ApprovalStatusButtonEnum.GUEST_APPLY -> {
                     val dialog = CustomDialog.CustomDialogBuilder()
-                        .setContent(getString(R.string.custom_dialog_content1))
-                        .setOKText(getString(R.string.custom_dialog_ok1))
+                        .setContent(getString(R.string.dialog_common_content1))
+                        .setOKText(getString(R.string.dialog_common_ok1))
                         .setOnOkClickedListener{
                             chattingActivityViewModel.approvalStatusButtonOnClick()
                         }.create()

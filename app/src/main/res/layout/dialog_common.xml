@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/item_custom_dialog_content"
+        android:id="@+id/dialog_common_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/medium_basic_16sp"
@@ -19,17 +19,17 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/item_custom_dialog_cancle"
+            android:id="@+id/dialog_common_cancle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/custom_dialog_cancle"
+            android:text="@string/dialog_common_cancle"
             style="@style/medium_basic_16sp"
             android:textColor="@color/gray9c9c9c"
             android:background="@color/grayefefef"/>
 
         <Button
-            android:id="@+id/item_custom_dialog_ok"
+            android:id="@+id/dialog_common_ok"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
