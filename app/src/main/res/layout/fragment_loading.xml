@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         tools:context=".presentation.LoadingFragment">
 
-        <TextView
+        <ImageView
+            android:id="@+id/iv_loading"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Loading..." />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </layout>

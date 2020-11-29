@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.example.sport_planet.presentation.LoadingFragment
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
@@ -17,6 +18,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     protected lateinit var binding: B
     protected abstract val viewModel: VM
     protected val compositeDisposable = CompositeDisposable()
+    private var loadingFragment: LoadingFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,11 +34,35 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         binding.lifecycleOwner = this
         init()
     }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
+    }
+
     protected fun onBackPressed() {
         if (parentFragmentManager.backStackEntryCount > 0) {
             parentFragmentManager.popBackStack()
         } else {
             activity?.finish()
+        }
+    }
+
+    fun showLoading() {
+        if (loadingFragment != null && loadingFragment?.isAdded != false) {
+            return
+        } else {
+            loadingFragment = LoadingFragment.newInstance()
+            loadingFragment?.let { it ->
+                it.show(childFragmentManager, "LOADING_FRAGMENT")
+            }
+        }
+    }
+
+    fun hideLoading() {
+        loadingFragment?.let { it ->
+            it.dismiss()
+            loadingFragment = null
         }
     }
 

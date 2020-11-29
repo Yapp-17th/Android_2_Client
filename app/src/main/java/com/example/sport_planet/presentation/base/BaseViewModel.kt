@@ -6,7 +6,7 @@ import io.reactivex.subjects.BehaviorSubject
 
 abstract class BaseViewModel : ViewModel() {
     protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    protected val isLoading: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
+    val isLoading: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
 
     override fun onCleared() {
         compositeDisposable.clear()

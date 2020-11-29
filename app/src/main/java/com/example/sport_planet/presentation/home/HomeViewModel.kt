@@ -24,6 +24,8 @@ class HomeViewModel(private val remote: RemoteDataSource) :
     fun getBoardList(page: Int = 0) {
         remote.getBoardList(page = page)
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { isLoading.onNext(true) }
+            .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
                 Log.d("okhttp", "getWriteList : $it")
                 if (it.success) {
@@ -42,6 +44,8 @@ class HomeViewModel(private val remote: RemoteDataSource) :
         val api =
             if (item.isBookMark) remote.deleteBookMark(item.boardId) else remote.createBookMark(item.boardId)
         api.observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { isLoading.onNext(true) }
+            .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
                 Log.d("okhttp", "bookmarkChange : $it")
                 if (it.success) {
@@ -62,6 +66,8 @@ class HomeViewModel(private val remote: RemoteDataSource) :
     private fun changeBoardListItem(oldBoard: BoardModel) {
         remote.getBoardContent(oldBoard.boardId)
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { isLoading.onNext(true) }
+            .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
                 Log.d("okhttp", "BoardContentItem : $it")
                 if (it.success) {

@@ -50,7 +50,6 @@ class HomeFragment private constructor() :
                 binding.toolbar.setMenu(MenuEnum.MENU)
             }
         }
-
         binding.vm = viewModel
 
         binding.recBoard.adapter = adapter
@@ -68,6 +67,11 @@ class HomeFragment private constructor() :
                 }
             }
         })
+
+        viewModel.isLoading
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { if (it) showLoading() else hideLoading() }
+            .addTo(compositeDisposable)
 
         viewModel.boardList.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) adapter.setItems(it)
