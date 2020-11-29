@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
@@ -13,6 +14,7 @@ import com.example.sport_planet.data.model.chatting.ChattingMessageModel
 import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
 import com.example.sport_planet.presentation.custom.CustomDialog
@@ -46,11 +48,6 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
     private lateinit var thisTime: String
     private var isSameTime by Delegates.notNull<Int>()
 
-    private val IS_NOT_SAME_TIME_MESSAGE = 0
-    private val IS_SAME_TIME_HEADER_MESSAGE = 1
-    private val IS_SAME_TIME_BODY_MESSAGE = 2
-    private val IS_SAME_TIME_FOOTER_MESSAGE = 3
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -78,9 +75,18 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         }
 
+        val mLayoutManager = object : LinearLayoutManager(applicationContext) {
+            override fun onLayoutCompleted(state: RecyclerView.State) {
+                super.onLayoutCompleted(state)
+                val childCount = childCount
+                val itemCount = itemCount
+                isPageFilledWithItems = childCount < itemCount
+            }
+        }
+
         rv_activity_chatting_recyclerview.run {
             adapter = chattingAdapter
-            layoutManager = LinearLayoutManager(this@ChattingActivity)
+            layoutManager = mLayoutManager
             setHasFixedSize(true)
         }
 
@@ -111,14 +117,12 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 chattingAdapter.settingChattingMessageList(chattingMessages)
 
                 rv_activity_chatting_recyclerview.postDelayed(Runnable {
-                    isPageFilledWithItems =
-                        rv_activity_chatting_recyclerview.computeVerticalScrollRange() > rv_activity_chatting_recyclerview.height;
                     (rv_activity_chatting_recyclerview.layoutManager as LinearLayoutManager).stackFromEnd = isPageFilledWithItems
                     if (it.firstUnreadMessageId != -1)
                         rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId)
                     if(!isPageFilledWithItems)
                         rv_activity_chatting_recyclerview.addOnLayoutChangeListener(layoutChangeListener)
-                },20)
+                },10)
             }
         )
 
@@ -199,7 +203,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     private fun chattingMessageFactory(chattingMessage: ChattingMessageResponse, update: Boolean){
         thisDate = Util.toDateFormat(chattingMessage.createdAt!!)
-        thisTime = Util.toTimeFormat(chattingMessage.createdAt!!)
+        thisTime = Util.toTimeFormat(chattingMessage.createdAt)
 
         if(chattingMessage.messageId!! > 0) {
             val priorMessageId = chattingMessage.messageId.toInt() - 1
@@ -211,27 +215,27 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
             if(thisTime == priorTime && chattingMessage.senderId == chattingMessages[priorMessageId].senderId && chattingMessage.type == chattingMessages[priorMessageId].type){
                 when(chattingMessages[priorMessageId].isSameTime){
-                    IS_NOT_SAME_TIME_MESSAGE -> {
-                        chattingMessages[priorMessageId].isSameTime = IS_SAME_TIME_HEADER_MESSAGE
+                    ChattingConstant.IS_NOT_SAME_TIME_MESSAGE -> {
+                        chattingMessages[priorMessageId].isSameTime = ChattingConstant.IS_SAME_TIME_HEADER_MESSAGE
                         if(update)
                             chattingAdapter.updateChattingMessage(priorMessageId, chattingMessages[priorMessageId])
-                        isSameTime = IS_SAME_TIME_FOOTER_MESSAGE
+                        isSameTime = ChattingConstant.IS_SAME_TIME_FOOTER_MESSAGE
                     }
-                    IS_SAME_TIME_FOOTER_MESSAGE -> {
-                        chattingMessages[priorMessageId].isSameTime = IS_SAME_TIME_BODY_MESSAGE
+                    ChattingConstant.IS_SAME_TIME_FOOTER_MESSAGE -> {
+                        chattingMessages[priorMessageId].isSameTime = ChattingConstant.IS_SAME_TIME_BODY_MESSAGE
                         if(update)
                             chattingAdapter.updateChattingMessage(priorMessageId, chattingMessages[priorMessageId])
-                        isSameTime = IS_SAME_TIME_FOOTER_MESSAGE
+                        isSameTime = ChattingConstant.IS_SAME_TIME_FOOTER_MESSAGE
                     }
                 }
             }
             else{
-                isSameTime = IS_NOT_SAME_TIME_MESSAGE
+                isSameTime = ChattingConstant.IS_NOT_SAME_TIME_MESSAGE
             }
         }
         else{
             isSameDate = false
-            isSameTime = IS_NOT_SAME_TIME_MESSAGE
+            isSameTime = ChattingConstant.IS_NOT_SAME_TIME_MESSAGE
         }
     }
 }

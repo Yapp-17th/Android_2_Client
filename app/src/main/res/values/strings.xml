@@ -64,16 +64,13 @@
     <!-- item_chatting_room -->
     <string name="Host">Host</string>
     <string name="Guest">Guest</string>
+    <string name="ProfileMessageLastMessage">프로필 메세지입니다.</string>
 
     <!-- item_received_profile_message -->
-    <string name="received_profile_message_likes">00</string>
-    <string name="received_profile_message_dislikes">00</string>
     <string name="received_profile_message_text1">기본소개</string>
     <string name="received_profile_message_visit_profile">프로필 놀러가기</string>
 
     <!-- item_sent_profile_message -->
-    <string name="sent_profile_message_likes">00</string>
-    <string name="sent_profile_message_dislikes">00</string>
     <string name="sent_profile_message_text1">기본소개</string>
 
     <!-- item_custon_dialog -->

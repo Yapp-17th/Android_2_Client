@@ -7,6 +7,9 @@
         <variable
             name="ItemSentProfileMessage"
             type="com.example.sport_planet.data.model.chatting.ChattingMessageModel" />
+        <variable
+            name="ProfileMessageContent"
+            type="com.example.sport_planet.data.model.chatting.ProfileMessageContentModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +28,7 @@
             android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
             android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="4dp"
             android:layout_gravity="center"
             android:visibility="@{!ItemSentProfileMessage.sameDate ? View.VISIBLE : View.GONE }"
             android:text="@{ItemSentProfileMessage.createdDate}"
@@ -33,7 +36,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cv_sent_profile_message_cardview"
@@ -51,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="18dp"
-                    android:text="@{ItemSentProfileMessage.senderNickname}"
+                    android:text="@{ProfileMessageContent.senderNickname}"
                     style="@style/bold_basic_14sp"
                     android:textColor="@color/black121212"
                     app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
-                    android:text="@string/sent_profile_message_likes"
+                    android:text="@{String.valueOf(ProfileMessageContent.like)}"
                     style="@style/regular_basic_14sp"
                     android:textColor="@color/black121212"
                     app:layout_constraintTop_toTopOf="@id/iv_sent_profile_message_likes"
@@ -94,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="@string/sent_profile_message_dislikes"
+                    android:text="@{String.valueOf(ProfileMessageContent.dislike)}"
                     style="@style/regular_basic_14sp"
                     android:textColor="@color/black121212"
                     app:layout_constraintTop_toTopOf="@id/iv_sent_profile_message_dislikes"
@@ -121,7 +125,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="29dp"
-                        android:text="@{ItemSentProfileMessage.content}"
+                        android:text="@{ProfileMessageContent.intro}"
                         style="@style/regular_basic_14sp"
                         android:textColor="@color/black121212"
                         app:layout_constraintStart_toStartOf="parent"
