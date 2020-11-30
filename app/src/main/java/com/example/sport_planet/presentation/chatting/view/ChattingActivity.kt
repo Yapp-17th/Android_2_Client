@@ -126,6 +126,9 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                     if(!isPageFilledWithItems)
                         rv_activity_chatting_recyclerview.addOnLayoutChangeListener(layoutChangeListener)
                 },10)
+                rv_activity_chatting_recyclerview.postDelayed(Runnable {
+                    view_activity_chatting_loading.visibility = View.GONE
+                },100)
             }
         )
 
