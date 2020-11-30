@@ -10,13 +10,10 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.example.sport_planet.R
-import kotlinx.android.synthetic.main.dialog_common.dialog_common_cancle
-import kotlinx.android.synthetic.main.dialog_common.view.*
+import kotlinx.android.synthetic.main.dialog_notice.view.*
 
-class CustomDialog : DialogFragment() {
-    private lateinit var content: String
-    private lateinit var okText: String
-    private lateinit var listener: CustomDialogOKClickedListener
+class CustomNoticeDialog : DialogFragment() {
+    private lateinit var listener: CustomNoticeDialogOKClickedListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +21,7 @@ class CustomDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.dialog_common, container, false)
+        val view = inflater.inflate(R.layout.dialog_notice, container, false)
         return view.rootView
     }
 
@@ -43,35 +40,21 @@ class CustomDialog : DialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        dialog?.setCancelable(false)
         view?.apply {
-            dialog?.setCancelable(false)
-            dialog_common_content.text = Html.fromHtml(content)
-            dialog_common_ok.text = okText
-            dialog_common_cancle.setOnClickListener {
-                dismiss()
-            }
-            dialog_common_ok.setOnClickListener {
+            dialog_notice_content1.text = Html.fromHtml(getString(R.string.dialog_notice_content1))
+            dialog_notice_ok.setOnClickListener {
                 listener.onOKClicked()
                 dismiss()
             }
         }
     }
 
-    class CustomDialogBuilder {
-        private val dialog = CustomDialog()
+    class CustomNoticeDialogBuilder {
+        private val dialog = CustomNoticeDialog()
 
-        fun setContent(content: String): CustomDialogBuilder{
-            dialog.content = content
-            return this
-        }
-
-        fun setOKText(text: String):CustomDialogBuilder{
-            dialog.okText = text
-            return this
-        }
-
-        fun setOnOkClickedListener(listener: () -> Unit): CustomDialogBuilder{
-            dialog.listener = object : CustomDialogOKClickedListener{
+        fun setOnOkClickedListener(listener: () -> Unit): CustomNoticeDialogBuilder {
+            dialog.listener = object : CustomNoticeDialogOKClickedListener {
                 override fun onOKClicked() {
                     listener()
                 }
@@ -82,7 +65,7 @@ class CustomDialog : DialogFragment() {
         fun create() = dialog
     }
 
-    interface CustomDialogOKClickedListener {
+    interface CustomNoticeDialogOKClickedListener {
         fun onOKClicked()
     }
 

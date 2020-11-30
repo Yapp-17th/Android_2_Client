@@ -10,8 +10,8 @@ import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.data.model.chatting.ChatRoomInfo
-import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.data.model.chatting.ChattingMessageModel
+import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.ChattingConstant
@@ -22,6 +22,8 @@ import com.example.sport_planet.util.Util
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting){
@@ -38,6 +40,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     private var pixelsToScrollVertically by Delegates.notNull<Int>()
 
+    private lateinit var chattingMessageQueue: Queue<ChattingMessageResponse>
     private var chattingMessages = ArrayList<ChattingMessageModel>()
 
     private lateinit var priorDate: String
@@ -57,7 +60,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             ViewModelProvider(this, ChattingActivityViewModel.ViewModelFactory(chatRoomInfo))
                 .get(ChattingActivityViewModel::class.java)
 
-        chattingAdapter = ChattingAdapter()
+        chattingAdapter = ChattingAdapter(this)
         chattingAdapter.setHasStableIds(true)
 
         chattingActivityViewModel.initSocket(chatRoomInfo.chatRoomId)
@@ -141,28 +144,32 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         }
 
+        chattingMessageQueue = LinkedList()
+
         chattingActivityViewModel.chattingMessageLiveData.observe(this,
             Observer {
-                this.runOnUiThread {
 
-                    chattingMessageFactory(it, true)
+                chattingMessageQueue.add(it)
 
-                    chattingAdapter.addChattingMessage(
-                        ChattingMessageModel(
-                            it.content!!,
-                            it.type!!,
-                            it.messageId!!,
-                            it.senderId!!,
-                            it.senderNickname!!,
-                            thisDate,
-                            thisTime,
-                            isSameDate,
-                            isSameTime
-                        )
-                    )
-
-                    rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
+                while(!chattingMessageQueue.isEmpty()){
+                    chattingMessageFactory(chattingMessageQueue.poll()!!, true)
                 }
+
+                chattingAdapter.addChattingMessage(
+                    ChattingMessageModel(
+                        it.content!!,
+                        it.type!!,
+                        it.messageId!!,
+                        it.senderId!!,
+                        it.senderNickname!!,
+                        thisDate,
+                        thisTime,
+                        isSameDate,
+                        isSameTime
+                    )
+                )
+
+                rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
             }
         )
 
@@ -176,8 +183,8 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             when(chattingActivityViewModel.approvalStatusLiveData.value){
                 ApprovalStatusButtonEnum.GUEST_APPLY -> {
                     val dialog = CustomDialog.CustomDialogBuilder()
-                        .setContent(getString(R.string.custom_dialog_content1))
-                        .setOKText(getString(R.string.custom_dialog_ok1))
+                        .setContent(getString(R.string.dialog_common_content1))
+                        .setOKText(getString(R.string.dialog_common_ok1))
                         .setOnOkClickedListener{
                             chattingActivityViewModel.approvalStatusButtonOnClick()
                         }.create()

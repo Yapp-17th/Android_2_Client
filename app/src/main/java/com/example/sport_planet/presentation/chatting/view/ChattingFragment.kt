@@ -102,8 +102,8 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
     private fun leaveChattingRoomDialog(chattingRoomItem: ChattingRoomListResponse.Data) {
         val dialog = CustomDialog.CustomDialogBuilder()
-            .setContent(getString(R.string.custom_dialog_content2))
-            .setOKText(getString(R.string.custom_dialog_ok2))
+            .setContent(getString(R.string.dialog_common_content2))
+            .setOKText(getString(R.string.dialog_common_ok2))
             .setOnOkClickedListener{
                 viewModel.leaveChattingRoom(chattingRoomItem.id)
             }.create()

@@ -176,9 +176,9 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
         }
     }
 
-    fun applyBoard(){
+    private fun applyBoard(){
         val applyBoardObject = JsonObject()
-        applyBoardObject.put("chatRoomId", chatRoomInfo.chatRoomId)
+        applyBoardObject["chatRoomId"] = chatRoomInfo.chatRoomId
         compositeDisposable.add(
             remoteDataSourceImpl.applyBoard(chatRoomInfo.boardId, applyBoardObject)
                 .applySchedulers()
@@ -190,7 +190,7 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
         )
     }
 
-    fun approveBoard(){
+    private fun approveBoard(){
         val approveBoardObject = JsonObject()
         approveBoardObject["chatRoomId"] = chatRoomInfo.chatRoomId
         approveBoardObject["guestId"] = chatRoomInfo.guestId
@@ -205,7 +205,7 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
         )
     }
 
-    fun disapproveBoard(){
+    private fun disapproveBoard(){
         val disapproveBoardObject = JsonObject()
         disapproveBoardObject["chatRoomId"] = chatRoomInfo.chatRoomId
         disapproveBoardObject["guestId"] = chatRoomInfo.guestId
@@ -220,7 +220,7 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
         )
     }
 
-    fun approvalStatus(isHost: Boolean, status: String): ApprovalStatusButtonEnum {
+    private fun approvalStatus(isHost: Boolean, status: String): ApprovalStatusButtonEnum {
         return when(isHost){
             false -> when(status){
                 ChattingConstant.REAL_TIME_PENDING -> ApprovalStatusButtonEnum.GUEST_APPLY
