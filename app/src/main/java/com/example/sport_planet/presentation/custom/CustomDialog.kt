@@ -44,6 +44,7 @@ class CustomDialog : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         view?.apply {
+            dialog?.setCancelable(false)
             dialog_common_content.text = Html.fromHtml(content)
             dialog_common_ok.text = okText
             dialog_common_cancle.setOnClickListener {

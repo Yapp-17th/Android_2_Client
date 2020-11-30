@@ -13,7 +13,6 @@ import com.example.sport_planet.R
 import kotlinx.android.synthetic.main.dialog_notice.view.*
 
 class CustomNoticeDialog : DialogFragment() {
-    private lateinit var content: String
     private lateinit var listener: CustomNoticeDialogOKClickedListener
 
     override fun onCreateView(
@@ -41,6 +40,7 @@ class CustomNoticeDialog : DialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        dialog?.setCancelable(false)
         view?.apply {
             dialog_notice_content1.text = Html.fromHtml(getString(R.string.dialog_notice_content1))
             dialog_notice_ok.setOnClickListener {
