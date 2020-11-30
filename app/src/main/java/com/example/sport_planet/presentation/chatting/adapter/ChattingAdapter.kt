@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.data.model.chatting.ChattingMessageModel
 import com.example.sport_planet.data.model.chatting.ProfileMessageContentModel
@@ -108,6 +109,8 @@ class ChattingAdapter : RecyclerView.Adapter<ChattingAdapter.Holder>()
             }
             else -> throw IllegalArgumentException("적절하지 않은 MessageViewType")
         }
+
+        return super.getItemViewType(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, messageViewType: Int): Holder {
