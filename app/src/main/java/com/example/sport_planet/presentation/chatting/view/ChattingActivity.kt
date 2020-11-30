@@ -10,8 +10,8 @@ import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.data.model.chatting.ChatRoomInfo
-import com.example.sport_planet.data.model.chatting.ChattingMessageModel
 import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
+import com.example.sport_planet.data.model.chatting.ChattingMessageModel
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.ChattingConstant
@@ -143,24 +143,26 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
         chattingActivityViewModel.chattingMessageLiveData.observe(this,
             Observer {
+                this.runOnUiThread {
 
-                chattingMessageFactory(it, true)
+                    chattingMessageFactory(it, true)
 
-                chattingAdapter.addChattingMessage(
-                    ChattingMessageModel(
-                        it.content!!,
-                        it.type!!,
-                        it.messageId!!,
-                        it.senderId!!,
-                        it.senderNickname!!,
-                        thisDate,
-                        thisTime,
-                        isSameDate,
-                        isSameTime
+                    chattingAdapter.addChattingMessage(
+                        ChattingMessageModel(
+                            it.content!!,
+                            it.type!!,
+                            it.messageId!!,
+                            it.senderId!!,
+                            it.senderNickname!!,
+                            thisDate,
+                            thisTime,
+                            isSameDate,
+                            isSameTime
+                        )
                     )
-                )
 
-                rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
+                    rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
+                }
             }
         )
 

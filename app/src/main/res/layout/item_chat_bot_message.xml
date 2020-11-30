@@ -34,7 +34,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:paddingTop="@dimen/item_talk_message_msg_paddingTop_16dp">
 
         <TextView
             android:id="@+id/tv_chat_bot_message_sender_nickname"
