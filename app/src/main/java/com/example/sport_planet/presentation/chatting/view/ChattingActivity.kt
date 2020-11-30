@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
-import com.example.sport_planet.data.model.ChatRoomInfo
-import com.example.sport_planet.data.response.ChattingMessageResponse
+import com.example.sport_planet.data.model.chatting.ChatRoomInfo
+import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
@@ -17,7 +17,6 @@ import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivity
 import com.example.sport_planet.presentation.custom.CustomDialog
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
-import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 import kotlin.properties.Delegates
 
 class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity_chatting){

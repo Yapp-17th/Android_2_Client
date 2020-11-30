@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sport_planet.data.response.ChattingMessageResponse
-import com.example.sport_planet.databinding.*
+import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.util.Util

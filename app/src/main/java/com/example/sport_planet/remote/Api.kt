@@ -9,6 +9,7 @@ import retrofit2.http.*
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.response.basic.ExerciseResponse
 import com.example.sport_planet.data.response.basic.RegionResponse
+import com.example.sport_planet.data.response.chatting.*
 import com.example.sport_planet.data.response.login.LoginResponse
 import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*

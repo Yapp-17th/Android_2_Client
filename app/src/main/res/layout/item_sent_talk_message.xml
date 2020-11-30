@@ -6,7 +6,7 @@
         <import type="com.example.sport_planet.util.Util" />
         <variable
             name="ItemSentTalkMessage"
-            type="com.example.sport_planet.data.response.ChattingMessageResponse" />
+            type="com.example.sport_planet.data.response.chatting.ChattingMessageResponse" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

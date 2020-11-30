@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.enums.ApprovalStatusButtonEnum
-import com.example.sport_planet.data.model.ChatRoomInfo
-import com.example.sport_planet.data.response.ChattingMessageListResponse
-import com.example.sport_planet.data.response.ChattingMessageResponse
+import com.example.sport_planet.data.model.chatting.ChatRoomInfo
+import com.example.sport_planet.data.response.chatting.ChattingMessageListResponse
+import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.UserInfo

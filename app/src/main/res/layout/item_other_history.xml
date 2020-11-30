@@ -9,7 +9,7 @@
 
         <variable
             name="items"
-            type="com.example.sport_planet.data.model.mypage.MyViewHistoryModel" />
+            type="com.example.sport_planet.data.model.OtherHistoryModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_history_ing_margin_12dp"
-            android:text="@{items.leftTime}"
+            android:text="@{items.time}"
             app:layout_constraintBottom_toBottomOf="@id/iv_profile"
             app:layout_constraintStart_toEndOf="@id/iv_profile"
             tools:text="[D-Day]" />
@@ -77,9 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_history_ing_margin_18dp"
             android:orientation="horizontal"
-            android:layout_marginBottom="12dp"
             app:layout_constraintStart_toStartOf="@id/tv_d_day"
-            app:layout_constraintBottom_toTopOf="@id/v_line_1"
             app:layout_constraintTop_toBottomOf="@id/tv_d_day">
 
             <TextView
@@ -130,6 +128,32 @@
                 android:textColor="@color/dark_gray"
                 tools:text="2/3명" />
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_expand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_history_ing_margin_20dp"
+            android:layout_marginBottom="@dimen/item_history_ing_margin_12dp"
+            android:background="@color/white_gray_2"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/tv_expand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_label" />
+
+        <TextView
+            android:id="@+id/tv_expand"
+            style="@style/medium_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/item_history_ing_margin_12dp"
+            android:text="@string/item_history_ing_expand"
+            app:drawableEndCompat="@drawable/icons_18_px_toggle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_expand"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <View
             android:id="@+id/v_line_1"

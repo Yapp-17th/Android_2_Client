@@ -28,7 +28,6 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.la
         binding.vm = viewModel
         viewModel.getMyProfile()
         binding.rvContent.adapter = myPageExerciseListAdapter
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
