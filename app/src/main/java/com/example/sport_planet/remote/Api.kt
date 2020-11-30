@@ -1,21 +1,19 @@
 package com.example.sport_planet.remote
 
+
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
 import io.reactivex.Single
 import retrofit2.http.*
 import com.beust.klaxon.JsonObject
-import com.example.sport_planet.data.response.chatting.CommonServerResponse
 import com.example.sport_planet.data.response.basic.ExerciseResponse
 import com.example.sport_planet.data.response.basic.RegionResponse
-import com.example.sport_planet.data.response.chatting.ChattingMessageListResponse
-import com.example.sport_planet.data.response.chatting.ChattingRoomListResponse
-import com.example.sport_planet.data.response.chatting.MakeChattingMessageReadResponse
-import com.example.sport_planet.data.response.chatting.MakeChattingRoomResponse
+import com.example.sport_planet.data.response.chatting.*
 import com.example.sport_planet.data.response.login.LoginResponse
 import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*
+
 
 interface Api {
     //   로그인 API
