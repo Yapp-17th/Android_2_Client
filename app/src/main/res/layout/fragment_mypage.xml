@@ -174,13 +174,14 @@
         <TextView
             android:id="@+id/tv_intro_body"
             style="@style/regular_basic_14sp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_my_page_margin_10dp"
             android:lineSpacingExtra="@dimen/fragment_my_page_spacing_line_3dp"
             android:text="@={vm.intro}"
             android:textColor="@color/dark_gray"
             app:layout_constraintStart_toStartOf="@id/gl_1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_intro_title"
             tools:text="안녕하세요! 독서와 운동을 좋아하는 짹짹입니다.\n같이 모여서 운동하면서 건강과 재미 둘 다 잡아봐요!" />
 
