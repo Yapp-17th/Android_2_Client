@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.data.model.mypage.ApplyListModel
 import com.example.sport_planet.databinding.ItemHistoryIngExpandBinding
+import com.example.sport_planet.generated.callback.OnClickListener
 
-class IngTabExpandAdapter : RecyclerView.Adapter<IngTabExpandAdapter.IngTabExpandViewHolder>() {
+class IngTabExpandAdapter(private val onClickListener: (ApplyListModel) -> Unit) : RecyclerView.Adapter<IngTabExpandAdapter.IngTabExpandViewHolder>() {
 
     private val applyListItem = mutableListOf<ApplyListModel>()
     fun setApplyListItem(item: List<ApplyListModel>) {
@@ -35,6 +36,11 @@ class IngTabExpandAdapter : RecyclerView.Adapter<IngTabExpandAdapter.IngTabExpan
 
     inner class IngTabExpandViewHolder(private val binding: ItemHistoryIngExpandBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                onClickListener(applyListItem[adapterPosition])
+            }
+        }
         fun bind(item: ApplyListModel) {
             binding.items = item
             when (item.applyStatus.code) {

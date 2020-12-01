@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.mypage.history.view
 
 import android.app.AlertDialog
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
@@ -32,6 +33,8 @@ class FinishTabFragment :
         viewModel.myViewHistoryList.observe(viewLifecycleOwner, Observer {
             binding.run {
                 rvHistoryFinish.adapter = finishTabAdapter.apply {
+                    clEmpty.visibility = View.GONE
+                    rvHistoryFinish.visibility = View.VISIBLE
                     setMyViewHistoryItem(viewModel.myViewHistoryList.value!!)
                 }
             }

@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/item_history_finish_expand_margin_14dp"
-            android:text="@{items.host ? @string/item_history_ing_host : @string/item_history_ing_guest}"
-            android:textColor="@{items.host ? @color/pink : @color/skyblue}"
+            android:text="@{items.isHost ? @string/item_history_ing_host : @string/item_history_ing_guest}"
+            android:textColor="@{items.isHost ? @color/pink : @color/skyblue}"
             tools:text="Guest" />
 
         <TextView

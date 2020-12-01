@@ -4,15 +4,17 @@ import com.google.gson.annotations.SerializedName
 
 data class ApplyListModel(
     @SerializedName("applyStatus")
-        val applyStatus: ApplyStatus,
+    val applyStatus: ApplyStatus,
     @SerializedName("chattingRoomId")
-        val chattingRoomId: Int,
+    val chattingRoomId: Long,
     @SerializedName("guestId")
-        val guestId: Int,
+    val guestId: Long,
     @SerializedName("guestName")
-        val guestName: String,
-    @SerializedName("host")
-        val host: Boolean,
+    val guestName: String,
+    @SerializedName("isHost")
+    val isHost: Boolean,
     @SerializedName("hostId")
-        val hostId: Int
-    )
+    val hostId: Long,
+    @SerializedName("boardId")
+    val boardId: Long
+)
