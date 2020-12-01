@@ -105,7 +105,6 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
             .setOKText(getString(R.string.dialog_common_ok2))
             .setOnOkClickedListener{
                 chattingRoomsHashMap.remove(chattingRoomItem.id)
-                chattingRoomAdapter.leaveChattingRoom(chattingRoomItem.id)
                 viewModel.leaveChattingRoom(chattingRoomItem.id)
             }.create()
         dialog.show(parentFragmentManager, dialog.tag)

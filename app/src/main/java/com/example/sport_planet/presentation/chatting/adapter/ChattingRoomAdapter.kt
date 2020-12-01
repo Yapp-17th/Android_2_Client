@@ -44,11 +44,6 @@ class ChattingRoomAdapter(
         notifyDataSetChanged()
     }
 
-    fun leaveChattingRoom(chattingRoomId: Long){
-        chattingRoomsHashMap.remove(chattingRoomId)
-        notifyItemChanged(chattingRoomId.toInt())
-    }
-
     inner class Holder(private val binding: ItemChattingRoomBinding): RecyclerView.ViewHolder(binding.root){
         @SuppressLint("ResourceAsColor", "SetTextI18n")
         fun bind(chattingRoom: ChattingRoomListResponse.Data){
