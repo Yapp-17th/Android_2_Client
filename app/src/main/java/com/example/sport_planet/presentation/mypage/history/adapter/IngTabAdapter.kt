@@ -67,7 +67,7 @@ class IngTabAdapter(
             binding.rvExpand.adapter = ingTabExpandAdapter
             binding.root.setOnClickListener {
                 val item = historyItem[adapterPosition]
-                if (historyItem[adapterPosition].host) {
+                if (historyItem[adapterPosition].isHost) {
                     if (selectedItems.get(adapterPosition)) {
                         selectedItems.delete(adapterPosition)
                         binding.run {

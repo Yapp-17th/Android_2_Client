@@ -32,8 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_history_ing_margin_12dp"
-            android:text="@{items.host ? @string/item_history_ing_host : @string/item_history_ing_guest}"
-            android:textColor="@{items.host ? @color/pink : @color/skyblue}"
+            android:text="@{items.isHost ? @string/item_history_ing_host : @string/item_history_ing_guest}"
+            android:textColor="@{items.isHost ? @color/pink : @color/skyblue}"
             app:layout_constraintStart_toEndOf="@id/iv_profile"
             app:layout_constraintTop_toTopOf="@id/iv_profile"
             tools:text="Host" />
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_history_ing_margin_12dp"
-            android:text="@{items.time}"
+            android:text="@{items.boardInfo.time}"
             app:layout_constraintBottom_toBottomOf="@id/iv_profile"
             app:layout_constraintStart_toEndOf="@id/iv_profile"
             tools:text="[D-Day]" />

@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@{items.host ? @string/item_history_ing_host : @string/item_history_ing_guest}"
+            android:text="@{items.isHost ? @string/item_history_ing_host : @string/item_history_ing_guest}"
             android:layout_marginStart="14dp"
             tools:text="Guest" />
 
