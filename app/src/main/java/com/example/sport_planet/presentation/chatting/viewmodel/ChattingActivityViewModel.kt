@@ -41,6 +41,10 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
     val chattingMessageListResponseLiveData: LiveData<ChattingMessageListResponse>
         get() = _chattingMessageListResponseLiveData
 
+    private val _noticeMessageLiveData = MutableLiveData<ChattingMessageResponse>()
+    val noticeMessageLiveData: LiveData<ChattingMessageResponse>
+        get() = _noticeMessageLiveData
+
     private val _chattingMessageLiveData = MutableLiveData<ChattingMessageResponse>()
     val chattingMessageLiveData: LiveData<ChattingMessageResponse>
         get() = _chattingMessageLiveData
@@ -121,13 +125,17 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
                                 chattingMessage = Json.parse(ChattingMessageResponse.serializer(), stompMessage)
                                 when(chattingMessage.realTimeUpdateType) {
                                     "MESSAGE_READ" -> {
-                                        _chattingMessageLiveData.postValue(chattingMessage)
+                                        when(chattingMessage.type){
+                                            ChattingConstant.CHAT_BOT_MESSAGE -> _noticeMessageLiveData.postValue(chattingMessage)
+                                            else -> _chattingMessageLiveData.postValue(chattingMessage)
+                                        }
                                         makeChattingMessageRead(chatRoomInfo.chatRoomId, chattingMessage.id!!)
                                     }
                                     else -> {
                                         _approvalStatusLiveData.postValue(approvalStatus(chatRoomInfo.isHost, chattingMessage.realTimeUpdateType!!))
                                     }
                                 }
+
                             }, {
                                 Log.d(TAG, it.localizedMessage)
                             })

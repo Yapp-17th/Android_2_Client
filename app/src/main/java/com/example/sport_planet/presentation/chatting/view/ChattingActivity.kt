@@ -23,7 +23,6 @@ import com.example.sport_planet.util.Util
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
@@ -41,7 +40,6 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     private var pixelsToScrollVertically by Delegates.notNull<Int>()
 
-    private lateinit var chattingMessageQueue: Queue<ChattingMessageResponse>
     private var chattingMessages = ArrayList<ChattingMessageModel>()
 
     private lateinit var priorDate: String
@@ -100,7 +98,6 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 tv_activity_chatting_board_title.text = it.boardTitle
 
                 for(chattingMessage in it.data) {
-
                     chattingMessageFactory(chattingMessage, false)
 
                     chattingMessages.add(
@@ -147,29 +144,53 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         }
 
-        chattingMessageQueue = LinkedList()
+        chattingActivityViewModel.noticeMessageLiveData.observe(this,
+            Observer {
+                thisDate = Util.toDateFormat(it.createdAt!!)
+                thisTime = Util.toTimeFormat(it.createdAt)
+
+                if(it.messageId!! > 0) {
+                    priorDate = chattingMessages[it.messageId.toInt() - 1].createdDate
+                    isSameDate = priorDate == thisDate
+                }
+                else{
+                    isSameDate = false
+                }
+
+                chattingAdapter.addChattingMessage(
+                    ChattingMessageModel(
+                        it.content!!,
+                        it.type!!,
+                        it.messageId,
+                        it.senderId!!,
+                        it.senderNickname!!,
+                        thisDate,
+                        thisTime,
+                        isSameDate,
+                        ChattingConstant.IS_NOT_SAME_TIME_MESSAGE
+                    )
+                )
+                rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
+            }
+        )
 
         chattingActivityViewModel.chattingMessageLiveData.observe(this,
             Observer {
 
-                chattingMessageQueue.add(it)
-                while(!chattingMessageQueue.isEmpty()){
-                    chattingMessageFactory(chattingMessageQueue.poll()!!, true)
-                    chattingAdapter.addChattingMessage(
-                        ChattingMessageModel(
-                            it.content!!,
-                            it.type!!,
-                            it.messageId!!,
-                            it.senderId!!,
-                            it.senderNickname!!,
-                            thisDate,
-                            thisTime,
-                            isSameDate,
-                            isSameTime
-                        )
+                chattingMessageFactory(it, true)
+                chattingAdapter.addChattingMessage(
+                    ChattingMessageModel(
+                        it.content!!,
+                        it.type!!,
+                        it.messageId!!,
+                        it.senderId!!,
+                        it.senderNickname!!,
+                        thisDate,
+                        thisTime,
+                        isSameDate,
+                        isSameTime
                     )
-                }
-
+                )
                 rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
             }
         )
