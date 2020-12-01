@@ -13,7 +13,10 @@ import com.example.sport_planet.data.model.mypage.ApplyListModel
 import com.example.sport_planet.data.model.mypage.MyViewHistoryModel
 import com.example.sport_planet.databinding.ItemHistoryIngBinding
 
-class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
+class IngTabAdapter(
+    private val onClickListener: (MyViewHistoryModel) -> Unit,
+    private val expandOnClickListener: (ApplyListModel) -> Unit
+) :
     RecyclerView.Adapter<IngTabAdapter.IngTabViewHolder>() {
 
     val historyItem = mutableListOf<MyViewHistoryModel>()
@@ -57,7 +60,7 @@ class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             val ingTabExpandAdapter: IngTabExpandAdapter by lazy {
-                IngTabExpandAdapter().apply {
+                IngTabExpandAdapter(expandOnClickListener).apply {
                     setHasStableIds(true)
                 }
             }
@@ -65,41 +68,41 @@ class IngTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit) :
             binding.root.setOnClickListener {
                 val item = historyItem[adapterPosition]
                 if (historyItem[adapterPosition].host) {
-                if (selectedItems.get(adapterPosition)) {
-                    selectedItems.delete(adapterPosition)
-                    binding.run {
-                        rvExpand.visibility = View.GONE
-                        tvExpand.text =
-                            root.resources.getString(R.string.item_history_ing_expand)
-                        tvExpand.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0,
-                            0,
-                            R.drawable.icons_18_px_toggle,
-                            0
-                        )
-                        applyListItem.clear()
-                    }
-                } else {
-                    onClickListener(item)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        run {
-                            ingTabExpandAdapter.setApplyListItem(applyListItem)
-                            selectedItems.put(adapterPosition, true)
-                            binding.run {
-                                rvExpand.visibility = View.VISIBLE
-                                tvExpand.run {
-                                    text =
-                                        binding.root.resources.getString(R.string.item_history_ing_unexpand)
-                                    setCompoundDrawablesRelativeWithIntrinsicBounds(
-                                        0,
-                                        0,
-                                        R.drawable.icons_18_px_untoggle,
-                                        0
-                                    )
+                    if (selectedItems.get(adapterPosition)) {
+                        selectedItems.delete(adapterPosition)
+                        binding.run {
+                            rvExpand.visibility = View.GONE
+                            tvExpand.text =
+                                root.resources.getString(R.string.item_history_ing_expand)
+                            tvExpand.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                0,
+                                0,
+                                R.drawable.icons_18_px_toggle,
+                                0
+                            )
+                            applyListItem.clear()
+                        }
+                    } else {
+                        onClickListener(item)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            run {
+                                ingTabExpandAdapter.setApplyListItem(applyListItem)
+                                selectedItems.put(adapterPosition, true)
+                                binding.run {
+                                    rvExpand.visibility = View.VISIBLE
+                                    tvExpand.run {
+                                        text =
+                                            binding.root.resources.getString(R.string.item_history_ing_unexpand)
+                                        setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                            0,
+                                            0,
+                                            R.drawable.icons_18_px_untoggle,
+                                            0
+                                        )
+                                    }
                                 }
                             }
-                        }
-                    }, 100)
+                        }, 100)
                     }
                 }
             }

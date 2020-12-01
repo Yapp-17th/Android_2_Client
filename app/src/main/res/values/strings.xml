@@ -190,4 +190,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_scrap_go_board">게시글 페이지로 이동</string>
     <string name="fragment_scrap_body">마음에 드는 게시글을\n스크랩하세요!</string>
+    <string name="dialog_chatting_room_body">게스트 참여 승인을 위해 해당 채팅창으로 이동 하시겠습니까?</string>
+    <string name="dialog_chatting_room_ok">채팅창으로 이동</string>
 </resources>
