@@ -13,6 +13,7 @@ import com.example.sport_planet.data.response.chatting.ChattingMessageListRespon
 import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingConstant
+import com.example.sport_planet.presentation.chatting.EventWrapper
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.example.sport_planet.util.applySchedulers
@@ -47,6 +48,10 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
     private val _approvalStatusLiveData = MutableLiveData<ApprovalStatusButtonEnum>()
     val approvalStatusLiveData: LiveData<ApprovalStatusButtonEnum>
         get() = _approvalStatusLiveData
+
+    private val _showErrorToastLiveData = MutableLiveData<EventWrapper<Boolean>>()
+    val showErrorToastLiveData: LiveData<EventWrapper<Boolean>>
+            get() = _showErrorToastLiveData
 
     private lateinit var stompClient: StompClient
     private lateinit var stompConnection: Disposable
@@ -184,6 +189,8 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
                 .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
+                    if(it.status == 400)
+                        _showErrorToastLiveData.value = EventWrapper(true)
                 },{
                     Log.d(TAG, it.localizedMessage)}
                 )
@@ -199,6 +206,8 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
                 .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
+                    if(it.status == 400)
+                        _showErrorToastLiveData.value = EventWrapper(true)
                 },{
                     Log.d(TAG, it.localizedMessage)}
                 )
@@ -214,6 +223,8 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
                 .applySchedulers()
                 .subscribe({
                     Log.d(TAG, it.message)
+                    if(it.status == 400)
+                        _showErrorToastLiveData.value = EventWrapper(true)
                 },{
                     Log.d(TAG, it.localizedMessage) }
                 )

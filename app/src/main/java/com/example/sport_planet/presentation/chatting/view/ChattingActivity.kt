@@ -2,6 +2,7 @@ package com.example.sport_planet.presentation.chatting.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -125,6 +126,9 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                         rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId)
                     if(!isPageFilledWithItems)
                         rv_activity_chatting_recyclerview.addOnLayoutChangeListener(layoutChangeListener)
+                    rv_activity_chatting_recyclerview.postDelayed(Runnable {
+                        view_activity_chatting_loading.visibility = View.GONE
+                    },100)
                 },10)
             }
         )
@@ -135,8 +139,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             rv_activity_chatting_recyclerview.scrollBy(0, pixelsToScrollVertically)
 
             if(pixelsToScrollVertically < 0) {
-                isPageFilledWithItems =
-                    rv_activity_chatting_recyclerview.computeVerticalScrollRange() > rv_activity_chatting_recyclerview.height;
+                isPageFilledWithItems = rv_activity_chatting_recyclerview.computeVerticalScrollRange() > rv_activity_chatting_recyclerview.height;
                 (rv_activity_chatting_recyclerview.layoutManager as LinearLayoutManager).stackFromEnd = isPageFilledWithItems
                 if(isPageFilledWithItems){
                     rv_activity_chatting_recyclerview.removeOnLayoutChangeListener(layoutChangeListener)
@@ -150,24 +153,22 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             Observer {
 
                 chattingMessageQueue.add(it)
-
                 while(!chattingMessageQueue.isEmpty()){
                     chattingMessageFactory(chattingMessageQueue.poll()!!, true)
-                }
-
-                chattingAdapter.addChattingMessage(
-                    ChattingMessageModel(
-                        it.content!!,
-                        it.type!!,
-                        it.messageId!!,
-                        it.senderId!!,
-                        it.senderNickname!!,
-                        thisDate,
-                        thisTime,
-                        isSameDate,
-                        isSameTime
+                    chattingAdapter.addChattingMessage(
+                        ChattingMessageModel(
+                            it.content!!,
+                            it.type!!,
+                            it.messageId!!,
+                            it.senderId!!,
+                            it.senderNickname!!,
+                            thisDate,
+                            thisTime,
+                            isSameDate,
+                            isSameTime
+                        )
                     )
-                )
+                }
 
                 rv_activity_chatting_recyclerview.smoothScrollToPosition(chattingAdapter.itemCount -1)
             }
@@ -178,6 +179,12 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 bt_activity_chatting_approval_status.setApprovalStatusButton(it)
             }
         )
+
+        chattingActivityViewModel.showErrorToastLiveData.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {
+                Toast.makeText(this, R.string.activity_chatting_toast, Toast.LENGTH_SHORT).show()
+            }
+        })
 
         bt_custom_approval_button.setOnClickListener {
             when(chattingActivityViewModel.approvalStatusLiveData.value){

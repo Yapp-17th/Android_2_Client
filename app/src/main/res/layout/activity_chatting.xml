@@ -61,14 +61,26 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_activity_chatting_recyclerview"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/grayf4f4f4"
-            android:clipToPadding="false"
-            android:paddingBottom="16dp"/>
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_activity_chatting_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grayf4f4f4"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp" />
+
+            <View
+                android:id="@+id/view_activity_chatting_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grayf4f4f4" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/layout_activity_chatting_keyboard"

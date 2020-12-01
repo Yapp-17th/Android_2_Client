@@ -85,7 +85,6 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
                 if(chattingRoomsHashMap[it.chatRoomId] != null){
                     when(it.realTimeUpdateType){
                         ChattingConstant.REAL_TIME_MESSAGE_READ -> chattingRoomAdapter.updateChattingRoomList(it.chatRoomId!!, it)
-                        ChattingConstant.REAL_TIME_USER_EXITED -> viewModel.settingChattingRoomList()
                     }
                 }
                 else {
@@ -105,6 +104,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
             .setContent(getString(R.string.dialog_common_content2))
             .setOKText(getString(R.string.dialog_common_ok2))
             .setOnOkClickedListener{
+                chattingRoomsHashMap.remove(chattingRoomItem.id)
                 viewModel.leaveChattingRoom(chattingRoomItem.id)
             }.create()
         dialog.show(parentFragmentManager, dialog.tag)
