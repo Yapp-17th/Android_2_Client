@@ -109,6 +109,7 @@
 
     <!-- activity_chatting -->
     <string name="activity_chatting_origin_board">원글보기</string>
+    <string name="activity_chatting_toast">이미 종료된 활동입니다.</string>
 
     <!-- activity_profile -->
     <string name="activity_profile_head">프로필 작성</string>
