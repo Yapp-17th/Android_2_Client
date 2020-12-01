@@ -29,13 +29,15 @@ class IngTabFragment :
         viewModel.myViewHistoryList.observe(viewLifecycleOwner, Observer {
             binding.run {
                 rvHistoryIng.adapter = ingTabAdapter.apply {
-                        setMyViewHistoryItem(viewModel.myViewHistoryList.value!!)
-                    }
+                    clEmpty.visibility = View.GONE
+                    rvHistoryIng.visibility = View.VISIBLE
+                    setMyViewHistoryItem(viewModel.myViewHistoryList.value!!)
+                }
             }
         })
         viewModel.applyList.observe(viewLifecycleOwner, Observer {
             binding.run {
-                    ingTabAdapter.setApplyListItem(it)
+                ingTabAdapter.setApplyListItem(it)
             }
         })
     }
