@@ -1,7 +1,6 @@
 package com.example.sport_planet.presentation.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -30,22 +29,21 @@ abstract class BaseActivity<B : ViewDataBinding>
 
     fun showLoading() {
         this.runOnUiThread {
-            if (loadingFragment == null) {
+            if (loadingFragment != null && loadingFragment!!.isAdded) {
+                return@runOnUiThread
+            } else {
                 loadingFragment = LoadingFragment.newInstance()
-            }
-
-            loadingFragment?.let { it ->
-                it.show(supportFragmentManager, "LOADING_FRAGMENT")
+                loadingFragment?.let { it ->
+                    it.show(supportFragmentManager, "LOADING_FRAGMENT")
+                }
             }
         }
     }
 
     fun hideLoading() {
         this.runOnUiThread {
-            loadingFragment?.let { it ->
-                it.dismiss()
-                loadingFragment = null
-            }
+            (supportFragmentManager.findFragmentByTag("LOADING_FRAGMENT") as? LoadingFragment)?.dismiss()
+            loadingFragment = null
         }
     }
 

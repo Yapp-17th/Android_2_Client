@@ -7,61 +7,67 @@ import com.example.sport_planet.data.request.board.ReportRequest
 import com.example.sport_planet.data.response.board.BoardContentResponse
 import com.example.sport_planet.data.response.board.BoardListResponse
 import com.example.sport_planet.data.response.common.CommonResponse
-import com.example.sport_planet.model.enums.TimeFilterEnum
+import com.example.sport_planet.data.enums.TimeFilterEnum
+import com.example.sport_planet.data.response.common.AddressCityResponse
+import com.example.sport_planet.data.response.common.ExerciseResponse
 import io.reactivex.Single
 import retrofit2.http.*
 
 interface Api {
-    @POST("/v1/board")
+    //common
+    @GET("/api/base-service/v1/address/city")
+    fun getAddressCity(): Single<AddressCityResponse>
+
+    @GET("/api/base-service/v1/exercise")
+    fun getExercise(): Single<ExerciseResponse>
+    //common
+
+
+    //board
+    @POST("/api/board-service/v1/board")
     fun postBoard(
         @Body body: PostBoardRequest
     ): Single<CommonResponse>
 
-    @GET("/v1/board")
+    @GET("/api/board-service/v1/board")
     fun getBoardList(
         @Query("page") page: Int = 0,
         @Query("size") size: Int = 20,
-        @Query("sorting") sorting: String = TimeFilterEnum.TIME_LATEST.text
-    ): Single<BoardListResponse>
-
-    @GET("/v1/board")
-    fun getBoardList(
-        @Query("page") page: Int = 0,
-        @Query("size") size: Int = 20,
-        @Query("sorting") sorting: String = TimeFilterEnum.TIME_LATEST.text,
+        @Query("sorting") sorting: String = TimeFilterEnum.TIME_LATEST.query,
         @Query(encoded = true, value = "category") category: String,
-        @Query(encoded = true, value = "city") city: String
+        @Query(encoded = true, value = "address") address: String
     ): Single<BoardListResponse>
 
-    @GET("v1/board/{boardId}")
+    @GET("/api/board-service/v1/board/{boardId}")
     fun getBoardContent(
         @Path("boardId") boardId: Long
     ): Single<BoardContentResponse>
 
-    @DELETE("/v1/board/{boarId}")
+    @DELETE("/api/board-service/v1/board/{boarId}")
     fun deleteBoard(
         @Path("boardId") boardId: Long
     ): Single<CommonResponse>
 
-    @PUT("/v1/board/{boardId")
+    @PUT("/api/board-service/v1/board/{boardId")
     fun editBoard(
         @Path("boardId") boardId: Long,
         @Body body: PostBoardRequest
     ): Single<BoardContentResponse>
 
-    @POST("/v1/board/bookmark")
+    @POST("/api/board-service/v1/board/bookmark")
     fun createBookMark(
         @Body body: BookMarkRequest
     ): Single<CommonResponse>
 
-    @DELETE("/v1/board/{boardId}/bookmark")
+    @DELETE("/api/board-service/v1/board/{boardId}/bookmark")
     fun deleteBookMark(
         @Path("boardId") boardId: Long
     ): Single<CommonResponse>
 
-    @POST("/v1/board/hidden")
+    @POST("/api/board-service/v1/board/hidden")
     fun hideBoard(@Body body: PostBoardIdRequest): Single<CommonResponse>
 
-    @POST("/v1/board/report")
+    @POST("/api/board-service/v1/board/report")
     fun reportBoard(@Body body: ReportRequest): Single<CommonResponse>
+    //board
 }

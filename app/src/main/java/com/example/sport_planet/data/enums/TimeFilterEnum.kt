@@ -1,7 +1,7 @@
-package com.example.sport_planet.model.enums
+package com.example.sport_planet.data.enums
 
-enum class TimeFilterEnum(val text: String) {
-    TIME_LATEST("latest"),
-    TIME_REMAIN("remain"),
-    TIME_DEADLINE("deadline")
+enum class TimeFilterEnum(val query: String, val print: String) {
+    TIME_LATEST("latest", "최신순"),
+    TIME_REMAIN("remain", "남은인원순"),
+    TIME_DEADLINE("deadline", "기간임박순")
 }

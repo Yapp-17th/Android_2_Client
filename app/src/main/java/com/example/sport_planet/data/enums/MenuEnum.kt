@@ -2,7 +2,7 @@ package com.example.sport_planet.data.enums
 
 import com.example.sport_planet.R
 
-enum class MenuEnum {
+enum class MenuEnum() {
     STAR_ENABLED {
         override val resourceId: Int
             get() = R.drawable.ic_star_enabled

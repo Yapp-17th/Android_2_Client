@@ -2,13 +2,20 @@ package com.example.sport_planet.remote
 
 import com.example.sport_planet.data.response.board.BoardContentResponse
 import com.example.sport_planet.data.response.board.BoardListResponse
+import com.example.sport_planet.data.response.common.AddressCityResponse
 import com.example.sport_planet.data.response.common.CommonResponse
-import com.example.sport_planet.model.enums.TimeFilterEnum
+import com.example.sport_planet.data.response.common.ExerciseResponse
 import io.reactivex.Single
 import java.util.*
 
 interface RemoteDataSource {
+    //common
+    fun getAddressCity(): Single<AddressCityResponse>
 
+    fun getExercise(): Single<ExerciseResponse>
+    //common
+
+    //board
     fun postBoard(
         title: String,
         content: String,
@@ -21,17 +28,11 @@ interface RemoteDataSource {
     ): Single<CommonResponse>
 
     fun getBoardList(
-        size: Int = 20,
-        page: Int = 0,
-        sorting: String = TimeFilterEnum.TIME_LATEST.text
-    ): Single<BoardListResponse>
-
-    fun getBoardList(
-        size: Int = 20,
-        page: Int = 0,
-        sorting: String = TimeFilterEnum.TIME_LATEST.text,
-        category: String = "",
-        city: String = ""
+        size: Int,
+        page: Int,
+        sorting: String,
+        category: String,
+        address: String
     ): Single<BoardListResponse>
 
     fun getBoardContent(
@@ -71,6 +72,5 @@ interface RemoteDataSource {
         reportType: Long,
         content: String
     ): Single<CommonResponse>
-
-
+    //board
 }

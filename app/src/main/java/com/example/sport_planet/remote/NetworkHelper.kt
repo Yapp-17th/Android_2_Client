@@ -32,19 +32,11 @@ object NetworkHelper {
          추후에 합쳐지면 변수를 하나로 수정하는 작업을 진행 하겠습니다 - 민호 -
      */
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://ec2-54-180-29-231.ap-northeast-2.compute.amazonaws.com:8080") // 채팅
-        .client(okHttpClient)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val retrofit2 = Retrofit.Builder()
-        .baseUrl("http://35.173.244.190:8083")
+        .baseUrl("http://52.78.52.254/") // 채팅
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     val api: Api = retrofit.create(Api::class.java)
-    val api2: Api = retrofit2.create(Api::class.java)
 }

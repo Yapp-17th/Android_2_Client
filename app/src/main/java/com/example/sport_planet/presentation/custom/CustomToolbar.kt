@@ -100,4 +100,8 @@ class CustomToolbar : ConstraintLayout {
             binding.back.visibility = View.GONE
         }
     }
+
+    fun setBackButtonClick(onClickListener: OnClickListener) {
+        binding.back.setOnClickListener(onClickListener)
+    }
 }
