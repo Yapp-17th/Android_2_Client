@@ -27,6 +27,8 @@ interface RemoteDataSource {
 
     fun getMyProfile(): Single<HistoryResponse>
 
+    fun getMyProfileEdit(): Single<MyProfileEditResponse>
+
     fun putMyProfile(myViewEditRequest: MyViewEditRequest): Single<ServerCallBackResponse>
 
     fun getViewHistory(userId: Long): Single<HistoryResponse>

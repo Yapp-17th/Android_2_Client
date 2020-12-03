@@ -38,6 +38,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
     override fun deleteUser(): Single<ServerCallBackResponse>  = api.deleteUser()
 
     override fun getMyProfile(): Single<HistoryResponse> = api.getMyProfile()
+    override fun getMyProfileEdit(): Single<MyProfileEditResponse> = api.getMyProfileEdit()
 
     override fun putMyProfile(myViewEditRequest: MyViewEditRequest): Single<ServerCallBackResponse> =
         api.putMyProfile(myViewEditRequest)

@@ -15,7 +15,7 @@ data class RegionResponse(
 ) {
     data class Data(
         @SerializedName("id")
-        val id: Int,
+        val id: Long,
         @SerializedName("name")
         val name: String
     )

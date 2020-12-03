@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_history_ing_margin_8dp"
-            android:text="@{items.userName}"
+            android:text="@{items.nickName}"
             app:layout_constraintStart_toEndOf="@id/tv_host_guest"
             app:layout_constraintTop_toTopOf="@id/iv_profile"
             tools:text="짹짹" />

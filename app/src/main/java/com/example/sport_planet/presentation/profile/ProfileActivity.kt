@@ -96,7 +96,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     clRegionList.visibility = View.VISIBLE
                     tvRegion.text = viewModel.userRegion.value
                     ivX.setOnClickListener { getRegionItem() }
-                    clRegion.visibility = View.GONE
+                    clRegion.visibility = View.INVISIBLE
                 }
             }
         })
@@ -120,7 +120,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                         ExerciseListAdapter(::getExerciseItem).apply {
                             setItem(viewModel.userExerciseList.value!!)
                         }
-                    clInterestExcise.visibility = View.GONE
+                    clInterestExcise.visibility = View.INVISIBLE
                 }
             }
         })
@@ -152,7 +152,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         viewModel.removeUserExerciseItem(item, idItem)
         if (viewModel.userExerciseList.value!!.isEmpty()) {
             binding.run {
-                rvExercise.visibility = View.GONE
+                rvExercise.visibility = View.INVISIBLE
                 clInterestExcise.visibility = View.VISIBLE
             }
         }
@@ -161,7 +161,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     private fun getRegionItem() {
         viewModel.setUserRegion("", 0L)
         binding.run {
-            clRegionList.visibility = View.GONE
+            clRegionList.visibility = View.INVISIBLE
             clRegion.visibility = View.VISIBLE
         }
 
