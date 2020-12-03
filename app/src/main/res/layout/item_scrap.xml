@@ -92,6 +92,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_d_day">
 
             <TextView
+                android:id="@+id/tv_group_status"
                 style="@style/medium_basic_12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,6 +105,7 @@
                 tools:text="진행중" />
 
             <TextView
+                android:id="@+id/tv_exercise"
                 style="@style/medium_basic_12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,6 +118,7 @@
                 tools:text="농구" />
 
             <TextView
+                android:id="@+id/tv_city"
                 style="@style/medium_basic_12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
