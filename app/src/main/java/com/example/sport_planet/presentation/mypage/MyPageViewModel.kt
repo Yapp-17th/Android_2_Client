@@ -8,7 +8,7 @@ import com.example.sport_planet.util.applySchedulers
 
 class MyPageViewModel : BaseViewModel() {
 
-    val userName = MutableLiveData<String>()
+    val nickName = MutableLiveData<String>()
     val like = MutableLiveData<String>()
     val dislike = MutableLiveData<String>()
     val intro = MutableLiveData<String>()
@@ -23,7 +23,7 @@ class MyPageViewModel : BaseViewModel() {
                 .applySchedulers()
                 .subscribe({
                     if (it.success) {
-                        userName.value = it.data.userName
+                        nickName.value = it.data.nickName
                         like.value = it.data.like.toString()
                         dislike.value = it.data.dislike.toString()
                         intro.value = it.data.intro

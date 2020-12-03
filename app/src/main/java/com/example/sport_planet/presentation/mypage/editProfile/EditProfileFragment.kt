@@ -15,6 +15,7 @@ import com.example.sport_planet.presentation.profile.ProfileViewModel
 import com.example.sport_planet.presentation.profile.RegionDialog
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
+
 class EditProfileFragment :
     BaseFragment<ActivityProfileBinding, ProfileViewModel>(R.layout.activity_profile) {
     override val viewModel: ProfileViewModel by lazy {
@@ -23,54 +24,84 @@ class EditProfileFragment :
 
     override fun init() {
         initViewModel()
+        viewModel.getMyProfileEdit()
         observeLiveData()
-        binding.tvStart.setOnClickListener {
-            viewModel.editProfile()
-        }
+
     }
 
     private fun initViewModel() {
-        binding.vm = viewModel
-        binding.tvStart.text = getString(R.string.fragment_edit_profile_edit_text)
-        binding.customToolBar.title.text = getString(R.string.activity_profile_head)
-        binding.customToolBar.back.setOnClickListener { onBackPressed() }
+        binding.run {
+            vm = viewModel
+            tvStart.text = getString(R.string.fragment_edit_profile_edit_text)
+            customToolBar.title.text = getString(R.string.activity_profile_head)
+            customToolBar.back.setOnClickListener { onBackPressed() }
+            tvStart.setOnClickListener {
+                viewModel.editProfile()
+            }
+            ivX.setOnClickListener { viewModel.setUserRegion("", 0L) }
+        }
     }
 
     private fun observeLiveData() {
-        viewModel.userEmail.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.userNickname.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.userName.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.userIntroduceMyself.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.userExerciseList.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.userRegion.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.exerciseList.observe(this, Observer {
-            showExercisePopup(it)
-        })
-        viewModel.regionList.observe(this, Observer {
-            showRegionPopup(it)
-        })
-        viewModel.postSignUpStatus.observe(this, Observer {
-            when (it) {
-                200 -> {
-                    onBackPressed()
+        viewModel.run {
+            userEmail.observe(this@EditProfileFragment, Observer {
+                checkButtonAble()
+            })
+            userNickname.observe(this@EditProfileFragment, Observer {
+                checkButtonAble()
+            })
+            userName.observe(this@EditProfileFragment, Observer {
+                checkButtonAble()
+            })
+            userIntroduceMyself.observe(this@EditProfileFragment, Observer {
+                checkButtonAble()
+            })
+            userExerciseList.observe(this@EditProfileFragment, Observer {
+                binding.run {
+                    if (it.isEmpty()) {
+                        rvExercise.visibility = View.INVISIBLE
+                        clInterestExcise.visibility = View.VISIBLE
+                    } else {
+                        rvExercise.visibility = View.VISIBLE
+                        rvExercise.adapter =
+                            ExerciseListAdapter(::getExerciseItem).apply {
+                                setItem(it)
+                            }
+                        clInterestExcise.visibility = View.INVISIBLE
+                    }
                 }
-                400 -> {
-                    showErrorPopup(viewModel.postSignUpStatusMessage.value.toString())
+                checkButtonAble()
+            })
+            userRegion.observe(this@EditProfileFragment, Observer {
+                binding.run {
+                    if (it.isNullOrBlank()) {
+                        clRegionList.visibility = View.INVISIBLE
+                        clRegion.visibility = View.VISIBLE
+                    } else {
+                        clRegionList.visibility = View.VISIBLE
+                        clRegion.visibility = View.INVISIBLE
+                    }
                 }
-            }
-        })
+                checkButtonAble()
+            })
+            exerciseList.observe(this@EditProfileFragment, Observer {
+                showExercisePopup(it)
+            })
+            regionList.observe(this@EditProfileFragment, Observer {
+                showRegionPopup(it)
+            })
+            postSignUpStatus.observe(this@EditProfileFragment, Observer {
+                when (it) {
+                    200 -> {
+                        onBackPressed()
+                    }
+                    400 -> {
+                        showErrorPopup(viewModel.postSignUpStatusMessage.value.toString())
+                    }
+                }
+            })
+        }
+
     }
 
     private fun showRegionPopup(it: RegionResponse) {
@@ -83,12 +114,6 @@ class EditProfileFragment :
             RegionDialog.SelectDialogListener {
             override fun onAccept(item: String, id: Long) {
                 viewModel.setUserRegion(item, id)
-                binding.run {
-                    clRegionList.visibility = View.VISIBLE
-                    tvRegion.text = viewModel.userRegion.value
-                    ivX.setOnClickListener { getRegionItem() }
-                    clRegion.visibility = View.GONE
-                }
             }
         })
         dialog.show(parentFragmentManager, "")
@@ -104,15 +129,6 @@ class EditProfileFragment :
             ExerciseDialog.SelectDialogListener {
             override fun onAccept(item: List<String>, idItem: List<Long>) {
                 viewModel.setUserExerciseList(item, idItem)
-
-                binding.run {
-                    rvExercise.visibility = View.VISIBLE
-                    rvExercise.adapter =
-                        ExerciseListAdapter(::getExerciseItem).apply {
-                            setItem(viewModel.userExerciseList.value!!)
-                        }
-                    clInterestExcise.visibility = View.GONE
-                }
             }
         })
         dialog.show(parentFragmentManager, "")
@@ -126,22 +142,9 @@ class EditProfileFragment :
 
     private fun getExerciseItem(item: String, idItem: Int) {
         viewModel.removeUserExerciseItem(item, idItem)
-        if (viewModel.userExerciseList.value!!.isEmpty()) {
-            binding.run {
-                rvExercise.visibility = View.GONE
-                clInterestExcise.visibility = View.VISIBLE
-            }
-        }
-    }
-
-    private fun getRegionItem() {
-        viewModel.setUserRegion("", 0L)
-        binding.run {
-            clRegionList.visibility = View.GONE
-            clRegion.visibility = View.VISIBLE
-        }
 
     }
+
 
     private fun checkButtonAble() {
         if (

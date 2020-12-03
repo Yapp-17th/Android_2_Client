@@ -26,7 +26,7 @@ data class HistoryResponse(
         val isMine: Boolean,
         @SerializedName("like")
         val like: Long,
-        @SerializedName("userName")
-        val userName: String
+        @SerializedName("nickName")
+        val nickName: String
     )
 }

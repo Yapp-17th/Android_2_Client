@@ -16,7 +16,7 @@
         android:fillViewport="true"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
@@ -27,7 +27,8 @@
             <com.example.sport_planet.presentation.custom.CustomToolbar
                 android:id="@+id/custom_tool_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/et_name"
@@ -38,11 +39,15 @@
                 android:hint="@string/activity_profile_hint_name"
                 android:inputType="textPersonName"
                 android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
-                android:text="@={vm.userName}" />
+                android:text="@={vm.userName}"
+                app:layout_constraintTop_toBottomOf="@id/custom_tool_bar" />
+
             <View
+                android:id="@+id/v_line_1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white_gray"/>
+                android:background="@color/white_gray"
+                app:layout_constraintTop_toBottomOf="@id/et_name" />
 
             <EditText
                 android:id="@+id/et_email"
@@ -53,11 +58,15 @@
                 android:hint="@string/activity_profile_hint_email"
                 android:inputType="textEmailAddress"
                 android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
-                android:text="@={vm.userEmail}" />
+                android:text="@={vm.userEmail}"
+                app:layout_constraintTop_toBottomOf="@id/v_line_1" />
+
             <View
+                android:id="@+id/v_line_2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white_gray"/>
+                android:background="@color/white_gray"
+                app:layout_constraintTop_toBottomOf="@id/et_email" />
 
             <EditText
                 android:id="@+id/et_nick_name"
@@ -69,24 +78,33 @@
                 android:imeOptions="actionDone"
                 android:inputType="textPersonName"
                 android:paddingHorizontal="@dimen/activity_profile_padding_16dp"
-                android:text="@={vm.userNickname}" />
+                android:text="@={vm.userNickname}"
+                app:layout_constraintTop_toBottomOf="@id/v_line_2" />
+
             <View
+                android:id="@+id/v_line_3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white_gray"/>
+                android:background="@color/white_gray"
+                app:layout_constraintTop_toBottomOf="@id/et_nick_name" />
 
             <TextView
                 android:id="@+id/tv_interest_excise"
                 style="@style/medium_basic_16sp_black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_profile_interest_excise" />
+                android:text="@string/activity_profile_interest_excise"
+                app:layout_constraintTop_toBottomOf="@id/v_line_3" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_interest_excise"
-                android:layout_width="100dp"
-                android:layout_height="32dp"
-                android:background="@drawable/shape_round_corner">
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/shape_round_corner"
+                app:layout_constraintHeight_percent="0.04"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_interest_excise"
+                app:layout_constraintWidth_percent="0.27">
 
                 <TextView
                     android:id="@+id/tv_interest_exercise_popup"
@@ -108,21 +126,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:visibility="invisible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tv_interest_excise" />
 
             <TextView
                 android:id="@+id/tv_residence"
                 style="@style/medium_basic_16sp_black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_residence" />
+                android:text="@string/activity_residence"
+                app:layout_constraintTop_toBottomOf="@id/cl_interest_excise" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_region"
-                android:layout_width="72dp"
-                android:layout_height="32dp"
-                android:background="@drawable/shape_round_corner">
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/shape_round_corner"
+                app:layout_constraintHeight_percent="0.04"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_residence"
+                app:layout_constraintWidth_percent="0.2">
 
                 <TextView
                     android:id="@+id/tv_residence_popup"
@@ -141,12 +165,15 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_region_list"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@drawable/shape_round_corner_darkblue_opacity"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="invisible"
+                app:layout_constraintHeight_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_residence"
+                app:layout_constraintWidth_percent="0.25">
 
                 <TextView
                     android:id="@+id/tv_region"
@@ -156,6 +183,7 @@
                     android:layout_marginStart="@dimen/item_exercise_list_margin_12dp"
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
+                    android:text="@={vm.userRegion}"
                     android:textColor="@color/blue233c93"
                     app:layout_constraintEnd_toStartOf="@id/iv_x"
                     app:layout_constraintStart_toStartOf="parent"
@@ -178,18 +206,21 @@
                 style="@style/medium_basic_16sp_black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_profile_introduce_myself" />
+                android:text="@string/activity_profile_introduce_myself"
+                app:layout_constraintTop_toBottomOf="@id/cl_region" />
 
-            <EditText
-                android:id="@+id/et_introduce_myself"
-                style="@style/medium_basic_16sp_black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/activity_profile_hint_introduce_myself"
-                android:imeOptions="actionDone"
-                android:inputType="textMultiLine"
-                android:text="@={vm.userIntroduceMyself}" />
+
+                <EditText
+                    android:id="@+id/et_introduce_myself"
+                    style="@style/medium_basic_16sp_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="start|top"
+                    android:hint="@string/activity_profile_hint_introduce_myself"
+                    android:inputType="textMultiLine"
+                    app:layout_constraintTop_toBottomOf="@id/tv_introduce_myself"
+                    android:text="@={vm.userIntroduceMyself}" />
 
             <TextView
                 android:id="@+id/tv_start"
@@ -198,13 +229,16 @@
                 android:layout_height="0dp"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="@dimen/activity_profile_margin_16dp"
-                android:layout_weight="0.4"
                 android:background="@color/grayefefef"
                 android:enabled="false"
                 android:gravity="center"
                 android:text="@string/activity_profile_start"
-                android:textColor="@color/gray9c9c9c" />
+                android:textColor="@color/gray9c9c9c"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.08"
+                app:layout_constraintTop_toBottomOf="@id/et_introduce_myself"
+                app:layout_constraintVertical_bias="1" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

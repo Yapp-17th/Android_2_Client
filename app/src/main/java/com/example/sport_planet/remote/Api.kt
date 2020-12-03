@@ -84,6 +84,9 @@ interface Api {
     @POST("mypage-service/v1/user/my-profile/history/evaluate/report")
     fun postEvaluateReport(@Body evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse>
 
+    @GET("mypage-service/v1/user/my-profile/edit")
+    fun getMyProfileEdit() : Single<MyProfileEditResponse>
+
 
     // 채팅 API
     @POST("chatting-service/v1/chat/room")

@@ -8,7 +8,7 @@ data class EvaluateListResponse(
 ){
     data class EvaluateListModel(
         val userId : Long,
-        val userName : String,
+        val nickName : String,
         val isHost : Boolean,
         val isLike : Boolean,
         val isDislike : Boolean

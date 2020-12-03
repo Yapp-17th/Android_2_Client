@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/item_history_finish_expand_margin_8dp"
-            android:text="@{items.userName}"
+            android:text="@{items.nickName}"
             android:textColor="@color/black"
             tools:text="오동동" />
 
