@@ -2,7 +2,7 @@ package com.example.sport_planet.presentation.chatting
 
 object ChattingConstant {
     // 웹소켓 URL
-    val URL = "ws://52.78.52.254:8080/ws/chat/websocket"
+    val URL = "ws://101.101.219.23:8080/ws/chat/websocket"
 
     // 채팅 메세지 타입
     val CHAT_BOT_NOTICE_MESSAGE = "BOT_NOTICE"
