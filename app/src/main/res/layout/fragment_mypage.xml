@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/fragment_my_page_margin_16dp"
-            android:text="@={vm.userName}"
+            android:text="@={vm.nickName}"
             android:textColor="@color/black"
             android:textSize="@dimen/fragment_my_page_text_size_18sp"
             app:layout_constraintStart_toEndOf="@id/iv_profile_image"
