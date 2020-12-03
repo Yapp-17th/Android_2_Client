@@ -16,7 +16,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_app_bar_size"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:isBackButton="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -24,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="left|center_vertical"
             android:textColor="@color/black121212"
@@ -33,13 +36,68 @@
 
         <LinearLayout
             android:id="@+id/ll_board_info"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@id/tv_title"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+            <TextView
+                android:id="@+id/tv_group_status"
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_round_corner_darkblue_opacity"
+                android:paddingStart="8dp"
+                android:paddingTop="1dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="1dp"
+                android:textColor="@color/dark_gray"
+                tools:text="농구" />
+
+            <TextView
+                android:id="@+id/tv_exercise"
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_round_corner_darkblue_opacity"
+                android:paddingStart="8dp"
+                android:paddingTop="1dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="1dp"
+                android:textColor="@color/dark_gray"
+                tools:text="농구" />
+
+            <TextView
+                android:id="@+id/tv_city"
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_round_corner_darkblue_opacity"
+                android:paddingStart="8dp"
+                android:paddingTop="1dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="1dp"
+                android:textColor="@color/dark_gray"
+                tools:text="농구" />
+
+            <TextView
+                android:id="@+id/tv_tag"
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_round_corner_darkblue_opacity"
+                android:paddingStart="8dp"
+                android:paddingTop="1dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="1dp"
+                android:textColor="@color/dark_gray"
+                tools:text="농구" />
 
         </LinearLayout>
 
@@ -55,51 +113,75 @@
 
         <TextView
             android:id="@+id/tv_container_count"
+            style="@style/medium_basic_12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
+            android:background="@drawable/shape_round_corner_darkblue"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="인원"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/view_container_1" />
 
         <TextView
             android:id="@+id/tv_peopleCount"
+            style="@style/regular_basic_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:textColor="@color/black121212"
             app:layout_constraintBottom_toBottomOf="@id/tv_container_count"
             app:layout_constraintStart_toEndOf="@id/tv_container_count"
             app:layout_constraintTop_toTopOf="@id/tv_container_count" />
 
         <TextView
             android:id="@+id/tv_container_date"
+            style="@style/medium_basic_12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
+            android:background="@drawable/shape_round_corner_darkblue"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="날짜"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tv_container_count"
             app:layout_constraintTop_toBottomOf="@id/tv_container_count" />
 
         <TextView
             android:id="@+id/tv_date"
+            style="@style/regular_basic_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:textColor="@color/black121212"
             app:layout_constraintBottom_toBottomOf="@id/tv_container_date"
             app:layout_constraintStart_toEndOf="@id/tv_container_date"
             app:layout_constraintTop_toTopOf="@id/tv_container_date" />
 
         <TextView
             android:id="@+id/tv_container_place"
+            style="@style/medium_basic_12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
+            android:background="@drawable/shape_round_corner_darkblue"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="장소"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tv_container_count"
             app:layout_constraintTop_toBottomOf="@id/tv_container_date" />
 
         <TextView
             android:id="@+id/tv_place"
+            style="@style/regular_basic_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:textColor="@color/black121212"
             app:layout_constraintBottom_toBottomOf="@id/tv_container_place"
             app:layout_constraintStart_toEndOf="@id/tv_container_place"
             app:layout_constraintTop_toTopOf="@id/tv_container_place" />
@@ -118,15 +200,19 @@
             android:id="@+id/scroll"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintBottom_toTopOf="@id/view_container_3"
             app:layout_constraintEnd_toEndOf="@id/tv_title"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/view_container_2">
 
             <TextView
+
                 android:id="@+id/tv_body"
+                style="@style/regular_basic_14sp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textColor="@color/black121212" />
 
         </ScrollView>
 
@@ -158,10 +244,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:lineSpacingExtra="1sp"
+            android:text="Host"
             android:textColor="@color/pink"
             app:layout_constraintStart_toEndOf="@id/iv_profile_image"
-            app:layout_constraintTop_toTopOf="@id/iv_profile_image"
-            tools:text="Host" />
+            app:layout_constraintTop_toTopOf="@id/iv_profile_image" />
 
         <TextView
             android:id="@+id/tv_userName"
@@ -187,7 +273,6 @@
             style="@style/regular_basic_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@id/iv_like"
             app:layout_constraintStart_toEndOf="@id/iv_like"
             app:layout_constraintTop_toTopOf="@id/iv_like" />
@@ -207,7 +292,6 @@
             style="@style/regular_basic_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@id/iv_dislike"
             app:layout_constraintStart_toEndOf="@id/iv_dislike"
             app:layout_constraintTop_toTopOf="@id/iv_dislike" />

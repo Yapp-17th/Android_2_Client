@@ -45,7 +45,7 @@ class BoardViewModel(private val remote: RemoteDataSource) :
                 .subscribe({
                     Log.d("okhttp", "bookmarkChange : $it")
                     if (it.success) {
-
+                        getBoardContent()
                     }
                 }, {
                     it.printStackTrace()

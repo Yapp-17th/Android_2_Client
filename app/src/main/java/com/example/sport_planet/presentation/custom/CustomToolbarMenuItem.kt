@@ -29,7 +29,7 @@ class CustomToolbarMenuItem : ConstraintLayout {
     }
 
     fun setClickListener(function: () -> Unit) {
-        binding.icon.setOnClickListener {
+        binding.root.setOnClickListener {
             function
         }
     }

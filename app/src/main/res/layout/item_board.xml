@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toBottomOf="@id/iv_bookmark"
             app:layout_constraintLeft_toRightOf="@id/iv_profile_image"
             app:layout_constraintTop_toTopOf="@id/iv_bookmark"
-            tools:text="Host" />
+            android:text="Host"/>
 
         <TextView
             android:id="@+id/tv_nickname"

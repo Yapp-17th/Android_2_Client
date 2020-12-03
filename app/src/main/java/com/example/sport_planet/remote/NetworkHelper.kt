@@ -1,5 +1,6 @@
 package com.example.sport_planet.remote
 
+import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,11 +16,14 @@ object NetworkHelper {
             level = HttpLoggingInterceptor.Level.NONE
         })
         .addInterceptor {
+            Log.d("okhttp", "request: ${it.request()}")
             val request = it.request()
                 .newBuilder()
                 .addHeader("Authorization", "Bearer $token")
                 .build()
-            it.proceed(request)
+            val response = it.proceed(request)
+            Log.d("okhttp","response : $response")
+            response
         }.build()
 
     private val retrofit = Retrofit.Builder()

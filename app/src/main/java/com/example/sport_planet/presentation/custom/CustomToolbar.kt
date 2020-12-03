@@ -3,15 +3,15 @@ package com.example.sport_planet.presentation.custom
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.example.sport_planet.R
-import com.example.sport_planet.databinding.ItemCustomToolbarBinding
-import com.example.sport_planet.data.enums.MenuEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
+import com.example.sport_planet.data.model.MenuModel
+import com.example.sport_planet.databinding.ItemCustomToolbarBinding
 import com.example.sport_planet.util.Util
 
 class CustomToolbar : ConstraintLayout {
@@ -47,7 +47,7 @@ class CustomToolbar : ConstraintLayout {
         typedArray.recycle()
     }
 
-    private val menuItems: ArrayList<MenuEnum> = ArrayList()
+    private val menuItems: ArrayList<MenuModel> = ArrayList()
 
     fun setSeparator(item: SeparatorEnum) {
         when (item) {
@@ -62,13 +62,15 @@ class CustomToolbar : ConstraintLayout {
         }
     }
 
-    fun setMenu(vararg item: MenuEnum) {
+    fun setMenu(vararg item: MenuModel) {
+        menuItems.clear()
+        binding.menu.removeAllViewsInLayout()
         item.forEach {
             if (!this.menuItems.contains(it)) {
                 this.menuItems.add(it)
                 CustomToolbarMenuItem(context).apply {
-                    this.setImage(it.resourceId)
-                    this.setClickListener { it.onClick }
+                    this.setImage(it.menuType.resourceId)
+                    this.setOnClickListener(it.event)
                     binding.menu.addView(this)
                 }
             }
@@ -98,4 +100,5 @@ class CustomToolbar : ConstraintLayout {
     fun setBackButtonClick(onClickListener: OnClickListener) {
         binding.back.setOnClickListener(onClickListener)
     }
+
 }
