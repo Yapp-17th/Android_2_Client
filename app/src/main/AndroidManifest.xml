@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sport_planet">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,17 +14,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".presentation.mypage.other.mypage.OtherMyPageActivity"></activity>
+        <activity android:name=".presentation.mypage.history.view.HistoryActivity" />
+        <activity android:name=".presentation.filter.FilterActivity" />
+        <activity android:name=".presentation.profile.ProfileActivity" />
+        <activity
+            android:name=".presentation.chatting.view.ChattingActivity"
+            android:theme="@style/ChattingAppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.profile.ExerciseDialog"
+            tools:ignore="Instantiatable" />
         <activity android:name=".presentation.board.BoardActivity"></activity>
         <activity android:name=".presentation.home.filter.FilterActivity" />
-        <activity
-            android:name=".presentation.main.MainActivity"
-            android:windowSoftInputMode="adjustNothing">
+        <activity android:name=".presentation.login.LoginActivity" />
+        <activity android:name=".presentation.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.splash.IntroActivity" />
+        <activity android:name=".presentation.splash.SplashActivity" />
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

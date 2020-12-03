@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="ItemSentProfileMessage"
+            type="com.example.sport_planet.data.model.chatting.ChattingMessageModel" />
+        <variable
+            name="ProfileMessageContent"
+            type="com.example.sport_planet.data.model.chatting.ProfileMessageContentModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_notice_message_content"
+            style="@style/medium_basic_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_message_border"
+            android:backgroundTint="@color/graye5e5e5"
+            android:paddingLeft="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+            android:paddingRight="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+            android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+            android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="4dp"
+            android:layout_gravity="center"
+            android:visibility="@{!ItemSentProfileMessage.sameDate ? View.VISIBLE : View.GONE }"
+            android:text="@{ItemSentProfileMessage.createdDate}"
+            android:textColor="@color/gray9c9c9c" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cv_sent_profile_message_cardview"
+                android:layout_width="@dimen/item_profile_message_msg_maxwidth_190dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/item_talk_message_msg_margin_16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/item_message_border"
+                android:backgroundTint="@color/blued5daeb">
+
+                <TextView
+                    android:id="@+id/tv_sent_profile_message_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@{ProfileMessageContent.senderNickname}"
+                    style="@style/bold_basic_14sp"
+                    android:textColor="@color/black121212"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_sent_profile_message_likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sent_profile_message_nickname"
+                    android:src="@drawable/icons_18_px_likes" />
+
+                <TextView
+                    android:id="@+id/tv_sent_profile_message_likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="@{String.valueOf(ProfileMessageContent.like)}"
+                    style="@style/regular_basic_14sp"
+                    android:textColor="@color/black121212"
+                    app:layout_constraintTop_toTopOf="@id/iv_sent_profile_message_likes"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_sent_profile_message_likes"
+                    app:layout_constraintLeft_toRightOf="@id/iv_sent_profile_message_likes"/>
+
+                <ImageView
+                    android:id="@+id/iv_sent_profile_message_dislikes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_sent_profile_message_likes"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sent_profile_message_nickname"
+                    android:src="@drawable/icons_18_px_dislikes" />
+
+                <TextView
+                    android:id="@+id/tv_sent_profile_message_dislikes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@{String.valueOf(ProfileMessageContent.dislike)}"
+                    style="@style/regular_basic_14sp"
+                    android:textColor="@color/black121212"
+                    app:layout_constraintTop_toTopOf="@id/iv_sent_profile_message_dislikes"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_sent_profile_message_dislikes"
+                    app:layout_constraintLeft_toRightOf="@id/iv_sent_profile_message_dislikes" />
+
+                <TextView
+                    android:id="@+id/tv_sent_profile_message_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/sent_profile_message_text1"
+                    style="@style/medium_basic_14sp"
+                    android:textColor="@color/black121212"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_sent_profile_message_likes" />
+
+                    <TextView
+                        android:id="@+id/tv_sent_profile_message_introduce"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="29dp"
+                        android:text="@{ProfileMessageContent.intro}"
+                        style="@style/regular_basic_14sp"
+                        android:textColor="@color/black121212"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_sent_profile_message_text1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:maxLines="4"
+                        android:ellipsize="end"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_sent_profile_message_timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="@{ItemSentProfileMessage.createdTime}"
+                style="@style/regular_basic_12sp"
+                android:textColor="@color/gray9c9c9c"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/cv_sent_profile_message_cardview"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

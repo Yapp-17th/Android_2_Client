@@ -3,24 +3,24 @@ package com.example.sport_planet.presentation.home.filter.city
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sport_planet.data.model.AddressCityModel
+import com.example.sport_planet.data.response.basic.RegionResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class AddressCityViewModel(private val remoteDataSource: RemoteDataSource) :
     BaseViewModel() {
-    val items: MutableLiveData<List<AddressCityModel>> = MutableLiveData()
+    val items: MutableLiveData<List<RegionResponse.Data>> = MutableLiveData()
 
     fun getAddressCity() {
-        remoteDataSource.getAddressCity()
+        remoteDataSource.getRegion()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isLoading.onNext(true) }
             .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
                 if (it.isSuccess()) {
                     val result = it.data.toMutableList()
-                    result.add(0, AddressCityModel(id = -1, name = "전체"))
+                    result.add(0, RegionResponse.Data(id = -1, name = "전체"))
                     items.value = result
                 }
             }, {

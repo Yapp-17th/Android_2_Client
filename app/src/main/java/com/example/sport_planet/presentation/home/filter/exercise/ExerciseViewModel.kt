@@ -3,15 +3,14 @@ package com.example.sport_planet.presentation.home.filter.exercise
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sport_planet.data.model.AddressCityModel
-import com.example.sport_planet.data.model.ExerciseModel
+import com.example.sport_planet.data.response.basic.ExerciseResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class ExerciseViewModel(private val remoteDataSource: RemoteDataSource) :
     BaseViewModel() {
-    val items: MutableLiveData<List<ExerciseModel>> = MutableLiveData()
+    val items: MutableLiveData<List<ExerciseResponse.Data>> = MutableLiveData()
 
     fun getAddressCity() {
         remoteDataSource.getExercise()
@@ -21,7 +20,7 @@ class ExerciseViewModel(private val remoteDataSource: RemoteDataSource) :
             .subscribe({
                 if (it.isSuccess()) {
                     val result = it.data.toMutableList()
-                    result.add(0, ExerciseModel(id = -1, name = "전체"))
+                    result.add(0, ExerciseResponse.Data(id = -1, name = "전체"))
                     items.value = result
                 }
             }, {

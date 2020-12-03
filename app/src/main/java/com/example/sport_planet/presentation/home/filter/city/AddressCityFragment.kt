@@ -5,11 +5,9 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
-import com.example.sport_planet.data.model.AddressCityModel
 import com.example.sport_planet.databinding.FragmentAddressCityBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.home.adapter.FilterCityGridViewAdapter
-import com.example.sport_planet.presentation.home.adapter.FilterExerciseGridViewAdapter
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo

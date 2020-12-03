@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="items"
+            type="com.example.sport_planet.data.model.mypage.MyViewHistoryModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_history_ing_margin_16dp"
+            android:layout_marginTop="@dimen/item_history_ing_margin_14dp"
+            android:src="@drawable/ic_profile_46dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_host_guest"
+            style="@style/bold_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_history_ing_margin_12dp"
+            android:text="@{items.isHost ? @string/item_history_ing_host : @string/item_history_ing_guest}"
+            android:textColor="@{items.isHost ? @color/pink : @color/skyblue}"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_profile"
+            tools:text="Host" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            style="@style/bold_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_history_ing_margin_8dp"
+            android:text="@{items.userName}"
+            app:layout_constraintStart_toEndOf="@id/tv_host_guest"
+            app:layout_constraintTop_toTopOf="@id/iv_profile"
+            tools:text="짹짹" />
+
+        <TextView
+            android:id="@+id/tv_d_day"
+            style="@style/medium_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_history_ing_margin_12dp"
+            android:text="@{items.boardInfo.time}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            tools:text="[D-Day]" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/regular_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_history_ing_margin_8dp"
+            android:text="@{items.boardInfo.title}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintStart_toEndOf="@id/tv_d_day"
+            tools:text="급하게 농구 용병 3명 구합니다!" />
+
+        <LinearLayout
+            android:id="@+id/ll_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_history_ing_margin_18dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/tv_d_day"
+            app:layout_constraintTop_toBottomOf="@id/tv_d_day">
+
+            <TextView
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/item_history_ing_margin_10dp"
+                android:background="@drawable/shape_round_corner_darkblue"
+                android:paddingHorizontal="@dimen/item_history_ing_padding_10dp"
+                android:paddingVertical="@dimen/item_history_ing_padding_3dp"
+                android:text="@{items.boardInfo.groupStatus}"
+                android:textColor="@color/white"
+                tools:text="진행중" />
+
+            <TextView
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/item_history_ing_margin_10dp"
+                android:background="@drawable/shape_round_corner_darkblue_opacity"
+                android:paddingHorizontal="@dimen/item_history_ing_padding_10dp"
+                android:paddingVertical="@dimen/item_history_ing_padding_3dp"
+                android:text="@{items.boardInfo.exercise}"
+                android:textColor="@color/dark_gray"
+                tools:text="농구" />
+
+            <TextView
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/item_history_ing_margin_10dp"
+                android:background="@drawable/shape_round_corner_darkblue_opacity"
+                android:paddingHorizontal="@dimen/item_history_ing_padding_10dp"
+                android:paddingVertical="@dimen/item_history_ing_padding_3dp"
+                android:text="@{items.boardInfo.city}"
+                android:textColor="@color/dark_gray"
+                tools:text="은평구" />
+
+            <TextView
+                android:id="@+id/tv_recruit_number"
+                style="@style/medium_basic_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_round_corner_darkblue_opacity"
+                android:paddingHorizontal="@dimen/item_history_ing_padding_10dp"
+                android:paddingVertical="@dimen/item_history_ing_padding_3dp"
+                android:text="@string/item_history_ing_recruit_number"
+                android:textColor="@color/dark_gray"
+                tools:text="2/3명" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_expand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_history_ing_margin_20dp"
+            android:layout_marginBottom="@dimen/item_history_ing_margin_12dp"
+            android:background="@color/white_gray_2"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/tv_expand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_label" />
+
+        <TextView
+            android:id="@+id/tv_expand"
+            style="@style/medium_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/item_history_ing_margin_12dp"
+            android:text="@string/item_history_ing_expand"
+            android:visibility="@{items.host ? View.VISIBLE : View.INVISIBLE}"
+            app:drawableEndCompat="@drawable/icons_18_px_toggle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_expand"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:id="@+id/v_line_1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/item_history_ing_margin_16dp"
+            android:background="@color/white_gray"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

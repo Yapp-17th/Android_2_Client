@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="ItemChatBotMessage"
+            type="com.example.sport_planet.data.model.chatting.ChattingMessageModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_notice_message_content"
+            style="@style/medium_basic_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_message_border"
+            android:backgroundTint="@color/graye5e5e5"
+            android:paddingLeft="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+            android:paddingRight="@dimen/item_notice_message_mgs_paddingLeftRight_14dp"
+            android:paddingTop="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+            android:paddingBottom="@dimen/item_notice_message_msg_paddingTopBottom_4dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="4dp"
+            android:layout_gravity="center"
+            android:visibility="@{!ItemChatBotMessage.sameDate ? View.VISIBLE : View.GONE }"
+            android:text="@{ItemChatBotMessage.createdDate}"
+            android:textColor="@color/gray9c9c9c" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/item_talk_message_msg_paddingTop_16dp">
+
+        <TextView
+            android:id="@+id/tv_chat_bot_message_sender_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="58dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="운동플래닛 알림"
+            style="@style/regular_basic_12sp"
+            android:textColor="@color/gray9c9c9c"/>
+
+        <ImageView
+            android:id="@+id/iv_chat_bot_message_profile_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_talk_message_msg_margin_16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/app_profile_34_px" />
+
+        <TextView
+            android:id="@+id/tv_chat_bot_message_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="@dimen/item_talk_message_msg_maxwidth_260dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:text="@{ItemChatBotMessage.content}"
+            style="@style/regular_basic_14sp"
+            android:textColor="@color/black121212"
+            app:layout_constraintLeft_toRightOf="@id/iv_chat_bot_message_profile_img"
+            app:layout_constraintTop_toBottomOf="@+id/tv_chat_bot_message_sender_nickname"
+            android:background="@drawable/item_message_border"
+            android:backgroundTint="@color/white"/>
+
+        <TextView
+            android:id="@+id/tv_chat_bot_message_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@{ItemChatBotMessage.createdTime}"
+            style="@style/regular_basic_12sp"
+            android:textColor="@color/gray9c9c9c"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_chat_bot_message_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_title_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dialog_base_accept_margin_24dp"
+            tools:src="@drawable/log_in_logo" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/medium_basic_16sp_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dialog_base_accept_margin_16dp"
+            android:layout_marginBottom="@dimen/dialog_base_accept_margin_24dp"
+            android:gravity="center"
+            tools:text="닉네임 중복확인이 필요합니다." />
+
+        <TextView
+            android:id="@+id/tv_ok"
+            style="@style/medium_basic"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/dark_blue"
+            android:gravity="center"
+            android:text="@string/dialog_base_accept_ok"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</layout>

@@ -12,6 +12,7 @@
     <!-- gray -->
     <color name="gray595757">#595757</color>
     <color name="gray9c9c9c">#9c9c9c</color>
+    <color name="graye5e5e5">#e5e5e5</color>
     <color name="grayefefef">#efefef</color>
     <color name="grayf8f8f8">#f8f8f8</color>
     <color name="grayf4f4f4">#f4f4f4</color>
@@ -20,7 +21,7 @@
     <color name="black121212">#121212</color>
 
     <color name="darkblue_opacity">#d5daeb</color>
-    <color name="darkblue">#364ea0</color>
+    <color name="dark_blue">#364ea0</color>
     <color name="white">#ffffff</color>
     <color name="white_gray">#efefef</color>
     <color name="light_gray">#d4d4d4</color>

@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/filter_time_recent_upload"
-        android:textColor="@color/darkblue"
+        android:textColor="@color/dark_blue"
         android:textSize="@dimen/item_filter_time_text_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/iv_icon" />

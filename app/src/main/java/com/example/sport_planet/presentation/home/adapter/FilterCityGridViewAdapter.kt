@@ -1,19 +1,18 @@
 package com.example.sport_planet.presentation.home.adapter
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Toast
 import com.example.sport_planet.R
-import com.example.sport_planet.data.model.AddressCityModel
+import com.example.sport_planet.data.response.basic.RegionResponse
 import kotlinx.android.synthetic.main.item_filter.view.*
 
 class FilterCityGridViewAdapter : BaseAdapter() {
-    private val items: ArrayList<AddressCityModel> = ArrayList()
-    private val selectedItem: ArrayList<AddressCityModel> = ArrayList()
+    private val items: ArrayList<RegionResponse.Data> = ArrayList()
+    private val selectedItem: ArrayList<RegionResponse.Data> = ArrayList()
 
-    fun setItems(item: List<AddressCityModel>) {
+    fun setItems(item: List<RegionResponse.Data>) {
         items.clear()
         items.addAll(item)
         notifyDataSetChanged()
@@ -32,7 +31,7 @@ class FilterCityGridViewAdapter : BaseAdapter() {
         return items.size
     }
 
-    override fun getItem(position: Int): AddressCityModel {
+    override fun getItem(position: Int): RegionResponse.Data {
         return items[position]
     }
 

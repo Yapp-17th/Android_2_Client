@@ -3,10 +3,8 @@ package com.example.sport_planet.presentation.write
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sport_planet.data.model.AddressCityModel
 import com.example.sport_planet.data.model.ExerciseModel
 import com.example.sport_planet.data.model.UserTagModel
-import com.example.sport_planet.data.response.common.UserTagResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers

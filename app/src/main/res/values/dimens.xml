@@ -115,4 +115,17 @@
     <dimen name="item_history_ing_padding_3dp">3dp</dimen>
     <dimen name="item_history_ing_padding_10dp">10dp</dimen>
 
+    <!-- item_history_finish_expand.xml -->
+    <dimen name="item_history_finish_expand_margin_8dp">8dp</dimen>
+    <dimen name="item_history_finish_expand_margin_12dp">12dp</dimen>
+    <dimen name="item_history_finish_expand_margin_14dp">14dp</dimen>
+    <dimen name="item_history_finish_expand_padding_16dp">16dp</dimen>
+    <dimen name="item_history_finish_expand_padding_30dp">30dp</dimen>
+    
+    <!-- dialog_report.xml -->
+    <dimen name="dialog_report_margin_12dp">12dp</dimen>
+    <dimen name="dialog_report_margin_24dp">24dp</dimen>
+    <dimen name="dialog_report_padding_8dp">8dp</dimen>
+    <dimen name="dialog_report_padding_14dp">14dp</dimen>
+    <dimen name="dialog_report_padding_24dp">24dp</dimen>
 </resources>

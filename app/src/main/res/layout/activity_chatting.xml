@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="ChattingViewModel"
+            type="com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.example.sport_planet.presentation.custom.CustomToolbar
+            android:id="@+id/toolbar_activity_chatting"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_app_bar_size"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_chatting_layout_height_56dp"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/activity_chatting_layout_paddingLeftRight_16dp"
+            android:paddingRight="@dimen/activity_chatting_layout_paddingLeftRight_16dp"
+            android:background="@drawable/custom_toolbar_border">
+
+            <TextView
+                android:id="@+id/tv_activity_chatting_board_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/regular_basic_14sp"
+                android:textColor="@color/black121212"
+                android:singleLine="true"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/bt_activity_chatting_visit_original_board"
+                android:layout_width="@dimen/activity_chatting_btn_width_76dp"
+                android:layout_height="@dimen/activity_chatting_btn_height_32dp"
+                style="@style/medium_basic_14sp"
+                android:text="@string/activity_chatting_origin_board"
+                android:textColor="@color/blue364ea0"
+                android:background="@drawable/activity_chatting_btn_border"
+                android:backgroundTint="@color/white"
+                android:layout_gravity="center" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="0dp"
+                />
+
+            <com.example.sport_planet.presentation.custom.CustomApprovalStatusButton
+                android:id="@+id/bt_activity_chatting_approval_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_activity_chatting_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grayf4f4f4"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp" />
+
+            <View
+                android:id="@+id/view_activity_chatting_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grayf4f4f4" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_activity_chatting_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+
+            <EditText
+                android:id="@+id/et_activity_chatting_message_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:background="@drawable/activity_chatting_edit_text_border"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/activity_chatting_edit_text_marginLeft_16dp"
+                android:layout_marginRight="@dimen/activity_chatting_edit_text_marginRight_11dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="@dimen/activity_chatting_edit_text_PaddingLeft_12dp"
+                android:paddingRight="@dimen/activity_chatting_edit_text_PaddingLeft_12dp"/>
+
+            <ImageButton
+                android:id="@+id/bt_activity_chatting_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/activity_chatting_send_btn"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/activity_chatting_send_btn_marginRight_13dp" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

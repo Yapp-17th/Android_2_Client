@@ -6,11 +6,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
 import com.example.sport_planet.R
-import com.example.sport_planet.data.enums.WriteFilterEnum
-import com.example.sport_planet.data.model.AddressCityModel
 import com.example.sport_planet.data.model.ExerciseModel
 import com.example.sport_planet.data.model.UserTagModel
-import com.example.sport_planet.databinding.ItemWriteFilterBinding
 import com.example.sport_planet.databinding.ItemWriteSelectBinding
 
 class SelectGridViewAdapter<T> : BaseAdapter() {

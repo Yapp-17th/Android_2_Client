@@ -1,20 +1,18 @@
 package com.example.sport_planet.presentation.home.adapter
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Toast
 import com.example.sport_planet.R
-import com.example.sport_planet.data.model.AddressCityModel
-import com.example.sport_planet.data.model.ExerciseModel
+import com.example.sport_planet.data.response.basic.ExerciseResponse
 import kotlinx.android.synthetic.main.item_filter.view.*
 
 class FilterExerciseGridViewAdapter : BaseAdapter() {
-    private val items: ArrayList<ExerciseModel> = ArrayList()
-    private val selectedItem: ArrayList<ExerciseModel> = ArrayList()
+    private val items: ArrayList<ExerciseResponse.Data> = ArrayList()
+    private val selectedItem: ArrayList<ExerciseResponse.Data> = ArrayList()
 
-    fun setItems(item: List<ExerciseModel>) {
+    fun setItems(item: List<ExerciseResponse.Data>) {
         items.clear()
         items.addAll(item)
         notifyDataSetChanged()
@@ -33,7 +31,7 @@ class FilterExerciseGridViewAdapter : BaseAdapter() {
         return items.size
     }
 
-    override fun getItem(position: Int): ExerciseModel {
+    override fun getItem(position: Int): ExerciseResponse.Data {
         return items[position]
     }
 
