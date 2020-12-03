@@ -4,7 +4,6 @@ package com.example.sport_planet.remote
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.response.*
-
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.response.chatting.CommonServerResponse
 import com.example.sport_planet.data.response.basic.ExerciseResponse
