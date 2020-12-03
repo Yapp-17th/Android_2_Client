@@ -11,10 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.TimeFilterEnum
-import com.example.sport_planet.data.model.BoardModel
 import com.example.sport_planet.databinding.FragmentHomeBinding
 import com.example.sport_planet.presentation.base.BaseFragment
-import com.example.sport_planet.presentation.home.adapter.BookMarkClickListener
+import com.example.sport_planet.presentation.board.BoardActivity
 import com.example.sport_planet.presentation.home.adapter.HomeRecyclerAdapter
 import com.example.sport_planet.presentation.home.filter.FilterActivity
 import com.example.sport_planet.presentation.home.filter.FilterActivity.Companion.INTENT_CITY
@@ -35,17 +34,16 @@ class HomeFragment private constructor() :
                 ).get(HomeViewModel::class.java)
             }
 
-    private val adapter =
-        HomeRecyclerAdapter(
-            View.OnClickListener { },
-            object : BookMarkClickListener {
-                override fun onClick(item: BoardModel) {
-                    viewModel.bookmarkChange(item)
-                }
-            })
+    private lateinit var adapter: HomeRecyclerAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        adapter = HomeRecyclerAdapter(
+            { BoardActivity.createInstance(activity!!, it) },
+            { viewModel.bookmarkChange(it) }
+        )
 
         binding.vm = viewModel
 

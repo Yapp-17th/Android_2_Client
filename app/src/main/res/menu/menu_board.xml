@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/board_report"
+        android:title="신고하기"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/board_hide"
+        android:title="해당 글 숨기기"
+        app:showAsAction="always" />
+
+</menu>

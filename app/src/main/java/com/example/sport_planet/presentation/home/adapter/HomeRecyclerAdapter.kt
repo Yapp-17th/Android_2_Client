@@ -1,7 +1,6 @@
 package com.example.sport_planet.presentation.home.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,8 +9,8 @@ import com.example.sport_planet.data.model.BoardModel
 import com.example.sport_planet.databinding.ItemBoardBinding
 
 class HomeRecyclerAdapter(
-    private val itemClickListener: View.OnClickListener,
-    private val bookMarkClickListener: BookMarkClickListener
+    private val itemClick: (Long) -> Unit,
+    private val bookMarkClick: (BoardModel) -> Unit
 ) : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
     private val items: ArrayList<BoardModel> = arrayListOf()
 
@@ -45,7 +44,7 @@ class HomeRecyclerAdapter(
         binding.root
     ) {
         fun onBind(item: BoardModel) {
-            binding.root.setOnClickListener(itemClickListener)
+            binding.root.setOnClickListener { itemClick(item.boardId) }
             if (item.groupStatus.code == 0) {
                 binding.background.setBackgroundColor(itemView.context.getColor(R.color.white))
             } else {
@@ -54,7 +53,7 @@ class HomeRecyclerAdapter(
             binding.tvTitle.text = item.title
             binding.ivBookmark.setImageResource(if (item.isBookMark) R.drawable.ic_star_enabled else R.drawable.ic_star_disabled)
             binding.ivBookmark.setOnClickListener {
-                bookMarkClickListener.onClick(item)
+                bookMarkClick(item)
             }
             binding.tvDayCount.text = item.boardTime
             binding.tvNickname.text = item.hostName
@@ -66,8 +65,4 @@ class HomeRecyclerAdapter(
                     .format(item.recruitedNumber, item.recruitNumber)
         }
     }
-}
-
-interface BookMarkClickListener {
-    fun onClick(item: BoardModel)
 }
