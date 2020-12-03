@@ -3,8 +3,9 @@ package com.example.sport_planet.presentation.write
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sport_planet.data.model.ExerciseModel
 import com.example.sport_planet.data.model.UserTagModel
+import com.example.sport_planet.data.response.basic.ExerciseResponse
+import com.example.sport_planet.data.response.basic.RegionResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,8 +13,8 @@ import io.reactivex.rxkotlin.addTo
 import java.util.*
 
 class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
-    val exercise: MutableLiveData<ExerciseModel> = MutableLiveData()
-    val address: MutableLiveData<AddressCityModel> = MutableLiveData()
+    val exercise: MutableLiveData<ExerciseResponse.Data> = MutableLiveData()
+    val address: MutableLiveData<RegionResponse.Data> = MutableLiveData()
     val userTag: MutableLiveData<UserTagModel> = MutableLiveData()
     val date: MutableLiveData<String> = MutableLiveData()
     val time: MutableLiveData<String> = MutableLiveData()

@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.SeparatorEnum
-import com.example.sport_planet.data.model.ExerciseModel
 import com.example.sport_planet.databinding.FragmentWriteBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.write.adapter.WriteGridViewAdapter
