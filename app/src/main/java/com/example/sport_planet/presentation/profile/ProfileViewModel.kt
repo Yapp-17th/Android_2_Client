@@ -25,9 +25,6 @@ class ProfileViewModel : BaseViewModel() {
     private val _userExerciseIdList = MutableLiveData<List<Long>>()
     private val userExerciseIdList: LiveData<List<Long>> get() = _userExerciseIdList
 
-    private val _userRegion = MutableLiveData<String>()
-    val userRegion: LiveData<String> get() = _userRegion
-
     private val _userRegionId = MutableLiveData<Long>()
     private val userRegionId: LiveData<Long> get() = _userRegionId
 
@@ -47,6 +44,7 @@ class ProfileViewModel : BaseViewModel() {
     val userName = MutableLiveData<String>()
     val userEmail = MutableLiveData<String>()
     val userNickname = MutableLiveData<String>()
+    val userRegion = MutableLiveData<String>()
 
     fun setUserToken(userToken: String) {
         _userToken.value = userToken
@@ -62,7 +60,7 @@ class ProfileViewModel : BaseViewModel() {
     }
 
     fun setUserRegion(userRegion: String, userRegionId: Long) {
-        _userRegion.value = userRegion
+        this.userRegion.value = userRegion
         _userRegionId.value = userRegionId
     }
 
@@ -89,7 +87,26 @@ class ProfileViewModel : BaseViewModel() {
                 }, {})
         )
     }
-
+    fun getMyProfileEdit(){
+        compositeDisposable.add(RemoteDataSourceImpl().getMyProfileEdit()
+            .applySchedulers()
+            .subscribe({
+                if(it.success){
+                    userName.value = it.data.userName
+                    userNickname.value = it.data.nickName
+                    userEmail.value = it.data.email
+                    userIntroduceMyself.value = it.data.intro
+                    _userExerciseList.value = it.data.category.map { category ->
+                        category.name
+                    }
+                    _userExerciseIdList.value = it.data.category.map { category ->
+                        category.id
+                    }
+                    userRegion.value = it.data.city.name
+                    _userRegionId.value  = it.data.city.id
+                }
+            },{}))
+    }
     fun postSignUp() {
         val signUpResponse = SignUpResponse(
             userId = userId.value.toString(),
