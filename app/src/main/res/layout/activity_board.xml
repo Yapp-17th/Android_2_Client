@@ -218,7 +218,7 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginBottom="16dp"
-            android:background="@color/darkblue"
+            android:background="@color/dark_blue"
             android:text="채팅으로 신청하기"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"

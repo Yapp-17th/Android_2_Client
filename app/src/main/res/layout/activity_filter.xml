@@ -23,13 +23,13 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_filter_header"
-            app:tabTextAppearance="@style/bold_basic_16sp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_filter_tab_height"
             android:background="@color/white"
             app:layout_constraintBottom_toTopOf="@id/vp_filter_body"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:tabSelectedTextColor="@color/darkblue"
+            app:tabSelectedTextColor="@color/dark_blue"
+            app:tabTextAppearance="@style/bold_basic_16sp"
             app:tabTextColor="@color/light_gray" />
 
         <androidx.viewpager2.widget.ViewPager2
@@ -43,22 +43,22 @@
             app:layout_constraintTop_toBottomOf="@id/tl_filter_header" />
 
         <Button
-            android:background="@color/darkblue"
             android:id="@+id/btn_ok"
             style="@style/medium_basic"
             android:layout_width="0dp"
             android:layout_height="@dimen/activity_filter_tab_height"
+            android:background="@color/dark_blue"
             android:text="@string/activity_filter_ok"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_reset" />
 
         <Button
-            android:background="@color/white_gray"
             android:id="@+id/btn_reset"
             style="@style/medium_basic"
             android:layout_width="0dp"
             android:layout_height="@dimen/activity_filter_tab_height"
+            android:background="@color/white_gray"
             android:text="@string/activity_filter_reset"
             android:textColor="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
