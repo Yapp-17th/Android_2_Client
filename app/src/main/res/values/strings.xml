@@ -102,7 +102,9 @@
     <string name="countNumber">%d명</string>
     <string name="activity_write_body_hint">활동에 관한 게시글 내용을 작성해주세요!\n( 활동과 관련없는 악의성, 선정적 내용은 사전 고지없이 삭제될 수 있습니다. )</string>
 
-    <string name="write_date_format">yyyy년 MM월 dd일 HH시 mm분</string>
+    <string name="write_date_format">yyyy년 MM월 dd일</string>
+    <string name="write_time_format">HH시 mm분</string>
+    <string name="write_place_hint">ex ) OO역 3번 출구, OO체육관 2층</string>
 
     <!-- fragment_mypage.xml -->
     <string name="fragment_my_page_title">마이페이지</string>

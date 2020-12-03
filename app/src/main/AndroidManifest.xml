@@ -13,8 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.example.sport_planet.presentation.home.filter.FilterActivity"></activity>
-        <activity android:name=".presentation.main.MainActivity">
+        <activity android:name=".presentation.board.BoardActivity"></activity>
+        <activity android:name=".presentation.home.filter.FilterActivity" />
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

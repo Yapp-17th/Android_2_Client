@@ -7,10 +7,13 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.SeparatorEnum
+import com.example.sport_planet.data.model.ExerciseModel
 import com.example.sport_planet.databinding.FragmentWriteBinding
 import com.example.sport_planet.presentation.base.BaseFragment
+import com.example.sport_planet.presentation.write.adapter.WriteGridViewAdapter
 import com.example.sport_planet.presentation.write.date.DateDialogFragment
 import com.example.sport_planet.presentation.write.date.DateListener
+import com.example.sport_planet.presentation.write.select.SelectFragment
 import com.example.sport_planet.presentation.write.time.TimeDialogFragment
 import com.example.sport_planet.presentation.write.time.TimeListener
 import java.text.SimpleDateFormat
@@ -35,8 +38,16 @@ class WriteFragment private constructor() :
         }
     }
 
+//    private val exerciseSelectFragment: SelectFragment<ExerciseModel> by lazy {
+//        SelectFragment.newInstance()
+//    }
+
+    private val gridAdapter = WriteGridViewAdapter()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.gvFilter.adapter = gridAdapter
+
         binding.toolbar.run {
             setSeparator(SeparatorEnum.NONE)
         }
@@ -62,10 +73,9 @@ class WriteFragment private constructor() :
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
-
             }
 
-        binding.tvDate.text = SimpleDateFormat(getString(R.string.write_date_format)).format(System.currentTimeMillis())
+        binding.tvDate.hint = SimpleDateFormat(getString(R.string.write_date_format)).format(System.currentTimeMillis()) + " " + SimpleDateFormat(getString(R.string.write_time_format)).format(System.currentTimeMillis())
 
         binding.tvDate.setOnClickListener {
             dateDialog.show(childFragmentManager.beginTransaction(), DATE_DIALOG)
@@ -74,7 +84,7 @@ class WriteFragment private constructor() :
 
     private val dateListener: DateListener = object : DateListener {
         override fun confirm(date: Date) {
-//            viewModel.date = date
+            binding.tvDate.text = SimpleDateFormat(getString(R.string.write_date_format)).format(date)
             timeDialog.show(childFragmentManager.beginTransaction(), TIME_DIALOG)
             dateDialog.dismiss()
         }
@@ -87,6 +97,7 @@ class WriteFragment private constructor() :
     private val timeListener: TimeListener = object : TimeListener {
         override fun confirm(time: String) {
 //            viewModel.time = time
+            binding.tvDate.text = binding.tvDate.text.toString() + " " + time
             timeDialog.dismiss()
             // api call
         }

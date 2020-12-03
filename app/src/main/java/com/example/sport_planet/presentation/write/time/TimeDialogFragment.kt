@@ -32,7 +32,7 @@ class TimeDialogFragment private constructor() :
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.btnConfirm -> timeListener?.confirm("")
+            binding.btnConfirm -> timeListener?.confirm(binding.time.hour.toString()+"시 "+binding.time.minute.toString()+"분" )
             binding.btnCancel -> timeListener?.cancel()
         }
         this.dismiss()

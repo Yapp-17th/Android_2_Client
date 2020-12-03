@@ -27,7 +27,7 @@ class DateDialogFragment private constructor() :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.calendar.minDate = System.currentTimeMillis()
+        binding.calendar.minDate = System.currentTimeMillis() + ((1000 * 60 * 60) * 4)
         binding.btnConfirm.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
     }

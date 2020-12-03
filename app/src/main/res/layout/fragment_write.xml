@@ -16,57 +16,56 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_app_bar_size"
-            app:isBackButton="false"
+            app:isBackButton="true"
             app:layout_constraintTop_toTopOf="parent"
             app:title="" />
-
-        <View
-            android:id="@+id/view_divider_1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white_gray"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <EditText
             android:id="@+id/edt_title"
             style="@style/medium_basic_16sp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@null"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@null"
             android:hint="글 제목 (20자 이내)"
             android:textColor="@color/black121212"
-            app:layout_constraintEnd_toEndOf="@id/view_divider_1"
-            app:layout_constraintStart_toStartOf="@id/view_divider_1"
+            app:layout_constraintEnd_toEndOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <View
+            android:id="@+id/view_divider_1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/white_gray"
+            app:layout_constraintEnd_toEndOf="@id/edt_title"
+            app:layout_constraintStart_toStartOf="@id/edt_title"
+            app:layout_constraintTop_toBottomOf="@id/edt_title" />
+
+        <GridView
+            android:id="@+id/gv_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center_vertical"
+            android:horizontalSpacing="16dp"
+            android:numColumns="3"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/view_divider_2"
+            app:layout_constraintEnd_toEndOf="@id/edt_title"
+            app:layout_constraintStart_toStartOf="@id/edt_title"
             app:layout_constraintTop_toBottomOf="@id/view_divider_1" />
 
         <View
             android:id="@+id/view_divider_2"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:layout_marginTop="14dp"
             android:background="@color/white_gray"
-            app:layout_constraintStart_toStartOf="@id/edt_title"
-            app:layout_constraintEnd_toEndOf="@id/edt_title"
-            app:layout_constraintTop_toBottomOf="@id/edt_title" />
-
-        <LinearLayout
-            android:id="@+id/linear_empty"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@id/edt_title"
             app:layout_constraintStart_toStartOf="@id/edt_title"
-            app:layout_constraintTop_toBottomOf="@id/view_divider_2" />
-
-        <View
-            android:id="@+id/view_divider_3"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/white_gray"
-            app:layout_constraintStart_toStartOf="@id/edt_title"
-            app:layout_constraintEnd_toEndOf="@id/edt_title"
-            app:layout_constraintTop_toBottomOf="@id/linear_empty" />
+            app:layout_constraintTop_toBottomOf="@id/gv_filter" />
 
         <TextView
             android:id="@+id/tv_container_count"
@@ -76,8 +75,8 @@
             android:gravity="center"
             android:text="모집인원"
             android:textColor="@color/black121212"
-            app:layout_constraintStart_toStartOf="@id/linear_empty"
-            app:layout_constraintTop_toBottomOf="@id/view_divider_3" />
+            app:layout_constraintStart_toStartOf="@id/gv_filter"
+            app:layout_constraintTop_toBottomOf="@id/view_divider_2" />
 
         <Spinner
             android:id="@+id/spinner_count"
@@ -113,6 +112,8 @@
             android:background="@drawable/item_write_border_1dp"
             android:gravity="center_vertical"
             android:paddingStart="14dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/darkblue_opacity"
             app:layout_constraintBottom_toBottomOf="@id/tv_container_date"
             app:layout_constraintEnd_toEndOf="@id/edt_title"
             app:layout_constraintStart_toStartOf="@id/spinner_count"
@@ -135,7 +136,10 @@
             android:layout_height="36dp"
             android:background="@drawable/item_write_border_1dp"
             android:gravity="center_vertical"
+            android:hint="@string/write_place_hint"
             android:paddingStart="14dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/darkblue_opacity"
             app:layout_constraintBottom_toBottomOf="@id/tv_container_place"
             app:layout_constraintEnd_toEndOf="@id/edt_title"
             app:layout_constraintStart_toStartOf="@id/spinner_count"
@@ -146,11 +150,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="5dp"
             android:background="@null"
             android:gravity="left|top"
             android:hint="@string/activity_write_body_hint"
             app:layout_constraintBottom_toTopOf="@id/btn_posting"
-            android:layout_marginBottom="5dp"
             app:layout_constraintEnd_toEndOf="@id/edt_title"
             app:layout_constraintStart_toStartOf="@id/edt_title"
             app:layout_constraintTop_toBottomOf="@id/tv_container_place" />
@@ -164,10 +168,10 @@
             android:background="@drawable/button_selector"
             android:enabled="false"
             android:text="게시글 올리기"
-            app:layout_constraintTop_toBottomOf="@id/edt_body"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/edt_title"
-            app:layout_constraintStart_toStartOf="@id/edt_title" />
+            app:layout_constraintEnd_toEndOf="@id/edt_body"
+            app:layout_constraintStart_toStartOf="@id/edt_body"
+            app:layout_constraintTop_toBottomOf="@id/edt_body" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

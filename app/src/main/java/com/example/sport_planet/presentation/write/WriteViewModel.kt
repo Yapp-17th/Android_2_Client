@@ -1,7 +1,12 @@
 package com.example.sport_planet.presentation.write
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.sport_planet.data.model.AddressCityModel
+import com.example.sport_planet.data.model.ExerciseModel
+import com.example.sport_planet.data.model.UserTagModel
+import com.example.sport_planet.data.response.common.UserTagResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -9,6 +14,12 @@ import io.reactivex.rxkotlin.addTo
 import java.util.*
 
 class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
+    val exercise: MutableLiveData<ExerciseModel> = MutableLiveData()
+    val address: MutableLiveData<AddressCityModel> = MutableLiveData()
+    val userTag: MutableLiveData<UserTagModel> = MutableLiveData()
+    val date: MutableLiveData<String> = MutableLiveData()
+    val time: MutableLiveData<String> = MutableLiveData()
+    val place: MutableLiveData<String> = MutableLiveData()
 
     fun postBoard(
         title: String,
@@ -27,45 +38,6 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
             .subscribe({
 
             }, {
-                it.printStackTrace()
-            })
-            .addTo(compositeDisposable)
-    }
-
-    fun getBoardContent(boardId: Long) {
-        remote.getBoardContent(boardId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { isLoading.onNext(true) }
-            .doAfterTerminate { isLoading.onNext(false) }
-            .subscribe({}, { it.printStackTrace() })
-            .addTo(compositeDisposable)
-    }
-
-    fun editBoard(
-        boardId: Long,
-        title: String,
-        content: String,
-        category: Long,
-        city: Long,
-        userTag: Long,
-        recruitNumber: Int,
-        date: Date,
-        place: String
-    ) {
-        remote.editBoard(
-            boardId,
-            title,
-            content,
-            category,
-            city,
-            userTag,
-            recruitNumber,
-            date,
-            place
-        ).observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { isLoading.onNext(true) }
-            .doAfterTerminate { isLoading.onNext(false) }
-            .subscribe({}, {
                 it.printStackTrace()
             })
             .addTo(compositeDisposable)

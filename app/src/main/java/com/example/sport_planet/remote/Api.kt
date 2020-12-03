@@ -10,6 +10,7 @@ import com.example.sport_planet.data.response.common.CommonResponse
 import com.example.sport_planet.data.enums.TimeFilterEnum
 import com.example.sport_planet.data.response.common.AddressCityResponse
 import com.example.sport_planet.data.response.common.ExerciseResponse
+import com.example.sport_planet.data.response.common.UserTagResponse
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -20,6 +21,10 @@ interface Api {
 
     @GET("/api/base-service/v1/exercise")
     fun getExercise(): Single<ExerciseResponse>
+
+    @GET("/api/base-service//v1/user/tag")
+    fun getUserTag(): Single<UserTagResponse>
+
     //common
 
 

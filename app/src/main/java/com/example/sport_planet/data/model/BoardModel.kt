@@ -11,5 +11,6 @@ data class BoardModel(
     val isBookMark: Boolean,
     val boardTime: String,
     val recruitNumber: Int,
-    val recruitedNumber: Int
+    val recruitedNumber: Int,
+    val startsAt: String
 )
