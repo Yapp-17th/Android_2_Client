@@ -8,7 +8,10 @@ import com.example.sport_planet.R
 import com.example.sport_planet.data.model.mypage.MyBookMarksModel
 import com.example.sport_planet.databinding.ItemScrapBinding
 
-class ScrapAdapter(private val onClickDeleteAction: (Long,Boolean) -> Unit, private val onClickGoBoardAction :(Long) -> Unit) :
+class ScrapAdapter(
+    private val onClickDeleteAction: (Long, Boolean) -> Unit,
+    private val onClickGoBoardAction: (Long) -> Unit
+) :
     RecyclerView.Adapter<ScrapAdapter.ScrapViewHolder>() {
 
     val scrapItemList = mutableListOf<MyBookMarksModel>()
@@ -18,6 +21,7 @@ class ScrapAdapter(private val onClickDeleteAction: (Long,Boolean) -> Unit, priv
         scrapItemList.addAll(item)
         notifyDataSetChanged()
     }
+
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
@@ -40,17 +44,18 @@ class ScrapAdapter(private val onClickDeleteAction: (Long,Boolean) -> Unit, priv
     inner class ScrapViewHolder(private val binding: ItemScrapBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
-            val boardId =scrapItemList[adapterPosition].boardId
             binding.ivBookmark.setOnClickListener {
-                if(scrapItemList.size == 1)
-                    onClickDeleteAction(boardId,false)
+                val boardId = scrapItemList[adapterPosition].boardId
+                if (scrapItemList.size == 1)
+                    onClickDeleteAction(boardId, false)
                 else
-                    onClickDeleteAction(boardId,true)
+                    onClickDeleteAction(boardId, true)
 
                 scrapItemList.removeAt(adapterPosition)
                 notifyItemChanged(adapterPosition)
             }
-            binding.root.setOnClickListener { 
+            binding.root.setOnClickListener {
+                val boardId = scrapItemList[adapterPosition].boardId
                 onClickGoBoardAction(boardId)
             }
         }
@@ -63,7 +68,24 @@ class ScrapAdapter(private val onClickDeleteAction: (Long,Boolean) -> Unit, priv
                     item.recruitedNumber,
                     item.recruitNumber
                 )
+                when (item.groupStatus) {
+                    "활동 종료", "모집 종료" -> {
+                        setFinishedColorChange()
+                    }
+
+                }
             }
+        }
+
+        private fun ItemScrapBinding.setFinishedColorChange() {
+            clItem.setBackgroundColor(binding.root.resources.getColor(R.color.white_gray, null))
+            tvHostGuest.setTextColor(binding.root.resources.getColor(R.color.gray, null))
+            tvDDay.setTextColor(binding.root.resources.getColor(R.color.gray, null))
+            tvTitle.setTextColor(binding.root.resources.getColor(R.color.gray, null))
+            tvGroupStatus.setBackgroundResource(R.drawable.shape_round_corner_gray)
+            tvExercise.setBackgroundResource(R.drawable.shape_round_corner_light_gray)
+            tvCity.setBackgroundResource(R.drawable.shape_round_corner_light_gray)
+            tvRecruitNumber.setBackgroundResource(R.drawable.shape_round_corner_light_gray)
         }
     }
 }
