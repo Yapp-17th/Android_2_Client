@@ -35,11 +35,10 @@ class ChattingRoomAdapter(
     }
 
     fun updateChattingRoomList(chattingRoomId: Long, lastMessage: ChattingMessageResponse){
-        chattingRoomsHashMap[chattingRoomId]!!.apply {
-            this.lastMessage = lastMessage
-            this.unreadMessages += 1
+        chattingRoomsHashMap[chattingRoomId]!!.let {
+            it.lastMessage = lastMessage
+            it.unreadMessages += 1
         }
-        chattingRooms = ArrayList(chattingRoomsHashMap.values)
         chattingRooms.sortByDescending { chattingRoom -> chattingRoom.lastMessage.createdAt }
         notifyDataSetChanged()
     }

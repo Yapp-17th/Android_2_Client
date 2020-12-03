@@ -3,7 +3,6 @@ package com.example.sport_planet.presentation.chatting.viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.data.response.chatting.ChattingRoomListResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
@@ -42,26 +41,6 @@ class ChattingFragmentViewModel : BaseViewModel(){
     private lateinit var topic: Disposable
     private var closeSocket = false
 
-    fun makeChattingRoom(){
-        val chattingRoomJsonObject = JsonObject()
-        chattingRoomJsonObject.put("hostId",  1)
-        chattingRoomJsonObject.put("boardId", 1)
-        compositeDisposable.add(
-            remoteDataSourceImpl.makeChattingRoom(chattingRoomJsonObject)
-                .applySchedulers()
-                .subscribe(
-                    {
-                        when(it.status){
-                            201 -> Log.d(TAG, "성공 " + it.toString())
-                            200 -> Log.d(TAG, "실패 " + it.toString())
-                        }
-                    },{
-
-                    }
-                )
-        )
-    }
-
     fun settingChattingRoomList(){
         compositeDisposable.add(
             remoteDataSourceImpl.getChattingRoomList()
@@ -79,8 +58,7 @@ class ChattingFragmentViewModel : BaseViewModel(){
             remoteDataSourceImpl.leaveChattingRoom(chatRoomId)
                 .applySchedulers()
                 .subscribe(
-                    {
-                    },{}
+                    {},{}
                 )
         )
     }

@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkHelper {
     private const val token =
-        //"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIyIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjJAZ21haWwuY29tIiwidXNlcklkIjoiMiJ9.iMoSPe9k5Uj6w8qa4eaOIQqjIzI5Scuts3tBbQ4p79g"
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIxIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjFAZ21haWwuY29tIiwidXNlcklkIjoiMSJ9.Bmbhc-I1r-L-dW5vUzvB9jRsPPKtcqYXutAyWKqkPrc"
+        //"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJoYWVtaW4iLCJpYXQiOjE2MDY5NjMyNjAsImV4cCI6MTYzODQ5OTI2MiwiYXVkIjoiIiwic3ViIjoiaGFlbWluQGV4YW1wbGUuY29tIiwidXNlcklkIjoiMyJ9.3idHYLa5gygsPMJhsiAj9uqiaLt2i6rDx4_POEy86yY"
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzb3llb24iLCJpYXQiOjE2MDY5NjMxNDgsImV4cCI6MTYzODQ5OTE1MCwiYXVkIjoiIiwic3ViIjoic295ZW9uQGV4YW1wbGUuY29tIiwidXNlcklkIjoiMSJ9.zef85bZet10T8GTIfFgC8pNalFlf3I0Ae48aDXnPatw"
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.NONE
@@ -23,7 +23,7 @@ object NetworkHelper {
         }.build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://52.78.52.254/api/")
+        .baseUrl("http://101.101.219.23/api/")
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
         .addConverterFactory(GsonConverterFactory.create())
