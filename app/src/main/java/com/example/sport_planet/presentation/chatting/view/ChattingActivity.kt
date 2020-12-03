@@ -70,9 +70,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 else
                     this.setSeparator(SeparatorEnum.Guest)
                 this.setTitle(chatRoomInfo.opponentNickname)
-                this.back.setOnClickListener {
-                    finish()
-                }
+                this.setBackButtonClick(View.OnClickListener { finish() })
             }
         }
 
