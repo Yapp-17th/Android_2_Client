@@ -60,7 +60,6 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 .get(ChattingActivityViewModel::class.java)
 
         chattingAdapter = ChattingAdapter(this)
-        chattingAdapter.setHasStableIds(true)
 
         chattingActivityViewModel.initSocket(chatRoomInfo.chatRoomId)
 

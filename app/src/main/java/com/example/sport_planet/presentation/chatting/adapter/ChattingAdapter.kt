@@ -57,9 +57,7 @@ class ChattingAdapter(val context: Context) : RecyclerView.Adapter<ChattingAdapt
                     (binding as ItemChatBotNoticeMessageBinding).itemChatBotNoticeMessage = chattingMessage
                     binding.btChatBotNoticeMessageContentDetail.setOnClickListener {
                         val dialog = CustomNoticeDialog.CustomNoticeDialogBuilder()
-                            .setOnOkClickedListener {
-
-                            }
+                            .setOnOkClickedListener {}
                             .create()
                         dialog.show((context as AppCompatActivity).supportFragmentManager, dialog.tag)
                     }
@@ -127,8 +125,6 @@ class ChattingAdapter(val context: Context) : RecyclerView.Adapter<ChattingAdapt
             }
             else -> throw IllegalArgumentException("적절하지 않은 MessageViewType")
         }
-
-        return super.getItemViewType(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, messageViewType: Int): Holder {
@@ -151,10 +147,6 @@ class ChattingAdapter(val context: Context) : RecyclerView.Adapter<ChattingAdapt
         }
 
         return Holder(messageViewBinding)
-    }
-
-    override fun getItemId(position: Int): Long {
-        return chattingMessages[position].messageId!!
     }
 
     override fun getItemCount(): Int {
