@@ -1,6 +1,5 @@
 package com.example.sport_planet.data.request
 
-
 data class MyViewEditRequest(
     val address: Long,
     val category: List<Long>,

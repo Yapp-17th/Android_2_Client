@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.data.model.mypage.ApplyListModel
 import com.example.sport_planet.databinding.ItemHistoryIngExpandBinding
-import com.example.sport_planet.generated.callback.OnClickListener
 
 class IngTabExpandAdapter(private val onClickListener: (ApplyListModel) -> Unit) : RecyclerView.Adapter<IngTabExpandAdapter.IngTabExpandViewHolder>() {
 

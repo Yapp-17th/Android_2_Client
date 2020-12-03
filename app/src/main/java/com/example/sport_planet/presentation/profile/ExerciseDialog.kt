@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.sport_planet.R
-import com.example.sport_planet.databinding.DialogExerciseBinding
 import com.example.sport_planet.data.response.basic.ExerciseResponse
+import com.example.sport_planet.databinding.DialogExerciseBinding
 import com.example.sport_planet.presentation.base.BaseDialogFragment
 
 class ExerciseDialog : BaseDialogFragment<DialogExerciseBinding>(R.layout.dialog_exercise) {
@@ -16,7 +16,7 @@ class ExerciseDialog : BaseDialogFragment<DialogExerciseBinding>(R.layout.dialog
     private val selectIdItems = mutableListOf<Long>()
 
     interface SelectDialogListener {
-        fun onAccept(item: List<String>,idItem: List<Long>)
+        fun onAccept(item: List<String>, idItem: List<Long>)
     }
 
     fun setSelectDialogListener(listener: SelectDialogListener) {
@@ -31,13 +31,13 @@ class ExerciseDialog : BaseDialogFragment<DialogExerciseBinding>(R.layout.dialog
             setItem(item)
         }
         binding.tvSelect.setOnClickListener {
-            mListener?.onAccept(selectItems,selectIdItems)
+            mListener?.onAccept(selectItems, selectIdItems)
             dismiss()
         }
 
     }
 
-    private fun getItem(item: String,id : Long) {
+    private fun getItem(item: String, id: Long) {
         if (selectItems.contains(item)) {
             selectItems.remove(item)
             selectIdItems.remove(id)
@@ -70,12 +70,12 @@ class ExerciseDialog : BaseDialogFragment<DialogExerciseBinding>(R.layout.dialog
                 if (dialogWidthRatio != null) {
                     putFloat(DIALOG_WIDTH_RATIO, dialogWidthRatio)
                 }
-                val exerciseArrayList :ArrayList<String> = ArrayList()
+                val exerciseArrayList: ArrayList<String> = ArrayList()
                 dialogItemList.forEach {
                     exerciseArrayList.add(it.name)
                 }
                 putString("dialogTitleText", dialogTitleText)
-                putStringArrayList("exerciseArrayList",exerciseArrayList)
+                putStringArrayList("exerciseArrayList", exerciseArrayList)
             }
         }
     }

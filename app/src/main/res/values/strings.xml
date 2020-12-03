@@ -5,45 +5,6 @@
     <string name="chatting">채팅</string>
     <string name="mypage">마이페이지</string>
 
-    <!-- chatting self-updating relative time translate-->
-    <string name="blitz_future">미래</string>
-    <string name="blitz_now">방금 전</string>
-
-    <string name="blitz_single_minute">1분 전</string>
-    <string name="blitz_single_hour">1시간 전</string>
-    <string name="blitz_single_day">어제</string>
-    <string name="blitz_single_week">1주 전</string>
-    <string name="blitz_single_month">1달 전</string>
-    <string name="blitz_single_year">1년 전</string>
-
-    <plurals name="blitz_seconds">
-        <item quantity="other">%d초 전</item>
-    </plurals>
-
-    <plurals name="blitz_minutes">
-        <item quantity="other">%d분 전</item>
-    </plurals>
-
-    <plurals name="blitz_hours">
-        <item quantity="other">%d시간 전</item>
-    </plurals>
-
-    <plurals name="blitz_days">
-        <item quantity="other">%d일 전</item>
-    </plurals>
-
-    <plurals name="blitz_weeks">
-        <item quantity="other">%d주 전</item>
-    </plurals>
-
-    <plurals name="blitz_months">
-        <item quantity="other">%d달 전</item>
-    </plurals>
-
-    <plurals name="blitz_years">
-        <item quantity="other">%d년 전</item>
-    </plurals>
-
     <!-- kakao_native_app_key -->
     <string name="kakao_native_app_key">27b6df70cdf8f39d98b68da14b2650bd</string>
 
@@ -67,10 +28,22 @@
     <string name="ProfileMessageLastMessage">프로필 메세지입니다.</string>
 
     <!-- item_received_profile_message -->
+    <string name="received_profile_message_nickname">달리자88</string>
+    <string name="received_profile_message_likes">00</string>
+    <string name="received_profile_message_dislikes">00</string>
     <string name="received_profile_message_text1">기본소개</string>
+    <string name="received_profile_message_introduce">함께 운동할 사람 구합니다.웬만한 운동 다 좋아하고요,빡겜할 사람 찾아요!</string>
     <string name="received_profile_message_visit_profile">프로필 놀러가기</string>
+    <string name="received_profile_message_timestamp">13:00</string>
+
+    <!-- item_received_talk_message -->
+    <string name="received_talk_message_content">안녕하세요!</string>
+    <string name="received_talk_message_timestamp">14:00</string>
 
     <!-- item_sent_profile_message -->
+    <string name="sent_profile_message_nickname">짹짹</string>
+    <string name="sent_profile_message_likes">00</string>
+    <string name="sent_profile_message_dislikes">00</string>
     <string name="sent_profile_message_text1">기본소개</string>
 
     <!-- dialog_common -->
@@ -144,6 +117,13 @@
     <string name="activity_filter_ok">필터적용</string>
     <string name="activity_filter_reset">초기화</string>
 
+    <string name="countNumber">%d명</string>
+    <string name="activity_write_body_hint">활동에 관한 게시글 내용을 작성해주세요!\n( 활동과 관련없는 악의성, 선정적 내용은 사전 고지없이 삭제될 수 있습니다. )</string>
+
+    <string name="write_date_format">yyyy년 MM월 dd일</string>
+    <string name="write_time_format">HH시 mm분</string>
+    <string name="write_place_hint">ex ) OO역 3번 출구, OO체육관 2층</string>
+
     <!-- fragment_mypage.xml -->
     <string name="fragment_my_page_title">마이페이지</string>
     <string name="fragment_my_page_edit_profile">프로필 수정</string>
@@ -188,9 +168,11 @@
     <string name="dialog_report_report">신고하기</string>
     <string name="dialog_success_body">신고가 정상적으로 접수되었습니다.</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_scrap_go_board">게시글 페이지로 이동</string>
     <string name="fragment_scrap_body">마음에 드는 게시글을\n스크랩하세요!</string>
     <string name="dialog_chatting_room_body">게스트 참여 승인을 위해 해당 채팅창으로\n이동 하시겠습니까?</string>
     <string name="dialog_chatting_room_ok">채팅창으로 이동</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

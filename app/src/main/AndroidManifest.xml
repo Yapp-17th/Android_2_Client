@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".presentation.mypage.other.mypage.OtherMyPageActivity"></activity>
         <activity android:name=".presentation.mypage.history.view.HistoryActivity" />
-        <activity android:name=".presentation.filter.FilterActivity" />
+        <activity android:name=".presentation.home.filter.FilterActivity" />
         <activity android:name=".presentation.profile.ProfileActivity" />
         <activity
             android:name=".presentation.chatting.view.ChattingActivity"
@@ -25,6 +25,7 @@
         <activity
             android:name=".presentation.profile.ExerciseDialog"
             tools:ignore="Instantiatable" />
+        <activity android:name=".presentation.board.BoardActivity"></activity>
         <activity android:name=".presentation.login.LoginActivity" />
         <activity android:name=".presentation.main.MainActivity">
             <intent-filter>

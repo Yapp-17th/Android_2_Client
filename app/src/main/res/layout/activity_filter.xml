@@ -5,14 +5,13 @@
 
     <data>
 
-        <import type="android.view.View" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.filter.FilterActivity">
+        android:background="@color/white"
+        tools:context=".presentation.home.filter.FilterActivity">
 
         <com.example.sport_planet.presentation.custom.CustomToolbar
             android:id="@+id/toolbar"
@@ -22,17 +21,22 @@
             app:layout_constraintTop_toTopOf="parent"
             app:title="@string/activity_filter_title" />
 
-        <TableLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_filter_header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_filter_tab_height"
+            android:background="@color/white"
             app:layout_constraintBottom_toTopOf="@id/vp_filter_body"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:tabSelectedTextColor="@color/dark_blue"
+            app:tabTextAppearance="@style/bold_basic_16sp"
+            app:tabTextColor="@color/light_gray" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_filter_body"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/white"
             android:clipChildren="false"
             android:clipToPadding="false"
             app:layout_constraintBottom_toTopOf="@id/btn_ok"
@@ -43,6 +47,7 @@
             style="@style/medium_basic"
             android:layout_width="0dp"
             android:layout_height="@dimen/activity_filter_tab_height"
+            android:background="@color/dark_blue"
             android:text="@string/activity_filter_ok"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,6 +58,7 @@
             style="@style/medium_basic"
             android:layout_width="0dp"
             android:layout_height="@dimen/activity_filter_tab_height"
+            android:background="@color/white_gray"
             android:text="@string/activity_filter_reset"
             android:textColor="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"

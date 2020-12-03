@@ -28,6 +28,7 @@
             android:id="@+id/cl_filterbar"
             android:layout_width="0dp"
             android:layout_height="@dimen/common_filter_bar_size"
+            android:background="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -44,13 +45,14 @@
                 layout="@layout/item_home_filter_time"
                 android:layout_width="@dimen/item_filter_time_width"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="12dp"
                 app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_board"
-            bind_setHomeItems="@{vm.writeList}"
+            bind_setHomeItems="@{vm.boardList}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

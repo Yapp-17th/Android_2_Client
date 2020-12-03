@@ -1,6 +1,5 @@
 package com.example.sport_planet.data.response
 
-
 import com.google.gson.annotations.SerializedName
 
 data class ServerCallBackResponse(

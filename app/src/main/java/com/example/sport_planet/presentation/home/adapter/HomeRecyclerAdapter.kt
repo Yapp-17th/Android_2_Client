@@ -1,14 +1,19 @@
 package com.example.sport_planet.presentation.home.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
+import com.example.sport_planet.data.model.BoardModel
 import com.example.sport_planet.databinding.ItemBoardBinding
 
-class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
-    private val items: MutableList<String> = mutableListOf()
+class HomeRecyclerAdapter(
+    private val itemClickListener: View.OnClickListener,
+    private val bookMarkClickListener: BookMarkClickListener
+) : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
+    private val items: ArrayList<BoardModel> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
@@ -26,17 +31,43 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>
 
     override fun getItemCount(): Int = items.size
 
-    fun setItems(items: List<String>) {
+    fun setItems(items: List<BoardModel>) {
         this.items.clear()
-        this.items.addAll(items)
+        this.items.addAll(
+            items.asSequence()
+                .filter { it.groupStatus.code != 3 }
+                .sortedBy { it.groupStatus.code }
+        )
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val binding: ItemBoardBinding) : RecyclerView.ViewHolder(
         binding.root
     ) {
-        fun onBind(item: String) {
-            binding.tvTitle.text = item
+        fun onBind(item: BoardModel) {
+            binding.root.setOnClickListener(itemClickListener)
+            if (item.groupStatus.code == 0) {
+                binding.background.setBackgroundColor(itemView.context.getColor(R.color.white))
+            } else {
+                binding.background.setBackgroundColor(itemView.context.getColor(R.color.white_gray))
+            }
+            binding.tvTitle.text = item.title
+            binding.ivBookmark.setImageResource(if (item.isBookMark) R.drawable.ic_star_enabled else R.drawable.ic_star_disabled)
+            binding.ivBookmark.setOnClickListener {
+                bookMarkClickListener.onClick(item)
+            }
+            binding.tvDayCount.text = item.boardTime
+            binding.tvNickname.text = item.hostName
+            binding.tvStatus.text = item.groupStatus.name
+            binding.tvExercise.text = item.exercise
+            binding.tvRegion.text = item.city
+            binding.tvPeopleCount.text =
+                binding.root.context.getString(R.string.item_history_ing_recruit_number)
+                    .format(item.recruitedNumber, item.recruitNumber)
         }
     }
+}
+
+interface BookMarkClickListener {
+    fun onClick(item: BoardModel)
 }

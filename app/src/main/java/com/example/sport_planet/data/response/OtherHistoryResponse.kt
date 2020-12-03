@@ -1,6 +1,5 @@
 package com.example.sport_planet.data.response
 
-
 import com.example.sport_planet.data.model.OtherHistoryModel
 import com.google.gson.annotations.SerializedName
 

@@ -19,4 +19,8 @@ data class ExerciseResponse(
         @SerializedName("name")
         val name: String
     )
+
+    fun isSuccess(): Boolean {
+        return status == 200
+    }
 }
