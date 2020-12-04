@@ -124,7 +124,7 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
                             .subscribe ({ stompMessage ->
                                 chattingMessage = Json.parse(ChattingMessageResponse.serializer(), stompMessage)
                                 when(chattingMessage.realTimeUpdateType) {
-                                    "MESSAGE_READ" -> {
+                                    ChattingConstant.REAL_TIME_MESSAGE_READ -> {
                                         when(chattingMessage.type){
                                             ChattingConstant.CHAT_BOT_MESSAGE -> _noticeMessageLiveData.postValue(chattingMessage)
                                             else -> _chattingMessageLiveData.postValue(chattingMessage)

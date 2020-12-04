@@ -18,15 +18,15 @@ data class MakeChattingRoomResponse (
     @Parcelize
     data class Data(
         @SerializedName("id")
-        val id: Int,
+        val id: Long,
         @SerializedName("hostId")
-        val hostId: Int,
+        val hostId: Long,
         @SerializedName("guestId")
-        val guestId: Int,
+        val guestId: Long,
         @SerializedName("boardId")
-        val boardId: Int,
-        @SerializedName("status")
-        val status: String,
+        val boardId: Long,
+        @SerializedName("opponentNickname")
+        val opponentNickname: String,
         @SerializedName("createdAt")
         val createdAt: String
     ): Parcelable
