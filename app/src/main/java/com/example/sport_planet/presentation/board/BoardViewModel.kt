@@ -9,6 +9,7 @@ import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.model.BoardContentModel
 import com.example.sport_planet.data.response.chatting.MakeChattingRoomResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
+import com.example.sport_planet.presentation.chatting.EventWrapper
 import com.example.sport_planet.remote.RemoteDataSource
 import com.example.sport_planet.util.applySchedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,9 +26,9 @@ class BoardViewModel(private val remote: RemoteDataSource) :
     val hostId: Long
         get() = _hostId.value ?: -1
 
-    private val _makeChattingRoomtResultLiveData = MutableLiveData<MakeChattingRoomResponse>()
-    val makeChattingRoomtResultLiveData: LiveData<MakeChattingRoomResponse>
-        get() = _makeChattingRoomtResultLiveData
+    private val _makeChattingRoomResultLiveData = MutableLiveData<EventWrapper<MakeChattingRoomResponse>>()
+    val makeChattingRoomResultLiveData: LiveData<EventWrapper<MakeChattingRoomResponse>>
+        get() = _makeChattingRoomResultLiveData
 
     val boardContent: MutableLiveData<BoardContentModel> = MutableLiveData()
 
@@ -40,8 +41,7 @@ class BoardViewModel(private val remote: RemoteDataSource) :
                 .applySchedulers()
                 .subscribe(
                     {
-                        Log.d("BoardViewModel", it.data.toString())
-                       _makeChattingRoomtResultLiveData.postValue(it)
+                       _makeChattingRoomResultLiveData.postValue(EventWrapper(it))
                     },{
                         Log.d("BoardViewModel", it.localizedMessage)
                     }
