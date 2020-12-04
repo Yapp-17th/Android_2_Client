@@ -11,8 +11,11 @@ import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.MenuEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.data.model.MenuModel
+import com.example.sport_planet.data.model.chatting.ChatRoomInfo
 import com.example.sport_planet.databinding.ActivityBoardBinding
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.chatting.UserInfo
+import com.example.sport_planet.presentation.chatting.view.ChattingActivity
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
@@ -81,7 +84,22 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
         binding.toolbar.setBackButtonClick(View.OnClickListener { this.finish() })
 
         binding.btnChatting.setOnClickListener {
-
+            viewModel.makeChattingRoom()
+            viewModel.makeChattingRoomtResultLiveData.observe(this,
+                Observer {
+                    val intent = Intent(applicationContext, ChattingActivity::class.java)
+                    intent.putExtra("chatRoomInfo",
+                        ChatRoomInfo(
+                            it.data.id,
+                            it.data.boardId,
+                            it.data.guestId,
+                            it.data.hostId == UserInfo.USER_ID,
+                            it.data.opponentNickname
+                        )
+                    )
+                    startActivity(intent)
+                }
+            )
         }
     }
 

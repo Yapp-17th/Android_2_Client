@@ -1,12 +1,16 @@
 package com.example.sport_planet.presentation.board
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.model.BoardContentModel
+import com.example.sport_planet.data.response.chatting.MakeChattingRoomResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSource
+import com.example.sport_planet.util.applySchedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 
@@ -17,7 +21,33 @@ class BoardViewModel(private val remote: RemoteDataSource) :
     private val _boardId: Long
         get() = boardId.value ?: -1
 
+    private val _hostId = MutableLiveData<Long>()
+    val hostId: Long
+        get() = _hostId.value ?: -1
+
+    private val _makeChattingRoomtResultLiveData = MutableLiveData<MakeChattingRoomResponse>()
+    val makeChattingRoomtResultLiveData: LiveData<MakeChattingRoomResponse>
+        get() = _makeChattingRoomtResultLiveData
+
     val boardContent: MutableLiveData<BoardContentModel> = MutableLiveData()
+
+    fun makeChattingRoom(){
+        val chattingRoomJsonObject = JsonObject()
+        chattingRoomJsonObject["hostId"] = _hostId.value
+        chattingRoomJsonObject["boardId"] = boardId.value
+        compositeDisposable.add(
+            remote.makeChattingRoom(chattingRoomJsonObject)
+                .applySchedulers()
+                .subscribe(
+                    {
+                        Log.d("BoardViewModel", it.data.toString())
+                       _makeChattingRoomtResultLiveData.postValue(it)
+                    },{
+                        Log.d("BoardViewModel", it.localizedMessage)
+                    }
+                )
+        )
+    }
 
     fun getBoardContent() {
         remote.getBoardContent(_boardId)
@@ -27,6 +57,7 @@ class BoardViewModel(private val remote: RemoteDataSource) :
             .subscribe({
                 if (it.success) {
                     boardContent.value = it.data
+                    _hostId.value = it.data.host.hostId.toLong()
                 }
             }, {
                 it.printStackTrace()
