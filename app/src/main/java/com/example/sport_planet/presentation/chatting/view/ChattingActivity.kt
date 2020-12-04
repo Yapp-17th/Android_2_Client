@@ -15,6 +15,7 @@ import com.example.sport_planet.data.model.chatting.ChattingMessageModel
 import com.example.sport_planet.data.response.chatting.ChattingMessageResponse
 import com.example.sport_planet.databinding.ActivityChattingBinding
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.board.BoardActivity
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
@@ -22,7 +23,6 @@ import com.example.sport_planet.presentation.custom.CustomDialog
 import com.example.sport_planet.util.Util
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
-import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
@@ -99,11 +99,11 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
                     chattingMessages.add(
                         ChattingMessageModel(
-                            chattingMessage.content!!,
-                            chattingMessage.type!!,
-                            chattingMessage.messageId!!,
-                            chattingMessage.senderId!!,
-                            chattingMessage.senderNickname!!,
+                            chattingMessage.content,
+                            chattingMessage.type,
+                            chattingMessage.messageId,
+                            chattingMessage.senderId,
+                            chattingMessage.senderNickname,
                             thisDate,
                             thisTime,
                             isSameDate,
@@ -114,16 +114,15 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
                 chattingAdapter.settingChattingMessageList(chattingMessages)
 
-                rv_activity_chatting_recyclerview.postDelayed(Runnable {
-                    (rv_activity_chatting_recyclerview.layoutManager as LinearLayoutManager).stackFromEnd = isPageFilledWithItems
-                    if (it.firstUnreadMessageId != -1)
-                        rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId)
-                    if(!isPageFilledWithItems)
-                        rv_activity_chatting_recyclerview.addOnLayoutChangeListener(layoutChangeListener)
-                    rv_activity_chatting_recyclerview.postDelayed(Runnable {
-                        view_activity_chatting_loading.visibility = View.GONE
-                    },100)
-                },10)
+                (rv_activity_chatting_recyclerview.layoutManager as LinearLayoutManager).stackFromEnd = isPageFilledWithItems
+                if (it.firstUnreadMessageId != -1)
+                    rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId)
+                if(!isPageFilledWithItems)
+                    rv_activity_chatting_recyclerview.addOnLayoutChangeListener(layoutChangeListener)
+
+                rv_activity_chatting_recyclerview.postDelayed({
+                    view_activity_chatting_loading.visibility = View.GONE
+                },100)
             }
         )
 
@@ -143,10 +142,10 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
         chattingActivityViewModel.noticeMessageLiveData.observe(this,
             Observer {
-                thisDate = Util.toDateFormat(it.createdAt!!)
+                thisDate = Util.toDateFormat(it.createdAt)
                 thisTime = Util.toTimeFormat(it.createdAt)
 
-                if(it.messageId!! > 0) {
+                if(it.messageId > 0) {
                     priorDate = chattingMessages[it.messageId.toInt() - 1].createdDate
                     isSameDate = priorDate == thisDate
                 }
@@ -156,11 +155,11 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
                 chattingAdapter.addChattingMessage(
                     ChattingMessageModel(
-                        it.content!!,
-                        it.type!!,
+                        it.content,
+                        it.type,
                         it.messageId,
-                        it.senderId!!,
-                        it.senderNickname!!,
+                        it.senderId,
+                        it.senderNickname,
                         thisDate,
                         thisTime,
                         isSameDate,
@@ -177,11 +176,11 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 chattingMessageFactory(it, true)
                 chattingAdapter.addChattingMessage(
                     ChattingMessageModel(
-                        it.content!!,
-                        it.type!!,
-                        it.messageId!!,
-                        it.senderId!!,
-                        it.senderNickname!!,
+                        it.content,
+                        it.type,
+                        it.messageId,
+                        it.senderId,
+                        it.senderNickname,
                         thisDate,
                         thisTime,
                         isSameDate,
@@ -203,6 +202,10 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 Toast.makeText(this, R.string.activity_chatting_toast, Toast.LENGTH_SHORT).show()
             }
         })
+
+        bt_activity_chatting_visit_original_board.setOnClickListener {
+            BoardActivity.createInstance(this, chatRoomInfo.boardId)
+        }
 
         bt_custom_approval_button.setOnClickListener {
             when(chattingActivityViewModel.approvalStatusLiveData.value){
@@ -236,10 +239,10 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
     }
 
     private fun chattingMessageFactory(chattingMessage: ChattingMessageResponse, update: Boolean){
-        thisDate = Util.toDateFormat(chattingMessage.createdAt!!)
+        thisDate = Util.toDateFormat(chattingMessage.createdAt)
         thisTime = Util.toTimeFormat(chattingMessage.createdAt)
 
-        if(chattingMessage.messageId!! > 0) {
+        if(chattingMessage.messageId > 0) {
             val priorMessageId = chattingMessage.messageId.toInt() - 1
 
             priorDate = chattingMessages[priorMessageId].createdDate
