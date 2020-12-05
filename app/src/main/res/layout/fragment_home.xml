@@ -50,6 +50,13 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <View
+            android:id="@+id/view_container"
+            app:layout_constraintTop_toBottomOf="@id/cl_filterbar"
+            android:background="@color/white_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_board"
             bind_setHomeItems="@{vm.boardList}"
@@ -57,7 +64,7 @@
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_filterbar"
+            app:layout_constraintTop_toBottomOf="@id/view_container"
             tools:listitem="@layout/item_board" />
 
 

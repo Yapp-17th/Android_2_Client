@@ -4,7 +4,7 @@ import java.util.*
 
 data class BoardModel(
     val boardId: Long,
-    val hostId: Int,
+    val hostId: Long,
     val hostName: String,
     val title: String,
     val groupStatus: GroupStatusModel,

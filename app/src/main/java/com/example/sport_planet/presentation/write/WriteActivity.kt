@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.SeparatorEnum
@@ -82,10 +83,7 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
         clList = listOf(binding.clExercise, binding.clCity, binding.clTag)
         tvList = listOf(binding.tvExerciseTitle, binding.tvCityTitle, binding.tvTagTitle)
         ivList = listOf(binding.ivExercise, binding.ivCity, binding.ivTag)
-
-        for (i in 0..2) {
-            inflatePopUp(i)
-        }
+        initTags()
 
         binding.toolbar.setBackButtonClick(View.OnClickListener {
             setResult(Activity.RESULT_OK, Intent())
@@ -106,7 +104,25 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
             }
             .addTo(compositeDisposable)
 
-        gridAdapter = WriteGridViewAdapter(supportFragmentManager, dateChangeListener)
+        viewModel.boardId.observe(this, Observer {
+            viewModel.getBoardContent()
+        })
+
+//        viewModel.showBoardContent
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe {
+//                viewModel.title.value = it.title
+//                viewModel.body.value = it.content
+//                viewModel.place.value = it.place
+//                viewModel.time.value = it.
+//            }
+//            .addTo(compositeDisposable)
+
+        viewModel.isLoading
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { if (it) showLoading() else hideLoading() }
+            .addTo(compositeDisposable)
+
 
         binding.toolbar.run {
             setSeparator(SeparatorEnum.NONE)
@@ -173,6 +189,10 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
         binding.edtPlace.addTextChangedListener {
             viewModel.place.value = it.toString()
         }
+
+        if (intent != null) {
+            viewModel.boardId.value = intent.getLongExtra(BOARD_ID, -1)
+        }
     }
 
     private val dateListener: DateListener = object : DateListener {
@@ -190,9 +210,8 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
     private val timeListener: TimeListener = object : TimeListener {
         override fun confirm(time: String) {
             viewModel.time.value = "${time.substring(0, 2)}:${time.substring(2, 4)}"
-            binding.tvDate.text = viewModel.getDate()
+            binding.tvDate.text = viewModel.getDateToString()
             timeDialog.dismiss()
-            // api call
         }
 
         override fun cancel() {
@@ -200,27 +219,28 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
         }
     }
 
-    private fun inflatePopUp(position: Int) {
-
-        clList[position].setOnClickListener {
-            if (result[position].second != null) {
-                result[position] = Pair(items[position], null)
-            } else {
-                val fragment = SelectFragment.newInstance(items[position])
-                fragment.setListener(object : SelectItemListener {
-                    override fun confirm(model: CommonApiModel) {
-                        result[position] = Pair(items[position], model)
-                        dateChangeListener.onChange(result = result[position])
-                        runOnUiThread {
-                            val isChecked = result[position].second != null
-                            tvList[position].text =
-                                if (isChecked) result[position].second!!.name else items[position].title
-                            clList[position].setBackgroundResource(if (isChecked) R.drawable.shape_round_corner_into_dark_blue_opacity else R.drawable.shape_round_corner)
-                            ivList[position].setImageResource(if (isChecked) R.drawable.icons_18_px_x else R.drawable.ic_toggle_off)
+    private fun initTags() {
+        for (position in 0..2) {
+            clList[position].setOnClickListener {
+                if (result[position].second != null) {
+                    result[position] = Pair(items[position], null)
+                } else {
+                    val fragment = SelectFragment.newInstance(items[position])
+                    fragment.setListener(object : SelectItemListener {
+                        override fun confirm(model: CommonApiModel) {
+                            result[position] = Pair(items[position], model)
+                            dateChangeListener.onChange(result = result[position])
+                            runOnUiThread {
+                                val isChecked = result[position].second != null
+                                tvList[position].text =
+                                    if (isChecked) result[position].second!!.name else items[position].title
+                                clList[position].setBackgroundResource(if (isChecked) R.drawable.shape_round_corner_into_dark_blue_opacity else R.drawable.shape_round_corner)
+                                ivList[position].setImageResource(if (isChecked) R.drawable.icons_18_px_x else R.drawable.ic_toggle_off)
+                            }
                         }
-                    }
-                })
-                fragment.show(supportFragmentManager, "SELECT")
+                    })
+                    fragment.show(supportFragmentManager, "SELECT")
+                }
             }
         }
     }
@@ -228,6 +248,18 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
     companion object {
         const val DATE_DIALOG = "DATE_DIALOG"
         const val TIME_DIALOG = "TIME_DIALOG"
+        const val BOARD_ID = "BOARD_ID"
+
+        fun createInstance(activity: Activity) {
+            val intent = Intent(activity, WriteActivity::class.java)
+            activity.startActivity(intent)
+        }
+
+        fun createInstance(activity: Activity, boardId: Long) {
+            val intent = Intent(activity, WriteActivity::class.java)
+            intent.putExtra(BOARD_ID, boardId)
+            activity.startActivity(intent)
+        }
     }
 }
 

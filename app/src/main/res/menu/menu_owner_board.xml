@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/board_report"
+        android:id="@+id/board_edit"
         android:title="수정하기"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/board_hide"
+        android:id="@+id/board_delete"
         android:title="삭제하기"
         app:showAsAction="always" />
 

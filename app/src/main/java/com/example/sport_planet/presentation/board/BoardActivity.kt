@@ -16,6 +16,7 @@ import com.example.sport_planet.databinding.ActivityBoardBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.view.ChattingActivity
+import com.example.sport_planet.presentation.write.WriteActivity
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 import java.text.SimpleDateFormat
@@ -37,28 +38,37 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
             viewModel.getBoardContent()
         })
 
-        viewModel.boardContent.observe(this, Observer {
-            binding.tvTitle.text = it.title
-            binding.tvBody.text = it.content
-            binding.tvPeopleCount.text = "남은 인원 ${it.recruitNumber - it.recruitedNumber}명 (${it.recruitedNumber}/${it.recruitNumber})"
-            binding.tvUserName.text = it.host.hostName
-            binding.tvGroupStatus.text = it.groupStatus.name
-            binding.tvExercise.text = it.exercise
-            binding.tvCity.text = it.city
-            binding.tvTag.text = it.userTag
-            binding.tvDate.text = SimpleDateFormat(getString(R.string.full_date_format)).format(it.startsAt)
-            binding.tvPlace.text = it.place
-            binding.tvLikeCount.text = it.host.likes.toString()
-            binding.tvDislikeCount.text = it.host.dislikes.toString()
+        viewModel.boardContent.observe(this, Observer { boardContentModel ->
+            val isHost = boardContentModel.host.hostId == UserInfo.USER_ID
+            binding.btnChatting.visibility =
+                if (isHost) View.GONE else View.VISIBLE
+
+            binding.tvTitle.text = boardContentModel.title
+            binding.tvBody.text = boardContentModel.content
+            binding.tvPeopleCount.text =
+                "남은 인원 ${boardContentModel.recruitNumber - boardContentModel.recruitedNumber}명 (${boardContentModel.recruitedNumber}/${boardContentModel.recruitNumber})"
+            binding.tvUserName.text = boardContentModel.host.hostName
+            binding.tvGroupStatus.text = boardContentModel.groupStatus.name
+            binding.tvExercise.text = boardContentModel.exercise
+            binding.tvCity.text = boardContentModel.city
+            binding.tvTag.text = boardContentModel.userTag
+            binding.tvDate.text =
+                SimpleDateFormat(getString(R.string.full_date_format)).format(boardContentModel.startsAt)
+            binding.tvPlace.text = boardContentModel.place
+            binding.tvLikeCount.text = boardContentModel.host.likes.toString()
+            binding.tvDislikeCount.text = boardContentModel.host.dislikes.toString()
             binding.toolbar.run {
                 this.setMenu(
                     MenuModel(
-                        MenuEnum.STAR.apply { this.enabled = it.isBookMark },
+                        MenuEnum.STAR.apply { this.enabled = boardContentModel.isBookMark },
                         View.OnClickListener { viewModel.bookmarkChange() }),
                     MenuModel(MenuEnum.MENU, View.OnClickListener {
                         this@BoardActivity.let { activity ->
                             val popup = PopupMenu(activity.applicationContext, binding.toolbar.menu)
-                            activity.menuInflater.inflate(R.menu.menu_board, popup.menu)
+                            activity.menuInflater.inflate(
+                                if (isHost) R.menu.menu_owner_board else R.menu.menu_board,
+                                popup.menu
+                            )
                             popup.setOnMenuItemClickListener { item ->
                                 when (item.itemId) {
                                     R.id.board_report -> {
@@ -67,6 +77,17 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
                                     }
                                     R.id.board_hide -> {
                                         viewModel.hideBoard()
+                                        false
+                                    }
+                                    R.id.board_edit -> {
+                                        WriteActivity.createInstance(
+                                            activity = this@BoardActivity,
+                                            boardId = boardContentModel.boardId
+                                        )
+                                        false
+                                    }
+                                    R.id.board_delete -> {
+                                        viewModel.deleteBoard()
                                         false
                                     }
                                     else -> {
@@ -92,7 +113,8 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
                     it.getContentIfNotHandled()?.data.let { chattingRoom ->
                         if (chattingRoom != null) {
                             val intent = Intent(applicationContext, ChattingActivity::class.java)
-                            intent.putExtra("chatRoomInfo",
+                            intent.putExtra(
+                                "chatRoomInfo",
                                 ChatRoomInfo(
                                     chattingRoom.id,
                                     chattingRoom.boardId,
