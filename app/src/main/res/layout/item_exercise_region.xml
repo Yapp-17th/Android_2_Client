@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -19,6 +20,7 @@
             android:layout_width="160dp"
             android:layout_height="48dp"
             android:paddingHorizontal="@dimen/item_exercise_region_padding_16dp"
+            tools:text="중랑구"
             android:text="@{item}" />
     </LinearLayout>
 
