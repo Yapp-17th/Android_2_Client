@@ -39,9 +39,9 @@ class OtherHistoryFragment :
 
 
     companion object {
-        fun instance(userId: Long?) = OtherHistoryFragment().apply {
-            if (userId != null) {
-                arguments?.putLong("userId", userId)
+        fun instance(userId: Long) = OtherHistoryFragment().apply {
+            arguments = Bundle().apply {
+                putLong("userId", userId)
             }
         }
     }

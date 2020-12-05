@@ -1,9 +1,9 @@
 package com.example.sport_planet.remote
 
 
-import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
+import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.request.board.BookMarkRequest
 import com.example.sport_planet.data.request.board.PostBoardIdRequest
 import com.example.sport_planet.data.request.board.PostBoardRequest
@@ -22,6 +22,7 @@ import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*
 import com.example.sport_planet.remote.NetworkHelper.api
 import io.reactivex.Single
+import retrofit2.Response
 import java.util.*
 
 class RemoteDataSourceImpl : RemoteDataSource {
@@ -31,11 +32,11 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun getUserTag(): Single<UserTagResponse> = api.getUserTag()
 
-    override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> =
+    override fun postSignIn(userInfo: LoginResponse): Single<Response<ServerCallBackResponse>> =
         api.postSignIn(userInfo)
 
 
-    override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> =
+    override fun postSignUp(userSignUp: SignUpResponse): Single<Response<ServerCallBackResponse>> =
         api.postSignUp(userSignUp)
 
     override fun deleteUser(): Single<ServerCallBackResponse> = api.deleteUser()

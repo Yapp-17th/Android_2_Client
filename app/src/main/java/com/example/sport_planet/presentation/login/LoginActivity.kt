@@ -4,12 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.sport_planet.util.PrefUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.data.response.login.LoginResponse
 import com.example.sport_planet.databinding.ActivityLoginBinding
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.presentation.profile.ProfileActivity
+import com.example.sport_planet.remote.NetworkHelper
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.example.sport_planet.util.applySchedulers
 import com.kakao.sdk.auth.LoginClient
@@ -24,6 +27,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         super.onCreate(savedInstanceState)
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
+                Log.d("ehdghks","error: ${error.toString()}")
                 loginErrorCode(error)
             } else if (token != null) {
                 UserApiClient.instance.me { user, error ->
@@ -39,8 +43,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                                 LoginResponse(userToken, userEmail, userNickname, userId)
                             ).applySchedulers()
                                 .subscribe({
-                                    when (it.status) {
+                                    when (it.body()?.status) {
                                         200 -> {
+                                            PrefUtil.setStrValue(this@LoginActivity,"serverToken",it.headers()["token"].toString())
+                                            UserInfo.USER_ID = it.headers()["userId"].toString().toLong()
+                                            NetworkHelper.token = PrefUtil.getStrValue(this,"serverToken","").toString()
                                             val intent = Intent(this, MainActivity::class.java)
                                             startActivity(intent)
                                         }

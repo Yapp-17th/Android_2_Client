@@ -1,5 +1,6 @@
 package com.example.sport_planet.presentation.mypage.other.mypage
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sport_planet.data.response.mypage.HistoryResponse

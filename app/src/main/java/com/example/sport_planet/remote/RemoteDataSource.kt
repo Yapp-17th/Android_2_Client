@@ -16,12 +16,14 @@ import com.example.sport_planet.data.response.login.LoginResponse
 import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*
 import io.reactivex.Single
+import retrofit2.Response
+import java.util.*
 
 interface RemoteDataSource {
 
-    fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse>
+    fun postSignIn(userInfo: LoginResponse): Single<Response<ServerCallBackResponse>>
 
-    fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse>
+    fun postSignUp(userSignUp: SignUpResponse): Single<Response<ServerCallBackResponse>>
 
     fun deleteUser(): Single<ServerCallBackResponse>
 

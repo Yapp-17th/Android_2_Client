@@ -42,7 +42,6 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
             return
         }
 
-        Log.d("ehdghks", "not return post")
         remote.postBoard(
             title = title.value!!,
             content = body.value!!,
