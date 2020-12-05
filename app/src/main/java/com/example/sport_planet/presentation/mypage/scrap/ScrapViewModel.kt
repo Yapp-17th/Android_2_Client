@@ -1,6 +1,5 @@
 package com.example.sport_planet.presentation.mypage.scrap
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sport_planet.data.model.mypage.MyBookMarksModel
@@ -28,15 +27,16 @@ class ScrapViewModel : BaseViewModel() {
     }
 
     fun deleteBookMark(boardId: Long) {
-//        compositeDisposable.add(RemoteDataSourceImpl()
-//            .deleteBookMark(boardId)
-//            .applySchedulers()
-//            .subscribe({
-//                if(it.success){
-//        _bookMarkList.value = _bookMarkList.value?.filter {
-//            it.boardId != boardId
-//        }
-//              }
-//            },{}))
+        compositeDisposable.add(RemoteDataSourceImpl()
+            .deleteBookMark(boardId)
+            .applySchedulers()
+            .subscribe({
+                if (it.success) {
+                    _bookMarkList.value = _bookMarkList.value?.filter { myBookMarkModel ->
+                        myBookMarkModel.boardId != boardId
+                    }
+                }
+            }, {})
+        )
     }
 }
