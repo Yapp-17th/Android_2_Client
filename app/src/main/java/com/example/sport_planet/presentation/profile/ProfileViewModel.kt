@@ -14,7 +14,13 @@ class ProfileViewModel : BaseViewModel() {
     private val remoteDataSourceImpl = RemoteDataSourceImpl()
 
     private val _userToken = MutableLiveData<String>()
-    private val userToken: LiveData<String> get() = _userToken
+    val userToken: LiveData<String> get() = _userToken
+
+    private val _serverToken = MutableLiveData<String>()
+    val serverToken: LiveData<String> get() = _serverToken
+
+    private val _serverUserId = MutableLiveData<String>()
+    val serverUserId: LiveData<String> get() = _serverUserId
 
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> get() = _userId
@@ -122,8 +128,10 @@ class ProfileViewModel : BaseViewModel() {
             RemoteDataSourceImpl().postSignUp(signUpResponse)
                 .applySchedulers()
                 .subscribe({
-                    _postSignUpStatus.postValue(it.status)
-                    _postSignUpStatusMessage.postValue(it.message)
+                    _serverToken.value = it.headers()["token"]
+                    _serverUserId.value = it.headers()["userId"]
+                    _postSignUpStatus.postValue(it.body()?.status)
+                    _postSignUpStatusMessage.postValue(it.body()?.message.toString())
                 }, {})
         )
     }

@@ -22,6 +22,7 @@ import com.example.sport_planet.data.response.common.UserTagResponse
 import com.example.sport_planet.data.response.login.LoginResponse
 import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*
+import okhttp3.Response
 
 interface Api {
     //   로그인 API
@@ -32,10 +33,10 @@ interface Api {
     fun getRegion(): Single<RegionResponse>
 
     @POST("login-service/v1/user/sign-in")
-    fun postSignIn(@Body userInfo: LoginResponse): Single<ServerCallBackResponse>
+    fun postSignIn(@Body userInfo: LoginResponse): Single<retrofit2.Response<ServerCallBackResponse>>
 
     @POST("login-service/v1/user/sign-up")
-    fun postSignUp(@Body userSignUp: SignUpResponse): Single<ServerCallBackResponse>
+    fun postSignUp(@Body userSignUp: SignUpResponse): Single<retrofit2.Response<ServerCallBackResponse>>
 
     @DELETE("login-service/v1/user/withdraw")
     fun deleteUser() : Single<ServerCallBackResponse>

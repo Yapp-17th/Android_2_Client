@@ -10,7 +10,7 @@ import com.example.sport_planet.util.applySchedulers
 class OtherHistoryViewModel : BaseViewModel() {
 
     private val _otherHistoryModel = MutableLiveData<List<OtherHistoryModel>>()
-    val otherHistoryModel : LiveData<List<OtherHistoryModel>> get() = _otherHistoryModel
+    val otherHistoryModel: LiveData<List<OtherHistoryModel>> get() = _otherHistoryModel
 
     fun getOtherHistory(userId: Long) {
         compositeDisposable.add(
@@ -19,7 +19,8 @@ class OtherHistoryViewModel : BaseViewModel() {
                 .subscribe({
                     if (it.success)
                         _otherHistoryModel.value = it.data
-                }, {})
+                }, {
+                })
         )
     }
 }
