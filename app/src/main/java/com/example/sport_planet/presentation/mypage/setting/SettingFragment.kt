@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.sport_planet.util.PrefUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentSettingBinding
 import com.example.sport_planet.presentation.base.BaseAcceptCancelDialog
@@ -27,7 +28,7 @@ class SettingFragment :
         binding.tvLogout.setOnClickListener { showLogoutPopup() }
         viewModel.isDeleteSuccess.observe(viewLifecycleOwner, Observer {
             if (it) {
-                // TODO: 2020-11-17 자동 로그인 토큰 지우기 
+                PrefUtil.setStrValue(requireContext(),"serverToken","")
                 val intent = Intent(context, LoginActivity::class.java)
                 startActivity(intent)
             }

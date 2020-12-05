@@ -1,4 +1,4 @@
-package com.deepmedi.bpdiary.util
+package com.example.sport_planet.util
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 
 class PrefUtil {
  companion object {
-     const val DEF_PREF_NAME = "MetLife_Pref"
+     const val DEF_PREF_NAME = "planet_Pref"
 
      fun clearAll(context: Context) {
          val sp = getPref(
