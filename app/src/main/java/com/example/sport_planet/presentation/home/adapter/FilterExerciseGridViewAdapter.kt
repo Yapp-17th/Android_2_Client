@@ -56,7 +56,7 @@ class FilterExerciseGridViewAdapter : BaseAdapter() {
         view.tv_text.text = item.name
 
         view.iv_select.setImageResource(
-            if (selectedItem.contains(item)) R.drawable.ic_star_enabled else R.drawable.ic_star_disabled
+            if (selectedItem.contains(item)) R.drawable.ic_start_blue_enabled else R.drawable.ic_star_disabled
         )
 
         return view

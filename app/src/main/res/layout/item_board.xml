@@ -39,12 +39,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/item_board_margin_12dp"
+            android:text="Host"
             android:textColor="@color/pink"
             android:textSize="@dimen/item_board_text_size_14sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_bookmark"
             app:layout_constraintLeft_toRightOf="@id/iv_profile_image"
-            app:layout_constraintTop_toTopOf="@id/iv_bookmark"
-            android:text="Host"/>
+            app:layout_constraintTop_toTopOf="@id/iv_bookmark" />
 
         <TextView
             android:id="@+id/tv_nickname"
@@ -89,14 +89,14 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:background="@drawable/shape_round_corner_darkblue"
+            android:gravity="center"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_dayCount"
-            app:layout_constraintTop_toBottomOf="@id/tv_dayCount"
-            tools:text="모집중" />
+            app:layout_constraintTop_toBottomOf="@id/tv_dayCount" />
 
         <TextView
             android:id="@+id/tv_exercise"
@@ -104,7 +104,8 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/shape_round_corner_light_gray"
+            android:background="@drawable/shape_round_corner_darkblue_opacity"
+            android:gravity="center"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textColor="@color/dark_gray"
@@ -120,7 +121,8 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/shape_round_corner_light_gray"
+            android:background="@drawable/shape_round_corner_darkblue_opacity"
+            android:gravity="center"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textColor="@color/dark_gray"
@@ -136,7 +138,8 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/shape_round_corner_light_gray"
+            android:background="@drawable/shape_round_corner_darkblue_opacity"
+            android:gravity="center"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textColor="@color/dark_gray"
@@ -145,6 +148,14 @@
             app:layout_constraintStart_toEndOf="@id/tv_region"
             app:layout_constraintTop_toTopOf="@id/tv_region"
             tools:text="12/15명" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/white_gray"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

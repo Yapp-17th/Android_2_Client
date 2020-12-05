@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.write.time
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,9 +32,17 @@ class TimeDialogFragment private constructor() :
     }
 
     override fun onClick(v: View?) {
+        val hour = binding.time.hour.toString()
+        val minute = if (binding.time.minute > 10) {
+            binding.time.minute.toString()
+        } else {
+            "0" + binding.time.minute.toString()
+        }
+        Log.d("ehdghks", binding.time.hour.toString())
+        Log.d("ehdghks", binding.time.minute.toString())
         when (v) {
-            binding.btnConfirm -> timeListener?.confirm(binding.time.hour.toString()+"시 "+binding.time.minute.toString()+"분" )
-            binding.btnCancel -> timeListener?.cancel()
+            binding.btnConfirm -> timeListener.confirm(hour+minute)
+            binding.btnCancel -> timeListener.cancel()
         }
         this.dismiss()
     }

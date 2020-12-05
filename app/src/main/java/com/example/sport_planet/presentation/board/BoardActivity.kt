@@ -18,6 +18,7 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.view.ChattingActivity
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
+import java.text.SimpleDateFormat
 
 class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board) {
     private val viewModel: BoardViewModel by lazy {
@@ -44,7 +45,8 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
             binding.tvGroupStatus.text = it.groupStatus.name
             binding.tvExercise.text = it.exercise
             binding.tvCity.text = it.city
-            binding.tvDate.text = it.startsAt
+            binding.tvTag.text = it.userTag
+            binding.tvDate.text = SimpleDateFormat(getString(R.string.full_date_format)).format(it.startsAt)
             binding.tvPlace.text = it.place
             binding.tvLikeCount.text = it.host.likes.toString()
             binding.tvDislikeCount.text = it.host.dislikes.toString()

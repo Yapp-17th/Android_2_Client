@@ -6,14 +6,37 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
+import com.example.sport_planet.data.enums.WriteFilterEnum
+import com.example.sport_planet.data.model.CommonApiModel
 import com.example.sport_planet.databinding.FragmentSelectBinding
 import com.example.sport_planet.presentation.write.adapter.SelectGridViewAdapter
+import com.example.sport_planet.remote.RemoteDataSourceImpl
 
-class SelectFragment private constructor(): DialogFragment() {
+class SelectFragment : DialogFragment() {
     private lateinit var binding: FragmentSelectBinding
-//    private lateinit var adapter: SelectGridViewAdapter
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            SelectViewModelFactory(RemoteDataSourceImpl())
+        ).get(SelectViewModel::class.java)
+    }
+    private lateinit var adapter: SelectGridViewAdapter
     private var listener: SelectItemListener? = null
+
+    private lateinit var type: WriteFilterEnum
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let { bundle ->
+            bundle.getString("DATA")?.run {
+                type = WriteFilterEnum.values().firstOrNull { this == it.name } ?: WriteFilterEnum.NONE
+                if (type == WriteFilterEnum.NONE) dismiss()
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +48,27 @@ class SelectFragment private constructor(): DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.gvList.adapter = adapter
+        adapter = SelectGridViewAdapter {
+            listener?.confirm(it)
+            dismiss()
+        }
+        binding.gvList.adapter = adapter
+
+        viewModel.items.observe(viewLifecycleOwner, Observer {
+            adapter.setItems(it)
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (type != null && type != WriteFilterEnum.NONE) {
+            when (type) {
+                WriteFilterEnum.CITY -> viewModel.getCity()
+                WriteFilterEnum.EXERCISE -> viewModel.getExercise()
+                WriteFilterEnum.USERTAG -> viewModel.getUserTag()
+                else -> dismiss()
+            }
+        }
     }
 
     fun setListener(listener: SelectItemListener) {
@@ -33,11 +76,16 @@ class SelectFragment private constructor(): DialogFragment() {
     }
 
     companion object {
-        @JvmStatic
-        fun <T> newInstance() = SelectFragment()
+        fun newInstance(item: WriteFilterEnum): SelectFragment {
+            val args = Bundle()
+            args.putString("DATA", item.name)
+            val fragment = SelectFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }
 
 interface SelectItemListener {
-    fun <T> confirm(model: T)
+    fun confirm(model: CommonApiModel)
 }

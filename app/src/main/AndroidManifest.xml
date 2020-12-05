@@ -27,7 +27,9 @@
             tools:ignore="Instantiatable" />
         <activity android:name=".presentation.board.BoardActivity"></activity>
         <activity android:name=".presentation.login.LoginActivity" />
-        <activity android:name=".presentation.main.MainActivity">
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,6 +38,8 @@
         </activity>
         <activity android:name=".presentation.splash.IntroActivity" />
         <activity android:name=".presentation.splash.SplashActivity" />
+        <activity android:name=".presentation.write.WriteActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

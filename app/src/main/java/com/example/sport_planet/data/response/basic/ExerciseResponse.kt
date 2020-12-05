@@ -1,6 +1,8 @@
 package com.example.sport_planet.data.response.basic
 
 
+import com.example.sport_planet.data.model.CommonApiModel
+import com.example.sport_planet.data.model.UserTagModel
 import com.google.gson.annotations.SerializedName
 
 data class ExerciseResponse(
@@ -23,4 +25,8 @@ data class ExerciseResponse(
     fun isSuccess(): Boolean {
         return status == 200
     }
+}
+
+fun ExerciseResponse.Data.toCommon(): CommonApiModel {
+    return CommonApiModel(id, name)
 }

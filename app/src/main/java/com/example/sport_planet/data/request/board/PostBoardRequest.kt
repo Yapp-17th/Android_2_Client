@@ -1,7 +1,6 @@
 package com.example.sport_planet.data.request.board
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class PostBoardRequest(
     @SerializedName("title") val title: String,
@@ -10,6 +9,6 @@ data class PostBoardRequest(
     @SerializedName("city") val city: Long,
     @SerializedName("userTag") val userTag: Long,
     @SerializedName("recruitNumber") val recruitNumber: Int,
-    @SerializedName("date") val date: Date,
+    @SerializedName("date") val date: String,
     @SerializedName("place") val place: String
 )

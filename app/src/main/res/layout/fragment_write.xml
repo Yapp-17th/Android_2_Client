@@ -43,19 +43,125 @@
             app:layout_constraintStart_toStartOf="@id/edt_title"
             app:layout_constraintTop_toBottomOf="@id/edt_title" />
 
-        <GridView
-            android:id="@+id/gv_filter"
+        <LinearLayout
+            android:id="@+id/ll_filter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:gravity="center_vertical"
-            android:horizontalSpacing="16dp"
-            android:numColumns="3"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/view_divider_2"
             app:layout_constraintEnd_toEndOf="@id/edt_title"
             app:layout_constraintStart_toStartOf="@id/edt_title"
-            app:layout_constraintTop_toBottomOf="@id/view_divider_1" />
+            app:layout_constraintTop_toBottomOf="@id/view_divider_1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_round_corner">
+
+                <TextView
+                    android:id="@+id/tv_exercise_title"
+                    style="@style/medium_basic_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="9dp"
+                    android:textColor="@color/dark_blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_exercise"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="운동종목" />
+
+                <ImageView
+                    android:id="@+id/iv_exercise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_toggle_off"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_exercise_title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/shape_round_corner">
+
+                <TextView
+                    android:id="@+id/tv_city_title"
+                    style="@style/medium_basic_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="9dp"
+                    android:textColor="@color/dark_blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_city"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="종목" />
+
+                <ImageView
+                    android:id="@+id/iv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_toggle_off"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_city_title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/shape_round_corner">
+
+                <TextView
+                    android:id="@+id/tv_tag_title"
+                    style="@style/medium_basic_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="9dp"
+                    android:text="게임성향"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="9dp"
+                    android:textColor="@color/dark_blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_tag"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_toggle_off"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_tag_title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
 
         <View
             android:id="@+id/view_divider_2"
@@ -65,7 +171,7 @@
             android:background="@color/white_gray"
             app:layout_constraintEnd_toEndOf="@id/edt_title"
             app:layout_constraintStart_toStartOf="@id/edt_title"
-            app:layout_constraintTop_toBottomOf="@id/gv_filter" />
+            app:layout_constraintTop_toBottomOf="@id/ll_filter" />
 
         <TextView
             android:id="@+id/tv_container_count"
@@ -75,7 +181,7 @@
             android:gravity="center"
             android:text="모집인원"
             android:textColor="@color/black121212"
-            app:layout_constraintStart_toStartOf="@id/gv_filter"
+            app:layout_constraintStart_toStartOf="@id/ll_filter"
             app:layout_constraintTop_toBottomOf="@id/view_divider_2" />
 
         <Spinner
@@ -131,6 +237,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_container_date" />
 
         <EditText
+            android:id="@+id/edt_place"
             style="@style/medium_basic_14sp"
             android:layout_width="0dp"
             android:layout_height="36dp"
@@ -166,7 +273,6 @@
             android:layout_height="52dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/button_selector"
-            android:enabled="false"
             android:text="게시글 올리기"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/edt_body"

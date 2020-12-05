@@ -11,11 +11,11 @@ import com.example.sport_planet.data.response.board.BoardContentResponse
 import com.example.sport_planet.data.response.board.BoardListResponse
 import com.example.sport_planet.data.response.chatting.*
 import com.example.sport_planet.data.response.common.CommonResponse
+import com.example.sport_planet.data.response.common.UserTagResponse
 import com.example.sport_planet.data.response.login.LoginResponse
 import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*
 import io.reactivex.Single
-import java.util.*
 
 interface RemoteDataSource {
 
@@ -23,7 +23,7 @@ interface RemoteDataSource {
 
     fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse>
 
-    fun deleteUser() : Single<ServerCallBackResponse>
+    fun deleteUser(): Single<ServerCallBackResponse>
 
     fun getMyProfile(): Single<HistoryResponse>
 
@@ -33,7 +33,7 @@ interface RemoteDataSource {
 
     fun getViewHistory(userId: Long): Single<HistoryResponse>
 
-    fun getMyViewHistory(type : String): Single<MyViewHistoryResponse>
+    fun getMyViewHistory(type: String): Single<MyViewHistoryResponse>
 
     fun getOthersHistory(userId: Long): Single<OtherHistoryResponse>
 
@@ -51,26 +51,31 @@ interface RemoteDataSource {
 
     fun postEvaluateReport(evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse>
 
-    fun makeChattingRoom(param: JsonObject) : Single<MakeChattingRoomResponse>
+    fun makeChattingRoom(param: JsonObject): Single<MakeChattingRoomResponse>
 
-    fun getChattingRoomList() : Single<ChattingRoomListResponse>
+    fun getChattingRoomList(): Single<ChattingRoomListResponse>
 
-    fun leaveChattingRoom(chatRoomId: Long) : Single<CommonServerResponse>
+    fun leaveChattingRoom(chatRoomId: Long): Single<CommonServerResponse>
 
-    fun getChattingMessageList(chatRoomId: Long) : Single<ChattingMessageListResponse>
+    fun getChattingMessageList(chatRoomId: Long): Single<ChattingMessageListResponse>
 
-    fun makeChattingMessageRead(chatRoomId: Long, messageId: Long) : Single<MakeChattingMessageReadResponse>
+    fun makeChattingMessageRead(
+        chatRoomId: Long,
+        messageId: Long
+    ): Single<MakeChattingMessageReadResponse>
 
-    fun applyBoard(boardId:Long, param: JsonObject) : Single<CommonServerResponse>
+    fun applyBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse>
 
-    fun approveBoard(boardId:Long, param: JsonObject) : Single<CommonServerResponse>
+    fun approveBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse>
 
-    fun disapproveBoard(boardId:Long, param: JsonObject) : Single<CommonServerResponse>
+    fun disapproveBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse>
 
     /** Common Api **/
     fun getExercise(): Single<ExerciseResponse>
 
     fun getRegion(): Single<RegionResponse>
+
+    fun getUserTag(): Single<UserTagResponse>
     /** Common Api **/
 
     /** Board Api Start **/
@@ -81,7 +86,7 @@ interface RemoteDataSource {
         city: Long,
         userTag: Long,
         recruitNumber: Int,
-        date: Date,
+        date: String,
         place: String
     ): Single<CommonResponse>
 
@@ -109,7 +114,7 @@ interface RemoteDataSource {
         city: Long,
         userTag: Long,
         recruitNumber: Int,
-        date: Date,
+        date: String,
         place: String
     ): Single<BoardContentResponse>
 

@@ -47,8 +47,16 @@ class HomeRecyclerAdapter(
             binding.root.setOnClickListener { itemClick(item.boardId) }
             if (item.groupStatus.code == 0) {
                 binding.background.setBackgroundColor(itemView.context.getColor(R.color.white))
+                binding.tvStatus.setBackgroundResource(R.drawable.shape_round_corner_darkblue)
+                binding.tvExercise.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity)
+                binding.tvRegion.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity)
+                binding.tvPeopleCount.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity)
             } else {
                 binding.background.setBackgroundColor(itemView.context.getColor(R.color.white_gray))
+                binding.tvStatus.setBackgroundResource(R.drawable.shape_round_corner_gray)
+                binding.tvExercise.setBackgroundResource(R.drawable.shape_round_corner_light_gray)
+                binding.tvRegion.setBackgroundResource(R.drawable.shape_round_corner_light_gray)
+                binding.tvPeopleCount.setBackgroundResource(R.drawable.shape_round_corner_light_gray)
             }
             binding.tvTitle.text = item.title
             binding.ivBookmark.setImageResource(if (item.isBookMark) R.drawable.ic_star_enabled else R.drawable.ic_star_disabled)
@@ -58,6 +66,7 @@ class HomeRecyclerAdapter(
             binding.tvDayCount.text = item.boardTime
             binding.tvNickname.text = item.hostName
             binding.tvStatus.text = item.groupStatus.name
+
             binding.tvExercise.text = item.exercise
             binding.tvRegion.text = item.city
             binding.tvPeopleCount.text =

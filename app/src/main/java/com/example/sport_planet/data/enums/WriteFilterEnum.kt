@@ -5,13 +5,17 @@ enum class WriteFilterEnum {
         override val title: String
             get() = "운동종목"
     },
-    ADDRESS {
+    CITY {
         override val title: String
             get() = "지역"
     },
     USERTAG {
         override val title: String
             get() = "게임성향"
+    },
+    NONE {
+        override val title: String
+            get() = "오류"
     };
 
     abstract val title: String

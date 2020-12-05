@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentScrapBinding
 import com.example.sport_planet.presentation.base.BaseFragment
+import com.example.sport_planet.presentation.board.BoardActivity
 import com.example.sport_planet.presentation.main.MainActivity
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
@@ -57,8 +58,9 @@ class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layou
         }
         viewModel.deleteBookMark(boardId)
     }
+
     private fun goBoard(boardId: Long) {
-        // TODO: 2020-11-27 클릭시 게시글로 이동
+        BoardActivity.createInstance(activity!!, boardId = boardId)
     }
 
     companion object {

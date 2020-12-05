@@ -127,14 +127,14 @@ class HomeFragment private constructor() :
             if (resultCode == Activity.RESULT_OK) {
                 viewModel.city.value = data?.getStringExtra(INTENT_CITY) ?: "0"
                 viewModel.exercise.value = data?.getStringExtra(INTENT_EXERCISE) ?: "0"
-                Log.d("ehdghks", data?.getStringExtra(INTENT_CITY) ?: "0")
-                Log.d("ehdghks", data?.getStringExtra(INTENT_EXERCISE) ?: "0")
+                viewModel.getBoardList()
             }
         }
     }
 
     companion object {
         const val FILTER_REQUEST_CODE = 1
+        const val POST_BOARD = 2
 
         fun newInstance() = HomeFragment()
     }

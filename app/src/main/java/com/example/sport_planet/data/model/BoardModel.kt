@@ -1,5 +1,7 @@
 package com.example.sport_planet.data.model
 
+import java.util.*
+
 data class BoardModel(
     val boardId: Long,
     val hostId: Int,
@@ -12,5 +14,6 @@ data class BoardModel(
     val boardTime: String,
     val recruitNumber: Int,
     val recruitedNumber: Int,
-    val startsAt: String
+    val startsAt: Date,
+    val userTag: String
 )

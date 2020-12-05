@@ -4,13 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityFilterBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.home.adapter.FilterViewPagerAdapter
-import com.example.sport_planet.presentation.home.filter.city.AddressCityFragment
-import com.example.sport_planet.presentation.home.filter.exercise.ExerciseFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
@@ -28,9 +25,9 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
 
         binding.btnOk.setOnClickListener {
             val intent = Intent()
-            intent.putExtra(INTENT_CITY,viewPagerAdapter.getCity())
-            intent.putExtra(INTENT_EXERCISE,viewPagerAdapter.getExercise())
-            setResult(Activity.RESULT_OK,intent)
+            intent.putExtra(INTENT_CITY, viewPagerAdapter.getCity())
+            intent.putExtra(INTENT_EXERCISE, viewPagerAdapter.getExercise())
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
 

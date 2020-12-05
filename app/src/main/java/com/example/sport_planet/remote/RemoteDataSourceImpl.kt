@@ -1,9 +1,9 @@
 package com.example.sport_planet.remote
 
 
+import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
-import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.request.board.BookMarkRequest
 import com.example.sport_planet.data.request.board.PostBoardIdRequest
 import com.example.sport_planet.data.request.board.PostBoardRequest
@@ -16,6 +16,7 @@ import com.example.sport_planet.data.response.board.BoardContentResponse
 import com.example.sport_planet.data.response.board.BoardListResponse
 import com.example.sport_planet.data.response.chatting.*
 import com.example.sport_planet.data.response.common.CommonResponse
+import com.example.sport_planet.data.response.common.UserTagResponse
 import com.example.sport_planet.data.response.login.LoginResponse
 import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*
@@ -28,6 +29,8 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun getRegion(): Single<RegionResponse> = api.getRegion()
 
+    override fun getUserTag(): Single<UserTagResponse> = api.getUserTag()
+
     override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> =
         api.postSignIn(userInfo)
 
@@ -35,7 +38,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
     override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> =
         api.postSignUp(userSignUp)
 
-    override fun deleteUser(): Single<ServerCallBackResponse>  = api.deleteUser()
+    override fun deleteUser(): Single<ServerCallBackResponse> = api.deleteUser()
 
     override fun getMyProfile(): Single<HistoryResponse> = api.getMyProfile()
     override fun getMyProfileEdit(): Single<MyProfileEditResponse> = api.getMyProfileEdit()
@@ -45,7 +48,8 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun getViewHistory(userId: Long): Single<HistoryResponse> = api.getViewHistory(userId)
 
-    override fun getMyViewHistory(type : String): Single<MyViewHistoryResponse> = api.getMyViewHistory(type)
+    override fun getMyViewHistory(type: String): Single<MyViewHistoryResponse> =
+        api.getMyViewHistory(type)
 
     override fun getOthersHistory(userId: Long): Single<OtherHistoryResponse> =
         api.getOthersHistory(userId)
@@ -67,21 +71,30 @@ class RemoteDataSourceImpl : RemoteDataSource {
     override fun postEvaluateReport(evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse> =
         api.postEvaluateReport(evaluateReportRequest)
 
-    override fun makeChattingRoom(param: JsonObject): Single<MakeChattingRoomResponse> = api.makeChattingRoom(param)
+    override fun makeChattingRoom(param: JsonObject): Single<MakeChattingRoomResponse> =
+        api.makeChattingRoom(param)
 
     override fun getChattingRoomList(): Single<ChattingRoomListResponse> = api.getChattingRoomList()
 
-    override fun leaveChattingRoom(chatRoomId: Long): Single<CommonServerResponse> = api.leaveChattingRoom(chatRoomId)
+    override fun leaveChattingRoom(chatRoomId: Long): Single<CommonServerResponse> =
+        api.leaveChattingRoom(chatRoomId)
 
-    override fun getChattingMessageList(chatRoomId: Long): Single<ChattingMessageListResponse> = api.getChattingMessageList(chatRoomId)
+    override fun getChattingMessageList(chatRoomId: Long): Single<ChattingMessageListResponse> =
+        api.getChattingMessageList(chatRoomId)
 
-    override fun makeChattingMessageRead(chatRoomId: Long, messageId: Long): Single<MakeChattingMessageReadResponse> = api.makeChattingMessageRead(chatRoomId, messageId)
+    override fun makeChattingMessageRead(
+        chatRoomId: Long,
+        messageId: Long
+    ): Single<MakeChattingMessageReadResponse> = api.makeChattingMessageRead(chatRoomId, messageId)
 
-    override fun applyBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse> = api.applyBoard(boardId, param)
+    override fun applyBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse> =
+        api.applyBoard(boardId, param)
 
-    override fun approveBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse> = api.approveBoard(boardId, param)
+    override fun approveBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse> =
+        api.approveBoard(boardId, param)
 
-    override fun disapproveBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse> = api.disapproveBoard(boardId, param)
+    override fun disapproveBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse> =
+        api.disapproveBoard(boardId, param)
 
     override fun postBoard(
         title: String,
@@ -90,7 +103,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
         city: Long,
         userTag: Long,
         recruitNumber: Int,
-        date: Date,
+        date: String,
         place: String
     ): Single<CommonResponse> {
         return api.postBoard(
@@ -101,7 +114,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
                 city,
                 userTag,
                 recruitNumber,
-                Calendar.getInstance().time,
+                date,
                 place
             )
         )
@@ -139,7 +152,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
         city: Long,
         userTag: Long,
         recruitNumber: Int,
-        date: Date,
+        date: String,
         place: String
     ): Single<BoardContentResponse> {
         return api.editBoard(

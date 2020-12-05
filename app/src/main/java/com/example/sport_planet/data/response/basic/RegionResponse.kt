@@ -1,6 +1,7 @@
 package com.example.sport_planet.data.response.basic
 
 
+import com.example.sport_planet.data.model.CommonApiModel
 import com.google.gson.annotations.SerializedName
 
 data class RegionResponse(
@@ -18,9 +19,15 @@ data class RegionResponse(
         val id: Long,
         @SerializedName("name")
         val name: String
-    )
+    ) {
+
+    }
 
     fun isSuccess(): Boolean {
         return status == 200
     }
+}
+
+fun RegionResponse.Data.toCommon(): CommonApiModel {
+    return CommonApiModel(id, name)
 }
