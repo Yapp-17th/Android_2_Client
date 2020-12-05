@@ -24,7 +24,6 @@ import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*
 import okhttp3.Response
 
-
 interface Api {
     //   로그인 API
     @GET("base-service/v1/exercise")

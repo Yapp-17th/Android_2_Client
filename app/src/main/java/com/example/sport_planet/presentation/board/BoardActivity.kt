@@ -85,19 +85,23 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
 
         binding.btnChatting.setOnClickListener {
             viewModel.makeChattingRoom()
-            viewModel.makeChattingRoomtResultLiveData.observe(this,
+            viewModel.makeChattingRoomResultLiveData.observe(this,
                 Observer {
-                    val intent = Intent(applicationContext, ChattingActivity::class.java)
-                    intent.putExtra("chatRoomInfo",
-                        ChatRoomInfo(
-                            it.data.id,
-                            it.data.boardId,
-                            it.data.guestId,
-                            it.data.hostId == UserInfo.USER_ID,
-                            it.data.opponentNickname
-                        )
-                    )
-                    startActivity(intent)
+                    it.getContentIfNotHandled()?.data.let { chattingRoom ->
+                        if (chattingRoom != null) {
+                            val intent = Intent(applicationContext, ChattingActivity::class.java)
+                            intent.putExtra("chatRoomInfo",
+                                ChatRoomInfo(
+                                    chattingRoom.id,
+                                    chattingRoom.boardId,
+                                    chattingRoom.guestId,
+                                    chattingRoom.hostId == UserInfo.USER_ID,
+                                    chattingRoom.opponentNickname
+                                )
+                            )
+                            startActivity(intent)
+                        }
+                    }
                 }
             )
         }
