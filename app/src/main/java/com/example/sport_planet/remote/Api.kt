@@ -23,9 +23,6 @@ import com.example.sport_planet.data.response.login.LoginResponse
 import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*
 
-const val jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIxIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjFAZ21haWwuY29tIiwidXNlcklkIjoiMSJ9.Bmbhc-I1r-L-dW5vUzvB9jRsPPKtcqYXutAyWKqkPrc"
-//const val jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0ZXIyIiwiaWF0IjoxNjA0NjY3MzA5LCJleHAiOjE2MzYyMDMzMTEsImF1ZCI6IiIsInN1YiI6InRlc3RlcjJAZ21haWwuY29tIiwidXNlcklkIjoiMiJ9.iMoSPe9k5Uj6w8qa4eaOIQqjIzI5Scuts3tBbQ4p79g"
-
 interface Api {
     //   로그인 API
     @GET("base-service/v1/exercise")
