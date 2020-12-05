@@ -21,6 +21,7 @@ import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*
 import com.example.sport_planet.remote.NetworkHelper.api
 import io.reactivex.Single
+import retrofit2.Response
 import java.util.*
 
 class RemoteDataSourceImpl : RemoteDataSource {
@@ -28,11 +29,11 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun getRegion(): Single<RegionResponse> = api.getRegion()
 
-    override fun postSignIn(userInfo: LoginResponse): Single<ServerCallBackResponse> =
+    override fun postSignIn(userInfo: LoginResponse): Single<Response<ServerCallBackResponse>> =
         api.postSignIn(userInfo)
 
 
-    override fun postSignUp(userSignUp: SignUpResponse): Single<ServerCallBackResponse> =
+    override fun postSignUp(userSignUp: SignUpResponse): Single<Response<ServerCallBackResponse>> =
         api.postSignUp(userSignUp)
 
     override fun deleteUser(): Single<ServerCallBackResponse>  = api.deleteUser()

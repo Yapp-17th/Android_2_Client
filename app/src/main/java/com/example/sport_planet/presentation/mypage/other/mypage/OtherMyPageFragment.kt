@@ -29,7 +29,11 @@ class OtherMyPageFragment :
         val userId = arguments?.getLong("userId", 0L)
         userId?.let { viewModel.getMyProfile(it) }
         observeLiveData()
-        binding.tvHistory.setOnClickListener { moveFragment(OtherHistoryFragment.instance(userId)) }
+        binding.tvHistory.setOnClickListener {
+            if (userId != null) {
+                moveFragment(OtherHistoryFragment.instance(userId.toLong()))
+            }
+        }
     }
 
     private fun observeLiveData() {

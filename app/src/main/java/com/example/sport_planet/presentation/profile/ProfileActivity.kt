@@ -5,14 +5,17 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.sport_planet.util.PrefUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.data.response.basic.ExerciseResponse
 import com.example.sport_planet.data.response.basic.RegionResponse
 import com.example.sport_planet.databinding.ActivityProfileBinding
 import com.example.sport_planet.presentation.base.BaseAcceptDialog
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.login.LoginActivity
 import com.example.sport_planet.presentation.main.MainActivity
+import com.example.sport_planet.remote.NetworkHelper
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
@@ -80,6 +83,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 }
             }
         })
+        viewModel.serverToken.observe(this, Observer {
+            PrefUtil.setStrValue(this,"serverToken",it)
+        })
     }
 
     private fun showRegionPopup(it: RegionResponse) {
@@ -141,6 +147,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         )
         dialog.setAcceptDialogListener(object : BaseAcceptDialog.AcceptDialogListener {
             override fun onAccept() {
+                NetworkHelper.token = viewModel.serverToken.toString()
+                PrefUtil.setStrValue(this@ProfileActivity,"serverToken",viewModel.serverToken.value.toString())
+                UserInfo.USER_ID = viewModel.serverUserId.value.toString().toLong()
                 val intent = Intent(this@ProfileActivity, MainActivity::class.java)
                 startActivity(intent)
             }
