@@ -148,6 +148,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
             override fun onAccept() {
                 NetworkHelper.token = viewModel.serverToken.toString()
                 PrefUtil.setStrValue(this@ProfileActivity,"serverToken",viewModel.serverToken.value.toString())
+                PrefUtil.setStrValue(this@ProfileActivity,"userId",viewModel.serverUserId.value.toString())
                 val intent = Intent(this@ProfileActivity, MainActivity::class.java)
                 startActivity(intent)
             }

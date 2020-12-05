@@ -19,6 +19,9 @@ class ProfileViewModel : BaseViewModel() {
     private val _serverToken = MutableLiveData<String>()
     val serverToken: LiveData<String> get() = _serverToken
 
+    private val _serverUserId = MutableLiveData<String>()
+    val serverUserId: LiveData<String> get() = _serverUserId
+
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> get() = _userId
 
@@ -126,6 +129,7 @@ class ProfileViewModel : BaseViewModel() {
                 .applySchedulers()
                 .subscribe({
                     _serverToken.value = it.headers()["token"]
+                    _serverUserId.value = it.headers()["userId"]
                     _postSignUpStatus.postValue(it.body()?.status)
                     _postSignUpStatusMessage.postValue(it.body()?.message)
                 }, {})

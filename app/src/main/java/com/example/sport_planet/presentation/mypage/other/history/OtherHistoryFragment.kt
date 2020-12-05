@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.mypage.other.history
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R

@@ -1,5 +1,6 @@
 package com.example.sport_planet.presentation.mypage.other.mypage
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sport_planet.data.response.mypage.HistoryResponse
@@ -13,6 +14,7 @@ class OtherMyPageViewModel : BaseViewModel() {
     val historyResponse: LiveData<HistoryResponse> get() = _historyResponse
 
     fun getMyProfile(userId : Long) {
+        Log.e("qwdqwdqw",userId.toString())
         compositeDisposable.add(
             RemoteDataSourceImpl().getViewHistory(userId)
                 .applySchedulers()

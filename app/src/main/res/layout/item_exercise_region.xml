@@ -10,16 +10,16 @@
     </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_text"
             style="@style/medium_basic_16sp_black"
-            android:layout_width="160dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:paddingHorizontal="@dimen/item_exercise_region_padding_16dp"
+            android:paddingStart="@dimen/item_exercise_region_padding_16dp"
             tools:text="중랑구"
             android:text="@{item}" />
     </LinearLayout>

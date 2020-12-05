@@ -44,6 +44,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                                     when (it.body()?.status) {
                                         200 -> {
                                             PrefUtil.setStrValue(this@LoginActivity,"serverToken",it.headers()["token"].toString())
+                                            PrefUtil.setStrValue(this@LoginActivity,"userId",it.headers()["userId"].toString())
                                             NetworkHelper.token = PrefUtil.getStrValue(this,"serverToken","").toString()
                                             val intent = Intent(this, MainActivity::class.java)
                                             startActivity(intent)
