@@ -177,8 +177,8 @@
 
     <!-- item_history_ing.xml -->
     <string name="item_history_ing_recruit_number">%1$d/%2$d명</string>
-    <string name="item_history_ing_host">host</string>
-    <string name="item_history_ing_guest">guest</string>
+    <string name="item_history_ing_host">Host</string>
+    <string name="item_history_ing_guest">Guest</string>
     <string name="item_history_ing_expand">더보기</string>
     <string name="item_history_ing_unexpand">접기</string>
     <string name="item_history_finish_expand_report">신고</string>
