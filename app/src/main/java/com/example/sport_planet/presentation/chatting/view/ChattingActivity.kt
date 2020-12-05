@@ -114,15 +114,17 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
                 chattingAdapter.settingChattingMessageList(chattingMessages)
 
-                (rv_activity_chatting_recyclerview.layoutManager as LinearLayoutManager).stackFromEnd = isPageFilledWithItems
-                if (it.firstUnreadMessageId != -1)
-                    rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId)
-                if(!isPageFilledWithItems)
-                    rv_activity_chatting_recyclerview.addOnLayoutChangeListener(layoutChangeListener)
-
                 rv_activity_chatting_recyclerview.postDelayed({
-                    view_activity_chatting_loading.visibility = View.GONE
-                },100)
+                    (rv_activity_chatting_recyclerview.layoutManager as LinearLayoutManager).stackFromEnd = isPageFilledWithItems
+                    if (it.firstUnreadMessageId != -1)
+                        rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId)
+                    if(!isPageFilledWithItems)
+                        rv_activity_chatting_recyclerview.addOnLayoutChangeListener(layoutChangeListener)
+
+                    rv_activity_chatting_recyclerview.postDelayed({
+                        view_activity_chatting_loading.visibility = View.GONE
+                    },100)
+                },50)
             }
         )
 
