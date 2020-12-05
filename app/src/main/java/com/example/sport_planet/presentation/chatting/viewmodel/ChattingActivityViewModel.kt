@@ -85,7 +85,7 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
                     }
             },{
                     Log.d(TAG, it.localizedMessage)
-                })
+            })
         )
     }
 
@@ -125,21 +125,17 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
                                 chattingMessage = Json.parse(ChattingMessageResponse.serializer(), stompMessage)
                                 when(chattingMessage.realTimeUpdateType) {
                                     ChattingConstant.REAL_TIME_MESSAGE_READ -> {
+                                        makeChattingMessageRead(chatRoomInfo.chatRoomId, chattingMessage.id)
                                         when(chattingMessage.type){
                                             ChattingConstant.CHAT_BOT_MESSAGE -> _noticeMessageLiveData.postValue(chattingMessage)
                                             else -> _chattingMessageLiveData.postValue(chattingMessage)
                                         }
-                                        makeChattingMessageRead(chatRoomInfo.chatRoomId, chattingMessage.id!!)
                                     }
-                                    else -> {
-                                        _approvalStatusLiveData.postValue(approvalStatus(chatRoomInfo.isHost, chattingMessage.realTimeUpdateType!!))
-                                    }
+                                    else -> _approvalStatusLiveData.postValue(approvalStatus(chatRoomInfo.isHost, chattingMessage.realTimeUpdateType))
                                 }
-
                             }, {
                                 Log.d(TAG, it.localizedMessage)
                             })
-
                     }
                     Event.Type.CLOSED -> {
                         if(!closeSocket)
@@ -170,7 +166,6 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-
         stompClient.send("/pub/v1/chat/message", chattingMessageJsonObject.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
