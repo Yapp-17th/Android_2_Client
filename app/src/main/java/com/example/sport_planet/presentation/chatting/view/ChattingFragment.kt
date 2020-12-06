@@ -57,23 +57,24 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
     override fun onStart() {
         super.onStart()
-
+        
         viewModel.settingChattingRoomList()
 
         viewModel.chattingRoomListResponseLiveData.observe(this,
             Observer {
                 chattingRoomsHashMap = HashMap()
-                for(chattingRoom in it.data){
-                    chattingRoomsHashMap[chattingRoom.id] = chattingRoom
-                }
-                chattingRoomAdapter.settingChattingRoomList(chattingRoomsHashMap)
-                if(chattingRoomAdapter.itemCount == 0){
-                    iv_chatting_fragment_nothing.visibility = View.VISIBLE
-                    tv_chatting_fragment_nothing.visibility = View.VISIBLE
-                }
-                else {
-                    iv_chatting_fragment_nothing.visibility = View.INVISIBLE
-                    tv_chatting_fragment_nothing.visibility = View.INVISIBLE
+                if(it.data.isNotEmpty()) {
+                    for (chattingRoom in it.data) {
+                        chattingRoomsHashMap[chattingRoom.id] = chattingRoom
+                    }
+                    chattingRoomAdapter.settingChattingRoomList(chattingRoomsHashMap)
+                    if (chattingRoomAdapter.itemCount == 0) {
+                        iv_chatting_fragment_nothing.visibility = View.VISIBLE
+                        tv_chatting_fragment_nothing.visibility = View.VISIBLE
+                    } else {
+                        iv_chatting_fragment_nothing.visibility = View.INVISIBLE
+                        tv_chatting_fragment_nothing.visibility = View.INVISIBLE
+                    }
                 }
             }
         )
