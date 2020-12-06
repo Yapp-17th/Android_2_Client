@@ -3,6 +3,7 @@ package com.example.sport_planet.presentation.write
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -15,12 +16,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.data.enums.WriteFilterEnum
-import com.example.sport_planet.data.model.CommonApiModel
-import com.example.sport_planet.data.model.toCity
-import com.example.sport_planet.data.model.toExercise
-import com.example.sport_planet.data.model.toUserTag
+import com.example.sport_planet.data.model.*
+import com.example.sport_planet.data.response.basic.toCommon
 import com.example.sport_planet.databinding.FragmentWriteBinding
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.home.HomeFragment.Companion.REFRESH
 import com.example.sport_planet.presentation.write.adapter.WriteGridViewAdapter
 import com.example.sport_planet.presentation.write.date.DateDialogFragment
 import com.example.sport_planet.presentation.write.date.DateListener
@@ -85,6 +85,9 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
         ivList = listOf(binding.ivExercise, binding.ivCity, binding.ivTag)
         initTags()
 
+        binding.tvDate.hint =
+            SimpleDateFormat(getString(R.string.full_date_format)).format(System.currentTimeMillis())
+
         binding.toolbar.setBackButtonClick(View.OnClickListener {
             setResult(Activity.RESULT_OK, Intent())
             finish()
@@ -93,7 +96,7 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
         viewModel.showFinishView.observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 showToast("업로드 성공")
-                setResult(Activity.RESULT_OK, Intent())
+                setResult(Activity.RESULT_OK)
                 finish()
             }
             .addTo(compositeDisposable)
@@ -108,15 +111,34 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
             viewModel.getBoardContent()
         })
 
-//        viewModel.showBoardContent
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe {
-//                viewModel.title.value = it.title
-//                viewModel.body.value = it.content
-//                viewModel.place.value = it.place
-//                viewModel.time.value = it.
-//            }
-//            .addTo(compositeDisposable)
+        viewModel.showBoardContent
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                runOnUiThread {
+                    viewModel.title.value = it.title
+                    binding.edtTitle.setText(it.title)
+                    viewModel.body.value = it.content
+                    binding.edtBody.setText(it.content)
+                    viewModel.place.value = it.place
+                    binding.edtPlace.setText(it.place)
+                    val index = it.startsAt.indexOf("T")
+                    viewModel.date.value = it.startsAt.substring(0, index + 1)
+                    Log.d("ehdghks", it.startsAt.substring(0, index + 1))
+                    viewModel.time.value = it.startsAt.substring(index + 1, index + 6)
+                    Log.d("ehdghks", it.startsAt.substring(index + 1, index + 6))
+                    binding.tvDate.text = viewModel.getDateToString()
+                    viewModel.exercise.value = it.exercise
+                    viewModel.city.value = it.city
+                    viewModel.userTag.value = it.userTag
+                    result[0] = Pair(WriteFilterEnum.EXERCISE, it.exercise.toCommon())
+                    result[1] = Pair(WriteFilterEnum.CITY, it.city.toCommon())
+                    result[2] = Pair(WriteFilterEnum.USERTAG, it.userTag.toCommon())
+                    viewModel.count.value = it.recruitNumber
+                    binding.spinnerCount.setSelection(it.recruitNumber - 1)
+                    selectViewNotify()
+                }
+            }
+            .addTo(compositeDisposable)
 
         viewModel.isLoading
             .observeOn(AndroidSchedulers.mainThread())
@@ -151,17 +173,12 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
                 }
             }
 
-        binding.tvDate.hint =
-            SimpleDateFormat(getString(R.string.write_date_format)).format(System.currentTimeMillis()) + " " + SimpleDateFormat(
-                getString(R.string.write_time_format)
-            ).format(System.currentTimeMillis())
-
         binding.tvDate.setOnClickListener {
             dateDialog.show(supportFragmentManager.beginTransaction(), DATE_DIALOG)
         }
 
         binding.btnPosting.setOnClickListener {
-            viewModel.postBoard()
+            if (viewModel.boardId.value!! > -1) viewModel.editBoard() else viewModel.postBoard()
         }
 
         binding.spinnerCount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -192,6 +209,7 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
 
         if (intent != null) {
             viewModel.boardId.value = intent.getLongExtra(BOARD_ID, -1)
+            binding.btnPosting.text = if (viewModel.boardId.value!! > -1) "게시글 수정하기" else "게시글 올리기"
         }
     }
 
@@ -230,17 +248,24 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
                         override fun confirm(model: CommonApiModel) {
                             result[position] = Pair(items[position], model)
                             dateChangeListener.onChange(result = result[position])
-                            runOnUiThread {
-                                val isChecked = result[position].second != null
-                                tvList[position].text =
-                                    if (isChecked) result[position].second!!.name else items[position].title
-                                clList[position].setBackgroundResource(if (isChecked) R.drawable.shape_round_corner_into_dark_blue_opacity else R.drawable.shape_round_corner)
-                                ivList[position].setImageResource(if (isChecked) R.drawable.icons_18_px_x else R.drawable.ic_toggle_off)
-                            }
+                            selectViewNotify()
                         }
                     })
                     fragment.show(supportFragmentManager, "SELECT")
                 }
+            }
+        }
+    }
+
+    private fun selectViewNotify() {
+        Log.d("ehdghks", "result : $result")
+        runOnUiThread {
+            for (position in 0..2) {
+                val isChecked = result[position].second != null
+                tvList[position].text =
+                    if (isChecked) result[position].second!!.name else items[position].title
+                clList[position].setBackgroundResource(if (isChecked) R.drawable.shape_round_corner_into_dark_blue_opacity else R.drawable.shape_round_corner)
+                ivList[position].setImageResource(if (isChecked) R.drawable.icons_18_px_x else R.drawable.ic_toggle_off)
             }
         }
     }
@@ -252,13 +277,13 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
 
         fun createInstance(activity: Activity) {
             val intent = Intent(activity, WriteActivity::class.java)
-            activity.startActivity(intent)
+            activity.startActivityForResult(intent, REFRESH)
         }
 
         fun createInstance(activity: Activity, boardId: Long) {
             val intent = Intent(activity, WriteActivity::class.java)
             intent.putExtra(BOARD_ID, boardId)
-            activity.startActivity(intent)
+            activity.startActivityForResult(intent, REFRESH)
         }
     }
 }

@@ -14,6 +14,7 @@ import com.example.sport_planet.remote.RemoteDataSource
 import com.example.sport_planet.util.applySchedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.subjects.PublishSubject
 
 class BoardViewModel(private val remote: RemoteDataSource) :
     BaseViewModel() {
@@ -26,13 +27,16 @@ class BoardViewModel(private val remote: RemoteDataSource) :
     val hostId: Long
         get() = _hostId.value ?: -1
 
-    private val _makeChattingRoomResultLiveData = MutableLiveData<EventWrapper<MakeChattingRoomResponse>>()
+    private val _makeChattingRoomResultLiveData =
+        MutableLiveData<EventWrapper<MakeChattingRoomResponse>>()
     val makeChattingRoomResultLiveData: LiveData<EventWrapper<MakeChattingRoomResponse>>
         get() = _makeChattingRoomResultLiveData
 
     val boardContent: MutableLiveData<BoardContentModel> = MutableLiveData()
+    val showBoardHideView: PublishSubject<Unit> = PublishSubject.create()
+    val successFinish: PublishSubject<String> = PublishSubject.create()
 
-    fun makeChattingRoom(){
+    fun makeChattingRoom() {
         val chattingRoomJsonObject = JsonObject()
         chattingRoomJsonObject["hostId"] = _hostId.value
         chattingRoomJsonObject["boardId"] = boardId.value
@@ -41,8 +45,8 @@ class BoardViewModel(private val remote: RemoteDataSource) :
                 .applySchedulers()
                 .subscribe(
                     {
-                       _makeChattingRoomResultLiveData.postValue(EventWrapper(it))
-                    },{
+                        _makeChattingRoomResultLiveData.postValue(EventWrapper(it))
+                    }, {
                         Log.d("BoardViewModel", it.localizedMessage)
                     }
                 )
@@ -57,7 +61,7 @@ class BoardViewModel(private val remote: RemoteDataSource) :
             .subscribe({
                 if (it.success) {
                     boardContent.value = it.data
-                    _hostId.value = it.data.host.hostId.toLong()
+                    _hostId.value = it.data.host.hostId
                 }
             }, {
                 it.printStackTrace()
@@ -92,9 +96,7 @@ class BoardViewModel(private val remote: RemoteDataSource) :
             .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
                 if (it.success) {
-
-                } else {
-
+                    successFinish.onNext("숨기기 완료")
                 }
             }, {
                 it.printStackTrace()
@@ -109,9 +111,7 @@ class BoardViewModel(private val remote: RemoteDataSource) :
             .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
                 if (it.success) {
-
-                } else {
-
+                    successFinish.onNext("삭제 완료")
                 }
             }, {
                 it.printStackTrace()

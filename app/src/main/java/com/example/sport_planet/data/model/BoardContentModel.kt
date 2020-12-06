@@ -1,12 +1,14 @@
 package com.example.sport_planet.data.model
 
+import com.example.sport_planet.data.response.basic.ExerciseResponse
+import com.example.sport_planet.data.response.basic.RegionResponse
 import java.util.*
 
 data class BoardContentModel(
         val boardId: Long,
-        val city: String,
+        val city: RegionResponse.Data,
         val content: String,
-        val exercise: String,
+        val exercise: ExerciseResponse.Data,
         val groupStatus: GroupStatusModel,
         val host: HostModel,
         val isBookMark: Boolean,
@@ -15,8 +17,8 @@ data class BoardContentModel(
         val recruitedNumber: Int,
         val title: String,
         val boardTime: String,
-        val startsAt: Date,
-        val userTag: String
+        val startsAt: String,
+        val userTag: UserTagModel
 )
 
 fun BoardContentModel.toBoardModel(): BoardModel {
@@ -26,13 +28,13 @@ fun BoardContentModel.toBoardModel(): BoardModel {
             hostName = host.hostName,
             title = title,
             groupStatus = groupStatus,
-            exercise = exercise,
-            city = city,
+            exercise = exercise.name,
+            city = city.name,
             isBookMark = isBookMark,
             boardTime = boardTime,
             recruitNumber = recruitNumber,
             recruitedNumber = recruitedNumber,
             startsAt = startsAt,
-            userTag = userTag
+            userTag = userTag.name
     )
 }

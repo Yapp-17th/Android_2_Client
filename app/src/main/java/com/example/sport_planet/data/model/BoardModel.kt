@@ -14,6 +14,6 @@ data class BoardModel(
     val boardTime: String,
     val recruitNumber: Int,
     val recruitedNumber: Int,
-    val startsAt: Date,
+    val startsAt: String,
     val userTag: String
 )

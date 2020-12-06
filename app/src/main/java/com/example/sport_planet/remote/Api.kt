@@ -156,12 +156,12 @@ interface Api {
         @Path("boardId") boardId: Long
     ): Single<BoardContentResponse>
 
-    @DELETE("/api/board-service/v1/board/{boarId}")
+    @DELETE("/api/board-service/v1/board/{boardId}")
     fun deleteBoard(
         @Path("boardId") boardId: Long
     ): Single<CommonResponse>
 
-    @PUT("/api/board-service/v1/board/{boardId")
+    @PUT("/api/board-service/v1/board/{boardId}")
     fun editBoard(
         @Path("boardId") boardId: Long,
         @Body body: PostBoardRequest

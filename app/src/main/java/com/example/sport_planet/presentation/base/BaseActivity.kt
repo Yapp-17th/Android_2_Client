@@ -32,7 +32,6 @@ abstract class BaseActivity<B : ViewDataBinding>
             if (loadingFragment != null && loadingFragment!!.isAdded) {
                 return@runOnUiThread
             } else {
-                loadingFragment = LoadingFragment.newInstance()
                 loadingFragment?.let { it ->
                     it.show(supportFragmentManager, "LOADING_FRAGMENT")
                 }
@@ -43,7 +42,6 @@ abstract class BaseActivity<B : ViewDataBinding>
     fun hideLoading() {
         this.runOnUiThread {
             (supportFragmentManager.findFragmentByTag("LOADING_FRAGMENT") as? LoadingFragment)?.dismiss()
-            loadingFragment = null
         }
     }
 
