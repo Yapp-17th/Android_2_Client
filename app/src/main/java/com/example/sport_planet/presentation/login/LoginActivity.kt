@@ -42,6 +42,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                             RemoteDataSourceImpl().postSignIn(
                                 LoginResponse(userToken, userEmail, userNickname, userId)
                             ).applySchedulers()
+                                .doOnSubscribe { showLoading() }
+                                .doAfterTerminate { hideLoading() }
                                 .subscribe({
                                     when (it.body()?.status) {
                                         200 -> {

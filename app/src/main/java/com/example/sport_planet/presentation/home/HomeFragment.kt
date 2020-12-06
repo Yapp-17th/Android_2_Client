@@ -105,8 +105,6 @@ class HomeFragment private constructor() :
             }
         }
 
-        viewModel.getBoardList()
-
         viewModel.isLoading
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { if (it) showLoading() else hideLoading() }
@@ -129,12 +127,22 @@ class HomeFragment private constructor() :
                 viewModel.exercise.value = data?.getStringExtra(INTENT_EXERCISE) ?: "0"
                 viewModel.getBoardList()
             }
+        } else if(requestCode == REFRESH) {
+            if (resultCode == Activity.RESULT_OK) {
+                viewModel.getBoardList()
+            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getBoardList()
+        Log.d("ehdghks","Home onResume")
     }
 
     companion object {
         const val FILTER_REQUEST_CODE = 1
-        const val POST_BOARD = 2
+        const val REFRESH = 2
 
         fun newInstance() = HomeFragment()
     }

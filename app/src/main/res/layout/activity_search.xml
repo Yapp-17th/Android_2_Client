@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".presentation.search.SearchActivity">
+
+        <LinearLayout
+            android:id="@+id/ll_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_app_bar_size"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/ic_back" />
+
+            <EditText
+                android:imeOptions="actionSearch"
+                android:id="@+id/edt_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="12dp"
+                android:background="@null"
+                android:hint="검색어를 입력하세요."
+                android:paddingStart="8dp"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_container_1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white_gray"
+            app:layout_constraintTop_toBottomOf="@id/ll_toolbar" />
+
+        <TextView
+            android:id="@+id/tv_container_recent_seach"
+            style="@style/bold_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="최근 검색"
+            android:textColor="@color/dark_gray"
+            app:layout_constraintStart_toStartOf="@id/view_container_1"
+            app:layout_constraintTop_toBottomOf="@id/view_container_1" />
+
+        <TextView
+            android:id="@+id/tv_delete_search_list"
+            style="@style/regular_basic_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="전체 삭제"
+            android:textColor="@color/gray"
+            app:layout_constraintBottom_toBottomOf="@id/tv_container_recent_seach"
+            app:layout_constraintEnd_toEndOf="@id/view_container_1"
+            app:layout_constraintTop_toTopOf="@id/tv_container_recent_seach" />
+
+        <View
+            android:id="@+id/view_container_2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/fragment_my_page_margin_10dp"
+            android:background="@color/white_gray"
+            app:layout_constraintStart_toStartOf="@id/tv_container_recent_seach"
+            app:layout_constraintTop_toBottomOf="@id/tv_container_recent_seach" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_searchList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/view_container_2"
+            tools:listitem="@layout/item_search" />
+
+        <View
+            android:id="@+id/view_container_3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_searchList" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

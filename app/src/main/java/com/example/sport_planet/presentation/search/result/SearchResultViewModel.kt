@@ -1,9 +1,7 @@
-package com.example.sport_planet.presentation.home
+package com.example.sport_planet.presentation.search.result
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.data.enums.TimeFilterEnum
 import com.example.sport_planet.data.model.BoardModel
 import com.example.sport_planet.data.model.toBoardModel
@@ -13,8 +11,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.PublishSubject
 
-class HomeViewModel(private val remote: RemoteDataSource) :
-    BaseViewModel() {
+class SearchResultViewModel(
+    private val remote: RemoteDataSource
+) : BaseViewModel() {
 
     val boardList: MutableLiveData<List<BoardModel>> = MutableLiveData(emptyList())
     val pageCount: MutableLiveData<Int> = MutableLiveData(0)
@@ -39,11 +38,7 @@ class HomeViewModel(private val remote: RemoteDataSource) :
             .subscribe({
                 Log.d("okhttp", "getWriteList : $it")
                 if (it.success) {
-                    if (it.data.isEmpty()) {
-                        subPageCount()
-                        return@subscribe
-                    }
-                    _boardList.clear()
+                    if (it.data.isEmpty()) subPageCount()
                     _boardList.addAll(it.data)
                     boardList.value = _boardList
                 }
@@ -94,7 +89,6 @@ class HomeViewModel(private val remote: RemoteDataSource) :
             .doOnSubscribe { isLoading.onNext(true) }
             .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
-                Log.d("okhttp", "BoardContentItem : $it")
                 if (it.success) {
                     val newBoard = it.data.toBoardModel()
                     _boardList[_boardList.indexOf(oldBoard)] = newBoard
@@ -105,15 +99,5 @@ class HomeViewModel(private val remote: RemoteDataSource) :
                 it.printStackTrace()
             })
             .addTo(compositeDisposable)
-    }
-}
-
-class HomeViewModelFactory(private val remote: RemoteDataSource) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(remote) as T
-        } else {
-            throw IllegalArgumentException()
-        }
     }
 }

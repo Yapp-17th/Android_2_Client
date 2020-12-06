@@ -60,6 +60,44 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
             .subscribe({
                 if (it.success) {
                     showFinishView.onNext(Unit)
+                }
+            }, {
+                it.printStackTrace()
+            })
+            .addTo(compositeDisposable)
+    }
+
+    fun editBoard() {
+        if (exercise.value == null ||
+            city.value == null ||
+            userTag.value == null ||
+            date.value == null ||
+            time.value == null ||
+            place.value == null ||
+            title.value == null ||
+            body.value == null ||
+            count.value == null
+        ) {
+            showPostError.onNext(Unit)
+            return
+        }
+
+        remote.editBoard(
+            boardId = boardId.value!!,
+            title = title.value!!,
+            content = body.value!!,
+            category = exercise.value!!.id,
+            city = city.value!!.id,
+            userTag = userTag.value!!.id,
+            recruitNumber = count.value!!,
+            date = getDate(),
+            place = place.value!!
+        ).observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { isLoading.onNext(true) }
+            .doAfterTerminate { isLoading.onNext(false) }
+            .subscribe({
+                if (it.success) {
+                    showFinishView.onNext(Unit)
                 } else {
 
                 }

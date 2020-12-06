@@ -69,12 +69,12 @@
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="9dp"
+                    android:text="운동종목"
                     android:textColor="@color/dark_blue"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/iv_exercise"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="운동종목" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_exercise"
@@ -105,12 +105,12 @@
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="9dp"
+                    android:text="종목"
                     android:textColor="@color/dark_blue"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/iv_city"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="종목" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_city"
@@ -139,9 +139,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="9dp"
-                    android:text="게임성향"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="9dp"
+                    android:text="게임성향"
                     android:textColor="@color/dark_blue"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/iv_tag"
@@ -274,6 +274,7 @@
             android:layout_marginBottom="16dp"
             android:background="@drawable/button_selector"
             android:text="게시글 올리기"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/edt_body"
             app:layout_constraintStart_toStartOf="@id/edt_body"

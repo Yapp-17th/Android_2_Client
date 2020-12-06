@@ -14,6 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".presentation.search.result.SearchResultActivity"></activity>
+        <activity android:name=".presentation.search.SearchActivity" />
         <activity android:name=".presentation.mypage.other.mypage.OtherMyPageActivity" />
         <activity android:name=".presentation.mypage.history.view.HistoryActivity" />
         <activity android:name=".presentation.home.filter.FilterActivity" />
@@ -27,7 +29,7 @@
             tools:ignore="Instantiatable" />
         <activity android:name=".presentation.board.BoardActivity" />
         <activity android:name=".presentation.login.LoginActivity" />
-        <activity android:name=".presentation.main.MainActivity"></activity>
+        <activity android:name=".presentation.main.MainActivity" />
         <activity android:name=".presentation.splash.IntroActivity" />
         <activity android:name=".presentation.splash.SplashActivity">
             <intent-filter>
