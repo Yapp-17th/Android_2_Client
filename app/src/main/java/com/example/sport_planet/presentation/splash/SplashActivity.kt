@@ -19,18 +19,16 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         super.onCreate(savedInstanceState)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if (getSharedPreferences(SPLASH, MODE_PRIVATE).getBoolean(SPLASH, false)) {
-                val intent = Intent(this, LoginActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-            } else {
-                val intent = Intent(this, IntroActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-                finish()
-            }
+            val intent =
+                if (getSharedPreferences(SPLASH, MODE_PRIVATE).getBoolean(SPLASH, false)) {
+                    Intent(this, LoginActivity::class.java)
+                } else {
+                    Intent(this, IntroActivity::class.java)
+                }
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
 
         }, SPLASH_DELAY_TIME)
     }
