@@ -1,9 +1,9 @@
 package com.example.sport_planet.presentation.write
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.sport_planet.data.model.BoardContentModel
 import com.example.sport_planet.data.model.UserTagModel
 import com.example.sport_planet.data.response.basic.ExerciseResponse
 import com.example.sport_planet.data.response.basic.RegionResponse
@@ -14,6 +14,8 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.PublishSubject
 
 class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
+    val boardId: MutableLiveData<Long> = MutableLiveData()
+
     val exercise: MutableLiveData<ExerciseResponse.Data> = MutableLiveData()
     val city: MutableLiveData<RegionResponse.Data> = MutableLiveData()
     val userTag: MutableLiveData<UserTagModel> = MutableLiveData()
@@ -24,6 +26,7 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
     val body: MutableLiveData<String> = MutableLiveData()
     val count: MutableLiveData<Int> = MutableLiveData()
 
+    val showBoardContent: PublishSubject<BoardContentModel> = PublishSubject.create()
     val showFinishView: PublishSubject<Unit> = PublishSubject.create()
     val showPostError: PublishSubject<Unit> = PublishSubject.create()
 
@@ -66,6 +69,23 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
             .addTo(compositeDisposable)
     }
 
+    fun getBoardContent() {
+        boardId.value?.let { boardId ->
+            remote.getBoardContent(boardId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
+                .subscribe({
+                    if (it.success) {
+                        showBoardContent.onNext(it.data)
+                    }
+                }, {
+                    it.printStackTrace()
+                })
+                .addTo(compositeDisposable)
+        }
+    }
+
     fun clearDateAndTime() {
         date.value = null
         time.value = null
@@ -73,6 +93,15 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
 
     fun getDate(): String {
         return date.value!! + time.value!!
+    }
+
+    fun getDateToString(): String {
+        val target = getDate()
+        return target.substring(0, 4) + "년 " +
+                target.substring(5, 7) + "월 " +
+                target.substring(8, 10) + "일 " +
+                target.substring(11, 13) + "시 " +
+                target.substring(14, 16) + "분"
     }
 }
 

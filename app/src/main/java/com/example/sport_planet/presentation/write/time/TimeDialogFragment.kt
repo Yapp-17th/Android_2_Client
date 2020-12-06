@@ -32,16 +32,20 @@ class TimeDialogFragment private constructor() :
     }
 
     override fun onClick(v: View?) {
-        val hour = binding.time.hour.toString()
+        val hour = if (binding.time.hour > 10) {
+            binding.time.hour.toString()
+        } else {
+            "0" + binding.time.hour.toString()
+        }
         val minute = if (binding.time.minute > 10) {
             binding.time.minute.toString()
         } else {
             "0" + binding.time.minute.toString()
         }
-        Log.d("ehdghks", binding.time.hour.toString())
-        Log.d("ehdghks", binding.time.minute.toString())
+        Log.d("ehdghks", "hour : $hour")
+        Log.d("ehdghks", "minute : $minute")
         when (v) {
-            binding.btnConfirm -> timeListener.confirm(hour+minute)
+            binding.btnConfirm -> timeListener.confirm(hour + minute)
             binding.btnCancel -> timeListener.cancel()
         }
         this.dismiss()

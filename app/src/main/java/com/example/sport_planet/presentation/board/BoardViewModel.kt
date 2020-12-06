@@ -101,6 +101,24 @@ class BoardViewModel(private val remote: RemoteDataSource) :
             })
             .addTo(compositeDisposable)
     }
+
+    fun deleteBoard() {
+        remote.deleteBoard(_boardId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { isLoading.onNext(true) }
+            .doAfterTerminate { isLoading.onNext(false) }
+            .subscribe({
+                if (it.success) {
+
+                } else {
+
+                }
+            }, {
+                it.printStackTrace()
+            })
+            .addTo(compositeDisposable)
+    }
+
 }
 
 class BoardViewModelFactory(private val remote: RemoteDataSource) : ViewModelProvider.Factory {
