@@ -39,14 +39,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         supportFragmentManager.beginTransaction().replace(binding.frame.id, fragment).commit()
         return true
     }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("ehdghks","Main onRestart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("ehdghks","Main onResume")
-    }
 }

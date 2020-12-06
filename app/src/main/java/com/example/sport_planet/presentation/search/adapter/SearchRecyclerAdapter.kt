@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemSearchBinding
 
-class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder>() {
+class SearchRecyclerAdapter(
+    private val itemClick: (String) -> Unit,
+    private val xClick: (Int) -> Unit
+) : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder>() {
     private val items: ArrayList<String> = ArrayList()
 
     fun setItems(items: List<String>) {
@@ -38,6 +41,12 @@ class SearchRecyclerAdapter : RecyclerView.Adapter<SearchRecyclerAdapter.ViewHol
 
         fun onBind(item: String) {
             binding.tvSearchContent.text = item
+            binding.root.setOnClickListener {
+                itemClick(items[adapterPosition])
+            }
+            binding.ivDelete.setOnClickListener {
+                xClick(adapterPosition)
+            }
             binding.executePendingBindings()
         }
     }

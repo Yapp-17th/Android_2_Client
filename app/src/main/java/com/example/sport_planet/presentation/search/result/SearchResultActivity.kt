@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivitySearchResultBinding
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.board.BoardActivity
 import com.example.sport_planet.presentation.search.adapter.SearchResultRecyclerAdapter
 
 class SearchResultActivity :
@@ -16,16 +17,20 @@ class SearchResultActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        showToast("현재 이슈 발견으로 추후 수정 예정")
+
         if (intent != null) {
             binding.tvSearch.text = intent.getStringExtra(SEARCH_STRING)
         }
 
         adapter = SearchResultRecyclerAdapter(
-            itemClick = {},
-            bookMarkClick = {}
+            itemClick = {
+                BoardActivity.createInstance(this, it)
+            },
+            bookMarkClick = {
+
+            }
         )
-
-
     }
 
     companion object {
@@ -33,6 +38,7 @@ class SearchResultActivity :
         fun createInstance(activity: Activity, searchString: String) {
             val intent = Intent(activity, SearchResultActivity::class.java)
             intent.putExtra(SEARCH_STRING, searchString)
+            activity.startActivity(intent)
         }
     }
 }

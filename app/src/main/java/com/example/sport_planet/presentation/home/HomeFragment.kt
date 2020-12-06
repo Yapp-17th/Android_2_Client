@@ -3,7 +3,6 @@ package com.example.sport_planet.presentation.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.PopupMenu
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +17,7 @@ import com.example.sport_planet.presentation.home.adapter.HomeRecyclerAdapter
 import com.example.sport_planet.presentation.home.filter.FilterActivity
 import com.example.sport_planet.presentation.home.filter.FilterActivity.Companion.INTENT_CITY
 import com.example.sport_planet.presentation.home.filter.FilterActivity.Companion.INTENT_EXERCISE
+import com.example.sport_planet.presentation.search.SearchActivity
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -62,6 +62,10 @@ class HomeFragment private constructor() :
                 }
             }
         })
+
+        binding.llToolbar.setOnClickListener {
+            SearchActivity.createInstance(activity!!)
+        }
 
         binding.clFilterOption.setOnClickListener {
             Intent(activity, FilterActivity::class.java).apply {
@@ -127,7 +131,7 @@ class HomeFragment private constructor() :
                 viewModel.exercise.value = data?.getStringExtra(INTENT_EXERCISE) ?: "0"
                 viewModel.getBoardList()
             }
-        } else if(requestCode == REFRESH) {
+        } else if (requestCode == REFRESH) {
             if (resultCode == Activity.RESULT_OK) {
                 viewModel.getBoardList()
             }
@@ -137,7 +141,6 @@ class HomeFragment private constructor() :
     override fun onResume() {
         super.onResume()
         viewModel.getBoardList()
-        Log.d("ehdghks","Home onResume")
     }
 
     companion object {
