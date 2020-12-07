@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
-import com.example.sport_planet.data.response.mypage.EvaluateListResponse
+import com.example.sport_planet.data.model.mypage.EvaluateListModel
 import com.example.sport_planet.databinding.ItemHistoryFinishExpandBinding
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.example.sport_planet.util.applySchedulers
@@ -14,11 +14,11 @@ import io.reactivex.disposables.CompositeDisposable
 class FinishTabExpandAdapter(private val onClickAction: (Long) -> Unit) :
     RecyclerView.Adapter<FinishTabExpandAdapter.FinishTabExpandViewHolder>() {
 
-    val applyListItem = mutableListOf<EvaluateListResponse.EvaluateListModel>()
+    private val applyListItem = mutableListOf<EvaluateListModel>()
     var boardIdItem: Long = 0L
     private val compositeDisposable = CompositeDisposable()
 
-    fun setApplyListItem(item: List<EvaluateListResponse.EvaluateListModel>) {
+    fun setApplyListItem(item: List<EvaluateListModel>) {
         applyListItem.clear()
         applyListItem.addAll(item)
         notifyDataSetChanged()
@@ -50,54 +50,62 @@ class FinishTabExpandAdapter(private val onClickAction: (Long) -> Unit) :
 
     inner class FinishTabExpandViewHolder(private val binding: ItemHistoryFinishExpandBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: EvaluateListResponse.EvaluateListModel) {
-            binding.items = item
-
-            binding.ivLikes.setOnClickListener {
-                compositeDisposable.add(
-                    RemoteDataSourceImpl().getEvaluateList(boardIdItem).applySchedulers()
-                        .subscribe({ response ->
-                            val updateItem = response.data.find { it == item }
-                            if (updateItem != null) {
-                                if (updateItem.isLike && !updateItem.isDislike) {
-                                    binding.ivLikes.setImageResource(R.drawable.icons_18_px_likes)
-                                    binding.ivDisLikes.setImageResource(R.drawable.icons_18_px_dislikes_fill)
-                                    putLike(item.userId, false)
-                                } else {
-                                    binding.ivLikes.setImageResource(R.drawable.icons_18_px_likes_fill)
-                                    binding.ivDisLikes.setImageResource(R.drawable.icons_18_px_dislikes)
-                                    putLike(item.userId, true)
-                                }
-
-                            }
-                        }, {})
-                )
-
-            }
-            binding.ivDisLikes.setOnClickListener {
-                compositeDisposable.add(
-                    RemoteDataSourceImpl().getEvaluateList(boardIdItem).applySchedulers()
-                        .subscribe({ response ->
-                            val updateItem = response.data.find { it == item }
-                            if (updateItem != null) {
-                                if (updateItem.isDislike && !updateItem.isLike) {
-                                    binding.ivLikes.setImageResource(R.drawable.icons_18_px_likes_fill)
-                                    binding.ivDisLikes.setImageResource(R.drawable.icons_18_px_dislikes)
-                                    putLike(item.userId, true)
-                                } else {
-                                    binding.ivLikes.setImageResource(R.drawable.icons_18_px_likes)
-                                    binding.ivDisLikes.setImageResource(R.drawable.icons_18_px_dislikes_fill)
-                                    putLike(item.userId, false)
-                                }
-                            }
-                        }, {})
-                )
-
-            }
-            binding.tvReport.setOnClickListener {
-                onClickAction(item.userId)
+        fun bind(item: EvaluateListModel) {
+            binding.run {
+                items = item
+                ivLikes.setOnClickListener {
+                    getLikeEvaluateList(item)
+                }
+                ivDisLikes.setOnClickListener {
+                    getDisLikesEvaluateList(item)
+                }
+                tvReport.setOnClickListener {
+                    onClickAction(item.userId)
+                }
             }
         }
+
+        private fun ItemHistoryFinishExpandBinding.getLikeEvaluateList(item: EvaluateListModel) {
+            compositeDisposable.add(
+                RemoteDataSourceImpl().getEvaluateList(boardIdItem).applySchedulers()
+                    .subscribe({ response ->
+                        val updateItem = response.data.find { it == item }
+                        if (updateItem != null) {
+                            if (updateItem.isLike && !updateItem.isDislike) {
+                                ivLikes.setImageResource(R.drawable.icons_18_px_likes)
+                                ivDisLikes.setImageResource(R.drawable.icons_18_px_dislikes_fill)
+                                putLike(item.userId, false)
+                            } else {
+                                ivLikes.setImageResource(R.drawable.icons_18_px_likes_fill)
+                                ivDisLikes.setImageResource(R.drawable.icons_18_px_dislikes)
+                                putLike(item.userId, true)
+                            }
+
+                        }
+                    }, {})
+            )
+        }
+
+        private fun ItemHistoryFinishExpandBinding.getDisLikesEvaluateList(item: EvaluateListModel) {
+            compositeDisposable.add(
+                RemoteDataSourceImpl().getEvaluateList(boardIdItem).applySchedulers()
+                    .subscribe({ response ->
+                        val updateItem = response.data.find { it == item }
+                        if (updateItem != null) {
+                            if (updateItem.isDislike && !updateItem.isLike) {
+                                ivLikes.setImageResource(R.drawable.icons_18_px_likes_fill)
+                                ivDisLikes.setImageResource(R.drawable.icons_18_px_dislikes)
+                                putLike(item.userId, true)
+                            } else {
+                                ivLikes.setImageResource(R.drawable.icons_18_px_likes)
+                                ivDisLikes.setImageResource(R.drawable.icons_18_px_dislikes_fill)
+                                putLike(item.userId, false)
+                            }
+                        }
+                    }, {})
+            )
+        }
+
         private fun putLike(userId: Long, like: Boolean) {
             compositeDisposable.add(
                 RemoteDataSourceImpl().putEvaluateIsLike(boardIdItem, userId, like)

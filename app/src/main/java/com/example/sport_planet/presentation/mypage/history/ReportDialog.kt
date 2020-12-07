@@ -12,16 +12,18 @@ import com.example.sport_planet.presentation.base.BaseDialogFragment
 class ReportDialog : BaseDialogFragment<DialogReportBinding>(R.layout.dialog_report) {
     private var mListener: ReportDialogListener? = null
     private val textViewList: MutableList<TextView> by lazy {
-        mutableListOf(
-            binding.tv1,
-            binding.tv2,
-            binding.tv3,
-            binding.tv4,
-            binding.tv5,
-            binding.tv6,
-            binding.tv7,
-            binding.tv8
-        )
+        binding.run {
+            mutableListOf(
+                tv1,
+                tv2,
+                tv3,
+                tv4,
+                tv5,
+                tv6,
+                tv7,
+                tv8
+            )
+        }
     }
     private var index = 0L
 
@@ -111,14 +113,12 @@ class ReportDialog : BaseDialogFragment<DialogReportBinding>(R.layout.dialog_rep
 
     companion object {
         fun newInstance(
-            dialogHeightRatio: Float? = null,
-            dialogWidthRatio: Float = 0.911111f
+            dialogHeightRatio: Float? = null
         ) = ReportDialog().apply {
             arguments = Bundle().apply {
                 if (dialogHeightRatio != null) {
                     putFloat(DIALOG_HEIGHT_RATIO, dialogHeightRatio)
                 }
-                putFloat(DIALOG_WIDTH_RATIO, dialogWidthRatio)
             }
         }
     }

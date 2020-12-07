@@ -14,7 +14,6 @@ class ProfileViewModel : BaseViewModel() {
     private val remoteDataSourceImpl = RemoteDataSourceImpl()
 
     private val _userToken = MutableLiveData<String>()
-    val userToken: LiveData<String> get() = _userToken
 
     private val _serverToken = MutableLiveData<String>()
     val serverToken: LiveData<String> get() = _serverToken
@@ -126,7 +125,7 @@ class ProfileViewModel : BaseViewModel() {
             userId = userId.value.toString(),
             userName = userName.value.toString(),
             email = userEmail.value.toString(),
-            accessToken = userToken.value.toString(),
+            accessToken = _userToken.value.toString(),
             nickName = userNickname.value.toString(),
             address = userRegionId.value!!,
             category = userExerciseIdList.value!!,

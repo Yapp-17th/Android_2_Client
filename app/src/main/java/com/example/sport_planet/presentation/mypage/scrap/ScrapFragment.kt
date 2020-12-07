@@ -27,11 +27,6 @@ class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layou
     }
 
     override fun init() {
-        viewModel.getBookMark()
-        initView()
-    }
-
-    private fun initView() {
         binding.run {
             rvScrap.adapter = scrapAdapter
             customToolBar.run {
@@ -46,20 +41,31 @@ class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layou
                 activity?.finish()
             }
         }
-        viewModel.bookMarkList.observe(viewLifecycleOwner, Observer {
-            binding.clEmpty.visibility = View.GONE
-            binding.rvScrap.visibility = View.VISIBLE
-            scrapAdapter.setScrapItemList(it)
-        })
-        viewModel.isLoading.observeOn(AndroidSchedulers.mainThread())
-            .subscribe { if(it) showLoading() else hideLoading() }
-            .addTo(compositeDisposable)
+        initViewModel()
+    }
+
+    private fun initViewModel() {
+        viewModel.run {
+            getBookMark()
+            bookMarkList.observe(viewLifecycleOwner, Observer {
+                binding.run {
+                    clEmpty.visibility = View.GONE
+                    rvScrap.visibility = View.VISIBLE
+                }
+                scrapAdapter.setScrapItemList(it)
+            })
+            isLoading.observeOn(AndroidSchedulers.mainThread())
+                .subscribe { if (it) showLoading() else hideLoading() }
+                .addTo(compositeDisposable)
+        }
     }
 
     private fun deleteBookMark(boardId: Long, boolean: Boolean){
         if(!boolean){
-            binding.clEmpty.visibility = View.VISIBLE
-            binding.rvScrap.visibility = View.GONE
+            binding.run {
+                clEmpty.visibility = View.VISIBLE
+                rvScrap.visibility = View.GONE
+            }
         }
         viewModel.deleteBookMark(boardId)
     }

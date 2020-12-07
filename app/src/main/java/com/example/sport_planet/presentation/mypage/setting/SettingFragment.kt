@@ -23,21 +23,31 @@ class SettingFragment :
     }
 
     override fun init() {
-        binding.customToolBar.title.text = getString(R.string.fragment_my_page_setting)
-        binding.customToolBar.back.setOnClickListener {
-            onBackPressed()
-        }
-        binding.tvLogout.setOnClickListener { showLogoutPopup() }
-        viewModel.isDeleteSuccess.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                PrefUtil.setStrValue(requireContext(),"serverToken","")
-                val intent = Intent(context, LoginActivity::class.java)
-                startActivity(intent)
+        binding.run {
+            customToolBar.run {
+                title.text = getString(R.string.fragment_my_page_setting)
+                back.setOnClickListener {
+                    onBackPressed()
+                }
             }
-        })
-        viewModel.isLoading.observeOn(AndroidSchedulers.mainThread())
-            .subscribe { if(it) showLoading() else hideLoading() }
-            .addTo(compositeDisposable)
+            tvLogout.setOnClickListener { showLogoutPopup() }
+        }
+        observeLiveData()
+    }
+
+    private fun observeLiveData() {
+        viewModel.run {
+            isDeleteSuccess.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    PrefUtil.setStrValue(requireContext(), "serverToken", "")
+                    val intent = Intent(context, LoginActivity::class.java)
+                    startActivity(intent)
+                }
+            })
+            isLoading.observeOn(AndroidSchedulers.mainThread())
+                .subscribe { if (it) showLoading() else hideLoading() }
+                .addTo(compositeDisposable)
+        }
     }
 
 
@@ -45,8 +55,7 @@ class SettingFragment :
         val dialog = BaseAcceptCancelDialog.newInstance(
             dialogTitleText = getString(R.string.dialog_logout_title),
             dialogBodyText = getString(R.string.dialog_logout_body),
-            dialogAcceptText = getString(R.string.dialog_logout_ok),
-            dialogWidthRatio = 0.911111f
+            dialogAcceptText = getString(R.string.dialog_logout_ok)
         )
         dialog.setAcceptCancelDialogListener(object :
             BaseAcceptCancelDialog.AcceptCancelDialogListener {

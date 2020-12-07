@@ -52,7 +52,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         binding.edtSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val text = v.text.toString()
-                if (text.isNullOrEmpty()) {
+                if (text.isEmpty()) {
                     showToast("검색어를 입력해 주세요")
                     return@OnEditorActionListener true
                 }

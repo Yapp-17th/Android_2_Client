@@ -2,14 +2,12 @@ package com.example.sport_planet.presentation.profile
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ItemExerciseRegionBinding
 
-class RegionAdapter(private val onClickAction: (String,Long) -> Unit) :
+class RegionAdapter(private val onClickAction: (String, Long) -> Unit) :
     RecyclerView.Adapter<RegionAdapter.RegionViewHolder>() {
     private val items = mutableListOf<String>()
 
@@ -40,7 +38,7 @@ class RegionAdapter(private val onClickAction: (String,Long) -> Unit) :
         init {
             binding.root.setOnClickListener {
                 val item = items[adapterPosition]
-                onClickAction(item,adapterPosition+1L)
+                onClickAction(item, adapterPosition + 1L)
             }
         }
 

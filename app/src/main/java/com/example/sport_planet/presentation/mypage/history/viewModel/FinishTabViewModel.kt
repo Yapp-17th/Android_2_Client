@@ -2,6 +2,7 @@ package com.example.sport_planet.presentation.mypage.history.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.sport_planet.data.model.mypage.EvaluateListModel
 import com.example.sport_planet.data.model.mypage.MyViewHistoryModel
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.response.mypage.EvaluateListResponse
@@ -13,8 +14,8 @@ class FinishTabViewModel : BaseViewModel() {
     private val _myViewHistoryList = MutableLiveData<List<MyViewHistoryModel>>()
     val myViewHistoryList: LiveData<List<MyViewHistoryModel>> get() = _myViewHistoryList
 
-    private val _applyList = MutableLiveData<List<EvaluateListResponse.EvaluateListModel>>()
-    val applyList: LiveData<List<EvaluateListResponse.EvaluateListModel>> get() = _applyList
+    private val _applyList = MutableLiveData<List<EvaluateListModel>>()
+    val applyList: LiveData<List<EvaluateListModel>> get() = _applyList
 
     private val _isSuccess = MutableLiveData<Boolean>()
     val isSuccess : LiveData<Boolean> get() = _isSuccess

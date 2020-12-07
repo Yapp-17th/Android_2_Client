@@ -64,49 +64,60 @@ class IngTabAdapter(
                     setHasStableIds(true)
                 }
             }
-            binding.rvExpand.adapter = ingTabExpandAdapter
-            binding.root.setOnClickListener {
-                val item = historyItem[adapterPosition]
-                if (historyItem[adapterPosition].isHost) {
-                    if (selectedItems.get(adapterPosition)) {
-                        selectedItems.delete(adapterPosition)
-                        binding.run {
-                            rvExpand.visibility = View.GONE
-                            tvExpand.text =
-                                root.resources.getString(R.string.item_history_ing_expand)
-                            tvExpand.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                                0,
-                                0,
-                                R.drawable.icons_18_px_toggle,
-                                0
-                            )
-                            applyListItem.clear()
-                        }
-                    } else {
-                        onClickListener(item)
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            run {
-                                ingTabExpandAdapter.setApplyListItem(applyListItem)
-                                selectedItems.put(adapterPosition, true)
-                                binding.run {
-                                    rvExpand.visibility = View.VISIBLE
-                                    tvExpand.run {
-                                        text =
-                                            binding.root.resources.getString(R.string.item_history_ing_unexpand)
-                                        setCompoundDrawablesRelativeWithIntrinsicBounds(
-                                            0,
-                                            0,
-                                            R.drawable.icons_18_px_untoggle,
-                                            0
-                                        )
-                                    }
+            binding.run {
+                rvExpand.adapter = ingTabExpandAdapter
+                root.setOnClickListener {
+                    val item = historyItem[adapterPosition]
+                    if (historyItem[adapterPosition].isHost) {
+                        if (selectedItems.get(adapterPosition)) {
+                            deleteSelectedItems()
+                        } else {
+                            onClickListener(item)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                run {
+                                    putSelectItems(ingTabExpandAdapter)
                                 }
-                            }
-                        }, 100)
+                            }, 100)
+                        }
                     }
                 }
             }
 
+
+        }
+
+        private fun putSelectItems(ingTabExpandAdapter: IngTabExpandAdapter) {
+            ingTabExpandAdapter.setApplyListItem(applyListItem)
+            selectedItems.put(adapterPosition, true)
+            binding.run {
+                rvExpand.visibility = View.VISIBLE
+                tvExpand.run {
+                    text =
+                        binding.root.resources.getString(R.string.item_history_ing_unexpand)
+                    setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icons_18_px_untoggle,
+                        0
+                    )
+                }
+            }
+        }
+
+        private fun deleteSelectedItems() {
+            selectedItems.delete(adapterPosition)
+            binding.run {
+                rvExpand.visibility = View.GONE
+                tvExpand.text =
+                    root.resources.getString(R.string.item_history_ing_expand)
+                tvExpand.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icons_18_px_toggle,
+                    0
+                )
+                applyListItem.clear()
+            }
         }
 
         fun bind(historyItem: MyViewHistoryModel) {

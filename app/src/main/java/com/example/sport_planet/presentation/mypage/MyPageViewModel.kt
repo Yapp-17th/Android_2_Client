@@ -1,12 +1,9 @@
 package com.example.sport_planet.presentation.mypage
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sport_planet.presentation.base.BaseViewModel
-import com.example.sport_planet.remote.NetworkHelper
 import com.example.sport_planet.remote.RemoteDataSourceImpl
-import com.example.sport_planet.util.PrefUtil
 import com.example.sport_planet.util.applySchedulers
 
 class MyPageViewModel : BaseViewModel() {

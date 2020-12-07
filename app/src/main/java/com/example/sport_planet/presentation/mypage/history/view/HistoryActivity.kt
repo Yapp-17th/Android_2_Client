@@ -36,9 +36,9 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTab()
-        binding.run {
-            customToolBar.back.setOnClickListener { finish() }
-            customToolBar.title.text = getString(R.string.activity_history_title)
+        binding.customToolBar.run {
+            back.setOnClickListener { finish() }
+            title.text = getString(R.string.activity_history_title)
         }
     }
 

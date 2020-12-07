@@ -36,31 +36,30 @@ class IngTabFragment :
     }
 
     private fun observeLiveData() {
-        viewModel.myViewHistoryList.observe(viewLifecycleOwner, Observer {
+        viewModel.run {
             binding.run {
-                rvHistoryIng.adapter = ingTabAdapter.apply {
-                    clEmpty.visibility = View.GONE
-                    rvHistoryIng.visibility = View.VISIBLE
-                    setMyViewHistoryItem(viewModel.myViewHistoryList.value!!)
-                }
+                myViewHistoryList.observe(viewLifecycleOwner, Observer {
+                        rvHistoryIng.adapter = ingTabAdapter.apply {
+                            clEmpty.visibility = View.GONE
+                            rvHistoryIng.visibility = View.VISIBLE
+                            setMyViewHistoryItem(viewModel.myViewHistoryList.value!!)
+                    }
+                })
+                applyList.observe(viewLifecycleOwner, Observer {
+                        ingTabAdapter.setApplyListItem(it)
+                })
+                isLoading.observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { if (it) showLoading() else hideLoading() }
+                    .addTo(compositeDisposable)
             }
-        })
-        viewModel.applyList.observe(viewLifecycleOwner, Observer {
-            binding.run {
-                ingTabAdapter.setApplyListItem(it)
-            }
-        })
-        viewModel.isLoading.observeOn(AndroidSchedulers.mainThread())
-            .subscribe { if(it) showLoading() else hideLoading() }
-            .addTo(compositeDisposable)
+        }
     }
 
     private fun showChattingRoomDialog(applyListModel: ApplyListModel) {
         val dialog = BaseAcceptCancelDialog.newInstance(
             dialogTitleText = "",
             dialogBodyText = getString(R.string.dialog_chatting_room_body),
-            dialogAcceptText = getString(R.string.dialog_chatting_room_ok),
-            dialogWidthRatio = 0.911111f
+            dialogAcceptText = getString(R.string.dialog_chatting_room_ok)
         )
         dialog.setAcceptCancelDialogListener(object :
             BaseAcceptCancelDialog.AcceptCancelDialogListener {

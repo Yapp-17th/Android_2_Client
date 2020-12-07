@@ -22,8 +22,11 @@ class OtherMyPageFragment :
     }
 
     override fun init() {
-        binding.vm = viewModel
-        binding.rvContent.adapter = myPageExerciseListAdapter
+        binding.run {
+            vm = viewModel
+            rvContent.adapter = myPageExerciseListAdapter
+        }
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -39,12 +42,14 @@ class OtherMyPageFragment :
     }
 
     private fun observeLiveData() {
-        viewModel.historyResponse.observe(viewLifecycleOwner, Observer {
-            myPageExerciseListAdapter.setItem(it.data.category)
-        })
-        viewModel.isLoading.observeOn(AndroidSchedulers.mainThread())
-            .subscribe { if(it) showLoading() else hideLoading() }
-            .addTo(compositeDisposable)
+        viewModel.run {
+            historyResponse.observe(viewLifecycleOwner, Observer {
+                myPageExerciseListAdapter.setItem(it.data.category)
+            })
+            isLoading.observeOn(AndroidSchedulers.mainThread())
+                .subscribe { if(it) showLoading() else hideLoading() }
+                .addTo(compositeDisposable)
+        }
     }
 
     private fun moveFragment(fragment: Fragment) {
@@ -53,7 +58,6 @@ class OtherMyPageFragment :
             .replace(R.id.frame, fragment)
             .commit()
     }
-
 
     companion object {
         fun newInstance(userId: Long) = OtherMyPageFragment().apply {
