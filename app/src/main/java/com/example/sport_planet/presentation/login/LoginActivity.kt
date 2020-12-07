@@ -51,6 +51,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                                             UserInfo.USER_ID = it.headers()["userId"].toString().toLong()
                                             NetworkHelper.token = PrefUtil.getStrValue(this,"serverToken","").toString()
                                             val intent = Intent(this, MainActivity::class.java)
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                             startActivity(intent)
                                         }
                                         404 -> {

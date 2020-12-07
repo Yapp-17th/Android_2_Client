@@ -12,9 +12,16 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
         super.onCreate(savedInstanceState)
 
         binding.btIntroStart.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            getSharedPreferences(SPLASH, MODE_PRIVATE).edit().putBoolean(SPLASH, true).apply()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
             finish()
         }
     }
 
+    companion object {
+        const val SPLASH = "SPLASH"
+    }
 }
