@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".presentation.search.result.SearchResultActivity"></activity>
+        <activity android:name=".presentation.search.result.SearchResultActivity"/>
         <activity android:name=".presentation.search.SearchActivity" />
         <activity android:name=".presentation.mypage.other.mypage.OtherMyPageActivity" />
         <activity android:name=".presentation.mypage.history.view.HistoryActivity" />
@@ -50,7 +50,7 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="kakao{27b6df70cdf8f39d98b68da14b2650bd}" />
+                    android:scheme="kakao27b6df70cdf8f39d98b68da14b2650bd" />
             </intent-filter>
         </activity>
     </application>
