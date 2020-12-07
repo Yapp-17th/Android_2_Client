@@ -27,7 +27,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         super.onCreate(savedInstanceState)
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
-                Log.d("ehdghks","error: ${error.toString()}")
                 loginErrorCode(error)
             } else if (token != null) {
                 UserApiClient.instance.me { user, error ->

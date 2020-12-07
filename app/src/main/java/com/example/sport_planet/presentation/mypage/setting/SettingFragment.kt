@@ -11,6 +11,8 @@ import com.example.sport_planet.presentation.base.BaseAcceptCancelDialog
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.login.LoginActivity
 import com.kakao.sdk.user.UserApiClient
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class SettingFragment :
@@ -33,6 +35,9 @@ class SettingFragment :
                 startActivity(intent)
             }
         })
+        viewModel.isLoading.observeOn(AndroidSchedulers.mainThread())
+            .subscribe { if(it) showLoading() else hideLoading() }
+            .addTo(compositeDisposable)
     }
 
 

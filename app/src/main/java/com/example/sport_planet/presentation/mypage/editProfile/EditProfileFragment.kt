@@ -13,6 +13,8 @@ import com.example.sport_planet.presentation.profile.ExerciseDialog
 import com.example.sport_planet.presentation.profile.ExerciseListAdapter
 import com.example.sport_planet.presentation.profile.ProfileViewModel
 import com.example.sport_planet.presentation.profile.RegionDialog
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 
@@ -100,6 +102,9 @@ class EditProfileFragment :
                     }
                 }
             })
+            isLoading.observeOn(AndroidSchedulers.mainThread())
+                .subscribe { if(it) showLoading() else hideLoading() }
+                .addTo(compositeDisposable)
         }
 
     }

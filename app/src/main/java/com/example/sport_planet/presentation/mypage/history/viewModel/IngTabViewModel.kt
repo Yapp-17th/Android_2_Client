@@ -21,6 +21,8 @@ class IngTabViewModel : BaseViewModel() {
             RemoteDataSourceImpl()
                 .getMyViewHistory("continue")
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     if (it.success) {
                         _myViewHistoryList.value = it.data
@@ -34,6 +36,8 @@ class IngTabViewModel : BaseViewModel() {
             RemoteDataSourceImpl()
                 .getApplyList(boardId)
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     if(it.success)
                         _applyList.value = it.data

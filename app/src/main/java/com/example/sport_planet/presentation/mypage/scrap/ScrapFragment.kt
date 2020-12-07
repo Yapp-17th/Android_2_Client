@@ -9,6 +9,8 @@ import com.example.sport_planet.databinding.FragmentScrapBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.board.BoardActivity
 import com.example.sport_planet.presentation.main.MainActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layout.fragment_scrap) {
@@ -49,6 +51,9 @@ class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layou
             binding.rvScrap.visibility = View.VISIBLE
             scrapAdapter.setScrapItemList(it)
         })
+        viewModel.isLoading.observeOn(AndroidSchedulers.mainThread())
+            .subscribe { if(it) showLoading() else hideLoading() }
+            .addTo(compositeDisposable)
     }
 
     private fun deleteBookMark(boardId: Long, boolean: Boolean){

@@ -15,6 +15,8 @@ class SettingViewModel : BaseViewModel() {
         compositeDisposable.add(
             RemoteDataSourceImpl().deleteUser()
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     if (it.success) {
                         _isDeleteSuccess.value = true

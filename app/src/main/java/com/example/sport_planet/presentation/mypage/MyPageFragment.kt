@@ -12,6 +12,8 @@ import com.example.sport_planet.presentation.mypage.editProfile.EditProfileFragm
 import com.example.sport_planet.presentation.mypage.history.view.HistoryActivity
 import com.example.sport_planet.presentation.mypage.scrap.ScrapFragment
 import com.example.sport_planet.presentation.mypage.setting.SettingFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 
 class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.layout.fragment_mypage) {
     companion object {
@@ -59,6 +61,10 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.la
         viewModel.category.observe(viewLifecycleOwner, Observer {
             myPageExerciseListAdapter.setItem(it)
         })
+        viewModel.isLoading
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe{if(it) showLoading() else hideLoading()}
+            .addTo(compositeDisposable)
     }
 
 }

@@ -11,7 +11,7 @@ import com.example.sport_planet.databinding.ItemOtherHistoryBinding
 class OtherHistoryAdapter :
     RecyclerView.Adapter<OtherHistoryAdapter.OtherHistoryViewHolder>() {
 
-    val historyItem = mutableListOf<OtherHistoryModel>()
+    private val historyItem = mutableListOf<OtherHistoryModel>()
 
     fun setOtherHistoryItem(item: List<OtherHistoryModel>) {
         historyItem.clear()

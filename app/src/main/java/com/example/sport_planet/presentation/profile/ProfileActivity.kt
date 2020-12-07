@@ -16,6 +16,8 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.login.LoginActivity
 import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.remote.NetworkHelper
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
@@ -86,6 +88,10 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         viewModel.serverToken.observe(this, Observer {
             PrefUtil.setStrValue(this,"serverToken",it)
         })
+        viewModel.isLoading
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { if (it) showLoading() else hideLoading() }
+            .addTo(compositeDisposable)
     }
 
     private fun showRegionPopup(it: RegionResponse) {

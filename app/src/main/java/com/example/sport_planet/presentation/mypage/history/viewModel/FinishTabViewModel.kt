@@ -24,6 +24,8 @@ class FinishTabViewModel : BaseViewModel() {
             RemoteDataSourceImpl()
                 .getMyViewHistory("complete")
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     if (it.success) {
                         _myViewHistoryList.value = it.data
@@ -37,6 +39,8 @@ class FinishTabViewModel : BaseViewModel() {
             RemoteDataSourceImpl()
                 .getEvaluateList(boardId)
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     if (it.success) {
                         _applyList.value = it.data
@@ -50,6 +54,8 @@ class FinishTabViewModel : BaseViewModel() {
             RemoteDataSourceImpl()
                 .postEvaluateReport(evaluateReportRequest)
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     _isSuccess.value = true
                 }, {

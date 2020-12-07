@@ -24,6 +24,8 @@ class MyPageViewModel : BaseViewModel() {
         compositeDisposable.add(
             RemoteDataSourceImpl().getMyProfile()
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     if (it.success) {
                         nickName.value = it.data.nickName

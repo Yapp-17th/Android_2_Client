@@ -15,6 +15,8 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.view.ChattingActivity
 import com.example.sport_planet.presentation.mypage.history.adapter.IngTabAdapter
 import com.example.sport_planet.presentation.mypage.history.viewModel.IngTabViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 
 class IngTabFragment :
     BaseFragment<FragmentIngTabBinding, IngTabViewModel>(R.layout.fragment_ing_tab) {
@@ -48,6 +50,9 @@ class IngTabFragment :
                 ingTabAdapter.setApplyListItem(it)
             }
         })
+        viewModel.isLoading.observeOn(AndroidSchedulers.mainThread())
+            .subscribe { if(it) showLoading() else hideLoading() }
+            .addTo(compositeDisposable)
     }
 
     private fun showChattingRoomDialog(applyListModel: ApplyListModel) {

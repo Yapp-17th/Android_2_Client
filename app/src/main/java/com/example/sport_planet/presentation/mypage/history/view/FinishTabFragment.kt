@@ -12,6 +12,8 @@ import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.mypage.history.viewModel.FinishTabViewModel
 import com.example.sport_planet.presentation.mypage.history.ReportDialog
 import com.example.sport_planet.presentation.mypage.history.adapter.FinishTabAdapter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 
 class FinishTabFragment :
     BaseFragment<FragmentFinishTabBinding, FinishTabViewModel>(R.layout.fragment_finish_tab) {
@@ -48,6 +50,9 @@ class FinishTabFragment :
             if(it)
                 showSuccessDialog()
         })
+        viewModel.isLoading.observeOn(AndroidSchedulers.mainThread())
+            .subscribe { if(it) showLoading() else hideLoading() }
+            .addTo(compositeDisposable)
     }
 
     private fun getApplyList(myViewHistoryModel: MyViewHistoryModel) {

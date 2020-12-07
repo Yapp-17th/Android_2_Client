@@ -9,6 +9,8 @@ import com.example.sport_planet.databinding.FragmentOtherMypageBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.mypage.MyPageExerciseListAdapter
 import com.example.sport_planet.presentation.mypage.other.history.OtherHistoryFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 
 class OtherMyPageFragment :
     BaseFragment<FragmentOtherMypageBinding, OtherMyPageViewModel>(R.layout.fragment_other_mypage) {
@@ -40,6 +42,9 @@ class OtherMyPageFragment :
         viewModel.historyResponse.observe(viewLifecycleOwner, Observer {
             myPageExerciseListAdapter.setItem(it.data.category)
         })
+        viewModel.isLoading.observeOn(AndroidSchedulers.mainThread())
+            .subscribe { if(it) showLoading() else hideLoading() }
+            .addTo(compositeDisposable)
     }
 
     private fun moveFragment(fragment: Fragment) {
