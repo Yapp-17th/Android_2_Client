@@ -11,6 +11,7 @@ import com.example.sport_planet.data.response.chatting.ChattingRoomListResponse
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingConstant
+import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.adapter.ChattingRoomAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingFragmentViewModel
 import com.example.sport_planet.presentation.custom.CustomDialog
@@ -57,13 +58,15 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
     override fun onStart() {
         super.onStart()
+
+        UserInfo.USER_ID = 2L
         
         viewModel.settingChattingRoomList()
 
         viewModel.chattingRoomListResponseLiveData.observe(this,
             Observer {
                 chattingRoomsHashMap = HashMap()
-                if(it.data.isNotEmpty()) {
+                if (it.data != null) {
                     for (chattingRoom in it.data) {
                         chattingRoomsHashMap[chattingRoom.id] = chattingRoom
                     }
