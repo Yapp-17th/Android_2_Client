@@ -27,7 +27,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         super.onCreate(savedInstanceState)
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
-                Log.d("ehdghks","error: ${error.toString()}")
                 loginErrorCode(error)
             } else if (token != null) {
                 UserApiClient.instance.me { user, error ->
@@ -111,7 +110,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 Toast.makeText(this, "앱이 요청 권한이 없음", Toast.LENGTH_SHORT).show()
             }
             else -> { // Unknown
-                Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "$error", Toast.LENGTH_SHORT).show()
             }
         }
     }

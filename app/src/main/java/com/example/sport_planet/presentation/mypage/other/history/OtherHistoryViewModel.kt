@@ -16,6 +16,8 @@ class OtherHistoryViewModel : BaseViewModel() {
         compositeDisposable.add(
             RemoteDataSourceImpl().getOthersHistory(userId)
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     if (it.success)
                         _otherHistoryModel.value = it.data

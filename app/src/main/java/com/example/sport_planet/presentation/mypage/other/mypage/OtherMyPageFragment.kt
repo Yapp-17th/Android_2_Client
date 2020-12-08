@@ -9,6 +9,8 @@ import com.example.sport_planet.databinding.FragmentOtherMypageBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.mypage.MyPageExerciseListAdapter
 import com.example.sport_planet.presentation.mypage.other.history.OtherHistoryFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 
 class OtherMyPageFragment :
     BaseFragment<FragmentOtherMypageBinding, OtherMyPageViewModel>(R.layout.fragment_other_mypage) {
@@ -20,8 +22,11 @@ class OtherMyPageFragment :
     }
 
     override fun init() {
-        binding.vm = viewModel
-        binding.rvContent.adapter = myPageExerciseListAdapter
+        binding.run {
+            vm = viewModel
+            rvContent.adapter = myPageExerciseListAdapter
+        }
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -37,9 +42,14 @@ class OtherMyPageFragment :
     }
 
     private fun observeLiveData() {
-        viewModel.historyResponse.observe(viewLifecycleOwner, Observer {
-            myPageExerciseListAdapter.setItem(it.data.category)
-        })
+        viewModel.run {
+            historyResponse.observe(viewLifecycleOwner, Observer {
+                myPageExerciseListAdapter.setItem(it.data.category)
+            })
+            isLoading.observeOn(AndroidSchedulers.mainThread())
+                .subscribe { if(it) showLoading() else hideLoading() }
+                .addTo(compositeDisposable)
+        }
     }
 
     private fun moveFragment(fragment: Fragment) {
@@ -48,7 +58,6 @@ class OtherMyPageFragment :
             .replace(R.id.frame, fragment)
             .commit()
     }
-
 
     companion object {
         fun newInstance(userId: Long) = OtherMyPageFragment().apply {

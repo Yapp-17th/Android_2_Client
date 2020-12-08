@@ -15,6 +15,8 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.view.ChattingActivity
 import com.example.sport_planet.presentation.mypage.history.adapter.IngTabAdapter
 import com.example.sport_planet.presentation.mypage.history.viewModel.IngTabViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 
 class IngTabFragment :
     BaseFragment<FragmentIngTabBinding, IngTabViewModel>(R.layout.fragment_ing_tab) {
@@ -34,28 +36,30 @@ class IngTabFragment :
     }
 
     private fun observeLiveData() {
-        viewModel.myViewHistoryList.observe(viewLifecycleOwner, Observer {
+        viewModel.run {
             binding.run {
-                rvHistoryIng.adapter = ingTabAdapter.apply {
-                    clEmpty.visibility = View.GONE
-                    rvHistoryIng.visibility = View.VISIBLE
-                    setMyViewHistoryItem(viewModel.myViewHistoryList.value!!)
-                }
+                myViewHistoryList.observe(viewLifecycleOwner, Observer {
+                        rvHistoryIng.adapter = ingTabAdapter.apply {
+                            clEmpty.visibility = View.GONE
+                            rvHistoryIng.visibility = View.VISIBLE
+                            setMyViewHistoryItem(viewModel.myViewHistoryList.value!!)
+                    }
+                })
+                applyList.observe(viewLifecycleOwner, Observer {
+                        ingTabAdapter.setApplyListItem(it)
+                })
+                isLoading.observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { if (it) showLoading() else hideLoading() }
+                    .addTo(compositeDisposable)
             }
-        })
-        viewModel.applyList.observe(viewLifecycleOwner, Observer {
-            binding.run {
-                ingTabAdapter.setApplyListItem(it)
-            }
-        })
+        }
     }
 
     private fun showChattingRoomDialog(applyListModel: ApplyListModel) {
         val dialog = BaseAcceptCancelDialog.newInstance(
             dialogTitleText = "",
             dialogBodyText = getString(R.string.dialog_chatting_room_body),
-            dialogAcceptText = getString(R.string.dialog_chatting_room_ok),
-            dialogWidthRatio = 0.911111f
+            dialogAcceptText = getString(R.string.dialog_chatting_room_ok)
         )
         dialog.setAcceptCancelDialogListener(object :
             BaseAcceptCancelDialog.AcceptCancelDialogListener {

@@ -23,10 +23,13 @@ class RegionDialog : BaseDialogFragment<DialogRegionBinding>(R.layout.dialog_reg
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getStringArrayList("dialogItemList")?.toMutableList()?.let { item.addAll(it) }
-        binding.tvTitle.text = arguments?.getString("dialogTitleText")
-        binding.rvContent.adapter = RegionAdapter(::getItem).apply {
-            setItem(item)
+        binding.run {
+            tvTitle.text = arguments?.getString("dialogTitleText")
+            rvContent.adapter = RegionAdapter(::getItem).apply {
+                setItem(item)
+            }
         }
+
     }
 
     private fun getItem(item: String,id:Long) {
@@ -38,15 +41,11 @@ class RegionDialog : BaseDialogFragment<DialogRegionBinding>(R.layout.dialog_reg
         fun newInstance(
             dialogTitleText: String,
             dialogHeightRatio: Float? = null,
-            dialogWidthRatio: Float? = null,
             dialogItemList: List<RegionResponse.Data>
         ) = RegionDialog().apply {
             arguments = Bundle().apply {
                 if (dialogHeightRatio != null) {
                     putFloat(DIALOG_HEIGHT_RATIO, dialogHeightRatio)
-                }
-                if (dialogWidthRatio != null) {
-                    putFloat(DIALOG_WIDTH_RATIO, dialogWidthRatio)
                 }
                 val regionArrayList :ArrayList<String> = ArrayList()
                 dialogItemList.forEach {

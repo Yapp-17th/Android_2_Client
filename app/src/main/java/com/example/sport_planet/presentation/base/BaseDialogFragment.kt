@@ -20,7 +20,7 @@ abstract class BaseDialogFragment<B : ViewDataBinding>(@LayoutRes private val la
     protected var listener: BaseDialogListener? = null
 
     private var heightRatio = -1f
-    private var widthRatio = 0.88888889f
+    private var widthRatio = 0.911111f
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -26,14 +26,17 @@ class ExerciseDialog : BaseDialogFragment<DialogExerciseBinding>(R.layout.dialog
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getStringArrayList("exerciseArrayList")?.toMutableList()?.let { item.addAll(it) }
-        binding.tvTitle.text = arguments?.getString("dialogTitleText")
-        binding.rvContent.adapter = ExerciseAdapter(::getItem).apply {
-            setItem(item)
+        binding.run {
+            tvTitle.text = arguments?.getString("dialogTitleText")
+            rvContent.adapter = ExerciseAdapter(::getItem).apply {
+                setItem(item)
+            }
+            tvSelect.setOnClickListener {
+                mListener?.onAccept(selectItems, selectIdItems)
+                dismiss()
+            }
         }
-        binding.tvSelect.setOnClickListener {
-            mListener?.onAccept(selectItems, selectIdItems)
-            dismiss()
-        }
+
 
     }
 
@@ -60,15 +63,11 @@ class ExerciseDialog : BaseDialogFragment<DialogExerciseBinding>(R.layout.dialog
         fun newInstance(
             dialogTitleText: String,
             dialogHeightRatio: Float? = null,
-            dialogWidthRatio: Float? = null,
             dialogItemList: List<ExerciseResponse.Data>
         ) = ExerciseDialog().apply {
             arguments = Bundle().apply {
                 if (dialogHeightRatio != null) {
                     putFloat(DIALOG_HEIGHT_RATIO, dialogHeightRatio)
-                }
-                if (dialogWidthRatio != null) {
-                    putFloat(DIALOG_WIDTH_RATIO, dialogWidthRatio)
                 }
                 val exerciseArrayList: ArrayList<String> = ArrayList()
                 dialogItemList.forEach {

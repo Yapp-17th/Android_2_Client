@@ -13,6 +13,8 @@ import com.example.sport_planet.presentation.profile.ExerciseDialog
 import com.example.sport_planet.presentation.profile.ExerciseListAdapter
 import com.example.sport_planet.presentation.profile.ProfileViewModel
 import com.example.sport_planet.presentation.profile.RegionDialog
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 
@@ -100,6 +102,9 @@ class EditProfileFragment :
                     }
                 }
             })
+            isLoading.observeOn(AndroidSchedulers.mainThread())
+                .subscribe { if(it) showLoading() else hideLoading() }
+                .addTo(compositeDisposable)
         }
 
     }
@@ -107,7 +112,6 @@ class EditProfileFragment :
     private fun showRegionPopup(it: RegionResponse) {
         val dialog = RegionDialog.newInstance(
             dialogTitleText = getString(R.string.dialog_region_title),
-            dialogWidthRatio = 0.911111f,
             dialogItemList = it.data
         )
         dialog.setSelectDialogListener(object :
@@ -122,7 +126,6 @@ class EditProfileFragment :
     private fun showExercisePopup(it: ExerciseResponse) {
         val dialog = ExerciseDialog.newInstance(
             dialogTitleText = getString(R.string.dialog_select_title),
-            dialogWidthRatio = 0.911111f,
             dialogItemList = it.data
         )
         dialog.setSelectDialogListener(object :
@@ -136,7 +139,7 @@ class EditProfileFragment :
 
     private fun showErrorPopup(title: String) {
         val dialog =
-            BaseAcceptDialog.newInstance(dialogTitleText = title, dialogWidthRatio = 0.911111f)
+            BaseAcceptDialog.newInstance(dialogTitleText = title)
         dialog.show(parentFragmentManager, "")
     }
 
@@ -148,7 +151,7 @@ class EditProfileFragment :
 
     private fun checkButtonAble() {
         if (
-            with(viewModel) {
+            viewModel.run {
                 userEmail.value.isNullOrBlank() || userNickname.value.isNullOrBlank() ||
                         userExerciseList.value.isNullOrEmpty() || userName.value.isNullOrBlank() ||
                         userRegion.value.isNullOrBlank() || userIntroduceMyself.value.isNullOrBlank()

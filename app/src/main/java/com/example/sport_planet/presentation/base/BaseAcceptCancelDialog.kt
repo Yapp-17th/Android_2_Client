@@ -22,19 +22,23 @@ class BaseAcceptCancelDialog :
         val title = arguments?.getString("dialogTitleText", "")
         val body = arguments?.getString("dialogBodyText", "")
         val acceptText = arguments?.getString("dialogAcceptText", "")
-        if (title == "")
-            binding.tvTitle.visibility = View.GONE
-        else
-            binding.tvTitle.text = title
+        binding.run {
+            if (title == "")
+                tvTitle.visibility = View.GONE
+            else
+                tvTitle.text = title
 
-        binding.tvBody.text = body
-        binding.tvCancel.setOnClickListener {
-            dismiss()
-        }
-        binding.tvOk.text = acceptText
-        binding.tvOk.setOnClickListener {
-            mListener?.onAccept()
-            dismiss()
+            tvBody.text = body
+            tvCancel.setOnClickListener {
+                dismiss()
+            }
+            tvOk.run {
+                text = acceptText
+                setOnClickListener {
+                    mListener?.onAccept()
+                    dismiss()
+                }
+            }
         }
     }
 
@@ -43,15 +47,11 @@ class BaseAcceptCancelDialog :
             dialogTitleText: String?,
             dialogBodyText: String,
             dialogAcceptText : String,
-            dialogHeightRatio: Float? = null,
-            dialogWidthRatio: Float? = null
+            dialogHeightRatio: Float? = null
         ) = BaseAcceptCancelDialog().apply {
             arguments = Bundle().apply {
                 if (dialogHeightRatio != null) {
                     putFloat(DIALOG_HEIGHT_RATIO, dialogHeightRatio)
-                }
-                if (dialogWidthRatio != null) {
-                    putFloat(DIALOG_WIDTH_RATIO, dialogWidthRatio)
                 }
                 if (dialogTitleText != null) {
                     putString("dialogTitleText", dialogTitleText)

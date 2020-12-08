@@ -9,6 +9,8 @@ import com.example.sport_planet.databinding.FragmentScrapBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.board.BoardActivity
 import com.example.sport_planet.presentation.main.MainActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layout.fragment_scrap) {
@@ -25,11 +27,6 @@ class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layou
     }
 
     override fun init() {
-        viewModel.getBookMark()
-        initView()
-    }
-
-    private fun initView() {
         binding.run {
             rvScrap.adapter = scrapAdapter
             customToolBar.run {
@@ -44,17 +41,31 @@ class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layou
                 activity?.finish()
             }
         }
-        viewModel.bookMarkList.observe(viewLifecycleOwner, Observer {
-            binding.clEmpty.visibility = View.GONE
-            binding.rvScrap.visibility = View.VISIBLE
-            scrapAdapter.setScrapItemList(it)
-        })
+        initViewModel()
+    }
+
+    private fun initViewModel() {
+        viewModel.run {
+            getBookMark()
+            bookMarkList.observe(viewLifecycleOwner, Observer {
+                binding.run {
+                    clEmpty.visibility = View.GONE
+                    rvScrap.visibility = View.VISIBLE
+                }
+                scrapAdapter.setScrapItemList(it)
+            })
+            isLoading.observeOn(AndroidSchedulers.mainThread())
+                .subscribe { if (it) showLoading() else hideLoading() }
+                .addTo(compositeDisposable)
+        }
     }
 
     private fun deleteBookMark(boardId: Long, boolean: Boolean){
         if(!boolean){
-            binding.clEmpty.visibility = View.VISIBLE
-            binding.rvScrap.visibility = View.GONE
+            binding.run {
+                clEmpty.visibility = View.VISIBLE
+                rvScrap.visibility = View.GONE
+            }
         }
         viewModel.deleteBookMark(boardId)
     }

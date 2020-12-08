@@ -17,6 +17,8 @@ class ScrapViewModel : BaseViewModel() {
             RemoteDataSourceImpl()
                 .getBookMarks()
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     if (it.success && !it.data.isNullOrEmpty()) {
                         _bookMarkList.value = it.data
@@ -30,6 +32,8 @@ class ScrapViewModel : BaseViewModel() {
         compositeDisposable.add(RemoteDataSourceImpl()
             .deleteBookMark(boardId)
             .applySchedulers()
+            .doOnSubscribe { isLoading.onNext(true) }
+            .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
                 if (it.success) {
                     _bookMarkList.value = _bookMarkList.value?.filter { myBookMarkModel ->

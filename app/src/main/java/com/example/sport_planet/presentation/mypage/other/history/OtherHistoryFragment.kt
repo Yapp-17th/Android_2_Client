@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentOtherHistoryBinding
 import com.example.sport_planet.presentation.base.BaseFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class OtherHistoryFragment :
@@ -32,11 +34,15 @@ class OtherHistoryFragment :
     }
 
     private fun observeLiveData() {
-        viewModel.otherHistoryModel.observe(viewLifecycleOwner, Observer {
-            otherHistoryAdapter.setOtherHistoryItem(it)
-        })
+        viewModel.run {
+            otherHistoryModel.observe(viewLifecycleOwner, Observer {
+                otherHistoryAdapter.setOtherHistoryItem(it)
+            })
+            isLoading.observeOn(AndroidSchedulers.mainThread())
+                .subscribe { if(it) showLoading() else hideLoading() }
+                .addTo(compositeDisposable)
+        }
     }
-
 
     companion object {
         fun instance(userId: Long) = OtherHistoryFragment().apply {

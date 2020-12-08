@@ -12,8 +12,11 @@ import com.example.sport_planet.presentation.mypage.editProfile.EditProfileFragm
 import com.example.sport_planet.presentation.mypage.history.view.HistoryActivity
 import com.example.sport_planet.presentation.mypage.scrap.ScrapFragment
 import com.example.sport_planet.presentation.mypage.setting.SettingFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 
-class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.layout.fragment_mypage) {
+class MyPageFragment :
+    BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.layout.fragment_mypage) {
     companion object {
         fun newInstance() = MyPageFragment()
     }
@@ -25,30 +28,32 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.la
     }
 
     override fun init() {
-        binding.vm = viewModel
         viewModel.getMyProfile()
-        binding.rvContent.adapter = myPageExerciseListAdapter
+        binding.run {
+            vm = viewModel
+            rvContent.adapter = myPageExerciseListAdapter
+            tvEditProfile.setOnClickListener {
+                moveFragment(EditProfileFragment.newInstance())
+            }
+            tvHistory.setOnClickListener {
+                val intent = Intent(context, HistoryActivity::class.java)
+                startActivity(intent)
+            }
+            tvBookmark.setOnClickListener {
+                moveFragment(ScrapFragment.newInstance())
+            }
+            tvSetting.setOnClickListener {
+                moveFragment(SettingFragment.newInstance())
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         observeLiveData()
-        binding.tvEditProfile.setOnClickListener {
-            moveFragment(EditProfileFragment.newInstance())
-        }
-        binding.tvHistory.setOnClickListener {
-            val intent = Intent(context, HistoryActivity::class.java)
-            startActivity(intent)
-        }
-        binding.tvBookmark.setOnClickListener {
-            moveFragment(ScrapFragment.newInstance())
-        }
-        binding.tvSetting.setOnClickListener {
-            moveFragment(SettingFragment.newInstance())
-        }
     }
 
-    private fun moveFragment(fragment : Fragment) {
+    private fun moveFragment(fragment: Fragment) {
         parentFragmentManager.beginTransaction()
             .addToBackStack(null)
             .replace(R.id.frame, fragment)
@@ -56,9 +61,15 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.la
     }
 
     private fun observeLiveData() {
-        viewModel.category.observe(viewLifecycleOwner, Observer {
-            myPageExerciseListAdapter.setItem(it)
-        })
+        viewModel.run {
+            category.observe(viewLifecycleOwner, Observer {
+                myPageExerciseListAdapter.setItem(it)
+            })
+            isLoading
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { if (it) showLoading() else hideLoading() }
+                .addTo(compositeDisposable)
+        }
     }
 
 }

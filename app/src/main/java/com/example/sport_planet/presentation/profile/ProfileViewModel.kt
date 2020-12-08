@@ -14,7 +14,6 @@ class ProfileViewModel : BaseViewModel() {
     private val remoteDataSourceImpl = RemoteDataSourceImpl()
 
     private val _userToken = MutableLiveData<String>()
-    val userToken: LiveData<String> get() = _userToken
 
     private val _serverToken = MutableLiveData<String>()
     val serverToken: LiveData<String> get() = _serverToken
@@ -79,6 +78,9 @@ class ProfileViewModel : BaseViewModel() {
     fun showExercisePopup() {
         compositeDisposable.add(
             remoteDataSourceImpl.getExercise()
+                .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     _exerciseList.postValue(it)
                 }, {})
@@ -88,6 +90,9 @@ class ProfileViewModel : BaseViewModel() {
     fun showRegionPopup() {
         compositeDisposable.add(
             remoteDataSourceImpl.getRegion()
+                .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     _regionList.postValue(it)
                 }, {})
@@ -96,6 +101,8 @@ class ProfileViewModel : BaseViewModel() {
     fun getMyProfileEdit(){
         compositeDisposable.add(RemoteDataSourceImpl().getMyProfileEdit()
             .applySchedulers()
+            .doOnSubscribe { isLoading.onNext(true) }
+            .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
                 if(it.success){
                     userName.value = it.data.userName
@@ -118,7 +125,7 @@ class ProfileViewModel : BaseViewModel() {
             userId = userId.value.toString(),
             userName = userName.value.toString(),
             email = userEmail.value.toString(),
-            accessToken = userToken.value.toString(),
+            accessToken = _userToken.value.toString(),
             nickName = userNickname.value.toString(),
             address = userRegionId.value!!,
             category = userExerciseIdList.value!!,
@@ -127,6 +134,8 @@ class ProfileViewModel : BaseViewModel() {
         compositeDisposable.add(
             RemoteDataSourceImpl().postSignUp(signUpResponse)
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     _serverToken.value = it.headers()["token"]
                     _serverUserId.value = it.headers()["userId"]
@@ -148,6 +157,8 @@ class ProfileViewModel : BaseViewModel() {
         compositeDisposable.add(
             RemoteDataSourceImpl().putMyProfile(myProfile)
                 .applySchedulers()
+                .doOnSubscribe { isLoading.onNext(true) }
+                .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     _postSignUpStatus.postValue(it.status)
                     _postSignUpStatusMessage.postValue(it.message)

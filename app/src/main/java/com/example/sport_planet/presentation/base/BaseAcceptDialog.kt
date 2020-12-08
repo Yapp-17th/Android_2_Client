@@ -33,15 +33,11 @@ class BaseAcceptDialog : BaseDialogFragment<DialogBaseAcceptBinding>(R.layout.di
         fun newInstance(
             dialogTitleText: String,
             dialogImage: Int? = null,
-            dialogHeightRatio: Float? = null,
-            dialogWidthRatio: Float? = null
+            dialogHeightRatio: Float? = null
         ) = BaseAcceptDialog().apply {
             arguments = Bundle().apply {
                 if (dialogHeightRatio != null) {
                     putFloat(DIALOG_HEIGHT_RATIO, dialogHeightRatio)
-                }
-                if (dialogWidthRatio != null) {
-                    putFloat(DIALOG_WIDTH_RATIO, dialogWidthRatio)
                 }
                 if (dialogImage != null) {
                     putInt("dialogImage", dialogImage)

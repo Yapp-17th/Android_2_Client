@@ -16,6 +16,8 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.login.LoginActivity
 import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.remote.NetworkHelper
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
@@ -25,73 +27,88 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initViewModel()
+        initView()
         observeLiveData()
-        binding.tvStart.setOnClickListener {
-            viewModel.postSignUp()
-        }
+
     }
 
-    private fun initViewModel() {
-        binding.vm = viewModel
-        binding.customToolBar.title.text = getString(R.string.activity_profile_head)
-        binding.customToolBar.back.setOnClickListener {
-            val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
-            startActivity(intent)
+    private fun initView(){
+        binding.run {
+            vm = viewModel
+            customToolBar.run {
+                title.text = getString(R.string.activity_profile_head)
+                back.setOnClickListener {
+                    val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            tvStart.setOnClickListener {
+                viewModel.postSignUp()
+            }
         }
-        intent.getStringExtra("userToken")?.let { viewModel.setUserToken(it) }
-        intent.getStringExtra("userId")?.let { viewModel.setUserId(it) }
-        intent.getStringExtra("userEmail")?.let { viewModel.userEmail.value = it }
-        intent.getStringExtra("userNickname")?.let { viewModel.userNickname.value = it }
+        intent.run {
+            viewModel.run {
+                getStringExtra("userToken")?.let { setUserToken(it) }
+                getStringExtra("userId")?.let { setUserId(it) }
+                getStringExtra("userEmail")?.let { userEmail.value = it }
+                getStringExtra("userNickname")?.let { userNickname.value = it }
+            }
+
+        }
     }
 
     private fun observeLiveData() {
-        viewModel.userEmail.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.userNickname.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.userName.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.userIntroduceMyself.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.userExerciseList.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.userRegion.observe(this, Observer {
-            checkButtonAble()
-        })
-        viewModel.exerciseList.observe(this, Observer {
-            showExercisePopup(it)
-        })
-        viewModel.regionList.observe(this, Observer {
-            showRegionPopup(it)
-        })
-        viewModel.postSignUpStatus.observe(this, Observer {
-            when (it) {
-                200 -> {
-                    showFinishedPopup(viewModel.postSignUpStatusMessage.value.toString())
+        viewModel.run {
+            userEmail.observe(this@ProfileActivity, Observer {
+                checkButtonAble()
+            })
+            userNickname.observe(this@ProfileActivity, Observer {
+                checkButtonAble()
+            })
+            userName.observe(this@ProfileActivity, Observer {
+                checkButtonAble()
+            })
+            userIntroduceMyself.observe(this@ProfileActivity, Observer {
+                checkButtonAble()
+            })
+            userExerciseList.observe(this@ProfileActivity, Observer {
+                checkButtonAble()
+            })
+            userRegion.observe(this@ProfileActivity, Observer {
+                checkButtonAble()
+            })
+            exerciseList.observe(this@ProfileActivity, Observer {
+                showExercisePopup(it)
+            })
+            regionList.observe(this@ProfileActivity, Observer {
+                showRegionPopup(it)
+            })
+            postSignUpStatus.observe(this@ProfileActivity, Observer {
+                when (it) {
+                    200 -> {
+                        showFinishedPopup(viewModel.postSignUpStatusMessage.value.toString())
+                    }
+                    400 -> {
+                        showErrorPopup(viewModel.postSignUpStatusMessage.value.toString())
+                    }
+                    500 -> {
+                        showErrorPopup(viewModel.postSignUpStatusMessage.value.toString())
+                    }
                 }
-                400 -> {
-                    showErrorPopup(viewModel.postSignUpStatusMessage.value.toString())
-                }
-                500 -> {
-                    showErrorPopup(viewModel.postSignUpStatusMessage.value.toString())
-                }
-            }
-        })
-        viewModel.serverToken.observe(this, Observer {
-            PrefUtil.setStrValue(this,"serverToken",it)
-        })
+            })
+            serverToken.observe(this@ProfileActivity, Observer {
+                PrefUtil.setStrValue(this@ProfileActivity,"serverToken",it)
+            })
+            isLoading
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { if (it) showLoading() else hideLoading() }
+                .addTo(compositeDisposable)
+        }
     }
 
     private fun showRegionPopup(it: RegionResponse) {
         val dialog = RegionDialog.newInstance(
             dialogTitleText = getString(R.string.dialog_region_title),
-            dialogWidthRatio = 0.911111f,
             dialogItemList = it.data
         )
         dialog.setSelectDialogListener(object :
@@ -112,7 +129,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     private fun showExercisePopup(it: ExerciseResponse) {
         val dialog = ExerciseDialog.newInstance(
             dialogTitleText = getString(R.string.dialog_select_title),
-            dialogWidthRatio = 0.911111f,
             dialogItemList = it.data
         )
         dialog.setSelectDialogListener(object :
@@ -135,15 +151,14 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     private fun showErrorPopup(title: String) {
         val dialog =
-            BaseAcceptDialog.newInstance(dialogTitleText = title, dialogWidthRatio = 0.911111f)
+            BaseAcceptDialog.newInstance(dialogTitleText = title)
         dialog.show(supportFragmentManager, "")
     }
 
     private fun showFinishedPopup(text: String) {
         val dialog = BaseAcceptDialog.newInstance(
             dialogTitleText = text,
-            dialogImage = R.drawable.profile_finish_logo,
-            dialogWidthRatio = 0.911111f
+            dialogImage = R.drawable.profile_finish_logo
         )
         dialog.setAcceptDialogListener(object : BaseAcceptDialog.AcceptDialogListener {
             override fun onAccept() {
@@ -158,13 +173,17 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     private fun getExerciseItem(item: String, idItem: Int) {
-        viewModel.removeUserExerciseItem(item, idItem)
-        if (viewModel.userExerciseList.value!!.isEmpty()) {
-            binding.run {
-                rvExercise.visibility = View.INVISIBLE
-                clInterestExcise.visibility = View.VISIBLE
+        viewModel.run {
+            removeUserExerciseItem(item, idItem)
+            if (userExerciseList.value!!.isEmpty()) {
+                binding.run {
+                    rvExercise.visibility = View.INVISIBLE
+                    clInterestExcise.visibility = View.VISIBLE
+                }
             }
         }
+
+
     }
 
     private fun getRegionItem() {
@@ -195,7 +214,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 isEnabled = true
                 setBackgroundColor(resources.getColor(R.color.dark_blue, null))
                 setTextColor(resources.getColor(R.color.white, null))
-
             }
         }
     }
