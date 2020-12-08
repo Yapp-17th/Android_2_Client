@@ -2,23 +2,22 @@ package com.example.sport_planet.data.model
 
 import com.example.sport_planet.data.response.basic.ExerciseResponse
 import com.example.sport_planet.data.response.basic.RegionResponse
-import java.util.*
 
 data class BoardContentModel(
-        val boardId: Long,
-        val city: RegionResponse.Data,
-        val content: String,
-        val exercise: ExerciseResponse.Data,
-        val groupStatus: GroupStatusModel,
-        val host: HostModel,
-        val isBookMark: Boolean,
-        val place: String,
-        val recruitNumber: Int,
-        val recruitedNumber: Int,
-        val title: String,
-        val boardTime: String,
-        val startsAt: String,
-        val userTag: UserTagModel
+    val boardId: Long,
+    val city: RegionResponse.Data,
+    val content: String,
+    val exercise: ExerciseResponse.Data,
+    val groupStatus: GroupStatusModel,
+    val host: HostModel,
+    val isBookMark: Boolean,
+    val place: String,
+    val recruitNumber: Int,
+    val recruitedNumber: Int,
+    val title: String,
+    val boardTime: String,
+    val startsAt: String,
+    val userTag: UserTagModel
 )
 
 fun BoardContentModel.toBoardModel(): BoardModel {

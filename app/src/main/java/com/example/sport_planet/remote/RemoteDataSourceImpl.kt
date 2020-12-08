@@ -1,9 +1,9 @@
 package com.example.sport_planet.remote
 
 
+import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
-import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.request.board.BookMarkRequest
 import com.example.sport_planet.data.request.board.PostBoardIdRequest
 import com.example.sport_planet.data.request.board.PostBoardRequest
@@ -23,7 +23,6 @@ import com.example.sport_planet.data.response.mypage.*
 import com.example.sport_planet.remote.NetworkHelper.api
 import io.reactivex.Single
 import retrofit2.Response
-import java.util.*
 
 class RemoteDataSourceImpl : RemoteDataSource {
     override fun getExercise(): Single<ExerciseResponse> = api.getExercise()
@@ -122,18 +121,14 @@ class RemoteDataSourceImpl : RemoteDataSource {
     }
 
     override fun getBoardList(
-        size: Int,
-        page: Int,
-        sorting: String,
         category: String,
-        address: String
+        address: String,
+        sorting: String
     ): Single<BoardListResponse> {
         return api.getBoardList(
-            size = size,
-            page = page,
-            sorting = sorting,
             category = category,
-            address = address
+            address = address,
+            sorting = sorting
         )
     }
 

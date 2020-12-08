@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.Fragment
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityFilterBinding
 import com.example.sport_planet.presentation.base.BaseActivity
+import com.example.sport_planet.presentation.home.HomeFragment
 import com.example.sport_planet.presentation.home.adapter.FilterViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -50,5 +52,10 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
     companion object {
         const val INTENT_CITY = "INTENT_CITY"
         const val INTENT_EXERCISE = "INTENT_EXERCISE"
+
+        fun createInstance(fragment: Fragment) {
+            val intent = Intent(fragment.context, FilterActivity::class.java)
+            fragment.startActivityForResult(intent, HomeFragment.FILTER_REQUEST_CODE)
+        }
     }
 }

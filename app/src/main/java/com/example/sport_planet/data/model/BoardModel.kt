@@ -1,6 +1,6 @@
 package com.example.sport_planet.data.model
 
-import java.util.*
+import com.example.sport_planet.data.model.GroupStatusModel
 
 data class BoardModel(
     val boardId: Long,

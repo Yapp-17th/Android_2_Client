@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.data.enums.TimeFilterEnum
 import com.example.sport_planet.data.model.BoardModel
+import com.example.sport_planet.data.model.board.BoardRequestModel
 import com.example.sport_planet.data.model.toBoardModel
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSource
@@ -16,37 +17,69 @@ import io.reactivex.subjects.PublishSubject
 class HomeViewModel(private val remote: RemoteDataSource) :
     BaseViewModel() {
 
-    val boardList: MutableLiveData<List<BoardModel>> = MutableLiveData(emptyList())
-    val pageCount: MutableLiveData<Int> = MutableLiveData(0)
-    val city: MutableLiveData<String> = MutableLiveData()
-    val exercise: MutableLiveData<String> = MutableLiveData()
-    private val timeFilter: MutableLiveData<TimeFilterEnum> =
-        MutableLiveData(TimeFilterEnum.TIME_LATEST)
-    private var _boardList: ArrayList<BoardModel> = ArrayList()
+    val boardList: MutableLiveData<ArrayList<BoardModel>> = MutableLiveData(ArrayList())
+    private var _boardList: ArrayList<BoardModel>
+        get() = boardList.value!!
+        set(value) {
+            boardList.value = value
+        }
+
+    val boardRequestItem: MutableLiveData<BoardRequestModel> = MutableLiveData(BoardRequestModel())
+    private val _boardRequestItem: BoardRequestModel
+        get() = boardRequestItem.value!!
+
+    var exercise: String
+        get() = _boardRequestItem.category
+        set(value) {
+            boardRequestItem.value = _boardRequestItem.copy(category = value)
+        }
+
+    var city: String
+        get() = _boardRequestItem.address
+        set(value) {
+            boardRequestItem.value = _boardRequestItem.copy(address = value)
+        }
+
+    var time: TimeFilterEnum
+        get() = _boardRequestItem.sorting
+        set(value) {
+            boardRequestItem.value = _boardRequestItem.copy(sorting = value)
+        }
 
     val showRecyclerViewRefresh: PublishSubject<Boolean> = PublishSubject.create()
+    val showDataIsEmpty: PublishSubject<Boolean> = PublishSubject.create()
+
+    val showSearchActivity: PublishSubject<Unit> = PublishSubject.create()
+    fun requestSearchActivity() {
+        showSearchActivity.onNext(Unit)
+    }
+
+    val showCityExerciseFilterActivity: PublishSubject<Unit> = PublishSubject.create()
+    fun requestCityExerciseFilterActivity() {
+        showCityExerciseFilterActivity.onNext(Unit)
+    }
+
+    val showTimeFilterPopup: PublishSubject<Unit> = PublishSubject.create()
+    fun requestTimeFilterPopup() {
+        showTimeFilterPopup.onNext(Unit)
+    }
 
     fun getBoardList() {
         remote.getBoardList(
-            size = 20,
-            page = pageCount.value ?: 0,
-            category = exercise.value ?: "0",
-            address = city.value ?: "0",
-            sorting = timeFilter.value?.query ?: TimeFilterEnum.TIME_LATEST.query
+            category = _boardRequestItem.category,
+            address = _boardRequestItem.address,
+            sorting = _boardRequestItem.sorting.query
         ).observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isLoading.onNext(true) }
             .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
-                Log.d("okhttp", "getWriteList : $it")
+                Log.d("okhttp", "getBoardList : $it")
                 if (it.success) {
-                    if (it.data.isEmpty()) {
-                        subPageCount()
-                        return@subscribe
-                    }
-                    _boardList.clear()
-                    _boardList.addAll(it.data)
-                    boardList.value = _boardList
+                    boardList.value = ArrayList(it.data)
+                } else {
+                    boardList.value = ArrayList()
                 }
+                showDataIsEmpty.onNext(_boardList.isEmpty())
             }, {
                 it.printStackTrace()
             })
@@ -70,24 +103,6 @@ class HomeViewModel(private val remote: RemoteDataSource) :
             .addTo(compositeDisposable)
     }
 
-    fun changeTimeFilter(timeFilterEnum: TimeFilterEnum) {
-        timeFilter.value = timeFilterEnum
-        pageCount.value = 0
-        _boardList.clear()
-        getBoardList()
-    }
-
-    fun addPageCount() {
-        pageCount.value = (pageCount.value ?: 0) + 1
-        getBoardList()
-    }
-
-    fun subPageCount() {
-        val count = pageCount.value ?: 0
-        if (count <= 0) return
-        pageCount.value = count - 1
-    }
-
     private fun changeBoardListItem(oldBoard: BoardModel) {
         remote.getBoardContent(oldBoard.boardId)
             .observeOn(AndroidSchedulers.mainThread())
@@ -99,7 +114,6 @@ class HomeViewModel(private val remote: RemoteDataSource) :
                     val newBoard = it.data.toBoardModel()
                     _boardList[_boardList.indexOf(oldBoard)] = newBoard
                     boardList.value = _boardList
-                    showRecyclerViewRefresh.onNext(true)
                 }
             }, {
                 it.printStackTrace()

@@ -93,11 +93,9 @@ interface RemoteDataSource {
     ): Single<CommonResponse>
 
     fun getBoardList(
-        size: Int,
-        page: Int,
-        sorting: String,
         category: String,
-        address: String
+        address: String,
+        sorting: String
     ): Single<BoardListResponse>
 
     fun getBoardContent(

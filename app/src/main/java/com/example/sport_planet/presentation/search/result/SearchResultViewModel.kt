@@ -27,8 +27,6 @@ class SearchResultViewModel(
 
     fun getBoardList() {
         remote.getBoardList(
-            size = 20,
-            page = pageCount.value ?: 0,
             category = exercise.value ?: "0",
             address = city.value ?: "0",
             sorting = timeFilter.value?.query ?: TimeFilterEnum.TIME_LATEST.query

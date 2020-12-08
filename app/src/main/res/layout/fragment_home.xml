@@ -16,6 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".presentation.home.HomeFragment">
 
         <LinearLayout
@@ -23,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_app_bar_size"
             android:background="@color/white"
+            android:onClick="@{() -> vm.requestSearchActivity()}"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -40,6 +42,7 @@
                 android:layout_marginEnd="12dp"
                 android:background="@null"
                 android:gravity="left|center_vertical"
+                android:onClick="@{() -> vm.requestCityExerciseFilterActivity()}"
                 android:paddingStart="8dp"
                 android:singleLine="true"
                 android:text="검색어를 입력하세요." />
@@ -60,6 +63,7 @@
                 layout="@layout/item_home_filter_option"
                 android:layout_width="@dimen/item_filter_option_width"
                 android:layout_height="match_parent"
+                android:onClick="@{() -> vm.requestCityExerciseFilterActivity()}"
                 app:layout_constraintLeft_toLeftOf="parent" />
 
             <include
@@ -68,6 +72,7 @@
                 android:layout_width="@dimen/item_filter_time_width"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="12dp"
+                android:onClick="@{() -> vm.requestTimeFilterPopup()}"
                 app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -88,6 +93,42 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_container"
             tools:listitem="@layout/item_board" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_board_empty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_container">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/grayscale_logo" />
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    style="@style/regular_basic_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center"
+                    android:text="아직 게시글이 없습니다.\n새로운 활동을 만들어 보세요!" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

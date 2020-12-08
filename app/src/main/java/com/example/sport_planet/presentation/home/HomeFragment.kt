@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.TimeFilterEnum
@@ -36,78 +36,16 @@ class HomeFragment private constructor() :
 
     private lateinit var adapter: HomeRecyclerAdapter
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         adapter = HomeRecyclerAdapter(
             { BoardActivity.createInstance(activity!!, it) },
             { viewModel.bookmarkChange(it) }
         )
-
         binding.vm = viewModel
-
         binding.recBoard.adapter = adapter
         binding.recBoard.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val rec = binding.recBoard
-                var lastVisibleItemPosition =
-                    (rec.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                var itemTotalCount =
-                    (rec.adapter as HomeRecyclerAdapter).itemCount
-
-                if (lastVisibleItemPosition + 1 == itemTotalCount) {
-                    viewModel.addPageCount()
-                }
-            }
         })
-
-        binding.llToolbar.setOnClickListener {
-            SearchActivity.createInstance(activity!!)
-        }
-
-        binding.clFilterOption.setOnClickListener {
-            Intent(activity, FilterActivity::class.java).apply {
-                startActivityForResult(this, FILTER_REQUEST_CODE)
-            }
-        }
-
-        binding.clFilterTime.setOnClickListener {
-            activity?.let { activity ->
-                val popup = PopupMenu(activity.applicationContext, it)
-                activity.menuInflater.inflate(R.menu.menu_home_filter_time, popup.menu)
-                popup.setOnMenuItemClickListener { item ->
-                    when (item.itemId) {
-                        R.id.filter_latest -> {
-                            TimeFilterEnum.TIME_LATEST.run {
-                                viewModel.changeTimeFilter(this)
-                                it.tv_time_text.text = this.print
-                            }
-                            false
-                        }
-                        R.id.filter_remain -> {
-                            TimeFilterEnum.TIME_REMAIN.run {
-                                viewModel.changeTimeFilter(this)
-                                it.tv_time_text.text = this.print
-                            }
-                            false
-                        }
-                        R.id.filter_daedline -> {
-                            TimeFilterEnum.TIME_DEADLINE.run {
-                                viewModel.changeTimeFilter(this)
-                                it.tv_time_text.text = this.print
-                            }
-                            false
-                        }
-                        else -> {
-                            false
-                        }
-                    }
-                }
-                popup.show()
-            }
-        }
 
         viewModel.isLoading
             .observeOn(AndroidSchedulers.mainThread())
@@ -118,29 +56,100 @@ class HomeFragment private constructor() :
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { adapter.notifyDataSetChanged() }
             .addTo(compositeDisposable)
+
+        viewModel.showDataIsEmpty
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                if (it) {
+                    binding.clBoardEmpty.visibility = View.VISIBLE
+                    binding.recBoard.visibility = View.GONE
+                } else {
+                    binding.clBoardEmpty.visibility = View.GONE
+                    binding.recBoard.visibility = View.VISIBLE
+                }
+            }
+
+        viewModel.boardRequestItem.observe(viewLifecycleOwner, Observer {
+            viewModel.getBoardList()
+        })
+
+        viewModel.showSearchActivity
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { showSearchActivity() }
+            .addTo(compositeDisposable)
+
+        viewModel.showCityExerciseFilterActivity
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { showCityExerciseFilterActivity() }
+            .addTo(compositeDisposable)
+
+        viewModel.showTimeFilterPopup
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { showTimeFilterPopup() }
+            .addTo(compositeDisposable)
+
     }
 
     override fun init() {
+    }
+
+    private fun showSearchActivity() {
+        SearchActivity.createInstance(activity!!)
+    }
+
+    private fun showCityExerciseFilterActivity() {
+        FilterActivity.createInstance(this)
+    }
+
+    private fun showTimeFilterPopup() {
+        activity?.let { activity ->
+            val view = binding.clFilterTime
+            val popup = PopupMenu(activity.applicationContext, view)
+            activity.menuInflater.inflate(R.menu.menu_home_filter_time, popup.menu)
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.filter_latest -> {
+                        TimeFilterEnum.TIME_LATEST.run {
+                            viewModel.time = this
+                            view.tv_time_text.text = this.print
+                        }
+                        false
+                    }
+                    R.id.filter_remain -> {
+                        TimeFilterEnum.TIME_REMAIN.run {
+                            viewModel.time = this
+                            view.tv_time_text.text = this.print
+                        }
+                        false
+                    }
+                    R.id.filter_daedline -> {
+                        TimeFilterEnum.TIME_DEADLINE.run {
+                            viewModel.time = this
+                            view.tv_time_text.text = this.print
+                        }
+                        false
+                    }
+                    else -> {
+                        false
+                    }
+                }
+            }
+            popup.show()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == FILTER_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                viewModel.city.value = data?.getStringExtra(INTENT_CITY) ?: "0"
-                viewModel.exercise.value = data?.getStringExtra(INTENT_EXERCISE) ?: "0"
-                viewModel.getBoardList()
+                viewModel.city = data?.getStringExtra(INTENT_CITY) ?: "0"
+                viewModel.exercise = data?.getStringExtra(INTENT_EXERCISE) ?: "0"
             }
         } else if (requestCode == REFRESH) {
             if (resultCode == Activity.RESULT_OK) {
                 viewModel.getBoardList()
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getBoardList()
     }
 
     companion object {
