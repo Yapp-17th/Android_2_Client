@@ -61,7 +61,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
         chattingAdapter = ChattingAdapter(this)
 
-        chattingActivityViewModel.initSocket(chatRoomInfo.chatRoomId)
+        chattingActivityViewModel.initSocket()
 
         this.runOnUiThread {
             binding.toolbarActivityChatting.run {
@@ -96,7 +96,6 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
                 for(chattingMessage in it.data) {
                     chattingMessageFactory(chattingMessage, false)
-
                     chattingMessages.add(
                         ChattingMessageModel(
                             chattingMessage.content,
@@ -117,10 +116,9 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                 rv_activity_chatting_recyclerview.postDelayed({
                     (rv_activity_chatting_recyclerview.layoutManager as LinearLayoutManager).stackFromEnd = isPageFilledWithItems
                     if (it.firstUnreadMessageId != -1)
-                        rv_activity_chatting_recyclerview.scrollToPosition(it.firstUnreadMessageId)
+                        (rv_activity_chatting_recyclerview.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(it.firstUnreadMessageId, 0)
                     if(!isPageFilledWithItems)
                         rv_activity_chatting_recyclerview.addOnLayoutChangeListener(layoutChangeListener)
-
                     rv_activity_chatting_recyclerview.postDelayed({
                         view_activity_chatting_loading.visibility = View.GONE
                     },100)
@@ -232,6 +230,11 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         }
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        chattingActivityViewModel.sendReadUpdateMessage()
     }
 
     override fun onDestroy() {

@@ -15,19 +15,20 @@ import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingConstant
 import com.example.sport_planet.presentation.chatting.EventWrapper
 import com.example.sport_planet.presentation.chatting.UserInfo
+import com.example.sport_planet.remote.NetworkHelper
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.example.sport_planet.util.applySchedulers
-import com.gmail.bishoybasily.stomp.lib.Event
-import com.gmail.bishoybasily.stomp.lib.StompClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.OkHttpClient
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.concurrent.TimeUnit
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
+import ua.naiksoftware.stomp.Stomp
+import ua.naiksoftware.stomp.StompClient
+import ua.naiksoftware.stomp.dto.LifecycleEvent
+import ua.naiksoftware.stomp.dto.StompHeader
 
 class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseViewModel() {
 
@@ -55,14 +56,15 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
 
     private val _showErrorToastLiveData = MutableLiveData<EventWrapper<Boolean>>()
     val showErrorToastLiveData: LiveData<EventWrapper<Boolean>>
-            get() = _showErrorToastLiveData
+        get() = _showErrorToastLiveData
 
-    private lateinit var stompClient: StompClient
-    private lateinit var stompConnection: Disposable
+    private lateinit var mStompClient: StompClient
     private lateinit var topic: Disposable
     private var closeSocket = false
 
     private var chattingMessageJsonObject = JSONObject()
+
+    private var readMessage = ArrayList<Long>()
 
     class ViewModelFactory(private val chatRoomInfo: ChatRoomInfo) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -89,43 +91,30 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
         )
     }
 
-    private fun makeChattingMessageRead(chatRoomId: Long, messageId: Long){
-        compositeDisposable.add(
-            remoteDataSourceImpl.makeChattingMessageRead(chatRoomId, messageId)
-                .applySchedulers()
-                .subscribe({
-                    Log.d(TAG, it.message)
-                },{
-                    Log.d(TAG, it.localizedMessage)}
-                )
-        )
-    }
-
+    @SuppressLint("CheckResult")
     @OptIn(UnstableDefault::class)
-    fun initSocket(chatRoomId: Long) {
+    fun initSocket() {
         val url = ChattingConstant.URL
-        val intervalMillis = 5000L
-        val client = OkHttpClient.Builder()
-                .readTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .build()
+        val headers: MutableList<StompHeader> = ArrayList()
+        headers.add(StompHeader("Authorization", "Bearer ${NetworkHelper.token}"))
 
-        stompClient = StompClient(client, intervalMillis).apply { this@apply.url = url }
+        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, url);
+        mStompClient.withClientHeartbeat(1000).withServerHeartbeat(1000);
 
-        stompConnection = stompClient.connect()
-            .subscribe ({
-                when (it.type) {
-                    Event.Type.OPENED -> {
-                        Log.d(TAG, "[OPENED]: 웹소켓 OPEN")
-                        topic = stompClient.join("/sub/chat/room/${chatRoomInfo.chatRoomId}")
+        mStompClient.lifecycle()
+            .subscribe { lifecycleEvent: LifecycleEvent ->
+                when (lifecycleEvent.type) {
+                    LifecycleEvent.Type.OPENED -> {
+                        Log.d(TAG, "Stomp connection opened")
+                        topic = mStompClient.topic("/sub/chat/room/${chatRoomInfo.chatRoomId}")
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe ({ stompMessage ->
-                                chattingMessage = Json.parse(ChattingMessageResponse.serializer(), stompMessage)
+                                chattingMessage = Json.parse(ChattingMessageResponse.serializer(), stompMessage.payload)
                                 when(chattingMessage.realTimeUpdateType) {
                                     ChattingConstant.REAL_TIME_MESSAGE_READ -> {
-                                        makeChattingMessageRead(chatRoomInfo.chatRoomId, chattingMessage.id)
+                                        if(chattingMessage.senderId == UserInfo.USER_ID)
+                                            readMessage.add(chattingMessage.id)
                                         when(chattingMessage.type){
                                             ChattingConstant.CHAT_BOT_MESSAGE -> _noticeMessageLiveData.postValue(chattingMessage)
                                             else -> _chattingMessageLiveData.postValue(chattingMessage)
@@ -137,22 +126,38 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
                                 Log.d(TAG, it.localizedMessage)
                             })
                     }
-                    Event.Type.CLOSED -> {
-                        if(!closeSocket)
-                            Log.d(TAG, "[CLOSED]: 웹소켓 비정상적인 CLOSE")
-                        else
-                            Log.d(TAG, "[CLOSED]: 웹소켓 정상적인 CLOSE")
-                    }
-                    Event.Type.ERROR -> {
-                        Log.d(TAG, "[ERROR]: 웹소켓 ERROR")
-                    }
+                    LifecycleEvent.Type.ERROR -> Log.e(TAG, "Error", lifecycleEvent.exception)
+                    LifecycleEvent.Type.CLOSED -> Log.d(TAG, "Stomp connection closed")
+                    LifecycleEvent.Type.FAILED_SERVER_HEARTBEAT -> Log.d(TAG, "Stomp connection closed")
+                }
             }
-        },{Log.d("에러", it.localizedMessage)})
+        mStompClient.connect(headers)
     }
 
     fun disconnectSocket(){
         closeSocket = true
-        stompConnection.dispose()
+        mStompClient.disconnect()
+    }
+
+    @SuppressLint("CheckResult")
+    fun sendReadUpdateMessage(){
+        try {
+            chattingMessageJsonObject.put("content", readMessage)
+            chattingMessageJsonObject.put("type", "UPDATE")
+            chattingMessageJsonObject.put("senderId", UserInfo.USER_ID)
+            chattingMessageJsonObject.put("chatRoomId", chatRoomInfo.chatRoomId)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        mStompClient.send("/pub/v1/chat/message/update", chattingMessageJsonObject.toString())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.d(TAG, "STOMP echo send successfully");
+            },{
+                Log.d(TAG, it.toString()) }
+            )
     }
 
     @SuppressLint("CheckResult")
@@ -166,11 +171,11 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        stompClient.send("/pub/v1/chat/message", chattingMessageJsonObject.toString())
+        mStompClient.send("/pub/v1/chat/message", chattingMessageJsonObject.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Log.d(TAG, it.toString())
+                Log.d(TAG, "STOMP echo send successfully");
             },{
                 Log.d(TAG, it.toString()) }
             )
