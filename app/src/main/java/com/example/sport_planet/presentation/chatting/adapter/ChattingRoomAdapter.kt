@@ -15,6 +15,7 @@ import com.example.sport_planet.databinding.ItemChattingRoomBinding
 import com.example.sport_planet.data.response.chatting.ChattingRoomListResponse
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.view.ChattingActivity
+import com.example.sport_planet.presentation.chatting.view.ChattingFragment
 import com.example.sport_planet.util.Util
 import com.perfomer.blitz.setTimeAgo
 import kotlin.collections.ArrayList
@@ -37,7 +38,10 @@ class ChattingRoomAdapter(
     fun updateChattingRoomList(chattingRoomId: Long, lastMessage: ChattingMessageResponse){
         chattingRoomsHashMap[chattingRoomId]!!.let {
             it.lastMessage = lastMessage
-            it.unreadMessages += 1
+            if(ChattingFragment.currentChattingRoomNum != chattingRoomId)
+                it.unreadMessages += 1
+            else
+                it.unreadMessages = 0
         }
         chattingRooms.sortByDescending { chattingRoom -> chattingRoom.lastMessage.createdAt }
         notifyDataSetChanged()
@@ -62,6 +66,7 @@ class ChattingRoomAdapter(
                         chattingRoom.opponentNickname
                     )
                 )
+                ChattingFragment.currentChattingRoomNum = chattingRoom.id
                 startActivity(context, intent, null)
             }
 
