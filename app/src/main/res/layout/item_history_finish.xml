@@ -13,6 +13,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:clickable="@{items.boardInfo.hostId == -1L ? false : true}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
