@@ -1,6 +1,9 @@
 package com.example.sport_planet.presentation.chatting.view
 
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +14,6 @@ import com.example.sport_planet.data.response.chatting.ChattingRoomListResponse
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.ChattingConstant
-import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.adapter.ChattingRoomAdapter
 import com.example.sport_planet.presentation.chatting.viewmodel.ChattingFragmentViewModel
 import com.example.sport_planet.presentation.custom.CustomDialog
@@ -21,6 +23,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
     companion object {
         fun newInstance() =
             ChattingFragment()
+        var currentChattingRoomNum = -1L
     }
 
     private lateinit var chattingRoomsHashMap : HashMap<Long, ChattingRoomListResponse.Data>
@@ -56,11 +59,9 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        UserInfo.USER_ID = 2L
-        
         viewModel.settingChattingRoomList()
 
         viewModel.chattingRoomListResponseLiveData.observe(this,
@@ -96,6 +97,15 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
                 }
             }
         )
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        currentChattingRoomNum = -1
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onDestroy() {
