@@ -16,9 +16,9 @@ import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layout.fragment_scrap) {
 
     private val scrapAdapter: ScrapAdapter by lazy {
-        ScrapAdapter({boardId,boolean ->
+        ScrapAdapter({ boardId, boolean ->
             deleteBookMark(boardId, boolean)
-        },{goBoard(it)}).apply {
+        }, { goBoard(it) }).apply {
             setHasStableIds(true)
         }
     }
@@ -49,8 +49,10 @@ class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layou
             getBookMark()
             bookMarkList.observe(viewLifecycleOwner, Observer {
                 binding.run {
-                    clEmpty.visibility = View.GONE
-                    rvScrap.visibility = View.VISIBLE
+                    if (it.isNotEmpty()) {
+                        clEmpty.visibility = View.GONE
+                        rvScrap.visibility = View.VISIBLE
+                    }
                 }
                 scrapAdapter.setScrapItemList(it)
             })
@@ -60,8 +62,8 @@ class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layou
         }
     }
 
-    private fun deleteBookMark(boardId: Long, boolean: Boolean){
-        if(!boolean){
+    private fun deleteBookMark(boardId: Long, boolean: Boolean) {
+        if (!boolean) {
             binding.run {
                 clEmpty.visibility = View.VISIBLE
                 rvScrap.visibility = View.GONE
