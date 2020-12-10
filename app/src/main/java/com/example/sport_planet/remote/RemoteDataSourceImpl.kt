@@ -26,6 +26,7 @@ import retrofit2.Response
 import java.util.*
 
 class RemoteDataSourceImpl : RemoteDataSource {
+
     override fun getExercise(): Single<ExerciseResponse> = api.getExercise()
 
     override fun getRegion(): Single<RegionResponse> = api.getRegion()
@@ -35,13 +36,13 @@ class RemoteDataSourceImpl : RemoteDataSource {
     override fun postSignIn(userInfo: LoginResponse): Single<Response<ServerCallBackResponse>> =
         api.postSignIn(userInfo)
 
-
     override fun postSignUp(userSignUp: SignUpResponse): Single<Response<ServerCallBackResponse>> =
         api.postSignUp(userSignUp)
 
     override fun deleteUser(): Single<ServerCallBackResponse> = api.deleteUser()
 
     override fun getMyProfile(): Single<HistoryResponse> = api.getMyProfile()
+
     override fun getMyProfileEdit(): Single<MyProfileEditResponse> = api.getMyProfileEdit()
 
     override fun putMyProfile(myViewEditRequest: MyViewEditRequest): Single<ServerCallBackResponse> =
@@ -82,11 +83,6 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun getChattingMessageList(chatRoomId: Long): Single<ChattingMessageListResponse> =
         api.getChattingMessageList(chatRoomId)
-
-    override fun makeChattingMessageRead(
-        chatRoomId: Long,
-        messageId: Long
-    ): Single<MakeChattingMessageReadResponse> = api.makeChattingMessageRead(chatRoomId, messageId)
 
     override fun applyBoard(boardId: Long, param: JsonObject): Single<CommonServerResponse> =
         api.applyBoard(boardId, param)

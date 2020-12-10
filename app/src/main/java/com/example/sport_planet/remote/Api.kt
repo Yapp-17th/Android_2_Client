@@ -85,8 +85,7 @@ interface Api {
     @GET("mypage-service/v1/user/my-profile/edit")
     fun getMyProfileEdit() : Single<MyProfileEditResponse>
 
-
-    // 채팅 API
+    /** 채팅 API Start **/
     @POST("chatting-service/v1/chat/room")
     fun makeChattingRoom(
         @Body param: JsonObject
@@ -104,14 +103,9 @@ interface Api {
     fun getChattingMessageList(
         @Path("chatRoomId") chatRoomId: Long
     ): Single<ChattingMessageListResponse>
+    /** 채팅 API End **/
 
-    @PUT("chatting-service/v1/chat/room/{chatRoomId}/message/{messageId}")
-    fun makeChattingMessageRead(
-        @Path("chatRoomId") boardId: Long,
-        @Path("messageId") messageId: Long
-    ): Single<MakeChattingMessageReadResponse>
-
-    // 게시글 신청, 승인, 승인취소 API
+    /** 게시글 신청, 승인, 승인취소 API Start **/
     @POST("chatting-service/v1/board/{boardId}/apply")
     fun applyBoard(
         @Path("boardId") boardId: Long,
@@ -129,7 +123,7 @@ interface Api {
         @Path("boardId") boardId: Long,
         @Body param: JsonObject
     ): Single<CommonServerResponse>
-
+    /** 게시글 신청, 승인, 승인취소 API End **/
 
     //common
     @GET("/api/base-service//v1/user/tag")
