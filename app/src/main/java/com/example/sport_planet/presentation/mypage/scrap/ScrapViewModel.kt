@@ -21,7 +21,9 @@ class ScrapViewModel : BaseViewModel() {
                 .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
                     if (it.success && !it.data.isNullOrEmpty()) {
-                        _bookMarkList.value = it.data
+                        _bookMarkList.value = it.data.filter { myBookMarksModel ->
+                            myBookMarksModel.hostId != -1L
+                        }
                     }
 
                 }, {})
