@@ -13,6 +13,7 @@ import com.example.sport_planet.presentation.profile.ExerciseDialog
 import com.example.sport_planet.presentation.profile.ExerciseListAdapter
 import com.example.sport_planet.presentation.profile.ProfileViewModel
 import com.example.sport_planet.presentation.profile.RegionDialog
+import com.example.sport_planet.util.hideKeyboard
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
@@ -33,6 +34,9 @@ class EditProfileFragment :
 
     private fun initViewModel() {
         binding.run {
+            clFullScreen.setOnClickListener {
+                clFullScreen.hideKeyboard()
+            }
             vm = viewModel
             tvStart.text = getString(R.string.fragment_edit_profile_edit_text)
             customToolBar.title.text = getString(R.string.activity_profile_head)
@@ -103,7 +107,7 @@ class EditProfileFragment :
                 }
             })
             isLoading.observeOn(AndroidSchedulers.mainThread())
-                .subscribe { if(it) showLoading() else hideLoading() }
+                .subscribe { if (it) showLoading() else hideLoading() }
                 .addTo(compositeDisposable)
         }
 

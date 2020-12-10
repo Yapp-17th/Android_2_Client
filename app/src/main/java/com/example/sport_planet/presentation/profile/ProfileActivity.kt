@@ -16,6 +16,7 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.login.LoginActivity
 import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.remote.NetworkHelper
+import com.example.sport_planet.util.hideKeyboard
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
@@ -34,6 +35,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     private fun initView(){
         binding.run {
+            clFullScreen.setOnClickListener {
+                clFullScreen.hideKeyboard()
+            }
             vm = viewModel
             customToolBar.run {
                 title.text = getString(R.string.activity_profile_head)
