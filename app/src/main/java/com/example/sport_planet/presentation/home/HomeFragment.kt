@@ -7,9 +7,9 @@ import android.view.View
 import android.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.TimeFilterEnum
+import com.example.sport_planet.data.model.board.BoardRequestModel
 import com.example.sport_planet.databinding.FragmentHomeBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.board.BoardActivity
@@ -44,8 +44,11 @@ class HomeFragment private constructor() :
         )
         binding.vm = viewModel
         binding.recBoard.adapter = adapter
-        binding.recBoard.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-        })
+
+//        viewModel.boardRequestItem.value = BoardRequestModel()
+//        viewModel.boardRequestItem.observe(viewLifecycleOwner, Observer {
+//            viewModel.getBoardList()
+//        })
 
         viewModel.isLoading
             .observeOn(AndroidSchedulers.mainThread())
@@ -67,11 +70,7 @@ class HomeFragment private constructor() :
                     binding.clBoardEmpty.visibility = View.GONE
                     binding.recBoard.visibility = View.VISIBLE
                 }
-            }
-
-        viewModel.boardRequestItem.observe(viewLifecycleOwner, Observer {
-            viewModel.getBoardList()
-        })
+            }.addTo(compositeDisposable)
 
         viewModel.showSearchActivity
             .observeOn(AndroidSchedulers.mainThread())
@@ -87,7 +86,11 @@ class HomeFragment private constructor() :
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { showTimeFilterPopup() }
             .addTo(compositeDisposable)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getBoardList()
     }
 
     override fun init() {

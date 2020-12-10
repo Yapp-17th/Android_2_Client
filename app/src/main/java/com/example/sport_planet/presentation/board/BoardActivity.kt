@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
@@ -187,6 +188,12 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
 
     companion object {
         const val BOARD_ID = "BOARD_ID"
+
+        fun createInstance(fragment: Fragment, boardId: Long) {
+            val intent = Intent(fragment.activity, BoardActivity::class.java)
+            intent.putExtra(BOARD_ID, boardId)
+            fragment.startActivityForResult(intent, HomeFragment.REFRESH)
+        }
 
         fun createInstance(activity: Activity, boardId: Long) {
             val intent = Intent(activity, BoardActivity::class.java)

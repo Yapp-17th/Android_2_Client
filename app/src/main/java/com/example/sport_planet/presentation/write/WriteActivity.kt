@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
@@ -274,6 +275,11 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
         const val DATE_DIALOG = "DATE_DIALOG"
         const val TIME_DIALOG = "TIME_DIALOG"
         const val BOARD_ID = "BOARD_ID"
+
+        fun createInstance(fragment: Fragment) {
+            val intent = Intent(fragment.activity, WriteActivity::class.java)
+            fragment.startActivityForResult(intent, REFRESH)
+        }
 
         fun createInstance(activity: Activity) {
             val intent = Intent(activity, WriteActivity::class.java)

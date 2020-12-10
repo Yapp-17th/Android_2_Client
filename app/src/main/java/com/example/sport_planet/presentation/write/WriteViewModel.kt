@@ -98,8 +98,6 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
             .subscribe({
                 if (it.success) {
                     showFinishView.onNext(Unit)
-                } else {
-
                 }
             }, {
                 it.printStackTrace()
