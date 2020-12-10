@@ -14,7 +14,7 @@ class MyPageExerciseListAdapter :
 
     fun setItem(item: List<String>) {
         items.clear()
-        items.addAll(item)
+        items.addAll(item.sorted())
         notifyDataSetChanged()
     }
 

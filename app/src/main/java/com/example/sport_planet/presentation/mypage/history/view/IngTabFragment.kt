@@ -13,6 +13,7 @@ import com.example.sport_planet.presentation.base.BaseAcceptCancelDialog
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.chatting.view.ChattingActivity
+import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.presentation.mypage.history.adapter.IngTabAdapter
 import com.example.sport_planet.presentation.mypage.history.viewModel.IngTabViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -33,6 +34,11 @@ class IngTabFragment :
     override fun init() {
         viewModel.getHistory()
         observeLiveData()
+        binding.tvGoBoard.setOnClickListener {
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
     }
 
     private fun observeLiveData() {
@@ -40,9 +46,11 @@ class IngTabFragment :
             binding.run {
                 myViewHistoryList.observe(viewLifecycleOwner, Observer {
                         rvHistoryIng.adapter = ingTabAdapter.apply {
-                            clEmpty.visibility = View.GONE
-                            rvHistoryIng.visibility = View.VISIBLE
-                            setMyViewHistoryItem(viewModel.myViewHistoryList.value!!)
+                            if(it.isNotEmpty()) {
+                                clEmpty.visibility = View.GONE
+                                rvHistoryIng.visibility = View.VISIBLE
+                                setMyViewHistoryItem(viewModel.myViewHistoryList.value!!)
+                            }
                     }
                 })
                 applyList.observe(viewLifecycleOwner, Observer {

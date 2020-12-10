@@ -16,6 +16,7 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.login.LoginActivity
 import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.remote.NetworkHelper
+import com.example.sport_planet.util.hideKeyboard
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
@@ -34,6 +35,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     private fun initView(){
         binding.run {
+            clFullScreen.setOnClickListener {
+                clFullScreen.hideKeyboard()
+            }
             vm = viewModel
             customToolBar.run {
                 title.text = getString(R.string.activity_profile_head)
@@ -109,7 +113,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     private fun showRegionPopup(it: RegionResponse) {
         val dialog = RegionDialog.newInstance(
             dialogTitleText = getString(R.string.dialog_region_title),
-            dialogItemList = it.data
+            dialogItemList = it.data.sortedBy { it.id }
         )
         dialog.setSelectDialogListener(object :
             RegionDialog.SelectDialogListener {
@@ -129,7 +133,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     private fun showExercisePopup(it: ExerciseResponse) {
         val dialog = ExerciseDialog.newInstance(
             dialogTitleText = getString(R.string.dialog_select_title),
-            dialogItemList = it.data
+            dialogItemList = it.data.sortedBy { it.id }
         )
         dialog.setSelectDialogListener(object :
             ExerciseDialog.SelectDialogListener {
@@ -140,7 +144,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     rvExercise.visibility = View.VISIBLE
                     rvExercise.adapter =
                         ExerciseListAdapter(::getExerciseItem).apply {
-                            setItem(viewModel.userExerciseList.value!!)
+                            viewModel.userExerciseList.value?.let { it -> setItem(it) }
                         }
                     clInterestExcise.visibility = View.INVISIBLE
                 }

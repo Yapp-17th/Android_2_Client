@@ -65,10 +65,7 @@ class MyPageFragment :
             category.observe(viewLifecycleOwner, Observer {
                 myPageExerciseListAdapter.setItem(it)
             })
-            isLoading
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { if (it) showLoading() else hideLoading() }
-                .addTo(compositeDisposable)
+            
         }
     }
 

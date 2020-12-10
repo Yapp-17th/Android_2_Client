@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_full_screen"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
