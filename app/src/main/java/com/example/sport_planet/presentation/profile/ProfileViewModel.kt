@@ -111,7 +111,7 @@ class ProfileViewModel : BaseViewModel() {
                     userIntroduceMyself.value = it.data.intro
                     _userExerciseList.value = it.data.category.map { category ->
                         category.name
-                    }
+                    }.sorted()
                     _userExerciseIdList.value = it.data.category.map { category ->
                         category.id
                     }
