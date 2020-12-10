@@ -17,6 +17,7 @@ object NetworkHelper {
         })
         .addInterceptor {
             Log.d("okhttp", "request: ${it.request()}")
+            Log.d("okhttp", "request header: ${it.request().headers}")
             val request = it.request()
                 .newBuilder()
                 .addHeader("Authorization", "Bearer $token")

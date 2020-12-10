@@ -109,6 +109,7 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
             .addTo(compositeDisposable)
 
         viewModel.boardId.observe(this, Observer {
+            if(it >= 0)
             viewModel.getBoardContent()
         })
 

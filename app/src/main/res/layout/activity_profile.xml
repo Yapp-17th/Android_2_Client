@@ -59,7 +59,6 @@
                 android:background="@null"
                 android:hint="@string/activity_profile_hint_email"
                 android:inputType="textEmailAddress"
-                android:text="@={vm.userEmail}"
                 app:layout_constraintTop_toBottomOf="@id/v_line_1" />
 
             <View
@@ -190,21 +189,24 @@
                     android:id="@+id/tv_region"
                     style="@style/medium_basic"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/item_exercise_list_margin_8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:text="@={vm.userRegion}"
                     android:textColor="@color/blue233c93"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/iv_x"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="강남구" />
 
                 <ImageView
                     android:id="@+id/iv_x"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/item_exercise_list_margin_8dp"
                     android:padding="@dimen/item_exercise_list_padding_4dp"
                     android:src="@drawable/icons_18_px_x"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -3,6 +3,7 @@ package com.example.sport_planet.presentation.profile
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.util.PrefUtil
@@ -50,6 +51,11 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 viewModel.postSignUp()
             }
         }
+
+        binding.etEmail.addTextChangedListener {
+            viewModel.userEmail.value = it.toString()
+        }
+
         intent.run {
             viewModel.run {
                 getStringExtra("userToken")?.let { setUserToken(it) }
@@ -90,7 +96,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
             postSignUpStatus.observe(this@ProfileActivity, Observer {
                 when (it) {
                     200 -> {
-                        showFinishedPopup(viewModel.postSignUpStatusMessage.value.toString())
+                        showFinishedPopup("회원가입 성공했습니다.")
                     }
                     400 -> {
                         showErrorPopup(viewModel.postSignUpStatusMessage.value.toString())
