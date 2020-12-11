@@ -6,7 +6,6 @@ import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.sport_planet.util.PrefUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.data.response.basic.ExerciseResponse
 import com.example.sport_planet.data.response.basic.RegionResponse
@@ -17,6 +16,7 @@ import com.example.sport_planet.presentation.chatting.UserInfo
 import com.example.sport_planet.presentation.login.LoginActivity
 import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.remote.NetworkHelper
+import com.example.sport_planet.util.PrefUtil
 import com.example.sport_planet.util.hideKeyboard
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -34,7 +34,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     }
 
-    private fun initView(){
+    private fun initView() {
         binding.run {
             clFullScreen.setOnClickListener {
                 clFullScreen.hideKeyboard()
@@ -106,9 +106,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     }
                 }
             })
-            serverToken.observe(this@ProfileActivity, Observer {
-                PrefUtil.setStrValue(this@ProfileActivity,"serverToken",it)
-            })
             isLoading
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { if (it) showLoading() else hideLoading() }
@@ -172,8 +169,12 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         )
         dialog.setAcceptDialogListener(object : BaseAcceptDialog.AcceptDialogListener {
             override fun onAccept() {
-                NetworkHelper.token = viewModel.serverToken.toString()
-                PrefUtil.setStrValue(this@ProfileActivity,"serverToken",viewModel.serverToken.value.toString())
+                NetworkHelper.token = viewModel.serverToken.value.toString()
+                PrefUtil.setStrValue(
+                    this@ProfileActivity,
+                    "serverToken",
+                    viewModel.serverToken.value.toString()
+                )
                 UserInfo.USER_ID = viewModel.serverUserId.value.toString().toLong()
                 val intent = Intent(this@ProfileActivity, MainActivity::class.java)
                 startActivity(intent)

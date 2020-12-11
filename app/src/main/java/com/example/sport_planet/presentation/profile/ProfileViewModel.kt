@@ -98,13 +98,14 @@ class ProfileViewModel : BaseViewModel() {
                 }, {})
         )
     }
-    fun getMyProfileEdit(){
+
+    fun getMyProfileEdit() {
         compositeDisposable.add(RemoteDataSourceImpl().getMyProfileEdit()
             .applySchedulers()
             .doOnSubscribe { isLoading.onNext(true) }
             .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
-                if(it.success){
+                if (it.success) {
                     userName.value = it.data.userName
                     userNickname.value = it.data.nickName
                     userEmail.value = it.data.email
@@ -116,10 +117,12 @@ class ProfileViewModel : BaseViewModel() {
                         category.id
                     }
                     userRegion.value = it.data.city.name
-                    _userRegionId.value  = it.data.city.id
+                    _userRegionId.value = it.data.city.id
                 }
-            },{}))
+            }, {})
+        )
     }
+
     fun postSignUp() {
         val signUpResponse = SignUpResponse(
             userId = userId.value.toString(),
@@ -139,8 +142,8 @@ class ProfileViewModel : BaseViewModel() {
                 .subscribe({
                     _serverToken.value = it.headers()["token"]
                     _serverUserId.value = it.headers()["userId"]
-                    _postSignUpStatus.postValue(it.body()?.status)
-                    _postSignUpStatusMessage.postValue(it.body()?.message.toString())
+                    _postSignUpStatusMessage.value = it.body()?.message.toString()
+                    _postSignUpStatus.value = it.body()?.status
                 }, {})
         )
     }
@@ -160,9 +163,9 @@ class ProfileViewModel : BaseViewModel() {
                 .doOnSubscribe { isLoading.onNext(true) }
                 .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
-                    _postSignUpStatus.postValue(it.status)
-                    _postSignUpStatusMessage.postValue(it.message)
-                },{})
+                    _postSignUpStatus.value = it.status
+                    _postSignUpStatusMessage.value = it.message
+                }, {})
         )
     }
 }
