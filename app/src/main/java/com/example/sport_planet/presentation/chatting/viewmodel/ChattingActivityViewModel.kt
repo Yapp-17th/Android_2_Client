@@ -103,9 +103,9 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
 
         mStompClient.lifecycle()
             .subscribe { lifecycleEvent: LifecycleEvent ->
-                when (lifecycleEvent.type) {
+                when (lifecycleEvent.type!!) {
                     LifecycleEvent.Type.OPENED -> {
-                        Log.d(TAG, "Stomp connection opened")
+                        Log.d(TAG, "[OPENED] 채탕방 웹소켓 OPENED")
                         topic = mStompClient.topic("/sub/chat/room/${chatRoomInfo.chatRoomId}")
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -125,9 +125,14 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
                                 Log.d(TAG, it.localizedMessage)
                             })
                     }
-                    LifecycleEvent.Type.ERROR -> Log.e(TAG, "Error", lifecycleEvent.exception)
-                    LifecycleEvent.Type.CLOSED -> Log.d(TAG, "Stomp connection closed")
-                    LifecycleEvent.Type.FAILED_SERVER_HEARTBEAT -> Log.d(TAG, "Stomp connection closed")
+                    LifecycleEvent.Type.ERROR -> Log.d(TAG, "[ERROR]: 채팅방 웹소켓 ERROR")
+                    LifecycleEvent.Type.CLOSED -> {
+                        if(!closeSocket)
+                            Log.d(TAG, "[CLOSED]: 채팅방 웹소켓 비정상적인 CLOSE")
+                        else
+                            Log.d(TAG, "[CLOSED]: 채팅방 웹소켓 정상적인 CLOSE")
+                    }
+                    LifecycleEvent.Type.FAILED_SERVER_HEARTBEAT -> Log.d(TAG, "[CLOSED]: 채팅방 웹소켓 SERVER HEARTBEAT FAILED")
                 }
             }
         mStompClient.connect(headers)
