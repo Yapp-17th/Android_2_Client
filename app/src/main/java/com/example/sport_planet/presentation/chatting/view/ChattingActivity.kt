@@ -219,7 +219,6 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
                     dialog.show(supportFragmentManager, dialog.tag)
                 }
                 else -> chattingActivityViewModel.approvalStatusButtonOnClick()
-
             }
         }
 
@@ -233,8 +232,8 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
     }
 
     override fun onStop() {
-        super.onStop()
         chattingActivityViewModel.sendReadUpdateMessage()
+        super.onStop()
     }
 
     override fun onDestroy() {
