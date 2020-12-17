@@ -66,10 +66,13 @@
     <string name="Guest">Guest</string>
     <string name="ProfileMessageLastMessage">프로필 메세지입니다.</string>
 
+    <!-- item_chat_bot_notice_message -->
+    <string name="item_chat_bot_notice_message_rule">이용규칙 보러가기</string>
+    <string name="item_chat_bot_notice_message_history">히스토리 바로가기</string>
+
     <!-- item_received_profile_message -->
     <string name="received_profile_message_text1">기본소개</string>
     <string name="received_profile_message_visit_profile">프로필 놀러가기</string>
-
 
     <!-- item_sent_profile_message -->
     <string name="sent_profile_message_text1">기본소개</string>
