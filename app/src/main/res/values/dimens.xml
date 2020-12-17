@@ -44,7 +44,7 @@
     <!-- activity_chatting_edit_text_border -->
     <dimen name="activity_chatting_edit_text_corner_radius_31dp">31dp</dimen>
 
-    <!-- item_message_border, item_message_visit_profile_btn_border -->
+    <!-- item_message_border, item_message_visit_btn_border -->
     <dimen name="item_message_corner_radius_16dp">16dp</dimen>
 
     <!-- item_notice_message -->
