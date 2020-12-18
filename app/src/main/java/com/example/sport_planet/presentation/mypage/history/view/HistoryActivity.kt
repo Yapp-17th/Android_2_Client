@@ -18,23 +18,31 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
             getString(R.string.activity_history_tab_title_2)
         )
     }
+    private var tabNum: Int = 0
 
     private val vpAdapter by lazy {
         object : HistoryViewPager2Adapter(supportFragmentManager, lifecycle, tabTitles) {
             override fun createFragment(position: Int): Fragment =
-                when (position) {
-                    0 -> {
-                        IngTabFragment.newInstance()
-                    }
-                    else -> {
-                        FinishTabFragment.newInstance()
+                if (tabNum != 0) {
+                    tabNum = 0
+                    FinishTabFragment.newInstance()
+                } else {
+                    when (position) {
+                        0 -> {
+                            IngTabFragment.newInstance()
+                        }
+                        else -> {
+                            FinishTabFragment.newInstance()
+                        }
                     }
                 }
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        tabNum = intent.getIntExtra("tab", 0)
         setTab()
         binding.customToolBar.run {
             back.setOnClickListener { finish() }
@@ -46,7 +54,8 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
         binding.run {
             tlTab.tabGravity = TabLayout.GRAVITY_FILL
             vpBody.adapter = vpAdapter
-            TabLayoutMediator(tlTab, vpBody, true
+            TabLayoutMediator(
+                tlTab, vpBody, true
             ) { tab, position ->
                 tab.text = vpAdapter.getItemTitle(position)
             }.attach()
