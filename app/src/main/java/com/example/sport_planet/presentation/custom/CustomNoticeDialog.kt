@@ -1,7 +1,9 @@
 package com.example.sport_planet.presentation.custom
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Point
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -36,6 +38,7 @@ class CustomNoticeDialog : DialogFragment() {
         val deviceWidth = size.x
         params?.width = (deviceWidth * 0.9).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
