@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.mypage.history.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.ActivityHistoryBinding
@@ -18,15 +19,10 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
             getString(R.string.activity_history_tab_title_2)
         )
     }
-    private var tabNum: Int = 0
 
     private val vpAdapter by lazy {
         object : HistoryViewPager2Adapter(supportFragmentManager, lifecycle, tabTitles) {
             override fun createFragment(position: Int): Fragment =
-                if (tabNum != 0) {
-                    tabNum = 0
-                    FinishTabFragment.newInstance()
-                } else {
                     when (position) {
                         0 -> {
                             IngTabFragment.newInstance()
@@ -35,19 +31,21 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_h
                             FinishTabFragment.newInstance()
                         }
                     }
-                }
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        tabNum = intent.getIntExtra("tab", 0)
         setTab()
         binding.customToolBar.run {
             back.setOnClickListener { finish() }
             title.text = getString(R.string.activity_history_title)
         }
+        if(intent.getIntExtra("tab",0) != 0) {
+            binding.tlTab.getTabAt(1)?.select()
+
+        }
+
     }
 
     private fun setTab() {
