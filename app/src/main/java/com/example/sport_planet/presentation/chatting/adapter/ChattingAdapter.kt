@@ -32,6 +32,7 @@ class ChattingAdapter(val context: Context) : RecyclerView.Adapter<ChattingAdapt
     private val SENT_TALK_MESSAGE_VIEW = 6
 
     private var chattingMessages = ArrayList<ChattingMessageModel>()
+    private lateinit var intent: Intent
 
     fun settingChattingMessageList(chattingMessageList: ArrayList<ChattingMessageModel>){
         chattingMessages = chattingMessageList
@@ -74,7 +75,8 @@ class ChattingAdapter(val context: Context) : RecyclerView.Adapter<ChattingAdapt
                         it.itemChatBotNoticeMessage = chattingMessage
                         it.btChatBotNoticeMessageContentDetail.text = context.resources.getString(R.string.item_chat_bot_notice_message_history)
                         it.btChatBotNoticeMessageContentDetail.setOnClickListener {
-                            val intent = Intent(context, HistoryActivity::class.java)
+                            intent = Intent(context, HistoryActivity::class.java)
+                            intent.putExtra("tab",1)
                             ContextCompat.startActivity(context, intent, null)
                         }
                     }
@@ -89,7 +91,7 @@ class ChattingAdapter(val context: Context) : RecyclerView.Adapter<ChattingAdapt
                         it.itemReceivedProfileMessage = chattingMessage
                         it.profileMessageContent = Json.parse(ProfileMessageContentModel.serializer(), chattingMessage.content)
                         it.btReceivedProfileMessageVisitProfile.setOnClickListener {
-                            val intent = Intent(context, OtherMyPageActivity::class.java)
+                            intent = Intent(context, OtherMyPageActivity::class.java)
                             intent.putExtra("userId",chattingMessage.senderId)
                             ContextCompat.startActivity(context, intent, null)
                         }
