@@ -21,6 +21,7 @@ import com.example.sport_planet.presentation.custom.CustomDialog
 import com.example.sport_planet.presentation.home.HomeFragment
 import com.example.sport_planet.presentation.write.WriteActivity
 import com.example.sport_planet.remote.RemoteDataSourceImpl
+import com.example.sport_planet.util.ClickUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
@@ -32,6 +33,8 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
             BoardViewModelFactory(RemoteDataSourceImpl())
         ).get(BoardViewModel::class.java)
     }
+
+    private val click by lazy { ClickUtil(this.lifecycle) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -146,27 +149,29 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
         binding.toolbar.setBackButtonClick(View.OnClickListener { this.finish() })
 
         binding.btnChatting.setOnClickListener {
-            viewModel.makeChattingRoom()
-            viewModel.makeChattingRoomResultLiveData.observe(this,
-                Observer {
-                    it.getContentIfNotHandled()?.data.let { chattingRoom ->
-                        if (chattingRoom != null) {
-                            val intent = Intent(applicationContext, ChattingActivity::class.java)
-                            intent.putExtra(
-                                "chatRoomInfo",
-                                ChatRoomInfo(
-                                    chattingRoom.id,
-                                    chattingRoom.boardId,
-                                    chattingRoom.guestId,
-                                    chattingRoom.hostId == UserInfo.USER_ID,
-                                    chattingRoom.opponentNickname
+            click.run{
+                viewModel.makeChattingRoom()
+                viewModel.makeChattingRoomResultLiveData.observe(this,
+                    Observer {
+                        it.getContentIfNotHandled()?.data.let { chattingRoom ->
+                            if (chattingRoom != null) {
+                                val intent = Intent(applicationContext, ChattingActivity::class.java)
+                                intent.putExtra(
+                                    "chatRoomInfo",
+                                    ChatRoomInfo(
+                                        chattingRoom.id,
+                                        chattingRoom.boardId,
+                                        chattingRoom.guestId,
+                                        chattingRoom.hostId == UserInfo.USER_ID,
+                                        chattingRoom.opponentNickname
+                                    )
                                 )
-                            )
-                            startActivity(intent)
+                                startActivity(intent)
+                            }
                         }
                     }
-                }
-            )
+                )
+            }
         }
     }
 
