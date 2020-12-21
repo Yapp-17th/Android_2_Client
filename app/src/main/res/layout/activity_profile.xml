@@ -128,13 +128,14 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_exercise"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/activity_profile_margin_16dp"
                 android:orientation="horizontal"
                 android:visibility="invisible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_interest_excise" />
+                app:layout_constraintBottom_toBottomOf="@id/cl_interest_excise"
+                app:layout_constraintTop_toTopOf="@id/cl_interest_excise" />
 
             <TextView
                 android:id="@+id/tv_residence"
@@ -152,7 +153,7 @@
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/activity_profile_margin_16dp"
                 android:background="@drawable/shape_round_corner"
-                app:layout_constraintHeight_percent="0.04"
+                app:layout_constraintHeight_percent="0.045"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_residence"
                 app:layout_constraintWidth_percent="0.2">
@@ -180,7 +181,7 @@
                 android:background="@drawable/shape_round_corner_darkblue_opacity"
                 android:orientation="horizontal"
                 android:visibility="invisible"
-                app:layout_constraintHeight_percent="0.04"
+                app:layout_constraintHeight_percent="0.045"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_residence"
                 app:layout_constraintWidth_percent="0.2">
