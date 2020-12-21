@@ -1,15 +1,17 @@
 package com.example.sport_planet.presentation.mypage.setting
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.util.Log
+import androidx.browser.customtabs.CustomTabsClient.getPackageName
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.sport_planet.util.PrefUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.FragmentSettingBinding
-import com.example.sport_planet.presentation.base.BaseAcceptCancelDialog
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.login.LoginActivity
+import com.example.sport_planet.util.PrefUtil
 import com.kakao.sdk.user.UserApiClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -31,6 +33,12 @@ class SettingFragment :
                 }
             }
             tvLogout.setOnClickListener { showLogoutPopup() }
+            tvVersion.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                intent.data = Uri.parse("market://details?id=" + requireContext().packageName)
+                startActivity(intent)
+            }
         }
         observeLiveData()
     }
@@ -52,13 +60,8 @@ class SettingFragment :
 
 
     private fun showLogoutPopup() {
-        val dialog = BaseAcceptCancelDialog.newInstance(
-            dialogTitleText = getString(R.string.dialog_logout_title),
-            dialogBodyText = getString(R.string.dialog_logout_body),
-            dialogAcceptText = getString(R.string.dialog_logout_ok)
-        )
-        dialog.setAcceptCancelDialogListener(object :
-            BaseAcceptCancelDialog.AcceptCancelDialogListener {
+        val dialog = LogoutDialog.newInstance()
+        dialog.setLogoutDialogListener(object : LogoutDialog.LogoutDialogListener {
             override fun onAccept() {
                 UserApiClient.instance.unlink { error ->
                     if (error != null) {

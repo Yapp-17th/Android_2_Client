@@ -14,12 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".presentation.search.result.SearchResultActivity"/>
+        <activity android:name=".presentation.search.result.SearchResultActivity" />
         <activity android:name=".presentation.search.SearchActivity" />
         <activity android:name=".presentation.mypage.other.mypage.OtherMyPageActivity" />
         <activity android:name=".presentation.mypage.history.view.HistoryActivity" />
         <activity android:name=".presentation.home.filter.FilterActivity" />
-        <activity android:name=".presentation.profile.ProfileActivity" />
+        <activity
+            android:name=".presentation.profile.ProfileActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".presentation.chatting.view.ChattingActivity"
             android:theme="@style/ChattingAppTheme"
