@@ -52,13 +52,8 @@ class SettingFragment :
 
 
     private fun showLogoutPopup() {
-        val dialog = BaseAcceptCancelDialog.newInstance(
-            dialogTitleText = getString(R.string.dialog_logout_title),
-            dialogBodyText = getString(R.string.dialog_logout_body),
-            dialogAcceptText = getString(R.string.dialog_logout_ok)
-        )
-        dialog.setAcceptCancelDialogListener(object :
-            BaseAcceptCancelDialog.AcceptCancelDialogListener {
+        val dialog = LogoutDialog.newInstance()
+        dialog.setLogoutDialogListener(object : LogoutDialog.LogoutDialogListener {
             override fun onAccept() {
                 UserApiClient.instance.unlink { error ->
                     if (error != null) {
