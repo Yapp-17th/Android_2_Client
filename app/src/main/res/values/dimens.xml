@@ -90,7 +90,7 @@
     <dimen name="fragment_my_page_margin_16dp">16dp</dimen>
     <dimen name="fragment_my_page_margin_20dp">20dp</dimen>
     <dimen name="fragment_my_page_margin_24dp">24dp</dimen>
-    <dimen name="fragment_my_page_margin_40dp">40dp</dimen>
+    <dimen name="fragment_my_page_margin_32dp">32dp</dimen>
     <dimen name="fragment_my_page_padding_8dp">8dp</dimen>
     <dimen name="fragment_my_page_padding_12dp">12dp</dimen>
     <dimen name="fragment_my_page_spacing_line_3dp">3dp</dimen>
