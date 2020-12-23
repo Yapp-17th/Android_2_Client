@@ -8,6 +8,8 @@ import com.example.sport_planet.data.enums.TimeFilterEnum
 import com.example.sport_planet.data.model.BoardModel
 import com.example.sport_planet.data.model.board.BoardRequestModel
 import com.example.sport_planet.data.model.toBoardModel
+import com.example.sport_planet.data.response.basic.ExerciseResponse
+import com.example.sport_planet.data.response.basic.RegionResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,17 +26,17 @@ class HomeViewModel(private val remote: RemoteDataSource) :
             boardList.value = value
         }
 
-    val boardRequestItem: MutableLiveData<BoardRequestModel> = MutableLiveData(BoardRequestModel())
+    private val boardRequestItem: MutableLiveData<BoardRequestModel> = MutableLiveData(BoardRequestModel())
     private val _boardRequestItem: BoardRequestModel
         get() = boardRequestItem.value!!
 
-    var exercise: String
+    var exercise: List<ExerciseResponse.Data>
         get() = _boardRequestItem.category
         set(value) {
             boardRequestItem.value = _boardRequestItem.copy(category = value)
         }
 
-    var city: String
+    var city: List<RegionResponse.Data>
         get() = _boardRequestItem.address
         set(value) {
             boardRequestItem.value = _boardRequestItem.copy(address = value)
@@ -66,8 +68,8 @@ class HomeViewModel(private val remote: RemoteDataSource) :
 
     fun getBoardList() {
         remote.getBoardList(
-            category = _boardRequestItem.category,
-            address = _boardRequestItem.address,
+            category = _boardRequestItem.category.map { it.id }.joinToString(","),
+            address = _boardRequestItem.address.map { it.id }.joinToString(","),
             sorting = _boardRequestItem.sorting.query
         ).observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isLoading.onNext(true) }

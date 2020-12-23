@@ -4,35 +4,34 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.sport_planet.data.response.basic.ExerciseResponse
+import com.example.sport_planet.data.response.basic.RegionResponse
 import com.example.sport_planet.presentation.home.filter.city.AddressCityFragment
 import com.example.sport_planet.presentation.home.filter.exercise.ExerciseFragment
 
-class FilterViewPagerAdapter(private val fragmentManager: FragmentManager, private val lifecycle: Lifecycle) :
+class FilterViewPagerAdapter(
+    private val fragmentManager: FragmentManager,
+    private val city: List<RegionResponse.Data> = emptyList(),
+    private val exercise: List<ExerciseResponse.Data> = emptyList(),
+    private val lifecycle: Lifecycle
+) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private val fragmentList: ArrayList<Fragment> = ArrayList()
 
     init {
         fragmentList.clear()
-        fragmentList.add(AddressCityFragment.newInstance())
-        fragmentList.add(ExerciseFragment.newInstance())
+        fragmentList.add(AddressCityFragment.newInstance(city = city))
+        fragmentList.add(ExerciseFragment.newInstance(exercise = exercise))
     }
 
     fun resetFragment() {
         fragmentManager.fragments.forEach {
-            when(it) {
-                is AddressCityFragment -> it.adapterClear()
+            when (it) {
+                is AddressCityFragment -> it.clearCity()
                 is ExerciseFragment -> it.adapterClear()
             }
         }
-    }
-
-    fun getCity(): String {
-        return (fragmentList[0] as? AddressCityFragment)?.getCity() ?: ""
-    }
-
-    fun getExercise(): String {
-        return (fragmentList[1] as? ExerciseFragment)?.getExercise() ?: ""
     }
 
     override fun getItemCount(): Int {

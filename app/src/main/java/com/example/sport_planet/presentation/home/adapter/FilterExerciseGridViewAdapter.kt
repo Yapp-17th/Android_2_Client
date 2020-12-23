@@ -1,14 +1,16 @@
 package com.example.sport_planet.presentation.home.adapter
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Toast
 import com.example.sport_planet.R
 import com.example.sport_planet.data.response.basic.ExerciseResponse
 import kotlinx.android.synthetic.main.item_filter.view.*
 
-class FilterExerciseGridViewAdapter : BaseAdapter() {
+class FilterExerciseGridViewAdapter(
+    private val clickItem: (ExerciseResponse.Data) -> Unit
+) : BaseAdapter() {
     private val items: ArrayList<ExerciseResponse.Data> = ArrayList()
     private val selectedItem: ArrayList<ExerciseResponse.Data> = ArrayList()
 
@@ -18,12 +20,9 @@ class FilterExerciseGridViewAdapter : BaseAdapter() {
         notifyDataSetChanged()
     }
 
-    fun getSelectItemsId(): String {
-        return selectedItem.map { it.id }.joinToString(",")
-    }
-
-    fun clearSelectItem() {
-        selectedItem.clear()
+    fun setSelectedItems(items: List<ExerciseResponse.Data>) {
+        this.selectedItem.clear()
+        this.selectedItem.addAll(items)
         notifyDataSetChanged()
     }
 
@@ -43,11 +42,7 @@ class FilterExerciseGridViewAdapter : BaseAdapter() {
         val view = convertView ?: View.inflate(parent?.context, R.layout.item_filter, null)
         val item = items[position]
         view.setOnClickListener {
-            if (!selectedItem.contains(item) && selectedItem.size >= 3) {
-                Toast.makeText(view.context, "최대 3개 선택 가능", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if (selectedItem.contains(item)) selectedItem.remove(item) else selectedItem.add(item)
+            this.clickItem(item)
             notifyDataSetChanged()
         }
 

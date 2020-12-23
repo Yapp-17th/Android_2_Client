@@ -5,11 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
 import com.example.sport_planet.data.enums.TimeFilterEnum
-import com.example.sport_planet.data.model.board.BoardRequestModel
 import com.example.sport_planet.databinding.FragmentHomeBinding
 import com.example.sport_planet.presentation.base.BaseFragment
 import com.example.sport_planet.presentation.board.BoardActivity
@@ -101,7 +99,11 @@ class HomeFragment private constructor() :
     }
 
     private fun showCityExerciseFilterActivity() {
-        FilterActivity.createInstance(this)
+        FilterActivity.createInstance(
+            fragment = this,
+            city = viewModel.city,
+            exercise = viewModel.exercise
+        )
     }
 
     private fun showTimeFilterPopup() {
@@ -145,8 +147,10 @@ class HomeFragment private constructor() :
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == FILTER_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                viewModel.city = data?.getStringExtra(INTENT_CITY) ?: "0"
-                viewModel.exercise = data?.getStringExtra(INTENT_EXERCISE) ?: "0"
+                viewModel.city =
+                    data?.getParcelableArrayListExtra(INTENT_CITY) ?: emptyList()
+                viewModel.exercise =
+                    data?.getParcelableArrayListExtra(INTENT_EXERCISE) ?: emptyList()
             }
         } else if (requestCode == REFRESH) {
             if (resultCode == Activity.RESULT_OK) {

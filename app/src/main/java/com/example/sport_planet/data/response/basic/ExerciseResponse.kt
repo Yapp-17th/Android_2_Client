@@ -1,9 +1,10 @@
 package com.example.sport_planet.data.response.basic
 
 
+import android.os.Parcelable
 import com.example.sport_planet.data.model.CommonApiModel
-import com.example.sport_planet.data.model.UserTagModel
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class ExerciseResponse(
     @SerializedName("data")
@@ -15,12 +16,13 @@ data class ExerciseResponse(
     @SerializedName("type")
     val type: String
 ) {
+    @Parcelize
     data class Data(
         @SerializedName("id")
         val id: Long,
         @SerializedName("name")
         val name: String
-    )
+    ) : Parcelable
 
     fun isSuccess(): Boolean {
         return status == 200

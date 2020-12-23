@@ -7,10 +7,13 @@ import com.example.sport_planet.data.response.basic.RegionResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.subjects.PublishSubject
 
 class AddressCityViewModel(private val remoteDataSource: RemoteDataSource) :
     BaseViewModel() {
     val items: MutableLiveData<List<RegionResponse.Data>> = MutableLiveData()
+    val selectedItems: MutableLiveData<List<RegionResponse.Data>> = MutableLiveData()
+    val showErrorToast: PublishSubject<Unit> = PublishSubject.create()
 
     fun getAddressCity() {
         remoteDataSource.getRegion()
@@ -26,6 +29,17 @@ class AddressCityViewModel(private val remoteDataSource: RemoteDataSource) :
             }, {
                 it.printStackTrace()
             })
+    }
+
+    fun clickItems(item: RegionResponse.Data) {
+        val list: MutableList<RegionResponse.Data> =
+            ArrayList(this.selectedItems.value ?: emptyList())
+        if (!list.contains(item) && list.size >= 3) {
+            showErrorToast.onNext(Unit)
+        } else {
+            if (list.contains(item)) list.remove(item) else list.add(item)
+            selectedItems.value = list
+        }
     }
 }
 

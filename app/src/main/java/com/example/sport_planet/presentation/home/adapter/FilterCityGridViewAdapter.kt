@@ -3,28 +3,26 @@ package com.example.sport_planet.presentation.home.adapter
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Toast
 import com.example.sport_planet.R
 import com.example.sport_planet.data.response.basic.RegionResponse
 import kotlinx.android.synthetic.main.item_filter.view.*
 
-class FilterCityGridViewAdapter : BaseAdapter() {
+class FilterCityGridViewAdapter(
+    private val clickItem: (RegionResponse.Data) -> Unit
+) : BaseAdapter() {
     private val items: ArrayList<RegionResponse.Data> = ArrayList()
     private val selectedItem: ArrayList<RegionResponse.Data> = ArrayList()
 
-    fun setItems(item: List<RegionResponse.Data>) {
-        items.clear()
-        items.addAll(item)
+    fun setItems(items: List<RegionResponse.Data>) {
+        this.items.clear()
+        this.items.addAll(items)
         notifyDataSetChanged()
     }
 
-    fun clearSelectItem() {
-        selectedItem.clear()
+    fun setSelectedItems(items: List<RegionResponse.Data>) {
+        this.selectedItem.clear()
+        this.selectedItem.addAll(items)
         notifyDataSetChanged()
-    }
-
-    fun getSelectItemsId(): String {
-        return selectedItem.map { it.id }.joinToString(",")
     }
 
     override fun getCount(): Int {
@@ -43,11 +41,7 @@ class FilterCityGridViewAdapter : BaseAdapter() {
         val view = convertView ?: View.inflate(parent?.context, R.layout.item_filter, null)
         val item = items[position]
         view.setOnClickListener {
-            if (!selectedItem.contains(item) && selectedItem.size >= 3) {
-                Toast.makeText(view.context, "최대 3개 선택 가능", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if (selectedItem.contains(item)) selectedItem.remove(item) else selectedItem.add(item)
+            this.clickItem(item)
             notifyDataSetChanged()
         }
 

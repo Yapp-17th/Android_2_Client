@@ -42,7 +42,6 @@
                 android:layout_marginEnd="12dp"
                 android:background="@null"
                 android:gravity="left|center_vertical"
-                android:onClick="@{() -> vm.requestCityExerciseFilterActivity()}"
                 android:paddingStart="8dp"
                 android:singleLine="true"
                 android:text="검색어를 입력하세요." />
@@ -61,7 +60,7 @@
             <include
                 android:id="@+id/cl_filter_option"
                 layout="@layout/item_home_filter_option"
-                android:layout_width="@dimen/item_filter_option_width"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:onClick="@{() -> vm.requestCityExerciseFilterActivity()}"
                 app:layout_constraintLeft_toLeftOf="parent" />
@@ -69,7 +68,7 @@
             <include
                 android:id="@+id/cl_filter_time"
                 layout="@layout/item_home_filter_time"
-                android:layout_width="@dimen/item_filter_time_width"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="12dp"
                 android:onClick="@{() -> vm.requestTimeFilterPopup()}"

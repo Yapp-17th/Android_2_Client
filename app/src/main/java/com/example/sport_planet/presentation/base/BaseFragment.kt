@@ -49,19 +49,21 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     }
 
     fun showLoading() {
-        if (loadingFragment != null && loadingFragment?.isAdded != false) {
-            return
-        } else {
-            loadingFragment = LoadingFragment.newInstance()
-            loadingFragment?.let { it ->
-                it.show(childFragmentManager, "LOADING_FRAGMENT")
+        activity?.runOnUiThread {
+            if (loadingFragment != null || (loadingFragment?.dialog)?.isShowing == true) {
+                return@runOnUiThread
+            } else {
+                loadingFragment = LoadingFragment.newInstance()
+                loadingFragment?.let { it ->
+                    it.show(childFragmentManager, "LOADING_FRAGMENT")
+                }
             }
         }
     }
 
     fun hideLoading() {
-        loadingFragment?.let { it ->
-            it.dismiss()
+        activity?.runOnUiThread {
+            (childFragmentManager.findFragmentByTag("LOADING_FRAGMENT") as? LoadingFragment)?.dismiss()
             loadingFragment = null
         }
     }
