@@ -101,7 +101,7 @@ class ReportDialog : BaseDialogFragment<DialogReportBinding>(R.layout.dialog_rep
     private fun setTextColorAndBackground(textView: TextView, boolean: Boolean) {
         textView.run {
             if (boolean) {
-                setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity)
+                setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity_no_stoke)
                 setTextColor(resources.getColor(R.color.dark_blue, null))
             } else {
                 setBackgroundResource(R.drawable.shape_round_corner_white_gray)

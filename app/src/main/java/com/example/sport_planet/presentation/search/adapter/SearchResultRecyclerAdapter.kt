@@ -48,9 +48,9 @@ class SearchResultRecyclerAdapter(
             if (item.groupStatus.code == 0) {
                 binding.background.setBackgroundColor(itemView.context.getColor(R.color.white))
                 binding.tvStatus.setBackgroundResource(R.drawable.shape_round_corner_darkblue)
-                binding.tvExercise.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity)
-                binding.tvRegion.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity)
-                binding.tvPeopleCount.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity)
+                binding.tvExercise.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity_no_stoke)
+                binding.tvRegion.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity_no_stoke)
+                binding.tvPeopleCount.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity_no_stoke)
             } else {
                 binding.background.setBackgroundColor(itemView.context.getColor(R.color.white_gray))
                 binding.tvStatus.setBackgroundResource(R.drawable.shape_round_corner_gray)
