@@ -31,7 +31,9 @@
             tools:ignore="Instantiatable" />
         <activity android:name=".presentation.board.BoardActivity" />
         <activity android:name=".presentation.login.LoginActivity" />
-        <activity android:name=".presentation.main.MainActivity" />
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".presentation.splash.IntroActivity" />
         <activity android:name=".presentation.splash.SplashActivity">
             <intent-filter>
