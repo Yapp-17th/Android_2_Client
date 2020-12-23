@@ -233,6 +233,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     override fun onStop() {
         chattingActivityViewModel.sendReadUpdateMessage()
+        ChattingFragment.currentChattingRoomNum = -1L
         super.onStop()
     }
 
