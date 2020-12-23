@@ -3,6 +3,7 @@ package com.example.sport_planet.remote
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.request.EvaluateReportRequest
 import com.example.sport_planet.data.request.MyViewEditRequest
+import com.example.sport_planet.data.request.board.ReportRequest
 import com.example.sport_planet.data.response.OtherHistoryResponse
 import com.example.sport_planet.data.response.ServerCallBackResponse
 import com.example.sport_planet.data.response.basic.ExerciseResponse
@@ -125,11 +126,7 @@ interface RemoteDataSource {
         boardId: Long
     ): Single<CommonResponse>
 
-    fun reportBoard(
-        boardId: Long,
-        reportType: Long,
-        content: String
-    ): Single<CommonResponse>
+    fun reportBoard(reportRequest: ReportRequest): Single<CommonResponse>
     /** Board Api End **/
 
 }

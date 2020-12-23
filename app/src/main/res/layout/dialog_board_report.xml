@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/dialog_report_padding_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/medium_basic_16sp_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_report_margin_24dp"
+                android:text="@string/dialog_report_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_1"
+                style="@style/medium_basic_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_report_margin_12dp"
+                android:background="@drawable/shape_round_corner_white_gray"
+                android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
+                android:paddingVertical="@dimen/dialog_report_padding_8dp"
+                android:text="@string/dialog_board_report_text_1"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            <TextView
+                android:id="@+id/tv_2"
+                style="@style/medium_basic_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_report_margin_12dp"
+                android:background="@drawable/shape_round_corner_white_gray"
+                android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
+                android:paddingVertical="@dimen/dialog_report_padding_8dp"
+                android:text="@string/dialog_board_report_text_2"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_1" />
+
+            <TextView
+                android:id="@+id/tv_3"
+                style="@style/medium_basic_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_report_margin_12dp"
+                android:background="@drawable/shape_round_corner_white_gray"
+                android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
+                android:paddingVertical="@dimen/dialog_report_padding_8dp"
+                android:text="@string/dialog_board_report_text_3"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_2" />
+
+            <TextView
+                android:id="@+id/tv_4"
+                style="@style/medium_basic_14sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_report_margin_12dp"
+                android:background="@drawable/shape_round_corner_white_gray"
+                android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
+                android:paddingVertical="@dimen/dialog_report_padding_8dp"
+                android:text="@string/dialog_report_text_8"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_3"
+                app:layout_constraintWidth_percent="0.8" />
+
+            <EditText
+                android:id="@+id/et_etc"
+                style="@style/medium_basic_14sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_report_margin_12dp"
+                android:background="@drawable/shape_round_corner_white_gray"
+                android:hint="@string/dialog_report_etc_hint"
+                android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
+                android:paddingVertical="@dimen/dialog_report_padding_8dp"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintWidth_percent="0.8" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            style="@style/medium_basic_16sp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dialog_report_margin_24dp"
+            android:background="@color/white_gray"
+            android:gravity="center"
+            android:text="@string/dialog_base_accept_cancel"
+            android:textColor="@color/gray"
+            app:layout_constraintEnd_toStartOf="@id/tv_report"
+            app:layout_constraintHeight_percent="0.17"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_body" />
+
+        <TextView
+            android:id="@+id/tv_report"
+            style="@style/medium_basic_16sp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/dark_blue"
+            android:gravity="center"
+            android:text="@string/dialog_report_report"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.17"
+            app:layout_constraintStart_toEndOf="@id/tv_cancel"
+            app:layout_constraintTop_toTopOf="@id/tv_cancel" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

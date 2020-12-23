@@ -208,4 +208,7 @@
     <!-- TODO: Remove or change this placeholder text -->
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dialog_board_report_text_1">욕설 및 악의성 내용이 포함돼있어요</string>
+    <string name="dialog_board_report_text_2">선정적인 내용이 포함돼있어요</string>
+    <string name="dialog_board_report_text_3">활동과 관련 없는 홍보성 글이에요</string>
 </resources>
