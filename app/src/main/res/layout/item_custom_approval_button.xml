@@ -22,6 +22,7 @@
             app:strokeWidth="1dp"
             app:cornerRadius="@dimen/activity_chatting_btn_corner_radius_20dp"
             tools:ignore="MissingConstraints"
-            android:stateListAnimator="@null" />
+            android:stateListAnimator="@null"
+            android:letterSpacing="0"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
