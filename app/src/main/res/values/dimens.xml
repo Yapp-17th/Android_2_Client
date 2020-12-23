@@ -112,7 +112,7 @@
     <dimen name="item_history_ing_margin_16dp">16dp</dimen>
     <dimen name="item_history_ing_margin_18dp">18dp</dimen>
     <dimen name="item_history_ing_margin_20dp">20dp</dimen>
-    <dimen name="item_history_ing_padding_3dp">3dp</dimen>
+    <dimen name="item_history_ing_padding_1dp">1dp</dimen>
     <dimen name="item_history_ing_padding_10dp">10dp</dimen>
 
     <!-- item_history_finish_expand.xml -->
