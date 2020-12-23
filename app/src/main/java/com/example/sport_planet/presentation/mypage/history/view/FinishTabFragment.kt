@@ -84,7 +84,6 @@ class FinishTabFragment :
             create()
             show()
         }
-
     }
 
     companion object {

@@ -1,9 +1,9 @@
 package com.example.sport_planet.presentation.write
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -22,7 +22,6 @@ import com.example.sport_planet.data.response.basic.toCommon
 import com.example.sport_planet.databinding.FragmentWriteBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.home.HomeFragment.Companion.REFRESH
-import com.example.sport_planet.presentation.write.adapter.WriteGridViewAdapter
 import com.example.sport_planet.presentation.write.date.DateDialogFragment
 import com.example.sport_planet.presentation.write.date.DateListener
 import com.example.sport_planet.presentation.write.select.SelectFragment
@@ -65,8 +64,6 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
         }
     }
 
-    private lateinit var gridAdapter: WriteGridViewAdapter
-
     private val items: List<WriteFilterEnum> =
         listOf(WriteFilterEnum.EXERCISE, WriteFilterEnum.CITY, WriteFilterEnum.USERTAG)
     private var result: ArrayList<Pair<WriteFilterEnum, CommonApiModel?>> = arrayListOf(
@@ -96,7 +93,7 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
 
         viewModel.showFinishView.observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                showToast("업로드 성공")
+                showSuccessDialog()
                 setResult(Activity.RESULT_OK)
                 finish()
             }
@@ -109,8 +106,8 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
             .addTo(compositeDisposable)
 
         viewModel.boardId.observe(this, Observer {
-            if(it >= 0)
-            viewModel.getBoardContent()
+            if (it >= 0)
+                viewModel.getBoardContent()
         })
 
         viewModel.showBoardContent
@@ -125,9 +122,7 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
                     binding.edtPlace.setText(it.place)
                     val index = it.startsAt.indexOf("T")
                     viewModel.date.value = it.startsAt.substring(0, index + 1)
-                    Log.d("ehdghks", it.startsAt.substring(0, index + 1))
                     viewModel.time.value = it.startsAt.substring(index + 1, index + 6)
-                    Log.d("ehdghks", it.startsAt.substring(index + 1, index + 6))
                     binding.tvDate.text = viewModel.getDateToString()
                     viewModel.exercise.value = it.exercise
                     viewModel.city.value = it.city
@@ -260,7 +255,6 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
     }
 
     private fun selectViewNotify() {
-        Log.d("ehdghks", "result : $result")
         runOnUiThread {
             for (position in 0..2) {
                 val isChecked = result[position].second != null
@@ -269,6 +263,14 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
                 clList[position].setBackgroundResource(if (isChecked) R.drawable.shape_round_corner_into_dark_blue_opacity else R.drawable.shape_round_corner)
                 ivList[position].setImageResource(if (isChecked) R.drawable.icons_18_px_x else R.drawable.ic_toggle_off)
             }
+        }
+    }
+
+    private fun showSuccessDialog() {
+        AlertDialog.Builder(applicationContext).apply {
+            setView(R.layout.dialog_success)
+            create()
+            show()
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.home
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -42,11 +43,6 @@ class HomeFragment private constructor() :
         )
         binding.vm = viewModel
         binding.recBoard.adapter = adapter
-
-//        viewModel.boardRequestItem.value = BoardRequestModel()
-//        viewModel.boardRequestItem.observe(viewLifecycleOwner, Observer {
-//            viewModel.getBoardList()
-//        })
 
         viewModel.isLoading
             .observeOn(AndroidSchedulers.mainThread())
@@ -117,6 +113,7 @@ class HomeFragment private constructor() :
                         TimeFilterEnum.TIME_LATEST.run {
                             viewModel.time = this
                             view.tv_time_text.text = this.print
+                            viewModel.getBoardList()
                         }
                         false
                     }
@@ -124,6 +121,7 @@ class HomeFragment private constructor() :
                         TimeFilterEnum.TIME_REMAIN.run {
                             viewModel.time = this
                             view.tv_time_text.text = this.print
+                            viewModel.getBoardList()
                         }
                         false
                     }
@@ -131,6 +129,7 @@ class HomeFragment private constructor() :
                         TimeFilterEnum.TIME_DEADLINE.run {
                             viewModel.time = this
                             view.tv_time_text.text = this.print
+                            viewModel.getBoardList()
                         }
                         false
                     }

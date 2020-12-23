@@ -67,13 +67,13 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
             val isHost = boardContentModel.host.hostId == UserInfo.USER_ID
             binding.btnChatting.visibility =
                 if (isHost) View.GONE else View.VISIBLE
-
             binding.tvTitle.text = boardContentModel.title
             binding.tvBody.text = boardContentModel.content
             binding.tvPeopleCount.text =
                 "남은 인원 ${boardContentModel.recruitNumber - boardContentModel.recruitedNumber}명 (${boardContentModel.recruitedNumber}/${boardContentModel.recruitNumber})"
             binding.tvUserName.text = boardContentModel.host.hostName
             binding.tvGroupStatus.text = boardContentModel.groupStatus.name
+            binding.tvGroupStatus.setBackgroundResource(if (boardContentModel.groupStatus.code == 0) R.drawable.shape_round_corner_darkblue else R.drawable.shape_round_corner_gray)
             binding.tvExercise.text = boardContentModel.exercise.name
             binding.tvCity.text = boardContentModel.city.name
             binding.tvTag.text = boardContentModel.userTag.name

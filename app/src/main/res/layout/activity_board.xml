@@ -62,12 +62,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/shape_round_corner_darkblue_opacity"
                         android:paddingStart="8dp"
                         android:paddingTop="1dp"
                         android:paddingEnd="8dp"
                         android:paddingBottom="1dp"
-                        android:textColor="@color/dark_gray" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/tv_exercise"
@@ -300,6 +299,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:lineSpacingExtra="22dp"
                     app:layout_constraintEnd_toEndOf="@id/tv_title"
                     app:layout_constraintStart_toStartOf="@id/tv_title"
                     app:layout_constraintTop_toBottomOf="@id/iv_profile_image" />
