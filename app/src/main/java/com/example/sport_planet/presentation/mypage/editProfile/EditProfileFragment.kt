@@ -39,7 +39,7 @@ class EditProfileFragment :
             }
             vm = viewModel
             tvStart.text = getString(R.string.fragment_edit_profile_edit_text)
-            customToolBar.title.text = getString(R.string.activity_profile_head)
+            customToolBar.title.text = getString(R.string.activity_profile_head_edit)
             customToolBar.back.setOnClickListener { onBackPressed() }
             tvStart.setOnClickListener {
                 viewModel.editProfile()

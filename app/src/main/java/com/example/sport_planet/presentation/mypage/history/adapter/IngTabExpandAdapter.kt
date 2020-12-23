@@ -54,7 +54,7 @@ class IngTabExpandAdapter(private val onClickListener: (ApplyListModel) -> Unit)
                     1, 2 -> {
                         setTextLabel(
                             R.color.dark_blue,
-                            R.drawable.shape_round_corner_darkblue_opacity
+                            R.drawable.shape_round_corner_darkblue_opacity_no_stoke
                         )
                     }
                 }

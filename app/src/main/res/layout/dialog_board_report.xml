@@ -34,7 +34,7 @@
                 android:background="@drawable/shape_round_corner_white_gray"
                 android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
                 android:paddingVertical="@dimen/dialog_report_padding_8dp"
-                android:text="@string/dialog_report_text_1"
+                android:text="@string/dialog_board_report_text_1"
                 android:textColor="@color/gray"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -48,7 +48,7 @@
                 android:background="@drawable/shape_round_corner_white_gray"
                 android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
                 android:paddingVertical="@dimen/dialog_report_padding_8dp"
-                android:text="@string/dialog_report_text_2"
+                android:text="@string/dialog_board_report_text_2"
                 android:textColor="@color/gray"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_1" />
@@ -62,69 +62,13 @@
                 android:background="@drawable/shape_round_corner_white_gray"
                 android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
                 android:paddingVertical="@dimen/dialog_report_padding_8dp"
-                android:text="@string/dialog_report_text_3"
+                android:text="@string/dialog_board_report_text_3"
                 android:textColor="@color/gray"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_2" />
 
             <TextView
                 android:id="@+id/tv_4"
-                style="@style/medium_basic_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dialog_report_margin_12dp"
-                android:background="@drawable/shape_round_corner_white_gray"
-                android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
-                android:paddingVertical="@dimen/dialog_report_padding_8dp"
-                android:text="@string/dialog_report_text_4"
-                android:textColor="@color/gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_3" />
-
-            <TextView
-                android:id="@+id/tv_5"
-                style="@style/medium_basic_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dialog_report_margin_12dp"
-                android:background="@drawable/shape_round_corner_white_gray"
-                android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
-                android:paddingVertical="@dimen/dialog_report_padding_8dp"
-                android:text="@string/dialog_report_text_5"
-                android:textColor="@color/gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_4" />
-
-            <TextView
-                android:id="@+id/tv_6"
-                style="@style/medium_basic_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dialog_report_margin_12dp"
-                android:background="@drawable/shape_round_corner_white_gray"
-                android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
-                android:paddingVertical="@dimen/dialog_report_padding_8dp"
-                android:text="@string/dialog_report_text_6"
-                android:textColor="@color/gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_5" />
-
-            <TextView
-                android:id="@+id/tv_7"
-                style="@style/medium_basic_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dialog_report_margin_12dp"
-                android:background="@drawable/shape_round_corner_white_gray"
-                android:paddingHorizontal="@dimen/dialog_report_padding_14dp"
-                android:paddingVertical="@dimen/dialog_report_padding_8dp"
-                android:text="@string/dialog_report_text_7"
-                android:textColor="@color/gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_6" />
-
-            <TextView
-                android:id="@+id/tv_8"
                 style="@style/medium_basic_14sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -135,7 +79,7 @@
                 android:text="@string/dialog_report_text_8"
                 android:textColor="@color/gray"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_7"
+                app:layout_constraintTop_toBottomOf="@id/tv_3"
                 app:layout_constraintWidth_percent="0.8" />
 
             <EditText
@@ -167,7 +111,7 @@
             android:text="@string/dialog_base_accept_cancel"
             android:textColor="@color/gray"
             app:layout_constraintEnd_toStartOf="@id/tv_report"
-            app:layout_constraintHeight_percent="0.11"
+            app:layout_constraintHeight_percent="0.17"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_body" />
 
@@ -181,7 +125,7 @@
             android:text="@string/dialog_report_report"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.11"
+            app:layout_constraintHeight_percent="0.17"
             app:layout_constraintStart_toEndOf="@id/tv_cancel"
             app:layout_constraintTop_toTopOf="@id/tv_cancel" />
     </androidx.constraintlayout.widget.ConstraintLayout>

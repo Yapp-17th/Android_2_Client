@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.board
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,6 +14,7 @@ import com.example.sport_planet.data.enums.MenuEnum
 import com.example.sport_planet.data.enums.SeparatorEnum
 import com.example.sport_planet.data.model.MenuModel
 import com.example.sport_planet.data.model.chatting.ChatRoomInfo
+import com.example.sport_planet.data.request.board.ReportRequest
 import com.example.sport_planet.databinding.ActivityBoardBinding
 import com.example.sport_planet.presentation.base.BaseActivity
 import com.example.sport_planet.presentation.chatting.UserInfo
@@ -66,6 +68,11 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
             }
             .addTo(compositeDisposable)
 
+        viewModel.isSuccess.observe(this, Observer {
+            if (it) {
+                showSuccessDialog()
+            }
+        })
         viewModel.boardContent.observe(this, Observer { boardContentModel ->
             val isHost = boardContentModel.host.hostId == UserInfo.USER_ID
             binding.btnChatting.visibility =
@@ -105,7 +112,7 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
                             popup.setOnMenuItemClickListener { item ->
                                 when (item.itemId) {
                                     R.id.board_report -> {
-                                        //report
+                                        showReportDialog()
                                         false
                                     }
                                     R.id.board_hide -> {
@@ -149,13 +156,14 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
         binding.toolbar.setBackButtonClick(View.OnClickListener { this.finish() })
 
         binding.btnChatting.setOnClickListener {
-            click.run{
+            click.run {
                 viewModel.makeChattingRoom()
                 viewModel.makeChattingRoomResultLiveData.observe(this,
                     Observer {
                         it.getContentIfNotHandled()?.data.let { chattingRoom ->
                             if (chattingRoom != null) {
-                                val intent = Intent(applicationContext, ChattingActivity::class.java)
+                                val intent =
+                                    Intent(applicationContext, ChattingActivity::class.java)
                                 intent.putExtra(
                                     "chatRoomInfo",
                                     ChatRoomInfo(
@@ -188,6 +196,26 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
                     viewModel.getBoardContent()
                 }
             }
+        }
+    }
+
+    private fun showReportDialog() {
+        val dialog = BoardReportDialog.newInstance()
+        dialog.setBoardReportDialogListener(object : BoardReportDialog.BoardReportDialogListener {
+            override fun onAccept(index: Long, content: String?) {
+                viewModel.boardId.value?.let { boardId ->
+                    viewModel.reportBoard(ReportRequest(boardId, index, content.toString()))
+                }
+            }
+        })
+        dialog.show(supportFragmentManager, "")
+    }
+
+    private fun showSuccessDialog() {
+        AlertDialog.Builder(this).apply {
+            setView(R.layout.dialog_success)
+            create()
+            show()
         }
     }
 

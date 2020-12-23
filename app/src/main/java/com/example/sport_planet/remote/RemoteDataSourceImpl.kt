@@ -179,13 +179,9 @@ class RemoteDataSourceImpl : RemoteDataSource {
     }
 
     override fun reportBoard(
-        boardId: Long,
-        reportType: Long,
-        content: String
+        reportRequest: ReportRequest
     ): Single<CommonResponse> {
-        return api.reportBoard(
-            ReportRequest(boardId, reportType, content)
-        )
+        return api.reportBoard(reportRequest)
     }
 
 }

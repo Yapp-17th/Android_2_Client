@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.model.BoardContentModel
+import com.example.sport_planet.data.request.board.ReportRequest
 import com.example.sport_planet.data.response.chatting.MakeChattingRoomResponse
 import com.example.sport_planet.presentation.base.BaseViewModel
 import com.example.sport_planet.presentation.chatting.EventWrapper
 import com.example.sport_planet.remote.RemoteDataSource
+import com.example.sport_planet.remote.RemoteDataSourceImpl
 import com.example.sport_planet.util.applySchedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -31,6 +33,9 @@ class BoardViewModel(private val remote: RemoteDataSource) :
         MutableLiveData<EventWrapper<MakeChattingRoomResponse>>()
     val makeChattingRoomResultLiveData: LiveData<EventWrapper<MakeChattingRoomResponse>>
         get() = _makeChattingRoomResultLiveData
+
+    private val _isSuccess = MutableLiveData<Boolean>()
+    val isSuccess : LiveData<Boolean> get() = _isSuccess
 
     val boardContent: MutableLiveData<BoardContentModel> = MutableLiveData()
     val showBoardHideView: PublishSubject<Unit> = PublishSubject.create()
@@ -117,6 +122,19 @@ class BoardViewModel(private val remote: RemoteDataSource) :
                 it.printStackTrace()
             })
             .addTo(compositeDisposable)
+    }
+
+    fun reportBoard(reportRequest: ReportRequest) {
+        compositeDisposable.add(RemoteDataSourceImpl().reportBoard(reportRequest)
+            .applySchedulers()
+            .doOnSubscribe { isLoading.onNext(true) }
+            .doAfterTerminate { isLoading.onNext(false) }
+            .subscribe({
+                _isSuccess.value = true
+            }, {
+                it.printStackTrace()
+            })
+        )
     }
 
 }

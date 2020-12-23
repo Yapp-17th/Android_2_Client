@@ -1,4 +1,4 @@
-package com.example.sport_planet.presentation.mypage.history
+package com.example.sport_planet.presentation.board
 
 import android.os.Bundle
 import android.view.View
@@ -6,32 +6,29 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.sport_planet.R
+import com.example.sport_planet.databinding.DialogBoardReportBinding
 import com.example.sport_planet.databinding.DialogReportBinding
 import com.example.sport_planet.presentation.base.BaseDialogFragment
 
-class ReportDialog : BaseDialogFragment<DialogReportBinding>(R.layout.dialog_report) {
-    private var mListener: ReportDialogListener? = null
+class BoardReportDialog : BaseDialogFragment<DialogBoardReportBinding>(R.layout.dialog_board_report) {
+    private var mListener: BoardReportDialogListener? = null
     private val textViewList: MutableList<TextView> by lazy {
         binding.run {
             mutableListOf(
                 tv1,
                 tv2,
                 tv3,
-                tv4,
-                tv5,
-                tv6,
-                tv7,
-                tv8
+                tv4
             )
         }
     }
     private var index = 0L
 
-    interface ReportDialogListener {
+    interface BoardReportDialogListener {
         fun onAccept(index: Long, content: String? = null)
     }
 
-    fun setReportDialogListener(listener: ReportDialogListener) {
+    fun setBoardReportDialogListener(listener: BoardReportDialogListener) {
         mListener = listener
     }
 
@@ -39,27 +36,15 @@ class ReportDialog : BaseDialogFragment<DialogReportBinding>(R.layout.dialog_rep
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             tv1.setOnClickListener {
-                setAllTextColorAndBackground(4L, tv1)
+                setAllTextColorAndBackground(1L, tv1)
             }
             tv2.setOnClickListener {
-                setAllTextColorAndBackground(5L, tv2)
+                setAllTextColorAndBackground(2L, tv2)
             }
             tv3.setOnClickListener {
-                setAllTextColorAndBackground(6L, tv3)
+                setAllTextColorAndBackground(3L, tv3)
             }
             tv4.setOnClickListener {
-                setAllTextColorAndBackground(7L, tv4)
-            }
-            tv5.setOnClickListener {
-                setAllTextColorAndBackground(8L, tv5)
-            }
-            tv6.setOnClickListener {
-                setAllTextColorAndBackground(9L, tv6)
-            }
-            tv7.setOnClickListener {
-                setAllTextColorAndBackground(10L, tv7)
-            }
-            tv8.setOnClickListener {
                 (tvCancel.layoutParams as? ConstraintLayout.LayoutParams)?.matchConstraintPercentHeight = 0.3f
                 (tvReport.layoutParams as? ConstraintLayout.LayoutParams)?.matchConstraintPercentHeight = 0.3f
                 textViewList.forEach {
@@ -114,7 +99,7 @@ class ReportDialog : BaseDialogFragment<DialogReportBinding>(R.layout.dialog_rep
     companion object {
         fun newInstance(
             dialogHeightRatio: Float? = null
-        ) = ReportDialog().apply {
+        ) = BoardReportDialog().apply {
             arguments = Bundle().apply {
                 if (dialogHeightRatio != null) {
                     putFloat(DIALOG_HEIGHT_RATIO, dialogHeightRatio)
