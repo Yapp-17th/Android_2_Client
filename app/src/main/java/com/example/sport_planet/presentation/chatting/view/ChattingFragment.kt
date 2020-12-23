@@ -1,9 +1,7 @@
 package com.example.sport_planet.presentation.chatting.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -89,7 +87,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
             Observer {
                 if(chattingRoomsHashMap[it.chatRoomId] != null){
                     when(it.realTimeUpdateType){
-                        ChattingConstant.REAL_TIME_MESSAGE_READ -> chattingRoomAdapter.updateChattingRoomList(it.chatRoomId!!, it)
+                        ChattingConstant.REAL_TIME_MESSAGE_READ -> chattingRoomAdapter.updateChattingRoomList(it.chatRoomId, it)
                     }
                 }
                 else {
@@ -99,13 +97,9 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        currentChattingRoomNum = -1
-        return super.onCreateView(inflater, container, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
+        chattingRoomAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroy() {

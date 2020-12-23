@@ -56,6 +56,9 @@ class ChattingRoomAdapter(
             binding.tvChattingRoomLastMessageTimestamp.setTimeAgo(Util.dateToMillis(chattingRoom.lastMessage.createdAt!!))
 
             binding.layoutChattingRoomItem.setOnClickListener {
+
+                chattingRoomsHashMap[chattingRoom.id]!!.unreadMessages = 0
+
                 val intent = Intent(context, ChattingActivity::class.java)
                 intent.putExtra("chatRoomInfo",
                     ChatRoomInfo(
