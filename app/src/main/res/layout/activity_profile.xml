@@ -175,16 +175,16 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_region_list"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/activity_profile_margin_16dp"
                 android:background="@drawable/shape_round_corner_darkblue_opacity"
                 android:orientation="horizontal"
                 android:visibility="invisible"
+                android:paddingHorizontal="2dp"
                 app:layout_constraintHeight_percent="0.045"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_residence"
-                app:layout_constraintWidth_percent="0.2">
+                app:layout_constraintTop_toBottomOf="@id/tv_residence">
 
                 <TextView
                     android:id="@+id/tv_region"
