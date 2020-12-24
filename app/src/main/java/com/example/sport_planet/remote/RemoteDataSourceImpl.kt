@@ -14,7 +14,10 @@ import com.example.sport_planet.data.response.basic.ExerciseResponse
 import com.example.sport_planet.data.response.basic.RegionResponse
 import com.example.sport_planet.data.response.board.BoardContentResponse
 import com.example.sport_planet.data.response.board.BoardListResponse
-import com.example.sport_planet.data.response.chatting.*
+import com.example.sport_planet.data.response.chatting.ChattingMessageListResponse
+import com.example.sport_planet.data.response.chatting.ChattingRoomListResponse
+import com.example.sport_planet.data.response.chatting.CommonServerResponse
+import com.example.sport_planet.data.response.chatting.MakeChattingRoomResponse
 import com.example.sport_planet.data.response.common.CommonResponse
 import com.example.sport_planet.data.response.common.UserTagResponse
 import com.example.sport_planet.data.response.login.LoginResponse
@@ -23,6 +26,7 @@ import com.example.sport_planet.data.response.mypage.*
 import com.example.sport_planet.remote.NetworkHelper.api
 import io.reactivex.Single
 import retrofit2.Response
+import java.net.URLEncoder
 
 class RemoteDataSourceImpl : RemoteDataSource {
 
@@ -184,4 +188,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
         return api.reportBoard(reportRequest)
     }
 
+    override fun getSearchList(keyword: String): Single<BoardListResponse> {
+        return api.search(keyword)
+    }
 }

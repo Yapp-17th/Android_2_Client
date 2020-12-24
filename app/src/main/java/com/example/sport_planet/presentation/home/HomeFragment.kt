@@ -16,6 +16,7 @@ import com.example.sport_planet.presentation.home.adapter.HomeRecyclerAdapter
 import com.example.sport_planet.presentation.home.filter.FilterActivity
 import com.example.sport_planet.presentation.home.filter.FilterActivity.Companion.INTENT_CITY
 import com.example.sport_planet.presentation.home.filter.FilterActivity.Companion.INTENT_EXERCISE
+import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.presentation.search.SearchActivity
 import com.example.sport_planet.remote.RemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -153,6 +154,7 @@ class HomeFragment private constructor() :
             }
         } else if (requestCode == REFRESH) {
             if (resultCode == Activity.RESULT_OK) {
+                (activity as? MainActivity)?.showSuccessDialog()
                 viewModel.getBoardList()
             }
         }

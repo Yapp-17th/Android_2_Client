@@ -1,5 +1,6 @@
 package com.example.sport_planet.presentation.search.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -32,11 +33,7 @@ class SearchResultRecyclerAdapter(
 
     fun setItems(items: List<BoardModel>) {
         this.items.clear()
-        this.items.addAll(
-            items.asSequence()
-                .filter { it.groupStatus.code != 3 }
-                .sortedBy { it.groupStatus.code }
-        )
+        this.items.addAll(items)
         notifyDataSetChanged()
     }
 

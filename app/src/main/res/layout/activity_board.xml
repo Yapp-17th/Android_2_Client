@@ -270,6 +270,7 @@
                     style="@style/regular_basic_14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_like"
                     app:layout_constraintStart_toEndOf="@id/iv_like"
                     app:layout_constraintTop_toTopOf="@id/iv_like" />
@@ -278,7 +279,7 @@
                     android:id="@+id/iv_dislike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="10dp"
                     android:src="@drawable/ic_dislike"
                     app:layout_constraintBottom_toBottomOf="@id/iv_like"
                     app:layout_constraintStart_toEndOf="@id/tv_like_count"
@@ -289,6 +290,7 @@
                     style="@style/regular_basic_14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_dislike"
                     app:layout_constraintStart_toEndOf="@id/iv_dislike"
                     app:layout_constraintTop_toTopOf="@id/iv_dislike" />

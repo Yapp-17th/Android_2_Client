@@ -1,12 +1,10 @@
 package com.example.sport_planet.remote
 
 
-import com.example.sport_planet.data.request.EvaluateReportRequest
-import com.example.sport_planet.data.request.MyViewEditRequest
-import io.reactivex.Single
-import retrofit2.http.*
 import com.beust.klaxon.JsonObject
 import com.example.sport_planet.data.enums.TimeFilterEnum
+import com.example.sport_planet.data.request.EvaluateReportRequest
+import com.example.sport_planet.data.request.MyViewEditRequest
 import com.example.sport_planet.data.request.board.BookMarkRequest
 import com.example.sport_planet.data.request.board.PostBoardIdRequest
 import com.example.sport_planet.data.request.board.PostBoardRequest
@@ -16,13 +14,17 @@ import com.example.sport_planet.data.response.ServerCallBackResponse
 import com.example.sport_planet.data.response.basic.RegionResponse
 import com.example.sport_planet.data.response.board.BoardContentResponse
 import com.example.sport_planet.data.response.board.BoardListResponse
-import com.example.sport_planet.data.response.chatting.*
+import com.example.sport_planet.data.response.chatting.ChattingMessageListResponse
+import com.example.sport_planet.data.response.chatting.ChattingRoomListResponse
+import com.example.sport_planet.data.response.chatting.CommonServerResponse
+import com.example.sport_planet.data.response.chatting.MakeChattingRoomResponse
 import com.example.sport_planet.data.response.common.CommonResponse
 import com.example.sport_planet.data.response.common.UserTagResponse
 import com.example.sport_planet.data.response.login.LoginResponse
 import com.example.sport_planet.data.response.login.SignUpResponse
 import com.example.sport_planet.data.response.mypage.*
-import okhttp3.Response
+import io.reactivex.Single
+import retrofit2.http.*
 
 interface Api {
     //   로그인 API
@@ -39,7 +41,7 @@ interface Api {
     fun postSignUp(@Body userSignUp: SignUpResponse): Single<retrofit2.Response<ServerCallBackResponse>>
 
     @DELETE("login-service/v1/user/withdraw")
-    fun deleteUser() : Single<ServerCallBackResponse>
+    fun deleteUser(): Single<ServerCallBackResponse>
 
     // 마이페이지 API
     @GET("mypage-service/v1/user/my-profile")
@@ -83,7 +85,7 @@ interface Api {
     fun postEvaluateReport(@Body evaluateReportRequest: EvaluateReportRequest): Single<ServerCallBackResponse>
 
     @GET("mypage-service/v1/user/my-profile/edit")
-    fun getMyProfileEdit() : Single<MyProfileEditResponse>
+    fun getMyProfileEdit(): Single<MyProfileEditResponse>
 
     /** 채팅 API Start **/
     @POST("chatting-service/v1/chat/room")
@@ -123,6 +125,7 @@ interface Api {
         @Path("boardId") boardId: Long,
         @Body param: JsonObject
     ): Single<CommonServerResponse>
+
     /** 게시글 신청, 승인, 승인취소 API End **/
 
     //common
@@ -175,4 +178,11 @@ interface Api {
     @POST("/api/board-service/v1/board/report")
     fun reportBoard(@Body body: ReportRequest): Single<CommonResponse>
     //board
+
+    //search
+    @GET("/api/board-service/v1/board/search")
+    fun search(
+        @Query(encoded = true, value = "keyword") keyword: String
+    ): Single<BoardListResponse>
+    //search
 }
