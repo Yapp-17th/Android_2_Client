@@ -19,7 +19,6 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
     val exercise: MutableLiveData<ExerciseResponse.Data> = MutableLiveData()
     val city: MutableLiveData<RegionResponse.Data> = MutableLiveData()
     val userTag: MutableLiveData<UserTagModel> = MutableLiveData()
-    val date: MutableLiveData<String> = MutableLiveData()
     val time: MutableLiveData<String> = MutableLiveData()
     val place: MutableLiveData<String> = MutableLiveData()
     val title: MutableLiveData<String> = MutableLiveData()
@@ -34,7 +33,6 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
         if (exercise.value == null ||
             city.value == null ||
             userTag.value == null ||
-            date.value == null ||
             time.value == null ||
             place.value == null ||
             title.value == null ||
@@ -52,7 +50,7 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
             city = city.value!!.id,
             userTag = userTag.value!!.id,
             recruitNumber = count.value!!,
-            date = getDate(),
+            date = time.value!!,
             place = place.value!!
         ).observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isLoading.onNext(true) }
@@ -71,7 +69,6 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
         if (exercise.value == null ||
             city.value == null ||
             userTag.value == null ||
-            date.value == null ||
             time.value == null ||
             place.value == null ||
             title.value == null ||
@@ -90,7 +87,7 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
             city = city.value!!.id,
             userTag = userTag.value!!.id,
             recruitNumber = count.value!!,
-            date = getDate(),
+            date = time.value!!,
             place = place.value!!
         ).observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isLoading.onNext(true) }
@@ -122,22 +119,15 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
         }
     }
 
-    fun clearDateAndTime() {
-        date.value = null
-        time.value = null
-    }
-
-    fun getDate(): String {
-        return date.value!! + time.value!!
-    }
-
     fun getDateToString(): String {
-        val target = getDate()
-        return target.substring(0, 4) + "년 " +
-                target.substring(5, 7) + "월 " +
-                target.substring(8, 10) + "일 " +
-                target.substring(11, 13) + "시 " +
-                target.substring(14, 16) + "분"
+        time.value?.run {
+            val target = this
+            return this.substring(0, 4) + "년 " +
+                    this.substring(5, 7) + "월 " +
+                    this.substring(8, 10) + "일 " +
+                    this.substring(11, 13) + "시 " +
+                    this.substring(14, 16) + "분"
+        } ?: return ""
     }
 }
 

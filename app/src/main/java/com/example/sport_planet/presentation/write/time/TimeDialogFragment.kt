@@ -1,20 +1,23 @@
 package com.example.sport_planet.presentation.write.time
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.example.sport_planet.R
 import com.example.sport_planet.databinding.DialogTimeBinding
+import com.example.sport_planet.presentation.write.WriteActivity.Companion.INTENT_DATE
 
 class TimeDialogFragment private constructor() :
     DialogFragment(),
     View.OnClickListener {
     private lateinit var binding: DialogTimeBinding
     private lateinit var timeListener: TimeListener
+    private var currentHour: Int = 0
+    private var currentMinute: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,11 +30,19 @@ class TimeDialogFragment private constructor() :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        currentHour = binding.time.hour
+        currentMinute = binding.time.minute
+        binding.time.hour = binding.time.hour + 4
         binding.btnConfirm.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
+        if ((binding.time.hour - currentHour < 4) || ((binding.time.hour - currentHour == 4)) && binding.time.minute > currentMinute) {
+            Toast.makeText(context, "최소 4시간의 차이가 있어야 합니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val hour = if (binding.time.hour > 10) {
             binding.time.hour.toString()
         } else {
@@ -42,10 +53,8 @@ class TimeDialogFragment private constructor() :
         } else {
             "0" + binding.time.minute.toString()
         }
-        Log.d("ehdghks", "hour : $hour")
-        Log.d("ehdghks", "minute : $minute")
         when (v) {
-            binding.btnConfirm -> timeListener.confirm(hour + minute)
+            binding.btnConfirm -> timeListener.confirm(arguments?.getString(INTENT_DATE) + hour + ":" + minute)
             binding.btnCancel -> timeListener.cancel()
         }
         this.dismiss()
@@ -56,7 +65,14 @@ class TimeDialogFragment private constructor() :
     }
 
     companion object {
-        fun newInstance() = TimeDialogFragment()
+        fun newInstance(date: String): TimeDialogFragment {
+            val args = Bundle()
+            args.putString(INTENT_DATE, date)
+
+            val fragment = TimeDialogFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }
 

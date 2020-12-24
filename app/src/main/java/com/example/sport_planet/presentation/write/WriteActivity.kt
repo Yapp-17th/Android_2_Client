@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -40,18 +41,6 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
             this,
             WriteViewModelFactory(RemoteDataSourceImpl())
         ).get(WriteViewModel::class.java)
-    }
-
-    private val dateDialog: DateDialogFragment by lazy {
-        DateDialogFragment.newInstance().apply {
-            setListener(dateListener)
-        }
-    }
-
-    private val timeDialog: TimeDialogFragment by lazy {
-        TimeDialogFragment.newInstance().apply {
-            setListener(timeListener)
-        }
     }
 
     private val dateChangeListener: DataChangeListener = object : DataChangeListener {
@@ -93,7 +82,6 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
 
         viewModel.showFinishView.observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                showSuccessDialog()
                 setResult(Activity.RESULT_OK)
                 finish()
             }
@@ -121,8 +109,7 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
                     viewModel.place.value = it.place
                     binding.edtPlace.setText(it.place)
                     val index = it.startsAt.indexOf("T")
-                    viewModel.date.value = it.startsAt.substring(0, index + 1)
-                    viewModel.time.value = it.startsAt.substring(index + 1, index + 6)
+                    viewModel.time.value = it.startsAt.substring(0, index + 6)
                     binding.tvDate.text = viewModel.getDateToString()
                     viewModel.exercise.value = it.exercise
                     viewModel.city.value = it.city
@@ -171,7 +158,9 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
             }
 
         binding.tvDate.setOnClickListener {
-            dateDialog.show(supportFragmentManager.beginTransaction(), DATE_DIALOG)
+            DateDialogFragment.newInstance().apply {
+                setListener(dateListener)
+            }.show(supportFragmentManager.beginTransaction(), DATE_DIALOG)
         }
 
         binding.btnPosting.setOnClickListener {
@@ -212,25 +201,26 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
 
     private val dateListener: DateListener = object : DateListener {
         override fun confirm(date: String?) {
-            viewModel.date.value = date
-            timeDialog.show(supportFragmentManager.beginTransaction(), TIME_DIALOG)
-            dateDialog.dismiss()
+            TimeDialogFragment.newInstance(date ?: "").apply {
+                setListener(timeListener)
+            }.show(supportFragmentManager, TIME_DIALOG)
+            (supportFragmentManager.findFragmentByTag(DATE_DIALOG) as? DateDialogFragment)?.dismiss()
         }
 
         override fun cancel() {
-            viewModel.clearDateAndTime()
+
         }
     }
 
     private val timeListener: TimeListener = object : TimeListener {
         override fun confirm(time: String) {
-            viewModel.time.value = "${time.substring(0, 2)}:${time.substring(2, 4)}"
+            viewModel.time.value = time
             binding.tvDate.text = viewModel.getDateToString()
-            timeDialog.dismiss()
+            (supportFragmentManager.findFragmentByTag(TIME_DIALOG) as? DateDialogFragment)?.dismiss()
         }
 
         override fun cancel() {
-            viewModel.clearDateAndTime()
+
         }
     }
 
@@ -266,23 +256,12 @@ class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write
         }
     }
 
-    private fun showSuccessDialog() {
-        AlertDialog.Builder(applicationContext).apply {
-            setView(R.layout.dialog_success)
-            create()
-            show()
-        }
-    }
-
     companion object {
         const val DATE_DIALOG = "DATE_DIALOG"
         const val TIME_DIALOG = "TIME_DIALOG"
+        const val INTENT_DATE = "INTENT_DATE"
+        const val INTENT_TIME = "INTENT_TIME"
         const val BOARD_ID = "BOARD_ID"
-
-        fun createInstance(fragment: Fragment) {
-            val intent = Intent(fragment.activity, WriteActivity::class.java)
-            fragment.startActivityForResult(intent, REFRESH)
-        }
 
         fun createInstance(activity: Activity) {
             val intent = Intent(activity, WriteActivity::class.java)

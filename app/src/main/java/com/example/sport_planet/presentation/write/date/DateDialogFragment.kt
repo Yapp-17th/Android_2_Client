@@ -1,7 +1,6 @@
 package com.example.sport_planet.presentation.write.date
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,11 +30,9 @@ class DateDialogFragment private constructor() :
         super.onViewCreated(view, savedInstanceState)
         binding.calendar.minDate = System.currentTimeMillis() + ((1000 * 60 * 60) * 4)
         selectedDate = SimpleDateFormat("yyyy-MM-dd").format(binding.calendar.minDate) + "T"
-        Log.d("ehdghks","init SelectedDate : $selectedDate")
         binding.calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             selectedDate =
                 "$year-${month + 1}-${if (dayOfMonth < 10) "0$dayOfMonth" else dayOfMonth}T"
-            Log.d("ehdghks", "selecteDate : $selectedDate")
         }
         binding.btnConfirm.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
@@ -54,7 +51,13 @@ class DateDialogFragment private constructor() :
     }
 
     companion object {
-        fun newInstance() = DateDialogFragment()
+        fun newInstance(): DateDialogFragment {
+            val args = Bundle()
+
+            val fragment = DateDialogFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }
 
