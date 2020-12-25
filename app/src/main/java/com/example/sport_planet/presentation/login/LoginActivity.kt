@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.example.sport_planet.util.PrefUtil
 import com.example.sport_planet.R
 import com.example.sport_planet.data.response.login.LoginResponse
 import com.example.sport_planet.databinding.ActivityLoginBinding
@@ -14,17 +13,22 @@ import com.example.sport_planet.presentation.main.MainActivity
 import com.example.sport_planet.presentation.profile.ProfileActivity
 import com.example.sport_planet.remote.NetworkHelper
 import com.example.sport_planet.remote.RemoteDataSourceImpl
+import com.example.sport_planet.util.PrefUtil
 import com.example.sport_planet.util.applySchedulers
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
+import io.reactivex.rxkotlin.addTo
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        autoLogin()
+
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 loginErrorCode(error)
@@ -46,9 +50,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                                 .subscribe({
                                     when (it.body()?.status) {
                                         200 -> {
-                                            PrefUtil.setStrValue(this@LoginActivity,"serverToken",it.headers()["token"].toString())
-                                            UserInfo.USER_ID = it.headers()["userId"].toString().toLong()
-                                            NetworkHelper.token = PrefUtil.getStrValue(this,"serverToken","").toString()
+                                            PrefUtil.setStrValue(
+                                                this@LoginActivity,
+                                                "serverToken",
+                                                it.headers()["token"].toString()
+                                            )
+                                            UserInfo.USER_ID =
+                                                it.headers()["userId"].toString().toLong()
+                                            NetworkHelper.token =
+                                                PrefUtil.getStrValue(this, "serverToken", "")
+                                                    .toString()
                                             val intent = Intent(this, MainActivity::class.java)
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -81,6 +92,43 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
+    }
+
+    private fun autoLogin() {
+        Log.d("okhttp","token : ${PrefUtil.getStrValue(this, "serverToken", "")
+            .toString()}")
+        NetworkHelper.token =
+            PrefUtil.getStrValue(this, "serverToken", "")
+                .toString()
+
+        RemoteDataSourceImpl().autoLogin()
+            .applySchedulers()
+            .doOnSubscribe { showLoading() }
+            .doAfterTerminate { hideLoading() }
+            .subscribe({
+                Log.d("okhttp", "response body : ${it.body()}")
+                when (it.body()?.status) {
+                    200 -> {
+                        PrefUtil.setStrValue(
+                            this@LoginActivity,
+                            "serverToken",
+                            it.headers()["token"].toString()
+                        )
+                        UserInfo.USER_ID =
+                            it.headers()["userId"].toString().toLong()
+                        NetworkHelper.token =
+                            PrefUtil.getStrValue(this, "serverToken", "")
+                                .toString()
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
+                }
+            }, {
+                it.printStackTrace()
+            }).addTo(compositeDisposable)
+
     }
 
     private fun loginErrorCode(error: Throwable) {

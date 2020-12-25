@@ -39,6 +39,10 @@ class RemoteDataSourceImpl : RemoteDataSource {
     override fun postSignIn(userInfo: LoginResponse): Single<Response<ServerCallBackResponse>> =
         api.postSignIn(userInfo)
 
+    override fun autoLogin(): Single<Response<ServerCallBackResponse>> {
+        return api.autoLogin()
+    }
+
     override fun postSignUp(userSignUp: SignUpResponse): Single<Response<ServerCallBackResponse>> =
         api.postSignUp(userSignUp)
 

@@ -83,7 +83,6 @@ class BoardViewModel(private val remote: RemoteDataSource) :
                 .doOnSubscribe { isLoading.onNext(true) }
                 .doAfterTerminate { isLoading.onNext(false) }
                 .subscribe({
-                    Log.d("okhttp", "bookmarkChange : $it")
                     if (it.success) {
                         getBoardContent()
                     }

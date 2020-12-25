@@ -37,6 +37,9 @@ interface Api {
     @POST("login-service/v1/user/sign-in")
     fun postSignIn(@Body userInfo: LoginResponse): Single<retrofit2.Response<ServerCallBackResponse>>
 
+    @GET("login-service/v1/user/auto-in")
+    fun autoLogin(): Single<retrofit2.Response<ServerCallBackResponse>>
+
     @POST("login-service/v1/user/sign-up")
     fun postSignUp(@Body userSignUp: SignUpResponse): Single<retrofit2.Response<ServerCallBackResponse>>
 

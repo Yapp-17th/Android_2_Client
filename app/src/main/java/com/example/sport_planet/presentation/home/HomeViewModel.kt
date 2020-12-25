@@ -75,7 +75,6 @@ class HomeViewModel(private val remote: RemoteDataSource) :
             .doOnSubscribe { isLoading.onNext(true) }
             .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
-                Log.d("okhttp", "getBoardList : $it")
                 if (it.success) {
                     boardList.value = ArrayList(it.data)
                 } else {
@@ -95,7 +94,6 @@ class HomeViewModel(private val remote: RemoteDataSource) :
             .doOnSubscribe { isLoading.onNext(true) }
             .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
-                Log.d("okhttp", "bookmarkChange : $it")
                 if (it.success) {
                     changeBoardListItem(item)
                 }
@@ -111,7 +109,6 @@ class HomeViewModel(private val remote: RemoteDataSource) :
             .doOnSubscribe { isLoading.onNext(true) }
             .doAfterTerminate { isLoading.onNext(false) }
             .subscribe({
-                Log.d("okhttp", "BoardContentItem : $it")
                 if (it.success) {
                     val newBoard = it.data.toBoardModel()
                     _boardList[_boardList.indexOf(oldBoard)] = newBoard

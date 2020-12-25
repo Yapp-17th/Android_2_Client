@@ -26,6 +26,8 @@ interface RemoteDataSource {
 
     fun postSignIn(userInfo: LoginResponse): Single<Response<ServerCallBackResponse>>
 
+    fun autoLogin(): Single<Response<ServerCallBackResponse>>
+
     fun postSignUp(userSignUp: SignUpResponse): Single<Response<ServerCallBackResponse>>
 
     fun deleteUser(): Single<ServerCallBackResponse>

@@ -16,14 +16,15 @@ object NetworkHelper {
             level = HttpLoggingInterceptor.Level.NONE
         })
         .addInterceptor {
-            Log.d("okhttp", "request: ${it.request()}")
-            Log.d("okhttp", "request header: ${it.request().headers}")
             val request = it.request()
                 .newBuilder()
                 .addHeader("Authorization", "Bearer $token")
                 .build()
+            Log.d("okhttp", "request: ${it.request()}")
+            Log.d("okhttp", "request header: ${it.request().headers}")
             val response = it.proceed(request)
             Log.d("okhttp","response : $response")
+            Log.d("okhttp","response header: ${response.headers}")
             response
         }.build()
 

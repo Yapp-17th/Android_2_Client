@@ -1,10 +1,8 @@
 package com.example.sport_planet.presentation.mypage.setting
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
-import androidx.browser.customtabs.CustomTabsClient.getPackageName
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sport_planet.R
@@ -32,7 +30,8 @@ class SettingFragment :
                     onBackPressed()
                 }
             }
-            tvLogout.setOnClickListener { showLogoutPopup() }
+            tvLogout.setOnClickListener { logout() }
+            tvWithdrawal.setOnClickListener { showLogoutPopup() }
             tvVersion.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.addCategory(Intent.CATEGORY_DEFAULT)
@@ -43,13 +42,19 @@ class SettingFragment :
         observeLiveData()
     }
 
+    private fun logout() {
+        PrefUtil.setStrValue(requireContext(), "serverToken", "")
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+
     private fun observeLiveData() {
         viewModel.run {
             isDeleteSuccess.observe(viewLifecycleOwner, Observer {
                 if (it) {
-                    PrefUtil.setStrValue(requireContext(), "serverToken", "")
-                    val intent = Intent(context, LoginActivity::class.java)
-                    startActivity(intent)
+                    logout()
                 }
             })
             isLoading.observeOn(AndroidSchedulers.mainThread())
