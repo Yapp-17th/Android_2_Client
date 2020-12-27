@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.sport_planet"
+        applicationId "com.yapp.sport_planet"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1

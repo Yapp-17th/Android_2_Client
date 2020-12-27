@@ -6,10 +6,10 @@
         <import type="android.view.View" />
         <variable
             name="ItemSentProfileMessage"
-            type="com.example.sport_planet.data.model.chatting.ChattingMessageModel" />
+            type="com.yapp.sport_planet.data.model.chatting.ChattingMessageModel" />
         <variable
             name="ProfileMessageContent"
-            type="com.example.sport_planet.data.model.chatting.ProfileMessageContentModel" />
+            type="com.yapp.sport_planet.data.model.chatting.ProfileMessageContentModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

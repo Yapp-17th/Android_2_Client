@@ -7,7 +7,7 @@
         <import type="android.view.View" />
         <variable
             name="vm"
-            type="com.example.sport_planet.presentation.chatting.viewmodel.ChattingFragmentViewModel" />
+            type="com.yapp.sport_planet.presentation.chatting.viewmodel.ChattingFragmentViewModel" />
 
     </data>
 
@@ -17,13 +17,13 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-        <com.example.sport_planet.presentation.custom.CustomToolbar
+        <com.yapp.sport_planet.presentation.custom.CustomToolbar
             android:id="@+id/toolbar_fragment_chatting"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_app_bar_size"
             app:layout_constraintTop_toTopOf="parent" >
 
-        </com.example.sport_planet.presentation.custom.CustomToolbar>
+        </com.yapp.sport_planet.presentation.custom.CustomToolbar>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 tools:context=".presentation.board.BoardActivity">
 
-                <com.example.sport_planet.presentation.custom.CustomToolbar
+                <com.yapp.sport_planet.presentation.custom.CustomToolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/common_app_bar_size"
@@ -205,10 +205,11 @@
 
                 <TextView
                     android:id="@+id/tv_body"
-                    style="@style/regular_basic_16sp"
+                    style="@style/regular_basic_14sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:lineSpacingExtra="4dp"
                     android:textColor="@color/black121212"
                     app:layout_constraintEnd_toEndOf="@id/tv_title"
                     app:layout_constraintStart_toStartOf="@id/tv_title"
@@ -297,11 +298,12 @@
 
                 <TextView
                     android:id="@+id/tv_host_intro"
-                    style="@style/medium_basic_14sp"
+                    style="@style/regular_basic_14sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:lineSpacingExtra="22dp"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/black121212"
                     app:layout_constraintEnd_toEndOf="@id/tv_title"
                     app:layout_constraintStart_toStartOf="@id/tv_title"
                     app:layout_constraintTop_toBottomOf="@id/iv_profile_image" />

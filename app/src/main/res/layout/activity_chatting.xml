@@ -5,14 +5,14 @@
         <import type="android.view.View" />
         <variable
             name="ChattingViewModel"
-            type="com.example.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel" />
+            type="com.yapp.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.example.sport_planet.presentation.custom.CustomToolbar
+        <com.yapp.sport_planet.presentation.custom.CustomToolbar
             android:id="@+id/toolbar_activity_chatting"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_app_bar_size"
@@ -53,7 +53,7 @@
                 android:layout_height="0dp"
                 />
 
-            <com.example.sport_planet.presentation.custom.CustomApprovalStatusButton
+            <com.yapp.sport_planet.presentation.custom.CustomApprovalStatusButton
                 android:id="@+id/bt_activity_chatting_approval_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

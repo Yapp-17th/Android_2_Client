@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.example.sport_planet.presentation.profile.ProfileViewModel" />
+            type="com.yapp.sport_planet.presentation.profile.ProfileViewModel" />
     </data>
 
     <ScrollView
@@ -24,7 +24,7 @@
             android:weightSum="1"
             tools:context=".presentation.profile.ProfileActivity">
 
-            <com.example.sport_planet.presentation.custom.CustomToolbar
+            <com.yapp.sport_planet.presentation.custom.CustomToolbar
                 android:id="@+id/custom_tool_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,8 +133,8 @@
                 android:orientation="horizontal"
                 android:visibility="invisible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/cl_interest_excise"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/cl_interest_excise" />
 
             <TextView
@@ -180,8 +180,8 @@
                 android:layout_marginHorizontal="@dimen/activity_profile_margin_16dp"
                 android:background="@drawable/shape_round_corner_darkblue_opacity"
                 android:orientation="horizontal"
-                android:visibility="invisible"
                 android:paddingHorizontal="2dp"
+                android:visibility="invisible"
                 app:layout_constraintHeight_percent="0.045"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_residence">
@@ -236,6 +236,7 @@
                 android:gravity="start|top"
                 android:hint="@string/activity_profile_hint_introduce_myself"
                 android:inputType="textMultiLine"
+                android:lineSpacingExtra="4dp"
                 android:text="@={vm.userIntroduceMyself}"
                 app:layout_constraintTop_toBottomOf="@id/tv_introduce_myself" />
 

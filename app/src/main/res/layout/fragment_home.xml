@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.example.sport_planet.presentation.home.HomeViewModel" />
+            type="com.yapp.sport_planet.presentation.home.HomeViewModel" />
 
     </data>
 

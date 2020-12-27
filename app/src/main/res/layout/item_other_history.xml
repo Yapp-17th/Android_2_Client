@@ -9,7 +9,7 @@
 
         <variable
             name="items"
-            type="com.example.sport_planet.data.model.OtherHistoryModel" />
+            type="com.yapp.sport_planet.data.model.OtherHistoryModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

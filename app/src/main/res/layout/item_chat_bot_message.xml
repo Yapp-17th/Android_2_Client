@@ -6,7 +6,7 @@
         <import type="android.view.View" />
         <variable
             name="ItemChatBotMessage"
-            type="com.example.sport_planet.data.model.chatting.ChattingMessageModel" />
+            type="com.yapp.sport_planet.data.model.chatting.ChattingMessageModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

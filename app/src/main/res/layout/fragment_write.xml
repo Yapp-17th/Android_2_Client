@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <com.example.sport_planet.presentation.custom.CustomToolbar
+        <com.yapp.sport_planet.presentation.custom.CustomToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_app_bar_size"
@@ -254,6 +254,7 @@
 
         <EditText
             android:id="@+id/edt_body"
+            style="@style/regular_basic_14sp"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
@@ -261,8 +262,8 @@
             android:background="@null"
             android:gravity="left|top"
             android:hint="@string/activity_write_body_hint"
-            android:lineSpacingExtra="22dp"
-            android:textSize="14sp"
+            android:lineSpacingExtra="4dp"
+            android:textColor="@color/black121212"
             app:layout_constraintBottom_toTopOf="@id/btn_posting"
             app:layout_constraintEnd_toEndOf="@id/edt_title"
             app:layout_constraintStart_toStartOf="@id/edt_title"

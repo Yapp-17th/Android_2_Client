@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.example.sport_planet.presentation.mypage.other.mypage.OtherMyPageViewModel" />
+            type="com.yapp.sport_planet.presentation.mypage.other.mypage.OtherMyPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
