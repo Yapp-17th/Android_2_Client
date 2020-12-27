@@ -1,6 +1,7 @@
 package com.example.sport_planet.presentation.home.filter.city
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +24,8 @@ class AddressCityFragment private constructor() :
         ).get(AddressCityViewModel::class.java)
     }
 
+    private val defaultClick = listOf(RegionResponse.Data(0, "전체"))
+
     private lateinit var gridAdapter: FilterCityGridViewAdapter
 
     override fun init() {
@@ -37,6 +40,7 @@ class AddressCityFragment private constructor() :
 
         viewModel.items.observe(viewLifecycleOwner, Observer {
             gridAdapter.setItems(it)
+            Log.d("okhttp", "selectedItem : ${viewModel.selectedItems.value}")
         })
 
         viewModel.selectedItems.observe(viewLifecycleOwner, Observer {
@@ -54,7 +58,8 @@ class AddressCityFragment private constructor() :
             .subscribe { showToast("최대 3개까지 선택 가능합니다") }
             .addTo(compositeDisposable)
 
-        viewModel.selectedItems.value = arguments?.getParcelableArrayList(FilterActivity.INTENT_CITY) ?: emptyList()
+        viewModel.selectedItems.value =
+            arguments?.getParcelableArrayList(FilterActivity.INTENT_CITY) ?: defaultClick
     }
 
     fun getCity(): List<RegionResponse.Data> {
@@ -62,7 +67,7 @@ class AddressCityFragment private constructor() :
     }
 
     fun clearCity() {
-        viewModel.selectedItems.value = emptyList()
+        viewModel.selectedItems.value = defaultClick
     }
 
     override fun onResume() {
@@ -73,7 +78,10 @@ class AddressCityFragment private constructor() :
     companion object {
         fun newInstance(city: List<RegionResponse.Data>): AddressCityFragment {
             val args = Bundle()
-            args.putParcelableArrayList(FilterActivity.INTENT_CITY, ArrayList(city))
+            args.putParcelableArrayList(
+                FilterActivity.INTENT_CITY,
+                ArrayList(if (city.isNotEmpty()) city else listOf(RegionResponse.Data(0, "전체")))
+            )
 
             val fragment = AddressCityFragment()
             fragment.arguments = args

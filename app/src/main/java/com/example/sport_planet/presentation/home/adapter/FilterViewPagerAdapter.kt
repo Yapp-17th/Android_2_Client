@@ -29,7 +29,7 @@ class FilterViewPagerAdapter(
         fragmentManager.fragments.forEach {
             when (it) {
                 is AddressCityFragment -> it.clearCity()
-                is ExerciseFragment -> it.adapterClear()
+                is ExerciseFragment -> it.clearExercise()
             }
         }
     }

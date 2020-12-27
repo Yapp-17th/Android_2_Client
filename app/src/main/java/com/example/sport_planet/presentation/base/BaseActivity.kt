@@ -38,6 +38,17 @@ abstract class BaseActivity<B : ViewDataBinding>
                 }
             }
         }
+
+        this.runOnUiThread {
+            if (loadingFragment != null || (loadingFragment?.dialog)?.isShowing == true) {
+                return@runOnUiThread
+            } else {
+                loadingFragment = LoadingFragment.newInstance()
+                loadingFragment?.let { it ->
+                    it.show(supportFragmentManager, "LOADING_FRAGMENT")
+                }
+            }
+        }
     }
 
     fun hideLoading() {

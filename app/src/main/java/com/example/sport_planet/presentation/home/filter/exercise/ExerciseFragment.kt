@@ -25,6 +25,8 @@ class ExerciseFragment private constructor() :
         ).get(ExerciseViewModel::class.java)
     }
 
+    private val defaultClick = listOf(ExerciseResponse.Data(0, "전체"))
+
     private lateinit var gridAdapter: FilterExerciseGridViewAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,7 +56,7 @@ class ExerciseFragment private constructor() :
             .addTo(compositeDisposable)
 
         viewModel.selectedItems.value =
-            arguments?.getParcelableArrayList(INTENT_EXERCISE) ?: emptyList()
+            arguments?.getParcelableArrayList(INTENT_EXERCISE) ?: defaultClick
     }
 
     override fun onResume() {
@@ -66,17 +68,31 @@ class ExerciseFragment private constructor() :
     }
 
     fun getExercise(): List<ExerciseResponse.Data> {
-        return viewModel.items.value ?: emptyList()
+        return viewModel.items.value ?: defaultClick
     }
 
-    fun adapterClear() {
-        viewModel.selectedItems.value = emptyList()
+    fun clearExercise() {
+        viewModel.selectedItems.value = defaultClick
     }
 
     companion object {
         fun newInstance(exercise: List<ExerciseResponse.Data>): ExerciseFragment {
             val args = Bundle()
-            args.putParcelableArrayList(INTENT_EXERCISE, ArrayList(exercise))
+            args.putParcelableArrayList(
+                INTENT_EXERCISE,
+                ArrayList(
+                    if (exercise.isNotEmpty()) {
+                        exercise
+                    } else {
+                        listOf(
+                            ExerciseResponse.Data(
+                                id = 0,
+                                name = "전체"
+                            )
+                        )
+                    }
+                )
+            )
 
             val fragment = ExerciseFragment()
             fragment.arguments = args

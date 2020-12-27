@@ -23,7 +23,7 @@ class AddressCityViewModel(private val remoteDataSource: RemoteDataSource) :
             .subscribe({
                 if (it.isSuccess()) {
                     val result = it.data.toMutableList()
-                    result.add(0, RegionResponse.Data(id = -1, name = "전체"))
+                    result.add(0, RegionResponse.Data(id = 0, name = "전체"))
                     items.value = result
                 }
             }, {
@@ -34,11 +34,20 @@ class AddressCityViewModel(private val remoteDataSource: RemoteDataSource) :
     fun clickItems(item: RegionResponse.Data) {
         val list: MutableList<RegionResponse.Data> =
             ArrayList(this.selectedItems.value ?: emptyList())
+        val defaultItem = RegionResponse.Data(0, "전체")
+
+        if (item == defaultItem) {
+            selectedItems.value = listOf(item)
+            return
+        } else {
+            list.remove(defaultItem)
+        }
+
         if (!list.contains(item) && list.size >= 3) {
             showErrorToast.onNext(Unit)
         } else {
             if (list.contains(item)) list.remove(item) else list.add(item)
-            selectedItems.value = list
+            selectedItems.value = if (list.isEmpty()) arrayListOf(defaultItem) else list
         }
     }
 }
