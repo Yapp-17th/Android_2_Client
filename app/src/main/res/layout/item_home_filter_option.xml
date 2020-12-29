@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/item_filter_option_width"
+    android:layout_width="wrap_content"
     android:layout_height="@dimen/common_filter_bar_size">
 
     <ImageView
@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/tv_text"
         style="@style/medium_basic"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="16dp"

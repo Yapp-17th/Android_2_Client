@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.example.sport_planet.presentation.mypage.MyPageViewModel" />
+            type="com.yapp.sport_planet.presentation.mypage.MyPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -176,8 +176,8 @@
             style="@style/regular_basic_14sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:lineSpacingExtra="8dp"
             android:layout_marginTop="@dimen/fragment_my_page_margin_10dp"
-            android:lineSpacingExtra="@dimen/fragment_my_page_spacing_line_3dp"
             android:text="@={vm.intro}"
             android:textColor="@color/dark_gray"
             app:layout_constraintStart_toStartOf="@id/gl_1"
@@ -190,7 +190,7 @@
             style="@style/medium_basic_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/fragment_my_page_margin_40dp"
+            android:layout_marginTop="@dimen/fragment_my_page_margin_32dp"
             android:text="@string/fragment_my_page_excise_title"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/gl_1"
@@ -212,7 +212,7 @@
             style="@style/medium_basic_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/fragment_my_page_margin_40dp"
+            android:layout_marginTop="@dimen/fragment_my_page_margin_32dp"
             android:text="@string/fragment_my_page_address_title"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/gl_1"

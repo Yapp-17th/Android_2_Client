@@ -13,7 +13,7 @@
         android:background="@color/white"
         tools:context=".presentation.home.filter.FilterActivity">
 
-        <com.example.sport_planet.presentation.custom.CustomToolbar
+        <com.yapp.sport_planet.presentation.custom.CustomToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_app_bar_size"

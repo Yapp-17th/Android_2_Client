@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_interest_excise"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="match_parent"
         android:layout_marginEnd="10dp"
         android:background="@drawable/shape_round_corner_darkblue_opacity"
         android:orientation="horizontal">
@@ -22,14 +22,15 @@
             android:id="@+id/tv_excise"
             style="@style/medium_basic"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_exercise_list_margin_12dp"
             android:autoSizeTextType="uniform"
-            android:gravity="center"
             android:text="@{item}"
             android:textColor="@color/blue233c93"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iv_x"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="축구" />
 
         <ImageView

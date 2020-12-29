@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 tools:context=".presentation.board.BoardActivity">
 
-                <com.example.sport_planet.presentation.custom.CustomToolbar
+                <com.yapp.sport_planet.presentation.custom.CustomToolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/common_app_bar_size"
@@ -62,12 +62,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/shape_round_corner_darkblue_opacity"
                         android:paddingStart="8dp"
                         android:paddingTop="1dp"
                         android:paddingEnd="8dp"
                         android:paddingBottom="1dp"
-                        android:textColor="@color/dark_gray" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/tv_exercise"
@@ -75,7 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/shape_round_corner_darkblue_opacity"
+                        android:background="@drawable/shape_round_corner_darkblue_opacity_no_stoke"
                         android:paddingStart="8dp"
                         android:paddingTop="1dp"
                         android:paddingEnd="8dp"
@@ -88,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/shape_round_corner_darkblue_opacity"
+                        android:background="@drawable/shape_round_corner_darkblue_opacity_no_stoke"
                         android:paddingStart="8dp"
                         android:paddingTop="1dp"
                         android:paddingEnd="8dp"
@@ -100,7 +99,7 @@
                         style="@style/medium_basic_12sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_round_corner_darkblue_opacity"
+                        android:background="@drawable/shape_round_corner_darkblue_opacity_no_stoke"
                         android:paddingStart="8dp"
                         android:paddingTop="1dp"
                         android:paddingEnd="8dp"
@@ -206,10 +205,11 @@
 
                 <TextView
                     android:id="@+id/tv_body"
-                    style="@style/regular_basic_16sp"
+                    style="@style/regular_basic_14sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:lineSpacingExtra="4dp"
                     android:textColor="@color/black121212"
                     app:layout_constraintEnd_toEndOf="@id/tv_title"
                     app:layout_constraintStart_toStartOf="@id/tv_title"
@@ -271,6 +271,7 @@
                     style="@style/regular_basic_14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_like"
                     app:layout_constraintStart_toEndOf="@id/iv_like"
                     app:layout_constraintTop_toTopOf="@id/iv_like" />
@@ -279,7 +280,7 @@
                     android:id="@+id/iv_dislike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="10dp"
                     android:src="@drawable/ic_dislike"
                     app:layout_constraintBottom_toBottomOf="@id/iv_like"
                     app:layout_constraintStart_toEndOf="@id/tv_like_count"
@@ -290,16 +291,19 @@
                     style="@style/regular_basic_14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_dislike"
                     app:layout_constraintStart_toEndOf="@id/iv_dislike"
                     app:layout_constraintTop_toTopOf="@id/iv_dislike" />
 
                 <TextView
                     android:id="@+id/tv_host_intro"
-                    style="@style/medium_basic_14sp"
+                    style="@style/regular_basic_14sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/black121212"
                     app:layout_constraintEnd_toEndOf="@id/tv_title"
                     app:layout_constraintStart_toStartOf="@id/tv_title"
                     app:layout_constraintTop_toBottomOf="@id/iv_profile_image" />

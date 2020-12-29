@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/item_filter_time_width"
+    android:layout_width="wrap_content"
     android:layout_height="@dimen/common_filter_bar_size">
 
     <TextView
         android:id="@+id/tv_time_text"
         style="@style/medium_basic"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
         android:gravity="center"
         android:text="@string/filter_time_recent_upload"
         android:textColor="@color/dark_blue"
@@ -20,6 +21,8 @@
         android:id="@+id/iv_icon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="13dp"
         android:src="@drawable/ic_toggle_off"
         app:layout_constraintLeft_toRightOf="@id/tv_time_text"
         app:layout_constraintRight_toRightOf="parent" />

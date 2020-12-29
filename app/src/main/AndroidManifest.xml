@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.sport_planet">
+    package="com.yapp.sport_planet">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".presentation.login.GlobalApplication"
+        android:name="com.yapp.sport_planet.presentation.login.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,24 +14,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".presentation.search.result.SearchResultActivity"/>
-        <activity android:name=".presentation.search.SearchActivity" />
-        <activity android:name=".presentation.mypage.other.mypage.OtherMyPageActivity" />
-        <activity android:name=".presentation.mypage.history.view.HistoryActivity" />
-        <activity android:name=".presentation.home.filter.FilterActivity" />
-        <activity android:name=".presentation.profile.ProfileActivity" />
+        <activity android:name="com.yapp.sport_planet.presentation.search.result.SearchResultActivity" />
+        <activity android:name="com.yapp.sport_planet.presentation.search.SearchActivity" />
+        <activity android:name="com.yapp.sport_planet.presentation.mypage.other.mypage.OtherMyPageActivity" />
+        <activity android:name="com.yapp.sport_planet.presentation.mypage.history.view.HistoryActivity" />
+        <activity android:name="com.yapp.sport_planet.presentation.home.filter.FilterActivity" />
         <activity
-            android:name=".presentation.chatting.view.ChattingActivity"
+            android:name="com.yapp.sport_planet.presentation.profile.ProfileActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name="com.yapp.sport_planet.presentation.chatting.view.ChattingActivity"
             android:theme="@style/ChattingAppTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".presentation.profile.ExerciseDialog"
+            android:name="com.yapp.sport_planet.presentation.profile.ExerciseDialog"
             tools:ignore="Instantiatable" />
-        <activity android:name=".presentation.board.BoardActivity" />
-        <activity android:name=".presentation.login.LoginActivity" />
-        <activity android:name=".presentation.main.MainActivity" />
-        <activity android:name=".presentation.splash.IntroActivity" />
-        <activity android:name=".presentation.splash.SplashActivity">
+        <activity android:name="com.yapp.sport_planet.presentation.board.BoardActivity" />
+        <activity android:name="com.yapp.sport_planet.presentation.login.LoginActivity" />
+        <activity
+            android:name="com.yapp.sport_planet.presentation.main.MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name="com.yapp.sport_planet.presentation.splash.IntroActivity" />
+        <activity android:name="com.yapp.sport_planet.presentation.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.write.WriteActivity"
+            android:name="com.yapp.sport_planet.presentation.write.WriteActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
