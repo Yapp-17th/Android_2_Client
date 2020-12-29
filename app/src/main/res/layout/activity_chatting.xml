@@ -70,6 +70,7 @@
                 android:id="@+id/rv_activity_chatting_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:overScrollMode="never"
                 android:background="@color/grayf4f4f4"
                 android:clipToPadding="false"
                 android:paddingBottom="16dp" />
