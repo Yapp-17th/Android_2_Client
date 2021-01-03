@@ -1,9 +1,16 @@
 package com.yapp.sport_planet.presentation.login
 
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import com.kakao.sdk.auth.LoginClient
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.model.AuthErrorCause
+import com.kakao.sdk.user.UserApiClient
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.data.response.login.LoginResponse
 import com.yapp.sport_planet.databinding.ActivityLoginBinding
@@ -15,11 +22,10 @@ import com.yapp.sport_planet.remote.NetworkHelper
 import com.yapp.sport_planet.remote.RemoteDataSourceImpl
 import com.yapp.sport_planet.util.PrefUtil
 import com.yapp.sport_planet.util.applySchedulers
-import com.kakao.sdk.auth.LoginClient
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.AuthErrorCause
-import com.kakao.sdk.user.UserApiClient
 import io.reactivex.rxkotlin.addTo
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
@@ -95,8 +101,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     }
 
     private fun autoLogin() {
-        Log.d("okhttp","token : ${PrefUtil.getStrValue(this, "serverToken", "")
-            .toString()}")
+        Log.d(
+            "okhttp", "token : ${
+                PrefUtil.getStrValue(this, "serverToken", "")
+                    .toString()
+            }"
+        )
         NetworkHelper.token =
             PrefUtil.getStrValue(this, "serverToken", "")
                 .toString()
