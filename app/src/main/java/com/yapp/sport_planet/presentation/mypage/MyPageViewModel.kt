@@ -10,7 +10,6 @@ class MyPageViewModel : BaseViewModel() {
 
     val nickName = MutableLiveData<String>()
     val like = MutableLiveData<String>()
-    val dislike = MutableLiveData<String>()
     val intro = MutableLiveData<String>()
     val city = MutableLiveData<String>()
 
@@ -27,7 +26,6 @@ class MyPageViewModel : BaseViewModel() {
                     if (it.success) {
                         nickName.value = it.data.nickName
                         like.value = it.data.like.toString()
-                        dislike.value = it.data.dislike.toString()
                         intro.value = it.data.intro
                         _category.value = it.data.category
                         city.value = it.data.city

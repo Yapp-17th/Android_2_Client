@@ -47,7 +47,7 @@ class ProfileViewModel : BaseViewModel() {
 
     val userIntroduceMyself = MutableLiveData<String>()
     val userName = MutableLiveData<String>()
-    val userEmail = MutableLiveData<String>("이메일을 입력해주세요")
+    val userEmail = MutableLiveData<String>()
     val userNickname = MutableLiveData<String>()
     val userRegion = MutableLiveData<String>()
 

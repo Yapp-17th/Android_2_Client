@@ -57,8 +57,10 @@
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="@dimen/activity_profile_margin_16dp"
                 android:background="@null"
+                android:enabled="false"
                 android:hint="@string/activity_profile_hint_email"
                 android:inputType="textEmailAddress"
+                android:text="@{vm.userEmail}"
                 app:layout_constraintTop_toBottomOf="@id/v_line_1" />
 
             <View
@@ -228,7 +230,7 @@
 
             <EditText
                 android:id="@+id/et_introduce_myself"
-                style="@style/medium_basic_16sp_black"
+                style="@style/regular_basic_14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_profile_margin_16dp"
