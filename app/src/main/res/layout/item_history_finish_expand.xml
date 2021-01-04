@@ -56,13 +56,6 @@
             android:layout_marginEnd="@dimen/item_history_finish_expand_margin_12dp"
             android:src="@{items.like ? @drawable/icons_18_px_likes_fill :  @drawable/icons_18_px_likes}" />
 
-        <ImageView
-            android:id="@+id/iv_dis_likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/item_history_finish_expand_margin_12dp"
-            android:src="@{items.dislike ? @drawable/icons_18_px_dislikes_fill :  @drawable/icons_18_px_dislikes}" />
-
         <TextView
             android:id="@+id/tv_report"
             style="@style/regular_basic_14sp"
