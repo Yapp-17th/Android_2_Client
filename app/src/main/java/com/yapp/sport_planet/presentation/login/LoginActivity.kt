@@ -1,10 +1,7 @@
 package com.yapp.sport_planet.presentation.login
 
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import com.kakao.sdk.auth.LoginClient
@@ -23,8 +20,6 @@ import com.yapp.sport_planet.remote.RemoteDataSourceImpl
 import com.yapp.sport_planet.util.PrefUtil
 import com.yapp.sport_planet.util.applySchedulers
 import io.reactivex.rxkotlin.addTo
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
