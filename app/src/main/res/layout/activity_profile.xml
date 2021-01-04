@@ -230,7 +230,7 @@
 
             <EditText
                 android:id="@+id/et_introduce_myself"
-                style="@style/medium_basic_16sp_black"
+                style="@style/regular_basic_14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_profile_margin_16dp"
