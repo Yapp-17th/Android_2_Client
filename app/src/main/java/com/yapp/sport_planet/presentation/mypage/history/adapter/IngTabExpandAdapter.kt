@@ -47,6 +47,11 @@ class IngTabExpandAdapter(private val onClickListener: (ApplyListModel) -> Unit)
         fun bind(item: ApplyListModel) {
             binding.run {
                 items = item
+                if (item.isHost) {
+                    tvHostGuest.setTextColor(root.resources.getColor(R.color.pink, null))
+                } else {
+                    tvHostGuest.setTextColor(root.resources.getColor(R.color.skyblue, null))
+                }
                 when (item.applyStatus.code) {
                     0 -> {
                         setTextLabel(R.color.dark_gray, R.drawable.shape_round_corner_light_gray)
