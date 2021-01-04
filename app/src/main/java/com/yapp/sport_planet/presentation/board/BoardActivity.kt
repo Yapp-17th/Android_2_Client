@@ -40,7 +40,12 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.boardId.value = intent.getLongExtra(BOARD_ID, -1)
+        if (intent.getLongExtra("finishTabBoardId", -1L) != -1L) {
+            viewModel.boardId.value = intent.getLongExtra("finishTabBoardId", -1L)
+        } else {
+            viewModel.boardId.value = intent.getLongExtra(BOARD_ID, -1)
+        }
+
 
         viewModel.boardId.observe(this, Observer {
             viewModel.getBoardContent()
