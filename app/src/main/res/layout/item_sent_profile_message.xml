@@ -65,45 +65,23 @@
                     android:id="@+id/iv_sent_profile_message_likes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_sent_profile_message_nickname"
-                    android:src="@drawable/icons_18_px_likes" />
+                    android:src="@drawable/icons_15_px_likes" />
 
                 <TextView
                     android:id="@+id/tv_sent_profile_message_likes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginLeft="8dp"
                     android:text="@{String.valueOf(ProfileMessageContent.like)}"
                     style="@style/regular_basic_14sp"
                     android:textColor="@color/black121212"
                     app:layout_constraintTop_toTopOf="@id/iv_sent_profile_message_likes"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_sent_profile_message_likes"
                     app:layout_constraintLeft_toRightOf="@id/iv_sent_profile_message_likes"/>
-
-                <ImageView
-                    android:id="@+id/iv_sent_profile_message_dislikes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="6dp"
-                    app:layout_constraintLeft_toRightOf="@id/tv_sent_profile_message_likes"
-                    app:layout_constraintTop_toBottomOf="@id/tv_sent_profile_message_nickname"
-                    android:src="@drawable/icons_18_px_dislikes" />
-
-                <TextView
-                    android:id="@+id/tv_sent_profile_message_dislikes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="@{String.valueOf(ProfileMessageContent.dislike)}"
-                    style="@style/regular_basic_14sp"
-                    android:textColor="@color/black121212"
-                    app:layout_constraintTop_toTopOf="@id/iv_sent_profile_message_dislikes"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_sent_profile_message_dislikes"
-                    app:layout_constraintLeft_toRightOf="@id/iv_sent_profile_message_dislikes" />
 
                 <TextView
                     android:id="@+id/tv_sent_profile_message_text1"

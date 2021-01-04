@@ -95,12 +95,8 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
     @OptIn(UnstableDefault::class)
     fun initSocket() {
         val url = ChattingConstant.URL
-        val headers: MutableList<StompHeader> = ArrayList()
-        headers.add(StompHeader("Authorization", "Bearer ${NetworkHelper.token}"))
 
-        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, url);
-        mStompClient.withClientHeartbeat(1000).withServerHeartbeat(1000);
-
+        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, url)
         mStompClient.lifecycle()
             .subscribe { lifecycleEvent: LifecycleEvent ->
                 when (lifecycleEvent.type!!) {
@@ -135,7 +131,7 @@ class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseVi
                     LifecycleEvent.Type.FAILED_SERVER_HEARTBEAT -> Log.d(TAG, "[CLOSED]: 채팅방 웹소켓 SERVER HEARTBEAT FAILED")
                 }
             }
-        mStompClient.connect(headers)
+        mStompClient.connect()
     }
 
     fun disconnectSocket(){
