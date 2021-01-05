@@ -13,7 +13,7 @@ import com.yapp.sport_planet.data.model.mypage.EvaluateListModel
 import com.yapp.sport_planet.data.model.mypage.MyViewHistoryModel
 import com.yapp.sport_planet.databinding.ItemHistoryFinishBinding
 
-class FinishTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit, private val dialogListener : (Long) -> Unit) :
+class FinishTabAdapter(private val onClickListener: (MyViewHistoryModel,Boolean) -> Unit, private val dialogListener : (Long) -> Unit) :
     RecyclerView.Adapter<FinishTabAdapter.FinishTabViewHolder>() {
 
     val historyItem = mutableListOf<MyViewHistoryModel>()
@@ -62,39 +62,42 @@ class FinishTabAdapter(private val onClickListener: (MyViewHistoryModel) -> Unit
             }
             binding.run {
                 rvExpand.adapter = finishTabExpandAdapter
+                val item = historyItem[adapterPosition]
                 root.setOnClickListener {
-                    val item = historyItem[adapterPosition]
+                        onClickListener(item,true)
+                }
+                tvExpand.setOnClickListener {
                     if (selectedItems.get(adapterPosition)) {
                         selectedItems.delete(adapterPosition)
-                            rvExpand.visibility = View.GONE
-                            tvExpand.text =
-                                root.resources.getString(R.string.item_history_ing_expand)
-                            tvExpand.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                                0,
-                                0,
-                                R.drawable.icons_18_px_toggle,
-                                0
-                            )
-                            applyListItem.clear()
+                        rvExpand.visibility = View.GONE
+                        tvExpand.text =
+                            root.resources.getString(R.string.item_history_ing_expand)
+                        tvExpand.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.icons_18_px_toggle,
+                            0
+                        )
+                        applyListItem.clear()
                     } else {
-                        onClickListener(item)
+                        onClickListener(item,false)
                         Handler(Looper.getMainLooper()).postDelayed({
                             run {
                                 finishTabExpandAdapter.setApplyListItem(applyListItem)
                                 finishTabExpandAdapter.boardIdItem =
                                     historyItem[adapterPosition].boardInfo.boardId
                                 selectedItems.put(adapterPosition, true)
-                                    rvExpand.visibility = View.VISIBLE
-                                    tvExpand.run {
-                                        text =
-                                            binding.root.resources.getString(R.string.item_history_ing_unexpand)
-                                        setCompoundDrawablesRelativeWithIntrinsicBounds(
-                                            0,
-                                            0,
-                                            R.drawable.icons_18_px_untoggle,
-                                            0
-                                        )
-                                    }
+                                rvExpand.visibility = View.VISIBLE
+                                tvExpand.run {
+                                    text =
+                                        binding.root.resources.getString(R.string.item_history_ing_unexpand)
+                                    setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                        0,
+                                        0,
+                                        R.drawable.icons_18_px_untoggle,
+                                        0
+                                    )
+                                }
                             }
                         }, 500)
                     }

@@ -10,6 +10,7 @@ import com.yapp.sport_planet.data.model.mypage.MyViewHistoryModel
 import com.yapp.sport_planet.data.request.EvaluateReportRequest
 import com.yapp.sport_planet.databinding.FragmentFinishTabBinding
 import com.yapp.sport_planet.presentation.base.BaseFragment
+import com.yapp.sport_planet.presentation.board.BoardActivity
 import com.yapp.sport_planet.presentation.main.MainActivity
 import com.yapp.sport_planet.presentation.mypage.history.ReportDialog
 import com.yapp.sport_planet.presentation.mypage.history.adapter.FinishTabAdapter
@@ -20,7 +21,9 @@ import io.reactivex.rxkotlin.addTo
 class FinishTabFragment :
     BaseFragment<FragmentFinishTabBinding, FinishTabViewModel>(R.layout.fragment_finish_tab) {
     private val finishTabAdapter: FinishTabAdapter by lazy {
-        FinishTabAdapter({ getApplyList(it) }, { showReportDialog(it) }).apply {
+        FinishTabAdapter({ myViewHistoryModel, boolean ->
+            getApplyList(myViewHistoryModel, boolean)
+        }, { showReportDialog(it) }).apply {
             setHasStableIds(true)
         }
     }
@@ -64,8 +67,14 @@ class FinishTabFragment :
             .addTo(compositeDisposable)
     }
 
-    private fun getApplyList(myViewHistoryModel: MyViewHistoryModel) {
-        viewModel.getApplyList(myViewHistoryModel.boardInfo.boardId)
+    private fun getApplyList(myViewHistoryModel: MyViewHistoryModel, boolean: Boolean) {
+        if (boolean) {
+            val intent = Intent(requireContext(),BoardActivity::class.java)
+            intent.putExtra("finishTabBoardId",myViewHistoryModel.boardInfo.boardId)
+            startActivity(intent)
+        } else {
+            viewModel.getApplyList(myViewHistoryModel.boardInfo.boardId)
+        }
     }
 
     private fun showReportDialog(userId: Long) {

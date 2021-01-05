@@ -67,9 +67,7 @@ class ChattingFragmentViewModel : BaseViewModel(){
     fun initSocket() {
         val url = ChattingConstant.URL
 
-        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, url);
-        mStompClient.withClientHeartbeat(1000).withServerHeartbeat(1000);
-
+        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, url)
         mStompClient.lifecycle()
             .subscribe { lifecycleEvent: LifecycleEvent ->
                 when (lifecycleEvent.type!!) {

@@ -73,20 +73,6 @@
             tools:text="53" />
 
         <TextView
-            android:id="@+id/tv_dislike"
-            style="@style/regular_basic_14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fragment_my_page_margin_6dp"
-            android:gravity="center"
-            android:text="@={vm.dislike}"
-            android:textColor="@color/dark_gray"
-            app:drawableStartCompat="@drawable/icons_18_px_dislikes"
-            app:layout_constraintStart_toEndOf="@id/tv_like"
-            app:layout_constraintTop_toTopOf="@id/tv_like"
-            tools:text="3" />
-
-        <TextView
             android:id="@+id/tv_edit_profile"
             style="@style/medium_basic_14sp"
             android:layout_width="wrap_content"
