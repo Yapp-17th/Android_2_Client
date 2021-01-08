@@ -1,7 +1,7 @@
 # :runner: 운동플래닛
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/54823396/103972221-e51de380-51af-11eb-84a8-82161f755ecf.PNG" width="90%">
+<img src="https://user-images.githubusercontent.com/54823396/103980730-c75a7980-51c3-11eb-9a4b-7ead01400e55.png" width="90%">
 </p>
 <p align="center">
 <img src="https://user-images.githubusercontent.com/54823396/103971882-0cc07c00-51af-11eb-972e-45c12149d340.png" width="30%"> <img src="https://user-images.githubusercontent.com/54823396/103971881-0c27e580-51af-11eb-9804-928dffd1363a.png" width="30%"> <img src="https://user-images.githubusercontent.com/54823396/103971879-0af6b880-51af-11eb-94ba-d6d9619a5013.png" width="30%">
