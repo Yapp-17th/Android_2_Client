@@ -43,12 +43,20 @@ class SearchResultRecyclerAdapter(
             binding.root.setOnClickListener { itemClick(item.boardId) }
             if (item.groupStatus.code == 0) {
                 binding.background.setBackgroundColor(itemView.context.getColor(R.color.white))
+                binding.tvHost.setTextColor(itemView.context.getColor(R.color.pink))
+                binding.tvNickname.setTextColor(itemView.context.getColor(R.color.black))
+                binding.tvDayCount.setTextColor(itemView.context.getColor(R.color.black))
+                binding.tvTitle.setTextColor(itemView.context.getColor(R.color.black))
                 binding.tvStatus.setBackgroundResource(R.drawable.shape_round_corner_darkblue)
                 binding.tvExercise.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity_no_stoke)
                 binding.tvRegion.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity_no_stoke)
                 binding.tvPeopleCount.setBackgroundResource(R.drawable.shape_round_corner_darkblue_opacity_no_stoke)
             } else {
                 binding.background.setBackgroundColor(itemView.context.getColor(R.color.white_gray))
+                binding.tvHost.setTextColor(itemView.context.getColor(R.color.gray9c9c9c))
+                binding.tvNickname.setTextColor(itemView.context.getColor(R.color.dark_gray))
+                binding.tvDayCount.setTextColor(itemView.context.getColor(R.color.gray9c9c9c))
+                binding.tvTitle.setTextColor(itemView.context.getColor(R.color.gray9c9c9c))
                 binding.tvStatus.setBackgroundResource(R.drawable.shape_round_corner_gray)
                 binding.tvExercise.setBackgroundResource(R.drawable.shape_round_corner_light_gray)
                 binding.tvRegion.setBackgroundResource(R.drawable.shape_round_corner_light_gray)
