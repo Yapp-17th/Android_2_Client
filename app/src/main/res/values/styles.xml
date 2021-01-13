@@ -2,9 +2,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:textSelectHandle">@color/blue364ea0</item>
+        <item name="android:textColorHighlight">#dfdfef</item>
         <item name="colorPrimary">@color/blue364ea0</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/blue364ea0</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorControlHighlight">@color/grayefefef</item>
@@ -12,9 +14,11 @@
 
     <style name="ChattingAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
+        <item name="android:textSelectHandle">@color/blue364ea0</item>
+        <item name="android:textColorHighlight">#dfdfef</item>
         <item name="colorPrimary">@color/blue364ea0</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/blue364ea0</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
