@@ -6,7 +6,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.yapp.sport_planet.presentation.LoadingFragment
+import com.yapp.sport_planet.presentation.login.LoadingFragment
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseActivity<B : ViewDataBinding>
