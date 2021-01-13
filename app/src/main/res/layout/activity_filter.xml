@@ -50,6 +50,7 @@
             android:layout_height="@dimen/activity_filter_tab_height"
             android:background="@color/dark_blue"
             android:text="@string/activity_filter_ok"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_reset" />

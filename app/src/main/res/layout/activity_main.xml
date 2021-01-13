@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.main.MainActivity">
+        tools:context=".presentation.main.MainActivity"
+        android:background="@color/white">
 
         <FrameLayout
             android:id="@+id/frame"

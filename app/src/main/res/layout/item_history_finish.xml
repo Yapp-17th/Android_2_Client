@@ -15,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:clickable="@{items.boardInfo.hostId == -1L ? false : true}"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/iv_profile"
@@ -48,7 +49,8 @@
             android:text="@{items.nickName}"
             app:layout_constraintStart_toEndOf="@id/tv_host_guest"
             app:layout_constraintTop_toTopOf="@id/iv_profile"
-            tools:text="짹짹" />
+            tools:text="짹짹"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tv_d_day"
@@ -59,7 +61,8 @@
             android:text="@{items.boardInfo.time}"
             app:layout_constraintBottom_toBottomOf="@id/iv_profile"
             app:layout_constraintStart_toEndOf="@id/iv_profile"
-            tools:text="[D-Day]" />
+            tools:text="[D-Day]"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tv_title"
@@ -70,7 +73,8 @@
             android:text="@{items.boardInfo.title}"
             app:layout_constraintBottom_toBottomOf="@id/iv_profile"
             app:layout_constraintStart_toEndOf="@id/tv_d_day"
-            tools:text="급하게 농구 용병 3명 구합니다!" />
+            tools:text="급하게 농구 용병 3명 구합니다!"
+            android:textColor="@color/black"/>
 
         <LinearLayout
             android:id="@+id/ll_label"

@@ -12,20 +12,29 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/bold_basic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/fragment_my_page_margin_16dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_app_bar_size"
             android:text="@string/fragment_my_page_title"
             android:textColor="@color/black"
             android:textSize="@dimen/fragment_my_page_text_size_20sp"
+            android:paddingLeft="@dimen/fragment_my_page_margin_16dp"
             app:layout_constraintBottom_toTopOf="@id/iv_profile_image"
             app:layout_constraintStart_toStartOf="@id/gl_1"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center|left"
+            android:background="@drawable/custom_toolbar_border"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title" />
 
         <ImageView
             android:id="@+id/iv_profile_image"
@@ -65,19 +74,6 @@
             tools:text="53" />
 
         <TextView
-            android:id="@+id/tv_dislike"
-            style="@style/regular_basic_14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fragment_my_page_margin_6dp"
-            android:gravity="center"
-            android:setTextLongToString="@{vm.historyResponse.data.dislike}"
-            android:textColor="@color/dark_gray"
-            app:drawableStartCompat="@drawable/icons_18_px_dislikes"
-            app:layout_constraintStart_toEndOf="@id/tv_like"
-            app:layout_constraintTop_toTopOf="@id/tv_like"
-            tools:text="3" />
-        <TextView
             android:id="@+id/tv_history"
             style="@style/medium_basic_14sp"
             android:layout_width="wrap_content"
@@ -114,15 +110,17 @@
         <TextView
             android:id="@+id/tv_intro_body"
             style="@style/regular_basic_14sp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_my_page_margin_10dp"
-            android:lineSpacingExtra="@dimen/fragment_my_page_spacing_line_3dp"
+            android:layout_marginRight="@dimen/fragment_my_page_margin_16dp"
+            android:lineSpacingExtra="8dp"
             android:text="@{vm.historyResponse.data.intro}"
             android:textColor="@color/dark_gray"
             app:layout_constraintStart_toStartOf="@id/gl_1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_intro_title"
-            tools:text="안녕하세요! 독서와 운동을 좋아하는 짹짹입니다.\n같이 모여서 운동하면서 건강과 재미 둘 다 잡아봐요!" />
+            tools:text="안녕하세요! 독서와 운동을 좋아하는 짹짹입니다. 같이 모여서 운동하면서 건강과 재미 둘 다 잡아봐요!" />
 
         <TextView
             android:id="@+id/tv_excise_title"
