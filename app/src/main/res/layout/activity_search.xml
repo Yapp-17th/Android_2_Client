@@ -37,7 +37,8 @@
                 android:hint="검색어를 입력하세요."
                 android:imeOptions="actionSearch"
                 android:paddingStart="8dp"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textSize="@style/regular_basic_14sp"/>
 
         </LinearLayout>
 
