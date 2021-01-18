@@ -16,6 +16,7 @@ import com.yapp.sport_planet.presentation.profile.RegionDialog
 import com.yapp.sport_planet.util.hideKeyboard
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
 
 
@@ -39,6 +40,7 @@ class EditProfileFragment :
             }
             vm = viewModel
             tvStart.text = getString(R.string.fragment_edit_profile_edit_text)
+            et_email.isEnabled = false
             customToolBar.title.text = getString(R.string.activity_profile_head_edit)
             customToolBar.back.setOnClickListener { onBackPressed() }
             tvStart.setOnClickListener {
