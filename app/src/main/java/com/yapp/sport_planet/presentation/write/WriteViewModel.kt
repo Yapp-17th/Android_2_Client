@@ -121,12 +121,7 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
 
     fun getDateToString(): String {
         time.value?.run {
-            val target = this
-            return this.substring(0, 4) + "년 " +
-                    this.substring(5, 7) + "월 " +
-                    this.substring(8, 10) + "일 " +
-                    this.substring(11, 13) + "시 " +
-                    this.substring(14, 16) + "분"
+            return this
         } ?: return ""
     }
 }
