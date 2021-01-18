@@ -62,9 +62,9 @@ class FinishTabAdapter(private val onClickListener: (MyViewHistoryModel,Boolean)
             }
             binding.run {
                 rvExpand.adapter = finishTabExpandAdapter
-                val item = historyItem[adapterPosition]
                 root.setOnClickListener {
-                        onClickListener(item,true)
+                    val item = historyItem[adapterPosition]
+                        onClickListener(item, true)
                 }
                 tvExpand.setOnClickListener {
                     if (selectedItems.get(adapterPosition)) {
@@ -80,6 +80,7 @@ class FinishTabAdapter(private val onClickListener: (MyViewHistoryModel,Boolean)
                         )
                         applyListItem.clear()
                     } else {
+                        val item = historyItem[adapterPosition]
                         onClickListener(item,false)
                         Handler(Looper.getMainLooper()).postDelayed({
                             run {
