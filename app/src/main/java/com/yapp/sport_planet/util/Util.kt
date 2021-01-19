@@ -37,6 +37,13 @@ object Util {
         return formatter.format(parser.parse(date))
     }
 
+    @SuppressLint("SimpleDateFormat")
+    fun toDateFormatForWrite(date: String): String {
+        val parser = SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분", Locale.KOREA)
+        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.KOREA)
+        return formatter.format(parser.parse(date))
+    }
+
     @JvmStatic
     @SuppressLint("SimpleDateFormat")
     fun dateToMillis(date: String): Long {

@@ -10,7 +10,6 @@ import androidx.fragment.app.DialogFragment
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.databinding.DialogTimeBinding
 import com.yapp.sport_planet.presentation.write.WriteActivity.Companion.INTENT_DATE
-import com.yapp.sport_planet.util.Util.toDateFormatHasTime
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -70,7 +69,7 @@ class TimeDialogFragment private constructor() :
             "0" + binding.time.minute.toString()
         }
         when (v) {
-            binding.btnConfirm -> timeListener.confirm(toDateFormatHasTime("$pickDate$hour:$minute"))
+            binding.btnConfirm -> timeListener.confirm("$pickDate$hour:$minute")
             binding.btnCancel -> timeListener.cancel()
         }
         this.dismiss()
