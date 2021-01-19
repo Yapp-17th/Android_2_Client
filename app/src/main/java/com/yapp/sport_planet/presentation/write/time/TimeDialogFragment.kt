@@ -10,6 +10,8 @@ import androidx.fragment.app.DialogFragment
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.databinding.DialogTimeBinding
 import com.yapp.sport_planet.presentation.write.WriteActivity.Companion.INTENT_DATE
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TimeDialogFragment private constructor() :
     DialogFragment(),
@@ -18,6 +20,8 @@ class TimeDialogFragment private constructor() :
     private lateinit var timeListener: TimeListener
     private var currentHour: Int = 0
     private var currentMinute: Int = 0
+
+    private val pickDate by lazy { requireArguments().getString(INTENT_DATE) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +34,7 @@ class TimeDialogFragment private constructor() :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         currentHour = binding.time.hour
         currentMinute = binding.time.minute
         binding.time.hour = binding.time.hour + 4
@@ -38,9 +43,19 @@ class TimeDialogFragment private constructor() :
     }
 
     override fun onClick(v: View?) {
-        if ((binding.time.hour - currentHour < 4) || ((binding.time.hour - currentHour == 4)) && binding.time.minute > currentMinute) {
-            Toast.makeText(context, "최소 4시간의 차이가 있어야 합니다.", Toast.LENGTH_SHORT).show()
-            return
+
+        val now: Long = System.currentTimeMillis()
+        val mDate = Date(now)
+        val simpleDate = SimpleDateFormat("yyyy-MM-dd'T'")
+        val currentDate = simpleDate.format(mDate)
+
+        val isToday = currentDate == pickDate
+
+        if(isToday){
+            if ((binding.time.hour - currentHour < 4) || ((binding.time.hour - currentHour == 4)) && binding.time.minute > currentMinute) {
+                Toast.makeText(context, "최소 4시간의 차이가 있어야 합니다.", Toast.LENGTH_SHORT).show()
+                return
+            }
         }
 
         val hour = if (binding.time.hour > 10) {
@@ -54,7 +69,7 @@ class TimeDialogFragment private constructor() :
             "0" + binding.time.minute.toString()
         }
         when (v) {
-            binding.btnConfirm -> timeListener.confirm(arguments?.getString(INTENT_DATE) + hour + ":" + minute)
+            binding.btnConfirm -> timeListener.confirm("$pickDate$hour:$minute")
             binding.btnCancel -> timeListener.cancel()
         }
         this.dismiss()
@@ -68,7 +83,6 @@ class TimeDialogFragment private constructor() :
         fun newInstance(date: String): TimeDialogFragment {
             val args = Bundle()
             args.putString(INTENT_DATE, date)
-
             val fragment = TimeDialogFragment()
             fragment.arguments = args
             return fragment

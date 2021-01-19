@@ -32,7 +32,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white_gray"
-                android:text="취소" />
+                android:text="취소"
+                android:textColor="@color/gray"/>
 
             <Button
                 android:id="@+id/btn_confirm"
@@ -40,7 +41,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/dark_blue"
-                android:text="다음" />
+                android:text="다음"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 

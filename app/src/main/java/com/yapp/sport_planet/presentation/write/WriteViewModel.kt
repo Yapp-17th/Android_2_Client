@@ -9,6 +9,8 @@ import com.yapp.sport_planet.data.response.basic.ExerciseResponse
 import com.yapp.sport_planet.data.response.basic.RegionResponse
 import com.yapp.sport_planet.presentation.base.BaseViewModel
 import com.yapp.sport_planet.remote.RemoteDataSource
+import com.yapp.sport_planet.util.Util.toDateFormatForWrite
+import com.yapp.sport_planet.util.Util.toDateFormatHasTime
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.PublishSubject
@@ -50,7 +52,7 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
             city = city.value!!.id,
             userTag = userTag.value!!.id,
             recruitNumber = count.value!!,
-            date = time.value!!,
+            date = toDateFormatForWrite(toDateFormatHasTime(time.value!!)),
             place = place.value!!
         ).observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isLoading.onNext(true) }
@@ -87,7 +89,7 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
             city = city.value!!.id,
             userTag = userTag.value!!.id,
             recruitNumber = count.value!!,
-            date = time.value!!,
+            date = toDateFormatForWrite(toDateFormatHasTime(time.value!!)),
             place = place.value!!
         ).observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isLoading.onNext(true) }
@@ -121,12 +123,7 @@ class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {
 
     fun getDateToString(): String {
         time.value?.run {
-            val target = this
-            return this.substring(0, 4) + "년 " +
-                    this.substring(5, 7) + "월 " +
-                    this.substring(8, 10) + "일 " +
-                    this.substring(11, 13) + "시 " +
-                    this.substring(14, 16) + "분"
+            return toDateFormatHasTime(this)
         } ?: return ""
     }
 }

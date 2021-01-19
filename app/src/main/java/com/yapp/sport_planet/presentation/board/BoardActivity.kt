@@ -100,7 +100,6 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
                     target.substring(14, 16) + "분"
             binding.tvPlace.text = boardContentModel.place
             binding.tvLikeCount.text = boardContentModel.host.likes.toString()
-            binding.tvDislikeCount.text = boardContentModel.host.dislikes.toString()
             binding.tvHostIntro.text = boardContentModel.host.intro
             binding.toolbar.run {
                 this.setMenu(

@@ -21,9 +21,7 @@ import com.yapp.sport_planet.util.PrefUtil
 import com.yapp.sport_planet.util.applySchedulers
 import io.reactivex.rxkotlin.addTo
 
-
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +64,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                             startActivity(intent)
                                         }
-                                        404 -> {
+                                        404, 401 -> {
                                             val intent = Intent(this, ProfileActivity::class.java)
                                             intent.putExtra("userToken", userToken)
                                             intent.putExtra("userId", userId)

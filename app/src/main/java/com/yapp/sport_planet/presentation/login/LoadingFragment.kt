@@ -1,4 +1,4 @@
-package com.yapp.sport_planet.presentation
+package com.yapp.sport_planet.presentation.login
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -35,6 +35,7 @@ class LoadingFragment private constructor() : DialogFragment() {
     }
 
     companion object {
-        fun newInstance() = LoadingFragment()
+        fun newInstance() =
+            LoadingFragment()
     }
 }

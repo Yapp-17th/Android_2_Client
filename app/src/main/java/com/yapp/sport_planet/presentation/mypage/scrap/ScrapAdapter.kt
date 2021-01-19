@@ -51,9 +51,6 @@ class ScrapAdapter(
                         onClickDeleteAction(boardId, false)
                     else
                         onClickDeleteAction(boardId, true)
-
-                    scrapItemList.removeAt(adapterPosition)
-                    notifyItemChanged(adapterPosition)
                 }
                 root.setOnClickListener {
                     val boardId = scrapItemList[adapterPosition].boardId
