@@ -7,19 +7,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.databinding.FragmentOtherMypageBinding
 import com.yapp.sport_planet.presentation.base.BaseFragment
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import com.yapp.sport_planet.presentation.mypage.MyPageExerciseListAdapter
 import com.yapp.sport_planet.presentation.mypage.other.history.OtherHistoryFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OtherMyPageFragment :
     BaseFragment<FragmentOtherMypageBinding, OtherMyPageViewModel>(R.layout.fragment_other_mypage) {
 
     private val myPageExerciseListAdapter = MyPageExerciseListAdapter()
 
-    override val viewModel: OtherMyPageViewModel by lazy {
-        ViewModelProvider(this).get(OtherMyPageViewModel::class.java)
-    }
+    override val viewModel by viewModel<OtherMyPageViewModel>()
+
 
     override fun init() {
         binding.run {

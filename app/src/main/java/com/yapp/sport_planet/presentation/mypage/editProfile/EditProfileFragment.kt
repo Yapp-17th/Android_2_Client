@@ -4,8 +4,8 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.response.basic.ExerciseResponse
-import com.yapp.sport_planet.data.response.basic.RegionResponse
+import com.yapp.data.response.basic.ExerciseResponse
+import com.yapp.data.response.basic.RegionResponse
 import com.yapp.sport_planet.databinding.ActivityProfileBinding
 import com.yapp.sport_planet.presentation.base.BaseAcceptDialog
 import com.yapp.sport_planet.presentation.base.BaseFragment
@@ -13,7 +13,6 @@ import com.yapp.sport_planet.presentation.profile.ExerciseDialog
 import com.yapp.sport_planet.presentation.profile.ExerciseListAdapter
 import com.yapp.sport_planet.presentation.profile.ProfileViewModel
 import com.yapp.sport_planet.presentation.profile.RegionDialog
-import com.yapp.sport_planet.util.hideKeyboard
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_profile.*

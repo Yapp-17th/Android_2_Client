@@ -5,25 +5,22 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.response.basic.ExerciseResponse
+import com.yapp.data.response.basic.ExerciseResponse
 import com.yapp.sport_planet.databinding.FragmentExerciseBinding
 import com.yapp.sport_planet.presentation.base.BaseFragment
 import com.yapp.sport_planet.presentation.home.adapter.FilterExerciseGridViewAdapter
 import com.yapp.sport_planet.presentation.home.filter.FilterActivity
 import com.yapp.sport_planet.presentation.home.filter.FilterActivity.Companion.INTENT_EXERCISE
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
+import com.yapp.data.remote.RemoteDataSourceImpl
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ExerciseFragment private constructor() :
     BaseFragment<FragmentExerciseBinding, ExerciseViewModel>(R.layout.fragment_exercise) {
 
-    override val viewModel: ExerciseViewModel by lazy {
-        ViewModelProvider(
-            this,
-            ExerciseViewModelFactory(RemoteDataSourceImpl())
-        ).get(ExerciseViewModel::class.java)
-    }
+    override val viewModel by viewModel<ExerciseViewModel>()
 
     private val defaultClick = listOf(ExerciseResponse.Data(0, "전체"))
 

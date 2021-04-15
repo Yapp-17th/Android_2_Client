@@ -3,9 +3,9 @@ package com.yapp.sport_planet.presentation.home.filter.exercise
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yapp.sport_planet.data.response.basic.ExerciseResponse
+import com.yapp.data.response.basic.ExerciseResponse
 import com.yapp.sport_planet.presentation.base.BaseViewModel
-import com.yapp.sport_planet.remote.RemoteDataSource
+import com.yapp.data.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 

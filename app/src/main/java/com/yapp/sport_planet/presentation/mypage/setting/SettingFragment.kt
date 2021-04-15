@@ -11,16 +11,16 @@ import com.yapp.sport_planet.presentation.base.BaseFragment
 import com.yapp.sport_planet.presentation.login.LoginActivity
 import com.yapp.sport_planet.util.PrefUtil
 import com.kakao.sdk.user.UserApiClient
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingFragment :
     BaseFragment<FragmentSettingBinding, SettingViewModel>(R.layout.fragment_setting) {
 
-    override val viewModel: SettingViewModel by lazy {
-        ViewModelProvider(this).get(SettingViewModel::class.java)
-    }
+    override val viewModel by viewModel<SettingViewModel>()
 
     override fun init() {
         binding.run {

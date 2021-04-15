@@ -17,21 +17,19 @@ import com.yapp.sport_planet.presentation.home.filter.FilterActivity.Companion.I
 import com.yapp.sport_planet.presentation.home.filter.FilterActivity.Companion.INTENT_EXERCISE
 import com.yapp.sport_planet.presentation.main.MainActivity
 import com.yapp.sport_planet.presentation.search.SearchActivity
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
+import com.yapp.data.remote.RemoteDataSourceImpl
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_home_filter_time.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment private constructor() :
     BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
-    override val viewModel: HomeViewModel
-            by lazy {
-                ViewModelProvider(
-                    this,
-                    HomeViewModelFactory(RemoteDataSourceImpl())
-                ).get(HomeViewModel::class.java)
-            }
+
+    override val viewModel by viewModel<HomeViewModel>()
+
 
     private lateinit var adapter: HomeRecyclerAdapter
 

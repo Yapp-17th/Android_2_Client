@@ -4,13 +4,12 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.yapp.sport_planet.data.response.chatting.ChattingMessageResponse
-import com.yapp.sport_planet.data.response.chatting.ChattingRoomListResponse
+import com.yapp.data.response.chatting.ChattingMessageResponse
+import com.yapp.data.response.chatting.ChattingRoomListResponse
 import com.yapp.sport_planet.presentation.base.BaseViewModel
 import com.yapp.sport_planet.presentation.chatting.ChattingConstant
 import com.yapp.sport_planet.presentation.chatting.UserInfo
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
-import com.yapp.sport_planet.util.applySchedulers
+import com.yapp.data.remote.RemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers

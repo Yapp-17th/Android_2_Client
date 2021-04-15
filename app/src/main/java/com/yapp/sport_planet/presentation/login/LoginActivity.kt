@@ -9,17 +9,15 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.response.login.LoginResponse
+import com.yapp.data.response.login.LoginResponse
 import com.yapp.sport_planet.databinding.ActivityLoginBinding
 import com.yapp.sport_planet.presentation.base.BaseActivity
 import com.yapp.sport_planet.presentation.chatting.UserInfo
 import com.yapp.sport_planet.presentation.main.MainActivity
 import com.yapp.sport_planet.presentation.profile.ProfileActivity
-import com.yapp.sport_planet.remote.NetworkHelper
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
+import com.yapp.data.remote.NetworkHelper
+import com.yapp.data.remote.RemoteDataSourceImpl
 import com.yapp.sport_planet.util.PrefUtil
-import com.yapp.sport_planet.util.applySchedulers
-import io.reactivex.rxkotlin.addTo
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 

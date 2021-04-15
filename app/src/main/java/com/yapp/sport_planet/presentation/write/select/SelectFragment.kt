@@ -10,19 +10,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.data.enums.WriteFilterEnum
-import com.yapp.sport_planet.data.model.CommonApiModel
+import com.yapp.data.model.CommonApiModel
 import com.yapp.sport_planet.databinding.FragmentSelectBinding
 import com.yapp.sport_planet.presentation.write.adapter.SelectGridViewAdapter
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
+import com.yapp.data.remote.RemoteDataSourceImpl
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectFragment : DialogFragment() {
     private lateinit var binding: FragmentSelectBinding
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            SelectViewModelFactory(RemoteDataSourceImpl())
-        ).get(SelectViewModel::class.java)
-    }
+
+    private val viewModel by viewModel<SelectViewModel>()
+
     private lateinit var adapter: SelectGridViewAdapter
     private var listener: SelectItemListener? = null
 

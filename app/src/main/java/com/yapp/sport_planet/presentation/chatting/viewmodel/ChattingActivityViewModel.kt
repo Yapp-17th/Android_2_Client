@@ -8,16 +8,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.beust.klaxon.JsonObject
 import com.yapp.sport_planet.data.enums.ApprovalStatusButtonEnum
-import com.yapp.sport_planet.data.model.chatting.ChatRoomInfo
-import com.yapp.sport_planet.data.response.chatting.ChattingMessageListResponse
-import com.yapp.sport_planet.data.response.chatting.ChattingMessageResponse
+import com.yapp.data.model.chatting.ChatRoomInfo
+import com.yapp.data.response.chatting.ChattingMessageListResponse
+import com.yapp.data.response.chatting.ChattingMessageResponse
 import com.yapp.sport_planet.presentation.base.BaseViewModel
 import com.yapp.sport_planet.presentation.chatting.ChattingConstant
 import com.yapp.sport_planet.presentation.chatting.EventWrapper
 import com.yapp.sport_planet.presentation.chatting.UserInfo
-import com.yapp.sport_planet.remote.NetworkHelper
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
-import com.yapp.sport_planet.util.applySchedulers
+import com.yapp.data.remote.RemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -28,7 +26,6 @@ import kotlinx.serialization.json.Json
 import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.StompClient
 import ua.naiksoftware.stomp.dto.LifecycleEvent
-import ua.naiksoftware.stomp.dto.StompHeader
 
 class ChattingActivityViewModel(private val chatRoomInfo: ChatRoomInfo) : BaseViewModel() {
 

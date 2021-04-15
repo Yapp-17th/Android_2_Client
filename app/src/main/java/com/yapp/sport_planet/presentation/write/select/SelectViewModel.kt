@@ -3,13 +3,11 @@ package com.yapp.sport_planet.presentation.write.select
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yapp.sport_planet.data.model.CommonApiModel
-import com.yapp.sport_planet.data.model.toCommon
-import com.yapp.sport_planet.data.response.basic.toCommon
+import com.yapp.data.model.CommonApiModel
+import com.yapp.data.response.basic.toCommon
 import com.yapp.sport_planet.presentation.base.BaseViewModel
-import com.yapp.sport_planet.remote.RemoteDataSource
+import com.yapp.data.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.addTo
 
 class SelectViewModel(
     private val remoteDataSource: RemoteDataSource

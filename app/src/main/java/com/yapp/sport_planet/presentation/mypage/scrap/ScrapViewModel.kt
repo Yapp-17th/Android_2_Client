@@ -2,10 +2,9 @@ package com.yapp.sport_planet.presentation.mypage.scrap
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.yapp.sport_planet.data.model.mypage.MyBookMarksModel
+import com.yapp.data.model.mypage.MyBookMarksModel
 import com.yapp.sport_planet.presentation.base.BaseViewModel
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
-import com.yapp.sport_planet.util.applySchedulers
+import com.yapp.data.remote.RemoteDataSourceImpl
 
 class ScrapViewModel : BaseViewModel() {
 

@@ -9,14 +9,13 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.data.enums.SeparatorEnum
 import com.yapp.sport_planet.data.enums.WriteFilterEnum
-import com.yapp.sport_planet.data.model.*
-import com.yapp.sport_planet.data.response.basic.toCommon
+import com.yapp.data.model.*
+import com.yapp.data.response.basic.toCommon
 import com.yapp.sport_planet.databinding.FragmentWriteBinding
 import com.yapp.sport_planet.presentation.base.BaseActivity
 import com.yapp.sport_planet.presentation.home.HomeFragment.Companion.REFRESH
@@ -26,19 +25,16 @@ import com.yapp.sport_planet.presentation.write.select.SelectFragment
 import com.yapp.sport_planet.presentation.write.select.SelectItemListener
 import com.yapp.sport_planet.presentation.write.time.TimeDialogFragment
 import com.yapp.sport_planet.presentation.write.time.TimeListener
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
+import com.yapp.data.remote.RemoteDataSourceImpl
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 
 class WriteActivity : BaseActivity<FragmentWriteBinding>(R.layout.fragment_write) {
 
-    private val viewModel: WriteViewModel by lazy {
-        ViewModelProvider(
-            this,
-            WriteViewModelFactory(RemoteDataSourceImpl())
-        ).get(WriteViewModel::class.java)
-    }
+    private val viewModel by viewModel<WriteViewModel>()
 
     private val dateChangeListener: DataChangeListener = object : DataChangeListener {
         override fun onChange(result: Pair<WriteFilterEnum, CommonApiModel?>) {

@@ -1,3 +1,5 @@
+include ':domain'
+include ':data'
 include ':app'
 rootProject.name = "sport-planet"
 enableFeaturePreview('GRADLE_METADATA')

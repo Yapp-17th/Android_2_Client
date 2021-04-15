@@ -10,8 +10,9 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.model.chatting.ChattingMessageModel
-import com.yapp.sport_planet.data.model.chatting.ProfileMessageContentModel
+import com.yapp.data.model.chatting.ChattingMessageModel
+import com.yapp.data.model.chatting.ProfileMessageContentModel
+import com.yapp.sport_planet.data.vo.chatting.ChattingMessageVo
 import com.yapp.sport_planet.databinding.*
 import com.yapp.sport_planet.presentation.chatting.ChattingConstant
 import com.yapp.sport_planet.presentation.chatting.UserInfo
@@ -30,19 +31,19 @@ class ChattingAdapter(val context: Context) : RecyclerView.Adapter<ChattingAdapt
     private val RECEIVED_TALK_MESSAGE_VIEW = 5
     private val SENT_TALK_MESSAGE_VIEW = 6
 
-    private var chattingMessages = ArrayList<ChattingMessageModel>()
+    private var chattingMessages = ArrayList<ChattingMessageVo>()
 
-    fun settingChattingMessageList(chattingMessageList: ArrayList<ChattingMessageModel>) {
+    fun settingChattingMessageList(chattingMessageList: ArrayList<ChattingMessageVo>) {
         chattingMessages = chattingMessageList
         notifyDataSetChanged()
     }
 
-    fun addChattingMessage(chattingMessage: ChattingMessageModel) {
+    fun addChattingMessage(chattingMessage: ChattingMessageVo) {
         chattingMessages.add(chattingMessage)
         notifyItemInserted(itemCount)
     }
 
-    fun updateChattingMessage(position: Int, chattingMessage: ChattingMessageModel) {
+    fun updateChattingMessage(position: Int, chattingMessage: ChattingMessageVo) {
         chattingMessages[position].isSameTime = chattingMessage.isSameTime
         notifyItemChanged(position)
     }
@@ -51,7 +52,7 @@ class ChattingAdapter(val context: Context) : RecyclerView.Adapter<ChattingAdapt
 
         @OptIn(UnstableDefault::class)
         @SuppressLint("SimpleDateFormat")
-        fun bind(chattingMessage: ChattingMessageModel) {
+        fun bind(chattingMessage: ChattingMessageVo) {
 
             when (itemViewType) {
 
@@ -130,7 +131,7 @@ class ChattingAdapter(val context: Context) : RecyclerView.Adapter<ChattingAdapt
 
     override fun getItemViewType(position: Int): Int {
 
-        val currentItem: ChattingMessageModel = chattingMessages[position]
+        val currentItem: ChattingMessageVo = chattingMessages[position]
         val messageType = currentItem.type
         val messageSender = currentItem.senderId
 

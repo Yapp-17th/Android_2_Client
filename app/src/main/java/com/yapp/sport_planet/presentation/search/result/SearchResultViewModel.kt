@@ -3,12 +3,10 @@ package com.yapp.sport_planet.presentation.search.result
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yapp.sport_planet.data.model.BoardModel
-import com.yapp.sport_planet.data.model.toBoardModel
+import com.yapp.data.model.BoardModel
 import com.yapp.sport_planet.presentation.base.BaseViewModel
-import com.yapp.sport_planet.remote.RemoteDataSource
+import com.yapp.data.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.addTo
 
 class SearchResultViewModel(
     private val remote: RemoteDataSource

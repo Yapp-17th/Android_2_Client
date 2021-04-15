@@ -2,13 +2,12 @@ package com.yapp.sport_planet.presentation.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.yapp.sport_planet.data.request.MyViewEditRequest
-import com.yapp.sport_planet.data.response.basic.ExerciseResponse
-import com.yapp.sport_planet.data.response.basic.RegionResponse
-import com.yapp.sport_planet.data.response.login.SignUpResponse
+import com.yapp.data.request.MyViewEditRequest
+import com.yapp.data.response.basic.ExerciseResponse
+import com.yapp.data.response.basic.RegionResponse
+import com.yapp.data.response.login.SignUpResponse
 import com.yapp.sport_planet.presentation.base.BaseViewModel
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
-import com.yapp.sport_planet.util.applySchedulers
+import com.yapp.data.remote.RemoteDataSourceImpl
 
 class ProfileViewModel : BaseViewModel() {
     private val remoteDataSourceImpl = RemoteDataSourceImpl()

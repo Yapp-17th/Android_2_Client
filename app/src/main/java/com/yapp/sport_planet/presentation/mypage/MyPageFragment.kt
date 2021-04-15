@@ -8,10 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.databinding.FragmentMypageBinding
 import com.yapp.sport_planet.presentation.base.BaseFragment
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import com.yapp.sport_planet.presentation.mypage.editProfile.EditProfileFragment
 import com.yapp.sport_planet.presentation.mypage.history.view.HistoryActivity
 import com.yapp.sport_planet.presentation.mypage.scrap.ScrapFragment
 import com.yapp.sport_planet.presentation.mypage.setting.SettingFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyPageFragment :
     BaseFragment<FragmentMypageBinding, MyPageViewModel>(R.layout.fragment_mypage) {
@@ -21,9 +23,8 @@ class MyPageFragment :
 
     private val myPageExerciseListAdapter = MyPageExerciseListAdapter()
 
-    override val viewModel: MyPageViewModel by lazy {
-        ViewModelProvider(this).get(MyPageViewModel::class.java)
-    }
+    override val viewModel by viewModel<MyPageViewModel>()
+
 
     override fun init() {
         viewModel.getMyProfile()

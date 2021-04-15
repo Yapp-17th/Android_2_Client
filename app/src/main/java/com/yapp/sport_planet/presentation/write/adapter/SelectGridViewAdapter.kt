@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.model.CommonApiModel
+import com.yapp.data.model.CommonApiModel
 import com.yapp.sport_planet.databinding.ItemSelectBinding
 
 class SelectGridViewAdapter(

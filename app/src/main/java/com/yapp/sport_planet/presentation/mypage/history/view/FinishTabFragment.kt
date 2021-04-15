@@ -6,17 +6,19 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.model.mypage.MyViewHistoryModel
-import com.yapp.sport_planet.data.request.EvaluateReportRequest
+import com.yapp.data.model.mypage.MyViewHistoryModel
+import com.yapp.data.request.EvaluateReportRequest
 import com.yapp.sport_planet.databinding.FragmentFinishTabBinding
 import com.yapp.sport_planet.presentation.base.BaseFragment
 import com.yapp.sport_planet.presentation.board.BoardActivity
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import com.yapp.sport_planet.presentation.main.MainActivity
 import com.yapp.sport_planet.presentation.mypage.history.ReportDialog
 import com.yapp.sport_planet.presentation.mypage.history.adapter.FinishTabAdapter
 import com.yapp.sport_planet.presentation.mypage.history.viewModel.FinishTabViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FinishTabFragment :
     BaseFragment<FragmentFinishTabBinding, FinishTabViewModel>(R.layout.fragment_finish_tab) {
@@ -27,9 +29,8 @@ class FinishTabFragment :
             setHasStableIds(true)
         }
     }
-    override val viewModel: FinishTabViewModel by lazy {
-        ViewModelProvider(this).get(FinishTabViewModel::class.java)
-    }
+    override val viewModel by viewModel<FinishTabViewModel>()
+
 
     override fun init() {
         viewModel.getHistory()

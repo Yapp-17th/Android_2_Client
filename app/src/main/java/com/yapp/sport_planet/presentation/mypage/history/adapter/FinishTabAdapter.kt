@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.model.mypage.EvaluateListModel
-import com.yapp.sport_planet.data.model.mypage.MyViewHistoryModel
+import com.yapp.data.model.mypage.EvaluateListModel
+import com.yapp.data.model.mypage.MyViewHistoryModel
 import com.yapp.sport_planet.databinding.ItemHistoryFinishBinding
 
 class FinishTabAdapter(private val onClickListener: (MyViewHistoryModel,Boolean) -> Unit, private val dialogListener : (Long) -> Unit) :

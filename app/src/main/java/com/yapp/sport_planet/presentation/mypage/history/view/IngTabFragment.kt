@@ -5,19 +5,21 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.model.chatting.ChatRoomInfo
-import com.yapp.sport_planet.data.model.mypage.ApplyListModel
-import com.yapp.sport_planet.data.model.mypage.MyViewHistoryModel
+import com.yapp.data.model.chatting.ChatRoomInfo
+import com.yapp.data.model.mypage.ApplyListModel
+import com.yapp.data.model.mypage.MyViewHistoryModel
 import com.yapp.sport_planet.databinding.FragmentIngTabBinding
 import com.yapp.sport_planet.presentation.base.BaseAcceptCancelDialog
 import com.yapp.sport_planet.presentation.base.BaseFragment
 import com.yapp.sport_planet.presentation.chatting.UserInfo
 import com.yapp.sport_planet.presentation.chatting.view.ChattingActivity
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import com.yapp.sport_planet.presentation.main.MainActivity
 import com.yapp.sport_planet.presentation.mypage.history.adapter.IngTabAdapter
 import com.yapp.sport_planet.presentation.mypage.history.viewModel.IngTabViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class IngTabFragment :
     BaseFragment<FragmentIngTabBinding, IngTabViewModel>(R.layout.fragment_ing_tab) {
@@ -27,9 +29,8 @@ class IngTabFragment :
         }
     }
 
-    override val viewModel: IngTabViewModel by lazy {
-        ViewModelProvider(this).get(IngTabViewModel::class.java)
-    }
+    override val viewModel by viewModel<IngTabViewModel>()
+
 
     override fun init() {
         viewModel.getHistory()

@@ -3,16 +3,15 @@ package com.yapp.sport_planet.presentation.write
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yapp.sport_planet.data.model.BoardContentModel
-import com.yapp.sport_planet.data.model.UserTagModel
-import com.yapp.sport_planet.data.response.basic.ExerciseResponse
-import com.yapp.sport_planet.data.response.basic.RegionResponse
+import com.yapp.data.model.BoardContentModel
+import com.yapp.data.model.UserTagModel
+import com.yapp.data.response.basic.ExerciseResponse
+import com.yapp.data.response.basic.RegionResponse
 import com.yapp.sport_planet.presentation.base.BaseViewModel
-import com.yapp.sport_planet.remote.RemoteDataSource
+import com.yapp.data.remote.RemoteDataSource
 import com.yapp.sport_planet.util.Util.toDateFormatForWrite
 import com.yapp.sport_planet.util.Util.toDateFormatHasTime
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.PublishSubject
 
 class WriteViewModel(private val remote: RemoteDataSource) : BaseViewModel() {

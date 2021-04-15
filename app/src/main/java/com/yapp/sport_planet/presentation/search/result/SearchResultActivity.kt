@@ -10,18 +10,17 @@ import com.yapp.sport_planet.databinding.ActivitySearchResultBinding
 import com.yapp.sport_planet.presentation.base.BaseActivity
 import com.yapp.sport_planet.presentation.board.BoardActivity
 import com.yapp.sport_planet.presentation.search.adapter.SearchResultRecyclerAdapter
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
+import com.yapp.data.remote.RemoteDataSourceImpl
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchResultActivity :
     BaseActivity<ActivitySearchResultBinding>(R.layout.activity_search_result) {
 
     private lateinit var adapter: SearchResultRecyclerAdapter
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            SearchResultViewModelFactory(RemoteDataSourceImpl())
-        ).get(SearchResultViewModel::class.java)
-    }
+
+    private val viewModel by viewModel<SearchResultViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

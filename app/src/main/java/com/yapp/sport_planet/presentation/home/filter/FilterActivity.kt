@@ -7,20 +7,20 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.response.basic.ExerciseResponse
-import com.yapp.sport_planet.data.response.basic.RegionResponse
+import com.yapp.data.response.basic.ExerciseResponse
+import com.yapp.data.response.basic.RegionResponse
 import com.yapp.sport_planet.databinding.ActivityFilterBinding
 import com.yapp.sport_planet.presentation.base.BaseActivity
 import com.yapp.sport_planet.presentation.home.HomeFragment
 import com.yapp.sport_planet.presentation.home.adapter.FilterViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
 
     private lateinit var viewPagerAdapter: FilterViewPagerAdapter
-    private val viewModel by lazy {
-        ViewModelProvider(this).get(FilterViewModel::class.java)
-    }
+    private val viewModel by viewModel<FilterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,7 +7,7 @@ import androidx.annotation.DrawableRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.model.mypage.ApplyListModel
+import com.yapp.data.model.mypage.ApplyListModel
 import com.yapp.sport_planet.databinding.ItemHistoryIngExpandBinding
 
 class IngTabExpandAdapter(private val onClickListener: (ApplyListModel) -> Unit) :

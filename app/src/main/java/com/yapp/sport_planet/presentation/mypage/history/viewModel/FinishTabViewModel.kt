@@ -2,12 +2,11 @@ package com.yapp.sport_planet.presentation.mypage.history.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.yapp.sport_planet.data.model.mypage.EvaluateListModel
-import com.yapp.sport_planet.data.model.mypage.MyViewHistoryModel
-import com.yapp.sport_planet.data.request.EvaluateReportRequest
+import com.yapp.data.model.mypage.EvaluateListModel
+import com.yapp.data.model.mypage.MyViewHistoryModel
+import com.yapp.data.request.EvaluateReportRequest
 import com.yapp.sport_planet.presentation.base.BaseViewModel
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
-import com.yapp.sport_planet.util.applySchedulers
+import com.yapp.data.remote.RemoteDataSourceImpl
 
 class FinishTabViewModel : BaseViewModel() {
     private val _myViewHistoryList = MutableLiveData<List<MyViewHistoryModel>>()

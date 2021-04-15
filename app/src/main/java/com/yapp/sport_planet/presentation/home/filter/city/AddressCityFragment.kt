@@ -6,23 +6,20 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.response.basic.RegionResponse
+import com.yapp.data.response.basic.RegionResponse
 import com.yapp.sport_planet.databinding.FragmentAddressCityBinding
 import com.yapp.sport_planet.presentation.base.BaseFragment
 import com.yapp.sport_planet.presentation.home.adapter.FilterCityGridViewAdapter
 import com.yapp.sport_planet.presentation.home.filter.FilterActivity
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
+import com.yapp.data.remote.RemoteDataSourceImpl
+import com.yapp.sport_planet.presentation.board.BoardViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddressCityFragment private constructor() :
     BaseFragment<FragmentAddressCityBinding, AddressCityViewModel>(R.layout.fragment_address_city) {
-    override val viewModel: AddressCityViewModel by lazy {
-        ViewModelProvider(
-            this,
-            AddressCityViewModelFactory(RemoteDataSourceImpl())
-        ).get(AddressCityViewModel::class.java)
-    }
+    override val viewModel by viewModel<AddressCityViewModel>()
 
     private val defaultClick = listOf(RegionResponse.Data(0, "전체"))
 

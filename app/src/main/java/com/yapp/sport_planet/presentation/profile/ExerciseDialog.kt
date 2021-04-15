@@ -2,9 +2,8 @@ package com.yapp.sport_planet.presentation.profile
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.response.basic.ExerciseResponse
+import com.yapp.data.response.basic.ExerciseResponse
 import com.yapp.sport_planet.databinding.DialogExerciseBinding
 import com.yapp.sport_planet.presentation.base.BaseDialogFragment
 

@@ -3,8 +3,7 @@ package com.yapp.sport_planet.presentation.mypage
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yapp.sport_planet.presentation.base.BaseViewModel
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
-import com.yapp.sport_planet.util.applySchedulers
+import com.yapp.data.remote.RemoteDataSourceImpl
 
 class MyPageViewModel : BaseViewModel() {
 

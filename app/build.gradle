@@ -73,16 +73,10 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin_version"
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
 
-
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-
     implementation "com.kakao.sdk:v2-user:2.0.3" // 카카오 로그인
 
     implementation 'com.github.NaikSoftware:StompProtocolAndroid:1.6.6' // stomp
     implementation 'com.squareup.okhttp3:okhttp:4.3.1'
-
-    implementation 'com.google.android.material:material:1.2.1'
 
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
@@ -96,4 +90,10 @@ dependencies {
 
     implementation 'com.github.perfomer:blitz:1.0.9' // self-updating relative time
 
+    //Koin lib
+    implementation "org.koin:koin-androidx-scope:2.0.1"
+    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
+    implementation "org.koin:koin-androidx-ext:2.0.1"
+
+    implementation project(path: ':domain')
 }

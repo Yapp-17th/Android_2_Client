@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.model.OtherHistoryModel
+import com.yapp.data.model.OtherHistoryModel
 import com.yapp.sport_planet.databinding.ItemOtherHistoryBinding
 
 class OtherHistoryAdapter :

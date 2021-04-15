@@ -8,10 +8,12 @@ import com.yapp.sport_planet.R
 import com.yapp.sport_planet.databinding.FragmentScrapBinding
 import com.yapp.sport_planet.presentation.base.BaseFragment
 import com.yapp.sport_planet.presentation.board.BoardActivity
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import com.yapp.sport_planet.presentation.main.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layout.fragment_scrap) {
 
@@ -22,9 +24,7 @@ class ScrapFragment : BaseFragment<FragmentScrapBinding, ScrapViewModel>(R.layou
             setHasStableIds(true)
         }
     }
-    override val viewModel: ScrapViewModel by lazy {
-        ViewModelProvider(this).get(ScrapViewModel::class.java)
-    }
+    override val viewModel by viewModel<ScrapViewModel>()
 
     override fun init() {
         binding.run {

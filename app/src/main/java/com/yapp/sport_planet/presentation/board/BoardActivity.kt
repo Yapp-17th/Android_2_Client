@@ -8,13 +8,11 @@ import android.view.View
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
+import com.yapp.sport_planet.data.MenuModel
 import com.yapp.sport_planet.data.enums.MenuEnum
 import com.yapp.sport_planet.data.enums.SeparatorEnum
-import com.yapp.sport_planet.data.model.MenuModel
-import com.yapp.sport_planet.data.model.chatting.ChatRoomInfo
-import com.yapp.sport_planet.data.request.board.ReportRequest
+import com.yapp.sport_planet.data.vo.ReportRequestVo
 import com.yapp.sport_planet.databinding.ActivityBoardBinding
 import com.yapp.sport_planet.presentation.base.BaseActivity
 import com.yapp.sport_planet.presentation.chatting.UserInfo
@@ -22,19 +20,14 @@ import com.yapp.sport_planet.presentation.chatting.view.ChattingActivity
 import com.yapp.sport_planet.presentation.custom.CustomDialog
 import com.yapp.sport_planet.presentation.home.HomeFragment
 import com.yapp.sport_planet.presentation.write.WriteActivity
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
 import com.yapp.sport_planet.util.ClickUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board) {
-    private val viewModel: BoardViewModel by lazy {
-        ViewModelProvider(
-            this,
-            BoardViewModelFactory(RemoteDataSourceImpl())
-        ).get(BoardViewModel::class.java)
-    }
+    private val viewModel by viewModel<BoardViewModel>()
 
     private val click by lazy { ClickUtil(this.lifecycle) }
 
@@ -101,58 +94,6 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
             binding.tvPlace.text = boardContentModel.place
             binding.tvLikeCount.text = boardContentModel.host.likes.toString()
             binding.tvHostIntro.text = boardContentModel.host.intro
-            binding.toolbar.run {
-                this.setMenu(
-                    MenuModel(
-                        MenuEnum.STAR.apply { this.enabled = boardContentModel.isBookMark },
-                        View.OnClickListener { viewModel.bookmarkChange() }),
-                    MenuModel(MenuEnum.MENU, View.OnClickListener {
-                        this@BoardActivity.let { activity ->
-                            val popup = PopupMenu(activity.applicationContext, binding.toolbar.menu)
-                            activity.menuInflater.inflate(
-                                if (isHost) R.menu.menu_owner_board else R.menu.menu_board,
-                                popup.menu
-                            )
-                            popup.setOnMenuItemClickListener { item ->
-                                when (item.itemId) {
-                                    R.id.board_report -> {
-                                        showReportDialog()
-                                        false
-                                    }
-                                    R.id.board_hide -> {
-                                        viewModel.hideBoard()
-                                        false
-                                    }
-                                    R.id.board_edit -> {
-                                        WriteActivity.createInstance(
-                                            activity = this@BoardActivity,
-                                            boardId = boardContentModel.boardId
-                                        )
-                                        false
-                                    }
-                                    R.id.board_delete -> {
-                                        val dialog = CustomDialog.CustomDialogBuilder()
-                                            .setContent(
-                                                "삭제 이후에는 다시 복구할 수 없습니다.\n" +
-                                                        "정말 삭제하시겠습니까?"
-                                            )
-                                            .setOKText("삭제하기")
-                                            .setOnOkClickedListener {
-                                                viewModel.deleteBoard()
-                                            }.create()
-                                        dialog.show(supportFragmentManager, dialog.tag)
-                                        false
-                                    }
-                                    else -> {
-                                        false
-                                    }
-                                }
-                            }
-                            popup.show()
-                        }
-                    })
-                )
-            }
 
         })
 
@@ -164,20 +105,10 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
                 viewModel.makeChattingRoom()
                 viewModel.makeChattingRoomResultLiveData.observe(this,
                     Observer {
-                        it.getContentIfNotHandled()?.data.let { chattingRoom ->
+                        it.getContentIfNotHandled().let { chattingRoom ->
                             if (chattingRoom != null) {
                                 val intent =
                                     Intent(applicationContext, ChattingActivity::class.java)
-                                intent.putExtra(
-                                    "chatRoomInfo",
-                                    ChatRoomInfo(
-                                        chattingRoom.id,
-                                        chattingRoom.boardId,
-                                        chattingRoom.guestId,
-                                        chattingRoom.hostId == UserInfo.USER_ID,
-                                        chattingRoom.opponentNickname
-                                    )
-                                )
                                 startActivity(intent)
                             }
                         }
@@ -208,7 +139,7 @@ class BoardActivity : BaseActivity<ActivityBoardBinding>(R.layout.activity_board
         dialog.setBoardReportDialogListener(object : BoardReportDialog.BoardReportDialogListener {
             override fun onAccept(index: Long, content: String?) {
                 viewModel.boardId.value?.let { boardId ->
-                    viewModel.reportBoard(ReportRequest(boardId, index, content.toString()))
+                    viewModel.reportBoard(ReportRequestVo(boardId, index, content.toString()))
                 }
             }
         })

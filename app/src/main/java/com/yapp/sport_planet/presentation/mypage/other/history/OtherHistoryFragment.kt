@@ -6,15 +6,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.databinding.FragmentOtherHistoryBinding
 import com.yapp.sport_planet.presentation.base.BaseFragment
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OtherHistoryFragment :
     BaseFragment<FragmentOtherHistoryBinding, OtherHistoryViewModel>(R.layout.fragment_other_history) {
-    override val viewModel: OtherHistoryViewModel by lazy {
-        ViewModelProvider(this).get(OtherHistoryViewModel::class.java)
-    }
+    override val viewModel by viewModel<OtherHistoryViewModel>()
+
 
     private val otherHistoryAdapter = OtherHistoryAdapter()
 

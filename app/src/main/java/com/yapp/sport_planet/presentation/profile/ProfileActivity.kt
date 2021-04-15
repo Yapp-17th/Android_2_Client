@@ -3,29 +3,28 @@ package com.yapp.sport_planet.presentation.profile
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.response.basic.ExerciseResponse
-import com.yapp.sport_planet.data.response.basic.RegionResponse
+import com.yapp.data.response.basic.ExerciseResponse
+import com.yapp.data.response.basic.RegionResponse
 import com.yapp.sport_planet.databinding.ActivityProfileBinding
 import com.yapp.sport_planet.presentation.base.BaseAcceptDialog
 import com.yapp.sport_planet.presentation.base.BaseActivity
 import com.yapp.sport_planet.presentation.chatting.UserInfo
 import com.yapp.sport_planet.presentation.login.LoginActivity
 import com.yapp.sport_planet.presentation.main.MainActivity
-import com.yapp.sport_planet.remote.NetworkHelper
+import com.yapp.data.remote.NetworkHelper
+import com.yapp.sport_planet.presentation.home.filter.city.AddressCityViewModel
 import com.yapp.sport_planet.util.PrefUtil
-import com.yapp.sport_planet.util.hideKeyboard
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.item_custom_toolbar.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
 
-    val viewModel: ProfileViewModel
-            by lazy { ViewModelProvider(this).get(ProfileViewModel::class.java) }
+    val viewModel by viewModel<ProfileViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

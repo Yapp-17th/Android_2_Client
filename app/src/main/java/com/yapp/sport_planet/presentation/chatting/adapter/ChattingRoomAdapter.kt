@@ -10,10 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.perfomer.blitz.setTimeAgo
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.model.chatting.ChatRoomInfo
-import com.yapp.sport_planet.data.response.chatting.ChattingMessageResponse
+import com.yapp.data.model.chatting.ChatRoomInfo
+import com.yapp.data.response.chatting.ChattingMessageResponse
 import com.yapp.sport_planet.databinding.ItemChattingRoomBinding
-import com.yapp.sport_planet.data.response.chatting.ChattingRoomListResponse
+import com.yapp.data.response.chatting.ChattingRoomListResponse
+import com.yapp.sport_planet.data.vo.chatting.ChattingMessageVo
+import com.yapp.sport_planet.data.vo.chatting.ChattingRoomListVo
 import com.yapp.sport_planet.presentation.chatting.UserInfo
 import com.yapp.sport_planet.presentation.chatting.view.ChattingActivity
 import com.yapp.sport_planet.presentation.chatting.view.ChattingFragment
@@ -22,20 +24,20 @@ import kotlin.collections.ArrayList
 
 class ChattingRoomAdapter(
     val context: Context,
-    val chattingRoomItemLongClick: (ChattingRoomListResponse.Data) -> Unit
+    val chattingRoomItemLongClick: (ChattingRoomListVo) -> Unit
 ) : RecyclerView.Adapter<ChattingRoomAdapter.Holder>() {
 
-    private var chattingRoomsHashMap = HashMap<Long, ChattingRoomListResponse.Data>()
-    private var chattingRooms = ArrayList<ChattingRoomListResponse.Data>()
+    private var chattingRoomsHashMap = HashMap<Long, ChattingRoomListVo>()
+    private var chattingRooms = ArrayList<ChattingRoomListVo>()
 
-    fun settingChattingRoomList(chattingRoomList: HashMap<Long, ChattingRoomListResponse.Data>){
+    fun settingChattingRoomList(chattingRoomList: HashMap<Long, ChattingRoomListVo>){
         chattingRoomsHashMap = chattingRoomList
         chattingRooms = ArrayList(chattingRoomsHashMap.values)
         chattingRooms.sortByDescending { chattingRoom -> chattingRoom.lastMessage.createdAt }
         notifyDataSetChanged()
     }
 
-    fun updateChattingRoomList(chattingRoomId: Long, lastMessage: ChattingMessageResponse){
+    fun updateChattingRoomList(chattingRoomId: Long, lastMessage: ChattingMessageVo){
         chattingRoomsHashMap[chattingRoomId]!!.let {
             it.lastMessage = lastMessage
             if(ChattingFragment.currentChattingRoomNum != chattingRoomId)
@@ -49,7 +51,7 @@ class ChattingRoomAdapter(
 
     inner class Holder(private val binding: ItemChattingRoomBinding): RecyclerView.ViewHolder(binding.root){
         @SuppressLint("ResourceAsColor", "SetTextI18n")
-        fun bind(chattingRoom: ChattingRoomListResponse.Data){
+        fun bind(chattingRoom: ChattingRoomListVo){
 
             binding.itemChattingRoom = chattingRoom
 

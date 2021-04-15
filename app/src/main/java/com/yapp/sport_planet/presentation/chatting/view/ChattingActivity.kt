@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.data.enums.ApprovalStatusButtonEnum
 import com.yapp.sport_planet.data.enums.SeparatorEnum
-import com.yapp.sport_planet.data.model.chatting.ChatRoomInfo
-import com.yapp.sport_planet.data.model.chatting.ChattingMessageModel
-import com.yapp.sport_planet.data.response.chatting.ChattingMessageResponse
+import com.yapp.data.model.chatting.ChatRoomInfo
+import com.yapp.data.model.chatting.ChattingMessageModel
+import com.yapp.data.response.chatting.ChattingMessageResponse
+import com.yapp.sport_planet.data.vo.chatting.ChattingMessageVo
 import com.yapp.sport_planet.databinding.ActivityChattingBinding
 import com.yapp.sport_planet.presentation.base.BaseActivity
 import com.yapp.sport_planet.presentation.board.BoardActivity
+import com.yapp.sport_planet.presentation.board.BoardViewModel
 import com.yapp.sport_planet.presentation.chatting.ChattingConstant
 import com.yapp.sport_planet.presentation.chatting.adapter.ChattingAdapter
 import com.yapp.sport_planet.presentation.chatting.viewmodel.ChattingActivityViewModel
@@ -23,6 +25,7 @@ import com.yapp.sport_planet.presentation.custom.CustomDialog
 import com.yapp.sport_planet.util.Util
 import kotlinx.android.synthetic.main.activity_chatting.*
 import kotlinx.android.synthetic.main.item_custom_approval_button.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
@@ -32,7 +35,8 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     private lateinit var chattingAdapter: ChattingAdapter
 
-    private lateinit var chattingActivityViewModel: ChattingActivityViewModel
+    private val viewModel by viewModel<ChattingActivityViewModel>()
+
 
     private var isPageFilledWithItems by Delegates.notNull<Boolean>()
 
@@ -40,7 +44,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
     private var pixelsToScrollVertically by Delegates.notNull<Int>()
 
-    private var chattingMessages = ArrayList<ChattingMessageModel>()
+    private var chattingMessages = ArrayList<ChattingMessageVo>()
 
     private lateinit var priorDate: String
     private lateinit var thisDate: String
@@ -55,13 +59,9 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
 
         chatRoomInfo = intent.getParcelableExtra("chatRoomInfo")!!
 
-        chattingActivityViewModel =
-            ViewModelProvider(this, ChattingActivityViewModel.ViewModelFactory(chatRoomInfo))
-                .get(ChattingActivityViewModel::class.java)
-
         chattingAdapter = ChattingAdapter(this)
 
-        chattingActivityViewModel.initSocket()
+        viewModel.initSocket()
 
         this.runOnUiThread {
             binding.toolbarActivityChatting.run {
@@ -89,8 +89,8 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             setHasFixedSize(true)
         }
 
-        chattingActivityViewModel.settingChattingMessageList(chatRoomInfo.chatRoomId)
-        chattingActivityViewModel.chattingMessageListResponseLiveData.observe(this,
+        viewModel.settingChattingMessageList(chatRoomInfo.chatRoomId)
+        viewModel.chattingMessageListResponseLiveData.observe(this,
             Observer {
                 tv_activity_chatting_board_title.text = it.boardTitle
 
@@ -140,7 +140,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         }
 
-        chattingActivityViewModel.noticeMessageLiveData.observe(this,
+        viewModel.noticeMessageLiveData.observe(this,
             Observer {
                 thisDate = Util.toDateFormat(it.createdAt)
                 thisTime = Util.toTimeFormat(it.createdAt)
@@ -170,7 +170,7 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         )
 
-        chattingActivityViewModel.chattingMessageLiveData.observe(this,
+        viewModel.chattingMessageLiveData.observe(this,
             Observer {
 
                 chattingMessageFactory(it, true)
@@ -191,13 +191,13 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
             }
         )
 
-        chattingActivityViewModel.approvalStatusLiveData.observe(this,
+        viewModel.approvalStatusLiveData.observe(this,
             Observer {
                 bt_activity_chatting_approval_status.setApprovalStatusButton(it)
             }
         )
 
-        chattingActivityViewModel.showErrorToastLiveData.observe(this, Observer {
+        viewModel.showErrorToastLiveData.observe(this, Observer {
             it.getContentIfNotHandled()?.let {
                 Toast.makeText(this, R.string.activity_chatting_toast, Toast.LENGTH_SHORT).show()
             }
@@ -208,23 +208,23 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
         }
 
         bt_custom_approval_button.setOnClickListener {
-            when(chattingActivityViewModel.approvalStatusLiveData.value){
+            when(viewModel.approvalStatusLiveData.value){
                 ApprovalStatusButtonEnum.GUEST_APPLY -> {
                     val dialog = CustomDialog.CustomDialogBuilder()
                         .setContent(getString(R.string.dialog_common_content1))
                         .setOKText(getString(R.string.dialog_common_ok1))
                         .setOnOkClickedListener{
-                            chattingActivityViewModel.approvalStatusButtonOnClick()
+                            viewModel.approvalStatusButtonOnClick()
                         }.create()
                     dialog.show(supportFragmentManager, dialog.tag)
                 }
-                else -> chattingActivityViewModel.approvalStatusButtonOnClick()
+                else -> viewModel.approvalStatusButtonOnClick()
             }
         }
 
         bt_activity_chatting_send.setOnClickListener{
             if(et_activity_chatting_message_content.length() > 0) {
-                chattingActivityViewModel.sendMessage(et_activity_chatting_message_content.text.toString())
+                viewModel.sendMessage(et_activity_chatting_message_content.text.toString())
                 et_activity_chatting_message_content.text.clear()
             }
         }
@@ -232,13 +232,13 @@ class ChattingActivity : BaseActivity<ActivityChattingBinding>(R.layout.activity
     }
 
     override fun onStop() {
-        chattingActivityViewModel.sendReadUpdateMessage()
+        viewModel.sendReadUpdateMessage()
         ChattingFragment.currentChattingRoomNum = -1L
         super.onStop()
     }
 
     override fun onDestroy() {
-        chattingActivityViewModel.disconnectSocket()
+        viewModel.disconnectSocket()
         rv_activity_chatting_recyclerview.removeOnLayoutChangeListener(layoutChangeListener)
         super.onDestroy()
     }

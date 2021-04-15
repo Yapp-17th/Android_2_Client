@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.model.mypage.EvaluateListModel
+import com.yapp.data.model.mypage.EvaluateListModel
 import com.yapp.sport_planet.databinding.ItemHistoryFinishExpandBinding
-import com.yapp.sport_planet.remote.RemoteDataSourceImpl
-import com.yapp.sport_planet.util.applySchedulers
+import com.yapp.data.remote.RemoteDataSourceImpl
 import io.reactivex.disposables.CompositeDisposable
 
 class FinishTabExpandAdapter(private val onClickAction: (Long) -> Unit) :

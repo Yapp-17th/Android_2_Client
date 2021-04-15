@@ -8,14 +8,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.data.enums.SeparatorEnum
 import com.yapp.sport_planet.databinding.FragmentChattingBinding
-import com.yapp.sport_planet.data.response.chatting.ChattingRoomListResponse
+import com.yapp.data.response.chatting.ChattingRoomListResponse
 import com.yapp.sport_planet.presentation.base.BaseFragment
 import com.yapp.sport_planet.presentation.base.BaseViewModel
+import com.yapp.sport_planet.presentation.board.BoardViewModel
 import com.yapp.sport_planet.presentation.chatting.ChattingConstant
 import com.yapp.sport_planet.presentation.chatting.adapter.ChattingRoomAdapter
 import com.yapp.sport_planet.presentation.chatting.viewmodel.ChattingFragmentViewModel
 import com.yapp.sport_planet.presentation.custom.CustomDialog
 import kotlinx.android.synthetic.main.fragment_chatting.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChattingFragment private constructor(): BaseFragment<FragmentChattingBinding,BaseViewModel>(R.layout.fragment_chatting) {
     companion object {
@@ -26,8 +28,7 @@ class ChattingFragment private constructor(): BaseFragment<FragmentChattingBindi
 
     private lateinit var chattingRoomsHashMap : HashMap<Long, ChattingRoomListResponse.Data>
 
-    override val viewModel: ChattingFragmentViewModel
-        by lazy { ViewModelProvider(this).get(ChattingFragmentViewModel::class.java) }
+    override val viewModel by viewModel<ChattingFragmentViewModel>()
 
     private lateinit var chattingRoomAdapter: ChattingRoomAdapter
 

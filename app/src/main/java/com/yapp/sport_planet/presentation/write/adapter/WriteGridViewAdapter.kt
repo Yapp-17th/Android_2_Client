@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.data.enums.WriteFilterEnum
-import com.yapp.sport_planet.data.model.CommonApiModel
+import com.yapp.data.model.CommonApiModel
 import com.yapp.sport_planet.databinding.ItemWriteFilterBinding
 import com.yapp.sport_planet.presentation.write.DataChangeListener
 import com.yapp.sport_planet.presentation.write.select.SelectFragment

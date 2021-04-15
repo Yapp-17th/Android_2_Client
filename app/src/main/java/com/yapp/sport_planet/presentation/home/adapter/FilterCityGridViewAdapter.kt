@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.response.basic.RegionResponse
+import com.yapp.data.response.basic.RegionResponse
 import kotlinx.android.synthetic.main.item_filter.view.*
 
 class FilterCityGridViewAdapter(

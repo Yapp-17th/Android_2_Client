@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.sport_planet.R
-import com.yapp.sport_planet.data.model.BoardModel
+import com.yapp.data.model.BoardModel
 import com.yapp.sport_planet.databinding.ItemBoardBinding
 
 class SearchResultRecyclerAdapter(

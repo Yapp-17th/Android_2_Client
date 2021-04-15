@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.databinding.DialogRegionBinding
-import com.yapp.sport_planet.data.response.basic.RegionResponse
+import com.yapp.data.response.basic.RegionResponse
 import com.yapp.sport_planet.presentation.base.BaseDialogFragment
 
 class RegionDialog : BaseDialogFragment<DialogRegionBinding>(R.layout.dialog_region) {

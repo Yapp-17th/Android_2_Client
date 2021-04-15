@@ -9,7 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.yapp.sport_planet.R
 import com.yapp.sport_planet.data.enums.SeparatorEnum
-import com.yapp.sport_planet.data.model.MenuModel
+import com.yapp.data.model.MenuModel
 import com.yapp.sport_planet.databinding.ItemCustomToolbarBinding
 import com.yapp.sport_planet.util.Util
 
